@@ -1,0 +1,11 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/MedEase-Backend/MedEase.API/bin/Debug/net7.0
+/MedEase-Backend/MedEase.API/obj
+/MedEase-Backend/.vs
+/MedEase-Backend/MedEase.Core/bin/Debug/net7.0
+/MedEase-Backend/MedEase.Core/obj
+/MedEase-Backend/MedEase.EF/bin/Debug/net7.0
+/MedEase-Backend/MedEase.EF/obj
