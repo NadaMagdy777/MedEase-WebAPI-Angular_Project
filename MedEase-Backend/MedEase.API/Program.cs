@@ -56,18 +56,40 @@ namespace MedEase.API
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddSignInManager<SignInManager<AppUser>>();
 
-            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(opt =>
+            //builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(opt =>
+            //{
+            //    opt.SaveToken = true;
+            //    opt.RequireHttpsMetadata = false;       //True in Production
+            //    opt.TokenValidationParameters = new()
+            //    {
+            //        ValidateIssuerSigningKey = true,
+            //        ValidateIssuer = true,
+            //        ValidIssuer = builder.Configuration["JWT:Issuer"],
+            //        ValidateAudience = true,
+            //        ValidAudience = builder.Configuration["JWT:Audience"],
+            //        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Key"]))
+            //    };
+            //});
+
+            builder.Services.AddAuthentication(options =>
             {
-                opt.SaveToken = true;
-                opt.RequireHttpsMetadata = false;       //True in Production
-                opt.TokenValidationParameters = new()
+                //jwt
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;//not valid account
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+            {
+                options.SaveToken = true;
+                options.RequireHttpsMetadata = false;
+                options.TokenValidationParameters = new TokenValidationParameters()
                 {
-                    ValidateIssuerSigningKey = true,
+                    //parmeter
                     ValidateIssuer = true,
                     ValidIssuer = builder.Configuration["JWT:Issuer"],
                     ValidateAudience = true,
                     ValidAudience = builder.Configuration["JWT:Audience"],
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Key"]))
+                    IssuerSigningKey =
+                    new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Key"]))//asdZXCZX!#!@342352
                 };
             });
 
