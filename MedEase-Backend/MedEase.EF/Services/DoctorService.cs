@@ -8,5 +8,8 @@ namespace MedEase.EF.Services
 {
     internal class DoctorService
     {
+        //get ==> pattern -> DoctorSchedule class, post for creation 
+        //get ==> appointment -> appointment , post for reservation 
+
     }
 }
