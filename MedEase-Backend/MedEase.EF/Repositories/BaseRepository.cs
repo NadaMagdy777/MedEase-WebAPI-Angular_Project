@@ -40,7 +40,7 @@ namespace MedEase.EF.Repositories
             return await _context.Set<T>().FindAsync(id);
         }
 
-        public T Find(Expression<Func<T, bool>> criteria, string[] includes = null)
+        public T Find(Expression<Func<T, bool>> criteria, List<Expression<Func<T, object>>> includes = null)
         {
             IQueryable<T> query = _context.Set<T>();
 
@@ -51,7 +51,7 @@ namespace MedEase.EF.Repositories
             return query.SingleOrDefault(criteria);
         }
 
-        public async Task<T> FindAsync(Expression<Func<T, bool>> criteria, string[] includes = null)
+        public async Task<T> FindAsync(Expression<Func<T, bool>> criteria, List<Expression<Func<T, object>>> includes = null)
         {
             IQueryable<T> query = _context.Set<T>();
 
@@ -62,7 +62,7 @@ namespace MedEase.EF.Repositories
             return await query.SingleOrDefaultAsync(criteria);
         }
 
-        public IEnumerable<T> FindAll(Expression<Func<T, bool>> criteria, string[] includes = null)
+        public IEnumerable<T> FindAll(Expression<Func<T, bool>> criteria, List<Expression<Func<T, object>>> includes = null)
         {
             IQueryable<T> query = _context.Set<T>();
 
@@ -100,7 +100,7 @@ namespace MedEase.EF.Repositories
             return query.ToList();
         }
 
-        public async Task<IEnumerable<T>> FindAllAsync(Expression<Func<T, bool>> criteria, string[] includes = null)
+        public async Task<IEnumerable<T>> FindAllAsync(Expression<Func<T, bool>> criteria, List<Expression<Func<T, object>>> includes = null)
         {
             IQueryable<T> query = _context.Set<T>();
 
@@ -170,12 +170,17 @@ namespace MedEase.EF.Repositories
 
         public void Delete(T entity)
         {
-            _context.Set<T>().Remove(entity);
+            //_context.Set<T>().Remove(entity);
+            _context.Entry(entity).Property("IsDeleted").CurrentValue = true;
         }
 
         public void DeleteRange(IEnumerable<T> entities)
         {
-            _context.Set<T>().RemoveRange(entities);
+            //_context.Set<T>().RemoveRange(entities);
+            foreach (var entity in entities)
+            {
+                _context.Entry(entity).Property("IsDeleted").CurrentValue = true;
+            }
         }
 
         public void Attach(T entity)
