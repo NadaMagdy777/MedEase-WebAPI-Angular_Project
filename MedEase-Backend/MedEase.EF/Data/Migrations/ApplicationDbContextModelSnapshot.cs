@@ -22,6 +22,34 @@ namespace MedEase.EF.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("MedEase.Core.Models.Address", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<int>("Building")
+                        .HasColumnType("int");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Region")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Street")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Address");
+                });
+
             modelBuilder.Entity("MedEase.Core.Models.AppUser", b =>
                 {
                     b.Property<string>("Id")
@@ -29,6 +57,12 @@ namespace MedEase.EF.Migrations
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
+
+                    b.Property<int>("AddressID")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("BirthDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -42,9 +76,24 @@ namespace MedEase.EF.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("FirstName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Gender")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<DateTime>("JoinDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getdate()");
+
                     b.Property<string>("LastName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
@@ -64,11 +113,19 @@ namespace MedEase.EF.Migrations
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
+
+                    b.Property<string>("SSN")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
@@ -82,6 +139,8 @@ namespace MedEase.EF.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AddressID");
+
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
 
@@ -91,6 +150,510 @@ namespace MedEase.EF.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("Users", "security");
+                });
+
+            modelBuilder.Entity("MedEase.Core.Models.Appointment", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+
+                    b.Property<DateTime>("date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("doctorConfirmation")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("doctorID")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("patientConfirmation")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("patientID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("status")
+                        .HasColumnType("int");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("doctorID");
+
+                    b.HasIndex("patientID");
+
+                    b.ToTable("Appointment");
+                });
+
+            modelBuilder.Entity("MedEase.Core.Models.AppointmentInsurance", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<int>("AppointmentID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("InsuranceID")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("AppointmentID")
+                        .IsUnique();
+
+                    b.HasIndex("InsuranceID");
+
+                    b.ToTable("AppointmentInsurance");
+                });
+
+            modelBuilder.Entity("MedEase.Core.Models.Certificates", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("DoctorID")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("IssueDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Issuer")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("DoctorID");
+
+                    b.ToTable("Certificates");
+                });
+
+            modelBuilder.Entity("MedEase.Core.Models.Diagnosis", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<string>("Details")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ExaminationID")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("ExaminationID");
+
+                    b.ToTable("Diagnosis");
+                });
+
+            modelBuilder.Entity("MedEase.Core.Models.Doctor", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<string>("AppUserID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Faculty")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<float>("Fees")
+                        .HasColumnType("real");
+
+                    b.Property<byte[]>("LicenseImg")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<int>("SpecialityID")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("AppUserID")
+                        .IsUnique();
+
+                    b.HasIndex("SpecialityID");
+
+                    b.ToTable("Doctor");
+                });
+
+            modelBuilder.Entity("MedEase.Core.Models.DoctorInsurance", b =>
+                {
+                    b.Property<int>("InsuranceID")
+                        .HasColumnType("int")
+                        .HasColumnOrder(0);
+
+                    b.Property<int>("DoctorID")
+                        .HasColumnType("int")
+                        .HasColumnOrder(1);
+
+                    b.HasKey("InsuranceID", "DoctorID");
+
+                    b.HasIndex("DoctorID");
+
+                    b.ToTable("DoctorInsurance");
+                });
+
+            modelBuilder.Entity("MedEase.Core.Models.DoctorSchedule", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("DoctorId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("EndTime")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsWorking")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("StartTime")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TimeInterval")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("WeekDay")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DoctorId");
+
+                    b.ToTable("DoctorSchedule");
+                });
+
+            modelBuilder.Entity("MedEase.Core.Models.DoctorSubspeciality", b =>
+                {
+                    b.Property<int>("SubspecID")
+                        .HasColumnType("int")
+                        .HasColumnOrder(1);
+
+                    b.Property<int>("DocID")
+                        .HasColumnType("int")
+                        .HasColumnOrder(0);
+
+                    b.HasKey("SubspecID", "DocID");
+
+                    b.HasIndex("DocID");
+
+                    b.ToTable("DoctorSubspeciality");
+                });
+
+            modelBuilder.Entity("MedEase.Core.Models.Drug", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<float>("Price")
+                        .HasColumnType("real");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Drug");
+                });
+
+            modelBuilder.Entity("MedEase.Core.Models.Examination", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<int>("AppointmentID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DiagnosisID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DoctorID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PatientID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ReviewID")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("AppointmentID");
+
+                    b.HasIndex("DiagnosisID");
+
+                    b.HasIndex("DoctorID");
+
+                    b.HasIndex("PatientID");
+
+                    b.HasIndex("ReviewID");
+
+                    b.ToTable("Examination");
+                });
+
+            modelBuilder.Entity("MedEase.Core.Models.Insurance", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<string>("Company")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Insurance");
+                });
+
+            modelBuilder.Entity("MedEase.Core.Models.Patient", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<string>("AppUserID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("AppUserID")
+                        .IsUnique();
+
+                    b.ToTable("Patient");
+                });
+
+            modelBuilder.Entity("MedEase.Core.Models.PatientInsurance", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<int>("InsuranceID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("InsuranceNumber")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PatientID")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("InsuranceID");
+
+                    b.HasIndex("PatientID")
+                        .IsUnique();
+
+                    b.ToTable("PatientInsurance");
+                });
+
+            modelBuilder.Entity("MedEase.Core.Models.PatientMedicalHistory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("HadSurgery")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("HasAllergies")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("HasChronicIllnesses")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("HasHospitalized")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsSmoking")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("PatientID")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("takeMedications")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PatientID")
+                        .IsUnique();
+
+                    b.ToTable("PatientMedicalHistory");
+                });
+
+            modelBuilder.Entity("MedEase.Core.Models.PrescriptionDrug", b =>
+                {
+                    b.Property<int>("DrugID")
+                        .HasColumnType("int")
+                        .HasColumnOrder(0);
+
+                    b.Property<int>("ExaminationID")
+                        .HasColumnType("int")
+                        .HasColumnOrder(1);
+
+                    b.Property<string>("Notes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("DrugID", "ExaminationID");
+
+                    b.HasIndex("ExaminationID");
+
+                    b.ToTable("PrescriptionDrug");
+                });
+
+            modelBuilder.Entity("MedEase.Core.Models.Question", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("DoctorId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsAnswered")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("PatientId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SpecialityId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DoctorId");
+
+                    b.HasIndex("PatientId");
+
+                    b.HasIndex("SpecialityId");
+
+                    b.ToTable("Question");
+                });
+
+            modelBuilder.Entity("MedEase.Core.Models.Review", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<int>("ClinicRate")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DoctorRate")
+                        .HasColumnType("int");
+
+                    b.Property<int>("WaitingTimeinMins")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Review");
+                });
+
+            modelBuilder.Entity("MedEase.Core.Models.Speciality", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+
+                    b.Property<string>("name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("id");
+
+                    b.ToTable("Speciality");
+                });
+
+            modelBuilder.Entity("MedEase.Core.Models.subSpeciality", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+
+                    b.Property<int>("SepcID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("SepcID");
+
+                    b.ToTable("subSpeciality");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -226,6 +789,284 @@ namespace MedEase.EF.Migrations
                     b.ToTable("UserTokens", "security");
                 });
 
+            modelBuilder.Entity("MedEase.Core.Models.AppUser", b =>
+                {
+                    b.HasOne("MedEase.Core.Models.Address", "Address")
+                        .WithMany("Users")
+                        .HasForeignKey("AddressID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Address");
+                });
+
+            modelBuilder.Entity("MedEase.Core.Models.Appointment", b =>
+                {
+                    b.HasOne("MedEase.Core.Models.Doctor", "Doctor")
+                        .WithMany("Appointments")
+                        .HasForeignKey("doctorID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MedEase.Core.Models.Patient", "Patient")
+                        .WithMany("Appointments")
+                        .HasForeignKey("patientID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Doctor");
+
+                    b.Navigation("Patient");
+                });
+
+            modelBuilder.Entity("MedEase.Core.Models.AppointmentInsurance", b =>
+                {
+                    b.HasOne("MedEase.Core.Models.Appointment", "Appointment")
+                        .WithOne("Insurance")
+                        .HasForeignKey("MedEase.Core.Models.AppointmentInsurance", "AppointmentID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MedEase.Core.Models.Insurance", "Insurance")
+                        .WithMany("Appointments")
+                        .HasForeignKey("InsuranceID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Appointment");
+
+                    b.Navigation("Insurance");
+                });
+
+            modelBuilder.Entity("MedEase.Core.Models.Certificates", b =>
+                {
+                    b.HasOne("MedEase.Core.Models.Doctor", "Doctor")
+                        .WithMany("Certificates")
+                        .HasForeignKey("DoctorID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Doctor");
+                });
+
+            modelBuilder.Entity("MedEase.Core.Models.Diagnosis", b =>
+                {
+                    b.HasOne("MedEase.Core.Models.Examination", "Examination")
+                        .WithMany()
+                        .HasForeignKey("ExaminationID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Examination");
+                });
+
+            modelBuilder.Entity("MedEase.Core.Models.Doctor", b =>
+                {
+                    b.HasOne("MedEase.Core.Models.AppUser", "AppUser")
+                        .WithOne("Doctor")
+                        .HasForeignKey("MedEase.Core.Models.Doctor", "AppUserID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MedEase.Core.Models.Speciality", "Speciality")
+                        .WithMany("Doctors")
+                        .HasForeignKey("SpecialityID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
+
+                    b.Navigation("Speciality");
+                });
+
+            modelBuilder.Entity("MedEase.Core.Models.DoctorInsurance", b =>
+                {
+                    b.HasOne("MedEase.Core.Models.Doctor", "Doctor")
+                        .WithMany("Insurances")
+                        .HasForeignKey("DoctorID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MedEase.Core.Models.Insurance", "Insurance")
+                        .WithMany("Doctors")
+                        .HasForeignKey("InsuranceID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Doctor");
+
+                    b.Navigation("Insurance");
+                });
+
+            modelBuilder.Entity("MedEase.Core.Models.DoctorSchedule", b =>
+                {
+                    b.HasOne("MedEase.Core.Models.Doctor", "Doctor")
+                        .WithMany("Schedule")
+                        .HasForeignKey("DoctorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Doctor");
+                });
+
+            modelBuilder.Entity("MedEase.Core.Models.DoctorSubspeciality", b =>
+                {
+                    b.HasOne("MedEase.Core.Models.Doctor", "doctor")
+                        .WithMany("SubSpecialities")
+                        .HasForeignKey("DocID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MedEase.Core.Models.subSpeciality", "subSpeciality")
+                        .WithMany("doctors")
+                        .HasForeignKey("SubspecID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("doctor");
+
+                    b.Navigation("subSpeciality");
+                });
+
+            modelBuilder.Entity("MedEase.Core.Models.Examination", b =>
+                {
+                    b.HasOne("MedEase.Core.Models.Appointment", "Appointment")
+                        .WithMany()
+                        .HasForeignKey("AppointmentID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MedEase.Core.Models.Diagnosis", "Diagnosis")
+                        .WithMany()
+                        .HasForeignKey("DiagnosisID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MedEase.Core.Models.Doctor", "Doctor")
+                        .WithMany("Examinations")
+                        .HasForeignKey("DoctorID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MedEase.Core.Models.Patient", "Patient")
+                        .WithMany("Examinations")
+                        .HasForeignKey("PatientID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MedEase.Core.Models.Review", "Review")
+                        .WithMany()
+                        .HasForeignKey("ReviewID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Appointment");
+
+                    b.Navigation("Diagnosis");
+
+                    b.Navigation("Doctor");
+
+                    b.Navigation("Patient");
+
+                    b.Navigation("Review");
+                });
+
+            modelBuilder.Entity("MedEase.Core.Models.Patient", b =>
+                {
+                    b.HasOne("MedEase.Core.Models.AppUser", "AppUser")
+                        .WithOne("Patient")
+                        .HasForeignKey("MedEase.Core.Models.Patient", "AppUserID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
+                });
+
+            modelBuilder.Entity("MedEase.Core.Models.PatientInsurance", b =>
+                {
+                    b.HasOne("MedEase.Core.Models.Insurance", "Insurance")
+                        .WithMany("Patients")
+                        .HasForeignKey("InsuranceID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MedEase.Core.Models.Patient", "Patient")
+                        .WithOne("Insurance")
+                        .HasForeignKey("MedEase.Core.Models.PatientInsurance", "PatientID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Insurance");
+
+                    b.Navigation("Patient");
+                });
+
+            modelBuilder.Entity("MedEase.Core.Models.PatientMedicalHistory", b =>
+                {
+                    b.HasOne("MedEase.Core.Models.Patient", "Patient")
+                        .WithOne("History")
+                        .HasForeignKey("MedEase.Core.Models.PatientMedicalHistory", "PatientID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Patient");
+                });
+
+            modelBuilder.Entity("MedEase.Core.Models.PrescriptionDrug", b =>
+                {
+                    b.HasOne("MedEase.Core.Models.Drug", "Drug")
+                        .WithMany()
+                        .HasForeignKey("DrugID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MedEase.Core.Models.Examination", "Examination")
+                        .WithMany("PrescribedDrugs")
+                        .HasForeignKey("ExaminationID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Drug");
+
+                    b.Navigation("Examination");
+                });
+
+            modelBuilder.Entity("MedEase.Core.Models.Question", b =>
+                {
+                    b.HasOne("MedEase.Core.Models.Doctor", "Doctor")
+                        .WithMany("AnsweredQuestions")
+                        .HasForeignKey("DoctorId");
+
+                    b.HasOne("MedEase.Core.Models.Patient", "Patient")
+                        .WithMany("AskedQuestions")
+                        .HasForeignKey("PatientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MedEase.Core.Models.Speciality", "Speciality")
+                        .WithMany()
+                        .HasForeignKey("SpecialityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Doctor");
+
+                    b.Navigation("Patient");
+
+                    b.Navigation("Speciality");
+                });
+
+            modelBuilder.Entity("MedEase.Core.Models.subSpeciality", b =>
+                {
+                    b.HasOne("MedEase.Core.Models.Speciality", "speciality")
+                        .WithMany("subSpecialities")
+                        .HasForeignKey("SepcID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("speciality");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -275,6 +1116,82 @@ namespace MedEase.EF.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("MedEase.Core.Models.Address", b =>
+                {
+                    b.Navigation("Users");
+                });
+
+            modelBuilder.Entity("MedEase.Core.Models.AppUser", b =>
+                {
+                    b.Navigation("Doctor");
+
+                    b.Navigation("Patient");
+                });
+
+            modelBuilder.Entity("MedEase.Core.Models.Appointment", b =>
+                {
+                    b.Navigation("Insurance")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("MedEase.Core.Models.Doctor", b =>
+                {
+                    b.Navigation("AnsweredQuestions");
+
+                    b.Navigation("Appointments");
+
+                    b.Navigation("Certificates");
+
+                    b.Navigation("Examinations");
+
+                    b.Navigation("Insurances");
+
+                    b.Navigation("Schedule");
+
+                    b.Navigation("SubSpecialities");
+                });
+
+            modelBuilder.Entity("MedEase.Core.Models.Examination", b =>
+                {
+                    b.Navigation("PrescribedDrugs");
+                });
+
+            modelBuilder.Entity("MedEase.Core.Models.Insurance", b =>
+                {
+                    b.Navigation("Appointments");
+
+                    b.Navigation("Doctors");
+
+                    b.Navigation("Patients");
+                });
+
+            modelBuilder.Entity("MedEase.Core.Models.Patient", b =>
+                {
+                    b.Navigation("Appointments");
+
+                    b.Navigation("AskedQuestions");
+
+                    b.Navigation("Examinations");
+
+                    b.Navigation("History")
+                        .IsRequired();
+
+                    b.Navigation("Insurance")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("MedEase.Core.Models.Speciality", b =>
+                {
+                    b.Navigation("Doctors");
+
+                    b.Navigation("subSpecialities");
+                });
+
+            modelBuilder.Entity("MedEase.Core.Models.subSpeciality", b =>
+                {
+                    b.Navigation("doctors");
                 });
 #pragma warning restore 612, 618
         }

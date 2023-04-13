@@ -4,6 +4,7 @@ using MedEase.Core.Interfaces;
 using MedEase.Core.Models;
 using MedEase.EF;
 using MedEase.EF.Data;
+using MedEase.EF.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -33,6 +34,7 @@ namespace MedEase.API
 
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddScoped<ITokenGenerator, TokenGenerator>();
+            builder.Services.AddScoped<IDoctorService, DoctorService>();
 
             //Cors policy           ======> NEED EDITS
             builder.Services.AddCors(opt =>

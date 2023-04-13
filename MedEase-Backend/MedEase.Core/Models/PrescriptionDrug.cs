@@ -9,15 +9,14 @@ namespace MedEase.Core.Models
 {
     public class PrescriptionDrug
     {
-        public int ID { get; set; }
         public int Quantity { get; set; }
         public string? Notes { get; set; }
 
-        [ForeignKey ("Drug")]
+        [Column(Order = 0), ForeignKey("Drug")]
         public int DrugID { get; set; }
         public Drug Drug { get; set; }
 
-        [ForeignKey("Examination")]
+        [Column(Order = 1), ForeignKey("Examination")]
         public int ExaminationID { get; set; }
         public virtual Examination Examination { get; set; }
     }
