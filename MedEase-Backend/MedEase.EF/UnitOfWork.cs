@@ -1,5 +1,7 @@
 ﻿using MedEase.Core;
 using MedEase.Core.Interfaces;
+using MedEase.Core.Interfaces.Repositories;
+using MedEase.Core.Models;
 using MedEase.EF.Data;
 using MedEase.EF.Repositories;
 using System;
@@ -13,6 +15,12 @@ namespace MedEase.EF
     public class UnitOfWork : IUnitOfWork
     {
         private readonly ApplicationDbContext _context;
+
+        public IBaseRepository<Appointment> Appointments { get; private set; }
+        public IBaseRepository<Doctor> Doctors { get; private set; }
+        public IBaseRepository<DoctorSchedule> DoctorSchedules { get; private set; }
+        public IBaseRepository<Patient> Patients { get; private set; }
+
 
         public UnitOfWork(ApplicationDbContext context)
         {
