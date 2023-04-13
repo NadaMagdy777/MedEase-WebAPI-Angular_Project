@@ -9,6 +9,7 @@ namespace MedEase.Core.Models
 {
     public class Doctor
     {
+        public int ID { get; set; }
         public float Fees { get; set; }
         public byte[] LicenseImg { get; set; }
         public string Faculty { get; set;}
@@ -17,8 +18,8 @@ namespace MedEase.Core.Models
         public string AppUserID { get; set; }
         public virtual AppUser AppUser { get; set; }
         public virtual List<Certificates>? Certificates { get; set; }
-        //public virtual List<Question> AnsweredQuestions { get; set; }
-        //public virtual List<SchedulePattern> SchedulePatterns { get; set; }
+        public virtual List<Question> AnsweredQuestions { get; set; }
+        public virtual List<DoctorSchedule> Schedule { get; set; }
 
         [ForeignKey("Speciality")]
         public int SpecialityID { get; set; }

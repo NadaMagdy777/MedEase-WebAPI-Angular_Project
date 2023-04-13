@@ -34,6 +34,16 @@ namespace MedEase.EF.Data
             builder.Entity<AppUser>().Property<bool>("IsDeleted").HasDefaultValue(false);
             builder.Entity<AppUser>().Property<DateTime>("JoinDate").HasDefaultValueSql("getdate()");
             builder.Entity<AppUser>().HasQueryFilter(a => !Microsoft.EntityFrameworkCore.EF.Property<bool>(a ,"IsDeleted"));
+
+
+            builder.Entity<DoctorInsurance>()
+                  .HasKey(d => new { d.InsuranceID, d.DoctorID });
+            
+            builder.Entity<DoctorSubspeciality>()
+                  .HasKey(d => new { d.SubspecID, d.DocID });
+            
+            builder.Entity<PrescriptionDrug>()
+                  .HasKey(d => new { d.DrugID, d.ExaminationID });
         }
     }
 }
