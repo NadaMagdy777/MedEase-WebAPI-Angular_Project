@@ -13,12 +13,12 @@ namespace MedEase.Core.Models
         public string AppUserID { get; set; }
         public virtual AppUser AppUser { get; set; }
         //public virtual List<Question> AskedQuestions { get; set; }
-        //public virtual List<Appointment> Appointments { get; set; }
+        public virtual List<Appointment> Appointments { get; set; }
 
-        //[ForeignKey("Insurance")]
-        //public virtual int InsuranceID { get; set; }
-        //public virtual PatientInsurance Insurance { get; set; }
+        [ForeignKey("Insurance")]
+        public virtual int InsuranceID { get; set; }
+        public virtual  PatientInsurance Insurance { get; set; }
         //public virtual PatientMedicalHistory History { get; set; }
-        //public virtual List<Examination> Examinations { get; set; }
+        public virtual List<Examination> Examinations { get; set; }
     }
 }

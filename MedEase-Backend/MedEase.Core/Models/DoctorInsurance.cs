@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MedEase.Core.Models
 {
-    internal class DoctorInsurance
+    public class DoctorInsurance
     {
         public int ID { get; set; }
 
@@ -17,6 +17,6 @@ namespace MedEase.Core.Models
 
         [ForeignKey("Insurance")]
         public int InsuranceID { get; set; }
-        //public Insurance Insurance { get; set; }
+        public virtual Insurance Insurance { get; set; }
     }
 }

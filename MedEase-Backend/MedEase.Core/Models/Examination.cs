@@ -21,7 +21,7 @@ namespace MedEase.Core.Models
 
         [ForeignKey("Appointment")]
         public int AppointmentID { get; set; }
-        //public Appointment Appointment { get; set; }
+        public Appointment Appointment { get; set; }
 
         [ForeignKey("Review")]
         public int ReviewID { get; set; }

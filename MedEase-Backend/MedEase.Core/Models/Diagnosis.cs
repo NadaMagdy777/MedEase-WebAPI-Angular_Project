@@ -14,6 +14,6 @@ namespace MedEase.Core.Models
 
         [ForeignKey("Examination")]
         public int ExaminationID { get; set; }
-        //public Examination Examination { get; set; }
+        public virtual Examination Examination { get; set; }
     }
 }

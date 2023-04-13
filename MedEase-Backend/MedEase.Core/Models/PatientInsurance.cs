@@ -14,10 +14,10 @@ namespace MedEase.Core.Models
 
         [ForeignKey ("Patient")]
         public int PatientID { get; set; }
-        public Patient Patient { get; set; }
+        public virtual Patient Patient { get; set; }
         
         [ForeignKey ("Insurance")]
         public int InsuranceID { get; set; }
-        //public Insurance Insurance { get; set; }
+        public virtual Insurance Insurance { get; set; }
     }
 }

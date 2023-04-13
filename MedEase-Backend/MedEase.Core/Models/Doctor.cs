@@ -19,14 +19,14 @@ namespace MedEase.Core.Models
         public virtual List<Certificates>? Certificates { get; set; }
         //public virtual List<Question> AnsweredQuestions { get; set; }
         //public virtual List<SchedulePattern> SchedulePatterns { get; set; }
-        
-        //[ForeignKey("Speciality")]
-        //public int SpecialityID { get; set; }
-        //public virtual Speciality Speciality { get; set; }
-        //public virtual List<Speciality> SubSpecialities { get; set; }
-        //public virtual List<Appointment> Appointments { get; set; }
-        //public virtual List<DoctorInsurance> Insurances { get; set; }
-        //public virtual List<Examination> Examinations { get; set; }
+
+        [ForeignKey("Speciality")]
+        public int SpecialityID { get; set; }
+        public virtual Speciality Speciality { get; set; }
+        public virtual List<DoctorSubspeciality> SubSpecialities { get; set; }
+        public virtual List<Appointment> Appointments { get; set; }
+        public virtual List<DoctorInsurance> Insurances { get; set; }
+        public virtual List<Examination> Examinations { get; set; }
 
     }
 }
