@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Net.Mail;
 
 namespace MedEase.API.Controllers
 {
@@ -23,7 +24,7 @@ namespace MedEase.API.Controllers
             tokenGenerator = _tokenGenerator;
         }
 
-        [HttpPost ("login")]
+        [HttpPost ("/login")]
         public async Task<ActionResult<ApiResponse>> Login(UserLoginDto dto)
         {
             if (!ModelState.IsValid) { return ValidationProblem(ModelState); }
@@ -43,8 +44,45 @@ namespace MedEase.API.Controllers
         }
 
 
-        [HttpPost ("register/Patient")]
-        public async Task<ActionResult<ApiResponse>> Register(UserRegisterDto dto)
+        [HttpPost ("Patient/register")]
+        public async Task<ActionResult<ApiResponse>> PatientRegister(DoctorRegisterDto dto)
+        {
+            if (!ModelState.IsValid) { return ValidationProblem(ModelState); }
+
+            AppUser user = new()
+            {
+                FirstName = dto.FirstName,
+                LastName = dto.LastName,
+                Email = dto.Email,
+                UserName = new MailAddress(dto.Email).User,
+                SSN = dto.SSN,
+                BirthDate = dto.BirthDate,
+                Gender = dto.Gender,
+                PhoneNumber= dto.Phone,
+                Address = new()
+                {
+                    Building = dto.Building,
+                    Street = dto.Street,
+                    Region = dto.Region,
+                    City = dto.City,
+                },
+                Doctor = new(),
+            };
+
+            var result = await userManager.CreateAsync(user, dto.Password);
+
+            if(!result.Succeeded) { return BadRequest(new ApiResponse(400)); }      //result.Errors
+
+            return Ok(new UserDto
+            {
+                Name = $"{dto.FirstName} {dto.LastName}",
+                Email = user.Email,
+                Token = await tokenGenerator.GenerateToken(user),
+            });
+        }
+        
+        [HttpPost ("Patient/register")]
+        public async Task<ActionResult<ApiResponse>> DoctorRegister(UserRegisterDto dto)
         {
             if (!ModelState.IsValid) { return ValidationProblem(ModelState); }
 

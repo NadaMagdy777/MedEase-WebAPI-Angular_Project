@@ -17,10 +17,5 @@ namespace MedEase.EF.Services
         }
 
 
-    internal class DoctorService            //شيل القرف ده
-    {
-        //get ==> pattern -> DoctorSchedule class, post for creation 
-        //get ==> appointment -> appointment , post for reservation 
-
     }
 }

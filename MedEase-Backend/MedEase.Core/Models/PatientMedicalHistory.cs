@@ -18,7 +18,7 @@ namespace MedEase.Core.Models
         public bool HasAllergies { get; set; }
         public bool HadSurgery { get; set; }
         public bool HasChronicIllnesses { get; set; }
-        public bool takeMedications { get; set; }
+        public bool TakeMedications { get; set; }
         public bool HasHospitalized { get; set; }
         public bool IsSmoking { get; set; }
     }
