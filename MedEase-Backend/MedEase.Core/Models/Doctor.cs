@@ -13,6 +13,7 @@ namespace MedEase.Core.Models
         public float Fees { get; set; }
         public byte[] LicenseImg { get; set; }
         public string Faculty { get; set;}
+        public bool IsConfirmed { get; set;}
         
         [ForeignKey("AppUser")]
         public string AppUserID { get; set; }

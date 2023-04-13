@@ -43,7 +43,7 @@ namespace MedEase.API.Controllers
         }
 
 
-        [HttpPost ("register")]
+        [HttpPost ("register/Patient")]
         public async Task<ActionResult<ApiResponse>> Register(UserRegisterDto dto)
         {
             if (!ModelState.IsValid) { return ValidationProblem(ModelState); }
@@ -65,6 +65,8 @@ namespace MedEase.API.Controllers
                 Token = await tokenGenerator.GenerateToken(user),
             });
         }
+
+        //DoctorRegister
 
         [HttpGet("secret")]
         [Authorize]

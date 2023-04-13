@@ -22,8 +22,4 @@
     <ProjectReference Include="..\MedEase.Core\MedEase.Core.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Services\" />
-  </ItemGroup>
-
 </Project>
