@@ -11,10 +11,10 @@ namespace MedEase.Core.Models
     {
         public int ID { get; set; }
         public float Fees { get; set; }
-        public byte[] LicenseImg { get; set; }      //=> ignore
+        //public byte[] LicenseImg { get; set; }      //=> ignore
         public string Faculty { get; set; }          //==>get
         public bool IsConfirmed { get; set;}        //==>ignore
-        public byte[] ProfilePicture { get; set; }
+        //public byte[] ProfilePicture { get; set; }
 
         [ForeignKey("AppUser")]
         public string AppUserID { get; set; }
