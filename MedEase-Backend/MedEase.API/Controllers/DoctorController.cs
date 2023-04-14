@@ -15,11 +15,23 @@ namespace MedEase.API.Controllers
         {
             this._doctorService = doctorService;
         }
-
-        public IActionResult getAppointmentAndPattern()
+        
+        [HttpGet]
+        public async Task<IActionResult> getAll()
         {
-            return Ok(""); // call Function 
+
+            return Ok(await _doctorService.GetAll());
         }
+
+
+
+
+
+
+        //public IActionResult getAppointmentAndPattern()
+        //{
+        //    return Ok(""); // call Function 
+        //}
 
     }
 }

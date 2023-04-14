@@ -69,10 +69,10 @@ namespace MedEase.API.Controllers
                 PhoneNumber= dto.Phone,
                 Address = new()
                 {
-                    Building = dto.Building,
-                    Street = dto.Street,
-                    Region = dto.Region,
-                    City = dto.City,
+                    //Building = dto.Building,
+                    //Street = dto.Street,
+                    //Region = dto.Region,
+                    //City = dto.City,
                 }
             };
 

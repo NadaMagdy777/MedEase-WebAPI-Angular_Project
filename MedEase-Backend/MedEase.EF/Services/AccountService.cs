@@ -1,4 +1,5 @@
 ﻿using MedEase.Core;
+using MedEase.Core.Dtos;
 using MedEase.Core.Interfaces.Services;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,11 @@ namespace MedEase.EF.Services
         public AccountService(IUnitOfWork unitOfWork)
         {
             this._unitOfWork = unitOfWork;
+        }
+
+        UserDto IAccountService.RegisterDoctor(DoctorRegisterDto docDto)
+        {
+            throw new NotImplementedException();
         }
     }
 }

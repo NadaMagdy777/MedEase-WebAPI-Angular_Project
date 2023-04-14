@@ -4,16 +4,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AutoMapper;
+//using AutoMapper;
 using MedEase.Core.Dtos;
 
 namespace MedEase.Core.AutoMapper
 {
-    public class MappingProfile : Profile
+    public class MappingProfile 
     {
         public MappingProfile()
         {
-            CreateMap<Appointment, ReserveAppointmentDto>().ReverseMap();
+           // CreateMap<Appointment, ReserveAppointmentDto>().ReverseMap();
         }
     }
 }

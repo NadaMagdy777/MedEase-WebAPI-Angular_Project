@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace MedEase.Core.Models
@@ -20,6 +21,7 @@ namespace MedEase.Core.Models
         public int  SubspecID { get; set; }
 
         public virtual Doctor doctor { get; set; }
+
         public virtual SubSpeciality SubSpeciality { get; set; }
 
 
