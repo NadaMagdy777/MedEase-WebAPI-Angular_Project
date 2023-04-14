@@ -27,6 +27,7 @@ namespace MedEase.EF
         public IBaseRepository<DoctorInsurance> DoctorInsurance { get; private set; }
         public IBaseRepository<PatientInsurance> PatientInsurance { get; private set; }
         public IBaseRepository<DoctorSubspeciality> DoctorSubspeciality { get; private set; }
+        public IBaseRepository<DoctorSchedule> DoctorSchedule { get; private set; }
 
 
 
@@ -50,6 +51,7 @@ namespace MedEase.EF
             DoctorInsurance = new BaseRepository<DoctorInsurance>(_context);
             PatientInsurance = new BaseRepository<PatientInsurance>(_context);
             DoctorSubspeciality = new BaseRepository<DoctorSubspeciality>(_context);
+            DoctorSchedule = new BaseRepository<DoctorSchedule>(_context);
 
 
 
