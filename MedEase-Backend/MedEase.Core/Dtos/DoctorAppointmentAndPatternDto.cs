@@ -8,10 +8,10 @@ namespace MedEase.Core.Dtos
 {
     public class DoctorAppointmentAndPatternDto
     {
-        public bool IsWorking { get; set; } = false;
-        public DateTime WeekDay { get; set; } = DateTime.Now;
-        public string StartTime { get; set; } = "";
-        public string EndTime { get; set; } = "";
-        public int Pattern { get; set; } = 10; //  =====> TimeInterval
+        public int Pattern { get; set; }
+        public List<DateTime> ReservedAppointmanet{ get; set; }
+        public DateTime WeekDay { get; set; } 
+        public string StartTime { get; set; } 
+        public string EndTime { get; set; } 
     }
 }

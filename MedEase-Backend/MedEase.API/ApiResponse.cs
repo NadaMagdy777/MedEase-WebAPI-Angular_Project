@@ -4,14 +4,18 @@ namespace MedEase.API
 {
     public class ApiResponse
     {
-        public ApiResponse(int statusCode,string message=null)
+        public ApiResponse(int statusCode, bool success, dynamic data = null, string message = null)
         {
             StatusCode = statusCode;
             Message = message ?? GetDefaultResponseMessage(statusCode);
+            Data = data;
+            Success = success;
         }
 
         public int StatusCode { get; set; }
         public string Message { get; set; }
+        public bool Success { get; set; }
+        public dynamic Data { get; set; }
 
         private string GetDefaultResponseMessage(int statusCode)
         {

@@ -27,6 +27,7 @@ namespace MedEase.Core
         public IBaseRepository<DoctorInsurance> DoctorInsurance { get; }
         public IBaseRepository<PatientInsurance> PatientInsurance { get; }
         public IBaseRepository<DoctorSubspeciality> DoctorSubspeciality { get; }
+        public IBaseRepository<DoctorSchedule> DoctorSchedule { get; }
 
         int Complete();
     }

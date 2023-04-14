@@ -1,4 +1,5 @@
-﻿using MedEase.Core.Models;
+﻿using MedEase.Core.Dtos;
+using MedEase.Core.Models;
 using MedEase.EF.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,23 +16,22 @@ namespace MedEase.API.Controllers
         {
             this._doctorService = doctorService;
         }
-        
-        [HttpGet]
-        public async Task<IActionResult> getAll()
+        [HttpGet("GetAppointmentsandPattern")]
+        public async Task<IActionResult> getAppointmentAndPattern(int Id)
         {
-
-            return Ok(await _doctorService.GetAll());
+            return Ok( await _doctorService.GetPatternAndAppointmentAsync(Id)); // call Function 
         }
 
+        [HttpPost ("reserve/appointment")]
+        public async Task<IActionResult> ReserveAppointment(ReserveAppointmentDto appointmentDto)
+        {
+            return Ok(await _doctorService.ReserveAppointmentAsync(appointmentDto));
+        }
 
-
-
-
-
-        //public IActionResult getAppointmentAndPattern()
-        //{
-        //    return Ok(""); // call Function 
-        //}
-
+        [HttpPost("create/schedule")]
+        public async Task<IActionResult> CreateSchedule(DoctorScheduleDto scheduleDto)
+        {
+            return Ok(await _doctorService.CreateScheduleAsync(scheduleDto));
+        }
     }
 }

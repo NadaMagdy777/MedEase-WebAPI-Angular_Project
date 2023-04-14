@@ -9,12 +9,11 @@ using MedEase.Core.Dtos;
 
 namespace MedEase.Core.MappingProfiles
 {
-    public class AppointmentProfile 
+    public class AppointmentProfile : Profile
     {
         public AppointmentProfile()
         {
-            //CreateMap<Appointment, ReserveAppointmentDto>().ReverseMap();
-            
+            CreateMap<Appointment, ReserveAppointmentDto>().ReverseMap();
         }
     }
 }

@@ -32,26 +32,28 @@ namespace MedEase.Core.Dtos
         [Required, RegularExpression("^[0-9]{14}$", ErrorMessage = "Please enter valide SSN")]
         public string SSN { get; set; }
 
-        [Required, Range(0, 10000)]
+        [Required]
         public DateTime BirthDate { get; set; }
 
         [Required]
         public Gender Gender { get; set; }
 
-        [Required]
+        [Required, Range(0, 10000)]
         public float Fees { get; set; }
 
-        [Required]
-        public byte[] LicenseImg { get; set; }
+        //[Required]
+        //public byte[] LicenseImg { get; set; }
 
-        [Required]
-        public byte[] ProfilePicture { get; set; }
+        //[Required]
+        //public byte[] ProfilePicture { get; set; }
 
         [Required, MinLength(2), MaxLength(200)]
         public string Faculty { get; set; }
 
-        [Required, Range(0, int.MaxValue)]
+        [Required]
         public int AddressID { get; set; }
+
+        [Required, Range(0, int.MaxValue)]
         public int Building { get; set; }
 
         [Required, MinLength(2), MaxLength(50)]

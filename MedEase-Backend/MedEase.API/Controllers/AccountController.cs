@@ -19,10 +19,11 @@ namespace MedEase.API.Controllers
         private readonly ITokenGenerator _tokenGenerator;
         private readonly IAccountService _accountService;
 
-        public AccountController(SignInManager<AppUser> signInManager,
-                                UserManager<AppUser> userManager, 
-                                ITokenGenerator tokenGenerator,
-                                IAccountService accountService)
+        public AccountController
+            (SignInManager<AppUser> signInManager,
+            UserManager<AppUser> userManager, 
+            ITokenGenerator tokenGenerator,
+            IAccountService accountService)
         {
             this._signInManager = signInManager;
             this._userManager = userManager;
@@ -36,10 +37,10 @@ namespace MedEase.API.Controllers
             if (!ModelState.IsValid) { return ValidationProblem(ModelState); }
 
             AppUser user = await _userManager.FindByEmailAsync(dto.Email);
-            if (user == null) { return Unauthorized(new ApiResponse(401)); }
+            if (user == null) { return Unauthorized(new ApiResponse(401, false)); }
 
             var result = await _signInManager.CheckPasswordSignInAsync(user, dto.Password, false);
-            if(!result.Succeeded) { return Unauthorized(new ApiResponse(401)); }
+            if(!result.Succeeded) { return Unauthorized(new ApiResponse(401, false)); }
 
             return Ok(new UserDto
             {
@@ -53,9 +54,9 @@ namespace MedEase.API.Controllers
         [HttpPost ("Doctors/register")]
         public async Task<ActionResult<ApiResponse>> PatientRegister(DoctorRegisterDto dto)
         {
-            if (!ModelState.IsValid) { return ValidationProblem(ModelState); }
+            if (!ModelState.IsValid) { return BadRequest(new ApiResponse(400, false, ModelState)); };
 
-
+            _accountService.RegisterDoctor(dto);
 
             AppUser user = new()
             {
@@ -67,21 +68,18 @@ namespace MedEase.API.Controllers
                 BirthDate = dto.BirthDate,
                 Gender = dto.Gender,
                 PhoneNumber= dto.Phone,
-                Address = new()
-                {
-                    //Building = dto.Building,
-                    //Street = dto.Street,
-                    //Region = dto.Region,
-                    //City = dto.City,
-                }
+                Building = dto.Building,
+                Street = dto.Street,
+                AddressID = dto.AddressID
             };
 
             Doctor doctor = new()
             {
                 Faculty = dto.Faculty,
                 Fees = dto.Fees,
-                LicenseImg = dto.LicenseImg,
-                ProfilePicture = dto.ProfilePicture,
+                SpecialityID = dto.SpecialityId
+                //LicenseImg = dto.LicenseImg,
+                //ProfilePicture = dto.ProfilePicture,
             };
 
             user.Doctor = doctor;
@@ -117,23 +115,30 @@ namespace MedEase.API.Controllers
                 }
             }
 
+            IdentityResult result;
+            try
+            {
+                result = await _userManager.CreateAsync(user, dto.Password);
+            }
+            catch (Exception)
+            {
+                return BadRequest(new ApiResponse(400, false, null, "InValid Inputs"));
+            }
 
-            var result = await _userManager.CreateAsync(user, dto.Password);
+            if(!result.Succeeded) { return BadRequest(new ApiResponse(400, false, result.Errors)); }      //result.Errors
 
-            if(!result.Succeeded) { return BadRequest(new ApiResponse(400)); }      //result.Errors
-
-            return Ok(new UserDto
+            return Ok(new ApiResponse(200, true, new UserDto
             {
                 Name = $"{dto.FirstName} {dto.LastName}",
                 Email = user.Email,
                 Token = await _tokenGenerator.GenerateToken(user),
-            });
+            }));
         }
         
         [HttpPost ("Patient/register")]
         public async Task<ActionResult<ApiResponse>> DoctorRegister(UserRegisterDto dto)
         {
-            if (!ModelState.IsValid) { return ValidationProblem(ModelState); }
+            if (!ModelState.IsValid) { return BadRequest(new ApiResponse(400, false, ModelState)); };
 
             AppUser user = new()
             {
@@ -143,14 +148,14 @@ namespace MedEase.API.Controllers
                 UserName = "Abdallah@gmail.com"
             };
             var result = await _userManager.CreateAsync(user, "123aaaASD@#%");
-            if(!result.Succeeded) { return BadRequest(new ApiResponse(400)); }
+            if(!result.Succeeded) { return BadRequest(new ApiResponse(400, false, result.Errors)); }
 
-            return Ok(new UserDto
+            return Ok(new ApiResponse(200, true, new UserDto
             {
                 Name = "Test",
                 Email = user.Email,
                 Token = await _tokenGenerator.GenerateToken(user),
-            });
+            }));
         }
 
         //DoctorRegister
