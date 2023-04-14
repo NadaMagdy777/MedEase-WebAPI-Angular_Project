@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 
 namespace MedEase.Core.Models
 {
-    public class subSpeciality
+    public class SubSpeciality
     {
-        public int id { get; set; }
-        public string name { get; set; }
+        public int ID { get; set; }
+        public string Name { get; set; }
 
         [ForeignKey("speciality")]
         public int SepcID { get; set; }
-        public virtual Speciality speciality { get; set; }
-        public virtual List<DoctorSubspeciality> doctors { get; set; }
+        public virtual Speciality Speciality { get; set; }
+        public virtual List<DoctorSubspeciality> Doctors { get; set; }
 
     }
 }

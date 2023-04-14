@@ -1,6 +1,7 @@
 
 using MedEase.Core;
 using MedEase.Core.Interfaces;
+using MedEase.Core.Interfaces.Services;
 using MedEase.Core.Models;
 using MedEase.EF;
 using MedEase.EF.Data;
@@ -35,6 +36,7 @@ namespace MedEase.API
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddScoped<ITokenGenerator, TokenGenerator>();
             builder.Services.AddScoped<IDoctorService, DoctorService>();
+            builder.Services.AddScoped<IAccountService, AccountService>();
 
             //Cors policy           ======> NEED EDITS
             builder.Services.AddCors(opt =>
