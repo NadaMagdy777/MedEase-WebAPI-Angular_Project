@@ -20,15 +20,10 @@ namespace MedEase.EF
         public IBaseRepository<Doctor> Doctors { get; private set; }
         public IBaseRepository<DoctorSchedule> DoctorSchedules { get; private set; }
         public IBaseRepository<Patient> Patients { get; private set; }
-
-        public IBaseRepository<subSpeciality> subSpeciality { get; private set; }
-
+        public IBaseRepository<SubSpeciality> SubSpeciality { get; private set; }
         public IBaseRepository<Speciality> Speciality { get; private set; }
-
-        public IBaseRepository<Certificates> certificate { get; private set; }
-
-        public IBaseRepository<Insurance> insurance { get; private set; }
-
+        public IBaseRepository<Certificates> Certificate { get; private set; }
+        public IBaseRepository<Insurance> Insurance { get; private set; }
         public IBaseRepository<DoctorInsurance> DoctorInsurance { get; private set; }
         public IBaseRepository<PatientInsurance> PatientInsurance { get; private set; }
         public IBaseRepository<DoctorSubspeciality> DoctorSubspeciality { get; private set; }
@@ -48,10 +43,10 @@ namespace MedEase.EF
             Doctors = new BaseRepository<Doctor>(_context);
             DoctorSchedules = new BaseRepository<DoctorSchedule>(_context);
             Patients = new BaseRepository<Patient>(_context);
-            subSpeciality = new BaseRepository<subSpeciality>(_context);
+            SubSpeciality = new BaseRepository<SubSpeciality>(_context);
             Speciality = new BaseRepository<Speciality>(_context);
-            certificate = new BaseRepository<Certificates>(_context);
-            insurance = new BaseRepository<Insurance>(_context);
+            Certificate = new BaseRepository<Certificates>(_context);
+            Insurance = new BaseRepository<Insurance>(_context);
             DoctorInsurance = new BaseRepository<DoctorInsurance>(_context);
             PatientInsurance = new BaseRepository<PatientInsurance>(_context);
             DoctorSubspeciality = new BaseRepository<DoctorSubspeciality>(_context);

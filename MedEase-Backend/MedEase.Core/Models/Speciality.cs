@@ -11,7 +11,7 @@ namespace MedEase.Core.Models
         public int ID { get; set; }
         public string Name { get; set; }
 
-        public virtual List<subSpeciality> SubSpecialities { get; set; }
+        public virtual List<SubSpeciality> SubSpecialities { get; set; }
         public virtual List<Doctor> Doctors { get; set; }
 
     }

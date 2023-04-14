@@ -1,5 +1,6 @@
 ﻿using MedEase.Core.Dtos;
 using MedEase.Core.Interfaces;
+using MedEase.Core.Interfaces.Services;
 using MedEase.Core.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -13,15 +14,20 @@ namespace MedEase.API.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
-        private readonly SignInManager<AppUser> signInManager;
-        private readonly UserManager<AppUser> userManager;
-        private readonly ITokenGenerator tokenGenerator;
+        private readonly SignInManager<AppUser> _signInManager;
+        private readonly UserManager<AppUser> _userManager;
+        private readonly ITokenGenerator _tokenGenerator;
+        private readonly IAccountService _accountService;
 
-        public AccountController(SignInManager<AppUser> _signInManager, UserManager<AppUser> _userManager, ITokenGenerator _tokenGenerator)
+        public AccountController(SignInManager<AppUser> signInManager,
+                                UserManager<AppUser> userManager, 
+                                ITokenGenerator tokenGenerator,
+                                IAccountService accountService)
         {
-            signInManager = _signInManager;
-            userManager = _userManager;
-            tokenGenerator = _tokenGenerator;
+            this._signInManager = signInManager;
+            this._userManager = userManager;
+            this._tokenGenerator = tokenGenerator;
+            this._accountService = accountService;
         }
 
         [HttpPost ("/login")]
@@ -29,25 +35,27 @@ namespace MedEase.API.Controllers
         {
             if (!ModelState.IsValid) { return ValidationProblem(ModelState); }
 
-            AppUser user = await userManager.FindByEmailAsync(dto.Email);
+            AppUser user = await _userManager.FindByEmailAsync(dto.Email);
             if (user == null) { return Unauthorized(new ApiResponse(401)); }
 
-            var result = await signInManager.CheckPasswordSignInAsync(user, dto.Password, false);
+            var result = await _signInManager.CheckPasswordSignInAsync(user, dto.Password, false);
             if(!result.Succeeded) { return Unauthorized(new ApiResponse(401)); }
 
             return Ok(new UserDto
             {
                 Name = "Test",
                 Email = user.Email,
-                Token = await tokenGenerator.GenerateToken(user),
+                Token = await _tokenGenerator.GenerateToken(user),
             });
         }
 
 
-        [HttpPost ("Patient/register")]
+        [HttpPost ("Doctors/register")]
         public async Task<ActionResult<ApiResponse>> PatientRegister(DoctorRegisterDto dto)
         {
             if (!ModelState.IsValid) { return ValidationProblem(ModelState); }
+
+
 
             AppUser user = new()
             {
@@ -65,11 +73,52 @@ namespace MedEase.API.Controllers
                     Street = dto.Street,
                     Region = dto.Region,
                     City = dto.City,
-                },
-                Doctor = new(),
+                }
             };
 
-            var result = await userManager.CreateAsync(user, dto.Password);
+            Doctor doctor = new()
+            {
+                Faculty = dto.Faculty,
+                Fees = dto.Fees,
+                LicenseImg = dto.LicenseImg,
+                ProfilePicture = dto.ProfilePicture,
+            };
+
+            user.Doctor = doctor;
+            doctor.AppUser = user;
+
+            if (dto.SubSpecialities != null && dto.SubSpecialities.Count != 0)
+            {
+                doctor.SubSpecialities = new();
+                foreach (int subSpecId in dto.SubSpecialities)
+                {
+                    DoctorSubspeciality docSubSpec = new()
+                    {
+                        SubspecID = subSpecId,
+                        DocID = doctor.ID,
+                    };
+
+                    doctor.SubSpecialities.Add(docSubSpec);
+                }
+            }
+
+            if (dto.Insurances != null && dto.Insurances.Count != 0)
+            {
+                doctor.Insurances = new();
+                foreach (int insId in dto.Insurances)
+                {
+                    DoctorInsurance docins = new()
+                    {
+                        InsuranceID = insId,
+                        DoctorID = doctor.ID,
+                    };
+
+                    doctor.Insurances.Add(docins);
+                }
+            }
+
+
+            var result = await _userManager.CreateAsync(user, dto.Password);
 
             if(!result.Succeeded) { return BadRequest(new ApiResponse(400)); }      //result.Errors
 
@@ -77,7 +126,7 @@ namespace MedEase.API.Controllers
             {
                 Name = $"{dto.FirstName} {dto.LastName}",
                 Email = user.Email,
-                Token = await tokenGenerator.GenerateToken(user),
+                Token = await _tokenGenerator.GenerateToken(user),
             });
         }
         
@@ -93,14 +142,14 @@ namespace MedEase.API.Controllers
                 Email = "Abdallah@gmail.com",
                 UserName = "Abdallah@gmail.com"
             };
-            var result = await userManager.CreateAsync(user, "123aaaASD@#%");
+            var result = await _userManager.CreateAsync(user, "123aaaASD@#%");
             if(!result.Succeeded) { return BadRequest(new ApiResponse(400)); }
 
             return Ok(new UserDto
             {
                 Name = "Test",
                 Email = user.Email,
-                Token = await tokenGenerator.GenerateToken(user),
+                Token = await _tokenGenerator.GenerateToken(user),
             });
         }
 

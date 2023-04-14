@@ -16,6 +16,8 @@ namespace MedEase.Core.Models
         public string SSN { get; set; }        //==> ignore
         public DateTime BirthDate { get; set; }     //==>Age
         public Gender Gender { get; set; }          //==>get   
+        public int Building { get; set; }
+        public string Street { get; set; }
 
         [ForeignKey("Address")]
         public int AddressID { get; set; }
