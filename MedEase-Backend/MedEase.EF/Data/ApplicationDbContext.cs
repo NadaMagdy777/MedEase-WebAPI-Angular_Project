@@ -1,6 +1,7 @@
 ﻿using MedEase.Core.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.Data.SqlClient.DataClassification;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,31 @@ namespace MedEase.EF.Data
 {
     public class ApplicationDbContext : IdentityDbContext<AppUser>
     {
+        public DbSet<Address> Address { get; set; }
+        public DbSet<Appointment> Appointment { get; set; }
+        public DbSet<AppointmentInsurance> AppointmentInsurance { get; set; }
+        public DbSet<Certificates> Certificates { get; set; }
+        public DbSet<Diagnosis> Diagnosis { get; set; }
+        public DbSet<Doctor> Doctor { get; set; }
+        public DbSet<DoctorInsurance> DoctorInsurance { get; set; }
+        public DbSet<DoctorSchedule> DoctorSchedule { get; set; }
+        public DbSet<Drug> Drug { get; set; }
+        public DbSet<Examination> Examination { get; set; }
+        public DbSet<Insurance> Insurance { get; set; }
+        public DbSet<Investigation> Investigation { get; set; }
+        public DbSet<InvestigationImage> InvestigationImage { get; set; }
+        public DbSet<Patient> Patient { get; set; }
+        public DbSet<PatientInsurance> PatientInsurance { get; set; }
+        public DbSet<PatientMedicalHistory> PatientMedicalHistory { get; set; }
+        public DbSet<PrescriptionDrug> PrescriptionDrug { get; set; }
+        public DbSet<Question> Question { get; set; }
+        public DbSet<Review> Review { get; set; }
+        public DbSet<Speciality> Speciality { get; set; }
+        public DbSet<subSpeciality> subSpeciality { get; set; }
+
+
+
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
         }
