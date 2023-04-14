@@ -67,13 +67,7 @@ namespace MedEase.API.Controllers
                 BirthDate = dto.BirthDate,
                 Gender = dto.Gender,
                 PhoneNumber= dto.Phone,
-                Address = new()
-                {
-                    Building = dto.Building,
-                    Street = dto.Street,
-                    Region = dto.Region,
-                    City = dto.City,
-                }
+                
             };
 
             Doctor doctor = new()

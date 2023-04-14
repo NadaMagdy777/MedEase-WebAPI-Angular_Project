@@ -12,6 +12,7 @@ using MedEase.Core.Dtos;
 using MedEase.Core.Models;
 using System.Reflection.Metadata;
 using MedEase.Core.Consts;
+using System.Net;
 
 namespace MedEase.EF.Services
 {
@@ -24,40 +25,41 @@ namespace MedEase.EF.Services
             this._unitOfWork = unitOfWork;
             this._mapper = mapper;
         }
+        public async Task<Appointment> ReserveAppointmentAsync(ReserveAppointmentDto appointmentDto)
+        {
+            Appointment appointment = new Appointment();
+            appointment = _mapper.Map<Appointment>(appointmentDto);
+
+            await _unitOfWork.Appointments.AddAsync(appointment);
+            _unitOfWork.Complete();
+
+            return appointment;
+        }
         public async Task<List<DoctorAppointmentAndPatternDto>> GetPatternAndAppointmentAsync(int Id)
         {
             List<DoctorAppointmentAndPatternDto> result = new List<DoctorAppointmentAndPatternDto>();
             
             IEnumerable<DoctorSchedule> drs = await _unitOfWork.DoctorSchedule.FindAllAsync(dr => dr.IsWorking == true && dr.DoctorId == Id && dr.WeekDay.Date >= DateTime.Now.Date);
 
-        public async Task<Appointment> ReserveAppointmentAsync(ReserveAppointmentDto appointmentDto)
-        {
-            Appointment appointment = new Appointment();
-            appointment = _mapper.Map<Appointment>(appointmentDto);
 
             foreach (var item in drs)
             {
-                IEnumerable<DateTime> reservedAppointments = (IEnumerable<DateTime>) await _unitOfWork.Appointments.FindAllWithSelectAsync(app => app.Status != Status.canceled && app.DoctorID == Id && app.Date.Date == item.WeekDay.Date, app => app.Date);
+                IEnumerable<DateTime> reservedAppointments = (IEnumerable<DateTime>)await _unitOfWork.Appointments.FindAllWithSelectAsync(app => app.Status != Status.canceled && app.DoctorID == Id && app.Date.Date == item.WeekDay.Date, app => app.Date);
                 result.Add(new DoctorAppointmentAndPatternDto() { ReservedAppointmanet = reservedAppointments.ToList(), EndTime = item.EndTime, StartTime = item.StartTime, Pattern = item.TimeInterval, WeekDay = item.WeekDay });
             }
             return result;
-
-
-            // Appointment ===> Reserved aBlob appointment
-
-            // get ==> pattern -> DoctorSchedule class, post for creation 
-            // 
-            // return _unitOfWork.
+            
         }
+        // Appointment ===> Reserved aBlob appointment
+
+        // get ==> pattern -> DoctorSchedule class, post for creation 
+        // 
+        // return _unitOfWork.
 
         //internal class DoctorService            //شيل القرف ده
         //{
         //    // get ==> appointment -> appointment , post for reservation 
-            await _unitOfWork.Appointments.AddAsync(appointment);
-            _unitOfWork.Complete();
-
-            return appointment;
-        }
+        
 
         public async Task<DoctorSchedule> CreateScheduleAsync(DoctorScheduleDto scheduleDto)
         {
