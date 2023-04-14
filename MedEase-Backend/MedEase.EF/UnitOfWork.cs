@@ -33,17 +33,10 @@ namespace MedEase.EF
         public IBaseRepository<PatientInsurance> PatientInsurance { get; private set; }
         public IBaseRepository<DoctorSubspeciality> DoctorSubspeciality { get; private set; }
 
-
-
-
-
-
-
-
-
         public UnitOfWork(ApplicationDbContext context)
         {
             _context = context;
+
             Appointments = new BaseRepository<Appointment>(_context);
             Doctors = new BaseRepository<Doctor>(_context);
             DoctorSchedules = new BaseRepository<DoctorSchedule>(_context);
@@ -55,11 +48,6 @@ namespace MedEase.EF
             DoctorInsurance = new BaseRepository<DoctorInsurance>(_context);
             PatientInsurance = new BaseRepository<PatientInsurance>(_context);
             DoctorSubspeciality = new BaseRepository<DoctorSubspeciality>(_context);
-
-
-
-
-
 
         }
 

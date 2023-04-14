@@ -36,9 +36,6 @@ namespace MedEase.EF.Data
         public DbSet<Speciality> Speciality { get; set; }
         public DbSet<subSpeciality> subSpeciality { get; set; }
 
-
-
-
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
         }
