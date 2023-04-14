@@ -1,9 +1,12 @@
 ﻿using MedEase.Core;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MedEase.Core.Dtos;
+
 
 namespace MedEase.EF.Services
 {
@@ -15,12 +18,16 @@ namespace MedEase.EF.Services
         {
             this._unitOfWork = unitOfWork;
         }
+        public DoctorAppointmentAndPatternDto GetPatternAndAppointment()
+        {
 
+            // return _unitOfWork.
+        }
 
-    internal class DoctorService            //شيل القرف ده
-    {
-        //get ==> pattern -> DoctorSchedule class, post for creation 
-        //get ==> appointment -> appointment , post for reservation 
+        //internal class DoctorService            //شيل القرف ده
+        //{
+        //    //get ==> pattern -> DoctorSchedule class, post for creation 
+        //    //get ==> appointment -> appointment , post for reservation 
 
+        //}
     }
-}

@@ -16,5 +16,10 @@ namespace MedEase.API.Controllers
             this._doctorService = doctorService;
         }
 
+        public IActionResult getAppointmentAndPattern()
+        {
+            return Ok(""); // call Function 
+        }
+
     }
 }
