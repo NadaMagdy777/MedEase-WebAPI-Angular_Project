@@ -39,7 +39,18 @@ namespace MedEase.EF.Services
         public async Task<List<DoctorAppointmentAndPatternDto>> GetPatternAndAppointmentAsync(int Id)
         {
 
-            return null;
+            List<DoctorAppointmentAndPatternDto> result = new List<DoctorAppointmentAndPatternDto>();
+
+            IEnumerable<DoctorSchedule> drs = await _unitOfWork.DoctorSchedule.FindAllAsync(dr => dr.IsWorking == true && dr.DoctorId == Id && dr.WeekDay.Date >= DateTime.Now.Date);
+
+
+            foreach (var item in drs)
+            {
+                IEnumerable<DateTime> reservedAppointments = (IEnumerable<DateTime>)await _unitOfWork.Appointments.FindAllWithSelectAsync(app => app.Status != Status.canceled && app.DoctorID == Id && app.Date.Date == item.WeekDay.Date, app => app.Date);
+                result.Add(new DoctorAppointmentAndPatternDto() { ReservedAppointmanet = reservedAppointments.ToList(), EndTime = item.EndTime, StartTime = item.StartTime, Pattern = item.TimeInterval, WeekDay = item.WeekDay });
+            }
+            return result;
+
         }
 
 
@@ -66,16 +77,16 @@ namespace MedEase.EF.Services
                         DoctorInfoGetDto doctorDTO = new DoctorInfoGetDto();
                         doctorDTO.Faculty = doctor.Faculty;
                         doctorDTO.addressDto = doctor.AppUser.Address;
-                        doctorDTO.Name = doctor.AppUser.FirstName+" "+doctor.AppUser.LastName;
+                        doctorDTO.Name = doctor.AppUser.FirstName + " " + doctor.AppUser.LastName;
                         doctorDTO.age = calucaluteAge(doctor.AppUser.BirthDate);
                         doctorDTO.ID = doctor.ID;
                         doctorDTO.Fees = doctor.Fees;
                         doctorDTO.Gender = doctor.AppUser.Gender;
                         doctorDTO.Phone = doctor.AppUser.PhoneNumber;
 
-                        foreach(DoctorSubspeciality subspecialities in doctor.SubSpecialities)
+                        foreach (DoctorSubspeciality subspecialities in doctor.SubSpecialities)
                         {
-                            SubspecialityDto subspeciality =new SubspecialityDto();
+                            SubspecialityDto subspeciality = new SubspecialityDto();
                             subspeciality.id = subspecialities.SubSpeciality.ID;
                             subspeciality.name = subspecialities.SubSpeciality.Name;
 
@@ -88,14 +99,14 @@ namespace MedEase.EF.Services
                         {
                             CertificateDto certificate = new CertificateDto();
                             certificate.Title = Certificate.Title;
-                            certificate.Description= Certificate.Description;
+                            certificate.Description = Certificate.Description;
                             certificate.IssueDate = Certificate.IssueDate;
                             certificate.Issuer = Certificate.Issuer;
 
                             doctorDTO.certificates.Add(certificate);
 
                         }
-                        
+
                         foreach (DoctorInsurance innsurances in doctor.Insurances)
                         {
                             doctorDTO.insurance.Add(innsurances.Insurance);
@@ -112,37 +123,17 @@ namespace MedEase.EF.Services
                     }
 
                 }
+
             }
 
 
-
-            List<DoctorAppointmentAndPatternDto> result = new List<DoctorAppointmentAndPatternDto>();
-            
-            IEnumerable<DoctorSchedule> drs = await _unitOfWork.DoctorSchedule.FindAllAsync(dr => dr.IsWorking == true && dr.DoctorId == Id && dr.WeekDay.Date >= DateTime.Now.Date);
-
-
-            foreach (var item in drs)
-            {
-                IEnumerable<DateTime> reservedAppointments = (IEnumerable<DateTime>)await _unitOfWork.Appointments.FindAllWithSelectAsync(app => app.Status != Status.canceled && app.DoctorID == Id && app.Date.Date == item.WeekDay.Date, app => app.Date);
-                result.Add(new DoctorAppointmentAndPatternDto() { ReservedAppointmanet = reservedAppointments.ToList(), EndTime = item.EndTime, StartTime = item.StartTime, Pattern = item.TimeInterval, WeekDay = item.WeekDay });
-            }
-            return result;
-            
+            return doctorsDTOs;
         }
-        // Appointment ===> Reserved aBlob appointment
-
-        // get ==> pattern -> DoctorSchedule class, post for creation 
-        // 
-        // return _unitOfWork.
-
-        //internal class DoctorService            //شيل القرف ده
-        //{
-        //    // get ==> appointment -> appointment , post for reservation 
-        
+       
 
         public async Task<DoctorSchedule> CreateScheduleAsync(DoctorScheduleDto scheduleDto)
         {
-            if(!scheduleDto.IsWorking)
+            if (!scheduleDto.IsWorking)
             {
                 DoctorSchedule schedule = new DoctorSchedule();
                 schedule = _mapper.Map<DoctorSchedule>(scheduleDto);
@@ -154,10 +145,10 @@ namespace MedEase.EF.Services
 
             }
 
-            return null; //////////////////
+            return null; 
 
 
-            return doctorsDTOs;
+
 
         }
         public async Task<List<DoctorInsurance>> GetDoctorInsurranecs(int id)
@@ -171,8 +162,6 @@ namespace MedEase.EF.Services
 
             return dataNow.Year - birtdate.Year;
         }
-        //get ==> pattern -> DoctorSchedule class, post for creation 
-        //get ==> appointment -> appointment , post for reservation 
-
-        //}
+        
     }
+}
