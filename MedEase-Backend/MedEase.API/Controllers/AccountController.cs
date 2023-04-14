@@ -37,10 +37,10 @@ namespace MedEase.API.Controllers
             if (!ModelState.IsValid) { return ValidationProblem(ModelState); }
 
             AppUser user = await _userManager.FindByEmailAsync(dto.Email);
-            if (user == null) { return Unauthorized(new ApiResponse(401)); }
+            if (user == null) { return Unauthorized(new ApiResponse(401, false)); }
 
             var result = await _signInManager.CheckPasswordSignInAsync(user, dto.Password, false);
-            if(!result.Succeeded) { return Unauthorized(new ApiResponse(401)); }
+            if(!result.Succeeded) { return Unauthorized(new ApiResponse(401, false)); }
 
             return Ok(new UserDto
             {
@@ -68,9 +68,9 @@ namespace MedEase.API.Controllers
                 BirthDate = dto.BirthDate,
                 Gender = dto.Gender,
                 PhoneNumber= dto.Phone,
-                AddressID = dto.AddressID,
                 Building = dto.Building,
-                Street = dto.Street
+                Street = dto.Street,
+                AddressID = dto.AddressID
             };
 
             Doctor doctor = new()
