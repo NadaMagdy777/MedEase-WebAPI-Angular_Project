@@ -17,6 +17,11 @@ namespace MedEase.API.Controllers
             this._doctorService = doctorService;
         }
 
+        public async Task<IActionResult> getAppointmentAndPattern(int Id)
+        {
+            return Ok( await _doctorService.GetPatternAndAppointmentAsync(Id)); // call Function 
+        }
+
         [HttpPost ("reserve/appointment")]
         public async Task<IActionResult> ReserveAppointment(ReserveAppointmentDto appointmentDto)
         {

@@ -8,10 +8,10 @@ namespace MedEase.Core.Models
 {
     public class Speciality
     {
-        public int id { get; set; }
-        public string name { get; set; }
+        public int ID { get; set; }
+        public string Name { get; set; }
 
-        public virtual List<subSpeciality> subSpecialities { get; set; }
+        public virtual List<SubSpeciality> SubSpecialities { get; set; }
         public virtual List<Doctor> Doctors { get; set; }
 
     }

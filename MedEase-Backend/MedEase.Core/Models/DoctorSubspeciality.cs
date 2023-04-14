@@ -20,7 +20,7 @@ namespace MedEase.Core.Models
         public int  SubspecID { get; set; }
 
         public virtual Doctor doctor { get; set; }
-        public virtual subSpeciality subSpeciality { get; set; }
+        public virtual SubSpeciality SubSpeciality { get; set; }
 
 
     }

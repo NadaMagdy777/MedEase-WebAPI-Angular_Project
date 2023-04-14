@@ -16,17 +16,18 @@ namespace MedEase.Core
         public IBaseRepository<DoctorSchedule> DoctorSchedules { get; }
         public IBaseRepository<Patient> Patients { get; }
 
-        public IBaseRepository<subSpeciality> subSpeciality { get; }
+        public IBaseRepository<SubSpeciality> SubSpeciality { get; }
 
         public IBaseRepository<Speciality> Speciality { get; }
 
-        public IBaseRepository<Certificates> certificate { get; }
+        public IBaseRepository<Certificates> Certificate { get; }
 
-        public IBaseRepository<Insurance> insurance { get; }
+        public IBaseRepository<Insurance> Insurance { get; }
 
         public IBaseRepository<DoctorInsurance> DoctorInsurance { get; }
         public IBaseRepository<PatientInsurance> PatientInsurance { get; }
         public IBaseRepository<DoctorSubspeciality> DoctorSubspeciality { get; }
+        public IBaseRepository<DoctorSchedule> DoctorSchedule { get; }
 
         int Complete();
     }
