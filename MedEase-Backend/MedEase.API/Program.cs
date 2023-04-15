@@ -2,6 +2,7 @@
 using MedEase.Core;
 using MedEase.Core.Interfaces;
 using MedEase.Core.Interfaces.Services;
+using MedEase.Core.MappingProfiles;
 using MedEase.Core.Models;
 using MedEase.EF;
 using MedEase.EF.Data;
@@ -28,7 +29,7 @@ namespace MedEase.API
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            builder.Services.AddAutoMapper(typeof(Program));
+            builder.Services.AddAutoMapper(typeof(AppUserProfile));
 
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(

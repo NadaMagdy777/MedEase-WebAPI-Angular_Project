@@ -110,7 +110,8 @@ namespace MedEase.EF.Repositories
 
             return await query.Where(criteria).ToListAsync();
         }
-        public async Task<IEnumerable<object>> FindAllWithSelectAsync(Expression<Func<T, bool>> criteria, Expression<Func<T, object>> selects = null, List<Expression<Func<T, object>>> includes = null)
+        public async Task<IEnumerable<object>> FindAllWithSelectAsync(Expression<Func<T, bool>> criteria, 
+                    Expression<Func<T, object>> selects = null, List<Expression<Func<T, object>>> includes = null)
         {
             IQueryable<T> query = _context.Set<T>();
 

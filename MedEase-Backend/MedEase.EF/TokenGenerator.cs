@@ -28,12 +28,12 @@ namespace MedEase.EF
             key = new(Encoding.UTF8.GetBytes(config["JWT:Key"]));
         }
 
-        public async Task<string> GenerateToken(AppUser user)
+        public async Task<string> GenerateToken(AppUser user, int ID)
         {
             List<Claim> claims = new()
             {
                 new(ClaimTypes.Email, user.Email),
-                new(ClaimTypes.NameIdentifier, user.Id),
+                new(ClaimTypes.NameIdentifier, ID.ToString()),
                 new(ClaimTypes.Name, user.FirstName+" "+user.LastName),
             };
 

@@ -9,6 +9,6 @@ namespace MedEase.Core.Interfaces.Services
 {
     public interface IAccountService
     {
-        UserDto RegisterDoctor(DoctorRegisterDto docDto);
+        Task<ApiResponse> RegisterDoctor(DoctorRegisterDto docDto);
     }
 }

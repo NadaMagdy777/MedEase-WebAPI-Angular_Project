@@ -8,8 +8,10 @@ namespace MedEase.EF.Services
     public interface IDoctorService
     {
         Task<List<DoctorAppointmentAndPatternDto>> GetPatternAndAppointmentAsync(int Id);
-        public Task<Appointment> ReserveAppointmentAsync(ReserveAppointmentDto appointmentDto);
-        public Task<DoctorSchedule> CreateScheduleAsync(DoctorScheduleDto ScheduleDto);
-        public  Task<List<DoctorInfoGetDto>> GetAll();
+        Task<Appointment> ReserveAppointmentAsync(ReserveAppointmentDto appointmentDto);
+        Task<DoctorSchedule> CreateScheduleAsync(DoctorScheduleDto ScheduleDto);
+        Task<List<DoctorInfoGetDto>> GetAll();
+        Task<IEnumerable<ReviewDto>> GetDoctorReviews(int Id);
+        Task<ReviewDto> CreateReview(ReviewDto dto);
     }
 }

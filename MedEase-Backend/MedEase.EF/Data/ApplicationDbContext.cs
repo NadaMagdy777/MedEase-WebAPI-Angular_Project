@@ -1,4 +1,5 @@
-﻿using MedEase.Core.Models;
+﻿using MedEase.Core.Consts;
+using MedEase.Core.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.Data.SqlClient.DataClassification;
@@ -67,6 +68,23 @@ namespace MedEase.EF.Data
             
             builder.Entity<PrescriptionDrug>()
                   .HasKey(d => new { d.DrugID, d.ExaminationID });
+
+            builder.Entity<IdentityRole>().HasData(
+                new IdentityRole
+                {
+                    Id = "R1",
+                    Name = Core.Consts.Roles.Doctor.ToString(),
+                    NormalizedName = Core.Consts.Roles.Doctor.ToString().ToUpper(),
+                    ConcurrencyStamp = Guid.NewGuid().ToString()
+                },
+                new IdentityRole
+                {
+                    Id = "R2",
+                    Name = Core.Consts.Roles.Patient.ToString(),
+                    NormalizedName = Core.Consts.Roles.Patient.ToString().ToUpper(),
+                    ConcurrencyStamp = Guid.NewGuid().ToString()
+                }
+                );
         }
     }
 }

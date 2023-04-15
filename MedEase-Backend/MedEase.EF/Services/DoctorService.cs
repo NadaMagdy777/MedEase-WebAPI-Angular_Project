@@ -162,6 +162,23 @@ namespace MedEase.EF.Services
 
             return dataNow.Year - birtdate.Year;
         }
-        
+
+        public async Task<IEnumerable<ReviewDto>> GetDoctorReviews(int Id)
+        {
+            IEnumerable<ReviewDto> reviews = (IEnumerable<ReviewDto>)await _unitOfWork.Reviews
+                .FindAllWithSelectAsync(r => r.Examination.DoctorID == Id, r => _mapper.Map<ReviewDto>(r));
+
+            return reviews;
+        }
+
+        public async Task<ReviewDto> CreateReview(ReviewDto dto)
+        {
+            /////////Check Review ID
+            Review review = _mapper.Map<Review>(dto);
+            review = await _unitOfWork.Reviews.AddAsync(review);
+            _unitOfWork.Complete();
+            ReviewDto reviewDto = _mapper.Map<ReviewDto>(review);
+            return reviewDto;
+        }
     }
 }

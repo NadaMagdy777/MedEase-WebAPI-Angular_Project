@@ -15,7 +15,7 @@ namespace MedEase.Core.Dtos
         string FirstName { get; set; }
         string LastName { get; set; }
         string SSN { get; set; }
-        string Phone { get; set; }
+        string PhoneNumber { get; set; }
         Gender Gender { get; set; }
         DateTime BirthDate { get; set; }
         int Building { get; set; }
