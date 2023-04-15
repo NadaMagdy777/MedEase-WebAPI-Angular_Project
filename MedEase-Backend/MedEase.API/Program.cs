@@ -30,6 +30,12 @@ namespace MedEase.API
             builder.Services.AddSwaggerGen();
 
             builder.Services.AddAutoMapper(typeof(AppUserProfile));
+            builder.Services.AddAutoMapper(typeof(DoctorInformationProfile));
+            builder.Services.AddAutoMapper(typeof(CertificateProfile));
+            builder.Services.AddAutoMapper(typeof(InsuranceProfile));
+
+
+
 
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(

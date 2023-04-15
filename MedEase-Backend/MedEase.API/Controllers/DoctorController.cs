@@ -21,6 +21,23 @@ namespace MedEase.API.Controllers
         {
             this._doctorService = doctorService;
         }
+
+
+        [HttpGet]
+        public async Task<IActionResult> getAll()
+        {
+
+            return Ok(await _doctorService.GetAll());
+        }
+
+        [HttpGet("id")]
+        public async Task<IActionResult> GetDoctor(int ID)
+        {
+            if (!ModelState.IsValid) { return BadRequest(new ApiResponse(400, false, ModelState)); };
+            return Ok(new ApiResponse(200, true, await _doctorService.GetDoctor(ID)));
+        }
+
+
         [HttpGet("GetAppointmentsandPattern")]
         public async Task<IActionResult> getAppointmentAndPattern(int Id)
         {
@@ -59,11 +76,33 @@ namespace MedEase.API.Controllers
 
             return Ok(new ApiResponse(200, true, await _doctorService.CreateReview(dto)));
         }
+      
 
-        [HttpPost ("Certificates")]
-        public async Task<ActionResult<ApiResponse>> CreateCertificate(CertificationDto dto)
+        [HttpPut]
+        public async Task<IActionResult> Edit(DoctorEditDto doctor,int id)
         {
-            return Ok();
+
+            return Ok(await _doctorService.EditDoctor(doctor,id));
+        }
+        [HttpPost("SubSpeciality")]
+        public async Task<IActionResult> AddDoctorSubSpeciality(int docID ,SubspecialityDto subspeciality)
+        {
+            if (!ModelState.IsValid) { return BadRequest(new ApiResponse(400, false, ModelState)); };
+            return Ok(new ApiResponse(200, true, await _doctorService.AddDoctorSubspiciality(docID, subspeciality)));
+        }
+
+        [HttpPost("Certificate")]
+        public async Task<IActionResult> AddDoctorCertificate(int docID, CertificateDto certificate)
+        {
+            if (!ModelState.IsValid) { return BadRequest(new ApiResponse(400, false, ModelState)); };
+            return Ok(new ApiResponse(200, true, await _doctorService.AddDoctorCertificate(docID, certificate)));
+        }
+
+        [HttpPost("Insurance")]
+        public async Task<IActionResult> AddDoctorInsurance(int docID, InsuranceDto insurance)
+        {
+            if (!ModelState.IsValid) { return BadRequest(new ApiResponse(400, false, ModelState)); };
+            return Ok(new ApiResponse(200, true, await _doctorService.AddDoctorInsurance(docID, insurance)));
         }
 
         [Authorize (Roles = ("Doctor"))]

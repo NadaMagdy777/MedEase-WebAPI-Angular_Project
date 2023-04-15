@@ -8,8 +8,6 @@ namespace MedEase.Core.Dtos
 {
     public class AddressDto
     {
-        public int Building { get; set; }
-        public string Street { get; set; }
         public string Region { get; set; }
         public string City { get; set; }
     }
