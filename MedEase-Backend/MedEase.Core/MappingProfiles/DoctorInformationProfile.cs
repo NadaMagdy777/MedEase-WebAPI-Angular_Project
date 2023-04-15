@@ -13,11 +13,10 @@ namespace MedEase.Core.MappingProfiles
     {
        public DoctorInformationProfile()
         {
-            CreateMap<Doctor, DoctorInfoGetDto>().ReverseMap();
-            CreateMap<AppUser,DoctorInfoGetDto>().ReverseMap();
-            CreateMap<Address,AddressDto>().ReverseMap();
-            CreateMap<SubSpeciality , SubspecialityDto>().ReverseMap();
-
+            CreateMap<Doctor,DoctorInfoGetDto>().ReverseMap();
+            CreateMap<AppUser, DoctorInfoGetDto>().ReverseMap();
+            CreateMap<Address, AddressDto>().ReverseMap();
+            CreateMap<SubspecialityDto, SubSpeciality>().ReverseMap();
 
 
         }

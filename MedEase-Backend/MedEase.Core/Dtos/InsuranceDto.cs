@@ -7,15 +7,10 @@ using System.Threading.Tasks;
 
 namespace MedEase.Core.Dtos
 {
-    public class SubspecialityDto
+    public class InsuranceDto
     {
-        [Required, MinLength(4), MaxLength(50)]
-
-        public string Name { get; set; }
-
-        [Required]
-        public int SepcID { get; set; }
-
+        [Required, MinLength(4), MaxLength(150)]
+        public string Company { get; set; }
 
     }
 }

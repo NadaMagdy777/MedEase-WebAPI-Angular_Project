@@ -13,11 +13,14 @@ namespace MedEase.EF.Services
         Task<List<DoctorInfoGetDto>> GetAll();
         Task<IEnumerable<ReviewDto>> GetDoctorReviews(int Id);
         Task<ReviewDto> CreateReview(ReviewDto dto);
-        public Task<Appointment> ReserveAppointmentAsync(ReserveAppointmentDto appointmentDto);
-        public Task<DoctorSchedule> CreateScheduleAsync(DoctorScheduleDto ScheduleDto);
-        public  Task<List<DoctorInfoGetDto>> GetAll();
-        public Task<bool> EditDoctor(DoctorEditDto doctorDto, int id);
-        public  Task<bool> AddDoctorSubspiciality(int DoctorID, SubspecialityDto subspeciality);
+     
+        Task<bool> EditDoctor(DoctorEditDto doctorDto, int id);
+        Task<bool> AddDoctorSubspiciality(int DoctorID, SubspecialityDto subspeciality);
+        Task<bool> AddDoctorCertificate(int DoctorID, CertificateDto certificate);
+        Task<bool> AddDoctorInsurance(int DoctorID, InsuranceDto InsuranceDto);
+        Task<DoctorInfoGetDto> GetDoctor(int ID);
+
+
 
     }
 }
