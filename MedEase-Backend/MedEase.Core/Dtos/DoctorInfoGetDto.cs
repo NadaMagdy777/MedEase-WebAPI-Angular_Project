@@ -16,14 +16,14 @@ namespace MedEase.Core.Dtos
 
         public string Name { get; set; }
 
-        public string Phone { get; set; }
+        public string PhoneNumber { get; set; }
 
         public Gender Gender { get; set; }
         public int age { get; set; }
+        public int Building { get; set; }
+        public string Street { get; set; }
 
-
-
-        public Address addressDto { get; set; }
+        public AddressDto addressDto { get; set; }
 
         public List<SubspecialityDto> subspecialities { get; set; }
 

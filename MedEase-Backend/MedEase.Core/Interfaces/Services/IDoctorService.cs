@@ -11,5 +11,8 @@ namespace MedEase.EF.Services
         public Task<Appointment> ReserveAppointmentAsync(ReserveAppointmentDto appointmentDto);
         public Task<DoctorSchedule> CreateScheduleAsync(DoctorScheduleDto ScheduleDto);
         public  Task<List<DoctorInfoGetDto>> GetAll();
+        public Task<bool> EditDoctor(DoctorEditDto doctorDto, int id);
+        public  Task<bool> AddDoctorSubspiciality(int DoctorID, SubspecialityDto subspeciality);
+
     }
 }

@@ -8,8 +8,9 @@ namespace MedEase.Core.Dtos
 {
     public class SubspecialityDto
     {
-        public int id { get; set; }
 
         public string name { get; set; }
+
+        public int SpecialityID { get; set; }
     }
 }

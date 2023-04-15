@@ -75,24 +75,17 @@ namespace MedEase.EF.Services
                     foreach (Doctor doctor in doctors.ToList())
                     {
                         DoctorInfoGetDto doctorDTO = new DoctorInfoGetDto();
+                        doctorDTO = _mapper.Map<DoctorInfoGetDto>(doctor);
+
                         doctorDTO.Faculty = doctor.Faculty;
-                        doctorDTO.addressDto = doctor.AppUser.Address;
+                        doctorDTO.addressDto = _mapper.Map<AddressDto>(doctor.AppUser.Address) ;
                         doctorDTO.Name = doctor.AppUser.FirstName + " " + doctor.AppUser.LastName;
                         doctorDTO.age = calucaluteAge(doctor.AppUser.BirthDate);
-                        doctorDTO.ID = doctor.ID;
-                        doctorDTO.Fees = doctor.Fees;
-                        doctorDTO.Gender = doctor.AppUser.Gender;
-                        doctorDTO.Phone = doctor.AppUser.PhoneNumber;
 
                         foreach (DoctorSubspeciality subspecialities in doctor.SubSpecialities)
                         {
-                            SubspecialityDto subspeciality = new SubspecialityDto();
-                            subspeciality.id = subspecialities.SubSpeciality.ID;
-                            subspeciality.name = subspecialities.SubSpeciality.Name;
-
-                            doctorDTO.subspecialities.Add(subspeciality);
-
-
+                            var result =_mapper.Map<SubspecialityDto>(subspecialities.SubSpeciality);
+                            doctorDTO.subspecialities.Add(result);
 
                         }
                         foreach (Certificates Certificate in doctor.Certificates)
@@ -150,6 +143,50 @@ namespace MedEase.EF.Services
 
 
 
+        }
+        public async Task<bool> EditDoctor(DoctorEditDto doctorDto,int id)
+        {
+            Doctor doctor=_unitOfWork.Doctors.Find(d=>d.ID==id,
+                new List<Expression<Func<Doctor, object>>>()
+                {
+                   d=>d.AppUser,
+               
+                });
+            //doctor = _mapper.Map<Doctor>(doctorDto);
+            doctor.AppUser.FirstName = doctorDto.FirstName;
+            doctor.AppUser.LastName = doctorDto.LastName;
+            doctor.Fees= doctorDto.Fees;
+            doctor.AppUser.PhoneNumber= doctorDto.PhoneNumber;
+            doctor.AppUser.Building=doctorDto.Building;
+            doctor.AppUser.Street= doctorDto.Street;
+
+            _unitOfWork.Doctors.Update(doctor);
+            _unitOfWork.Complete();
+
+            return true;
+        }
+        public async Task<bool> AddDoctorSubspiciality(int DoctorID,SubspecialityDto subspeciality)
+        {
+            Doctor doctor = _unitOfWork.Doctors.Find(d => d.ID == DoctorID,
+              new List<Expression<Func<Doctor, object>>>()
+              {
+                 d=>d.SubSpecialities
+
+              });
+            SubSpeciality Newsubspeciality = new SubSpeciality();
+            Newsubspeciality.Name = subspeciality.name;
+            Newsubspeciality.SepcID= subspeciality.SpecialityID;
+
+            await _unitOfWork.SubSpeciality.AddAsync(Newsubspeciality);
+            _unitOfWork.Complete();
+
+            DoctorSubspeciality doctorSubspeciality=new DoctorSubspeciality();
+            doctorSubspeciality.SubSpeciality = Newsubspeciality;
+            doctorSubspeciality.doctor =doctor;
+            await _unitOfWork.DoctorSubspeciality.AddAsync(doctorSubspeciality);
+            _unitOfWork.Complete();
+
+            return true;
         }
         public async Task<List<DoctorInsurance>> GetDoctorInsurranecs(int id)
         {

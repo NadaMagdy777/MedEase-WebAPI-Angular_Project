@@ -33,5 +33,23 @@ namespace MedEase.API.Controllers
         {
             return Ok(await _doctorService.CreateScheduleAsync(scheduleDto));
         }
+
+        [HttpGet]
+        public async Task<IActionResult> getAll()
+        {
+
+            return Ok(await _doctorService.GetAll());
+        }
+        [HttpPut]
+        public async Task<IActionResult> Edit(DoctorEditDto doctor,int id)
+        {
+
+            return Ok(await _doctorService.EditDoctor(doctor,id));
+        }
+        [HttpPost("SubSpeciality")]
+        public async Task<IActionResult> AddDoctorSubSpeciality(int docID ,SubspecialityDto subspeciality)
+        {
+            return Ok(await _doctorService.AddDoctorSubspiciality(docID,subspeciality));
+        }
     }
 }
