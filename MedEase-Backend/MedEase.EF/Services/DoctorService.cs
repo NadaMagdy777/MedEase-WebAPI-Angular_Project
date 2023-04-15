@@ -57,7 +57,7 @@ namespace MedEase.EF.Services
         public async Task<List<DoctorInfoGetDto>> GetAll()
         {
             List<DoctorInfoGetDto> doctorsDTOs;
-            var doctors = await _unitOfWork.Doctors.FindAllAsync(d => d.ID > 0, new List<Expression<Func<Doctor, object>>>()
+            var doctors = await _unitOfWork.Doctors.FindAllAsync(d=>true, new List<Expression<Func<Doctor, object>>>()
             {
                d=>d.AppUser,
                d=>d.Insurances,
