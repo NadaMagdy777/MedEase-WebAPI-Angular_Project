@@ -13,8 +13,8 @@ namespace MedEase.Core.MappingProfiles
     {
         public CertificateProfile()
         {
-            CreateMap<CertificationDto, Certificates>().ReverseMap();
+            CreateMap<CertificateDto, Certificates>().ReverseMap();
         }
-       
+
     }
 }

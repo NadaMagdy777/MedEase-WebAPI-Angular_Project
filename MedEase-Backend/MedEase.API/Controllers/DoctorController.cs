@@ -23,14 +23,21 @@ namespace MedEase.API.Controllers
         public async Task<IActionResult> getAll()
         {
 
-            return Ok(await _doctorService.GetAll());
+            return Ok(new ApiResponse(200, true, await _doctorService.GetAll()));
+
         }
 
         [HttpGet("id")]
         public async Task<IActionResult> GetDoctor(int ID)
         {
             if (!ModelState.IsValid) { return BadRequest(new ApiResponse(400, false, ModelState)); };
-            return Ok(new ApiResponse(200, true, await _doctorService.GetDoctor(ID)));
+            var Result = await _doctorService.GetDoctor(ID);
+            if (Result == null)
+            {
+                return Ok(new ApiResponse(200, true, message: "not Found"));
+            }
+            return Ok(new ApiResponse(200, true, Result))
+            ;
         }
 
 

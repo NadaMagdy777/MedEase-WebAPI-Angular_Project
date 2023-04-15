@@ -11,6 +11,7 @@ namespace MedEase.Core.MappingProfiles
         {
             CreateMap<DoctorRegisterDto, AppUser>()
                 .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.Email))
+
                 .ReverseMap();
         }
     }

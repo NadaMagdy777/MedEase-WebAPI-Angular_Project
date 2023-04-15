@@ -62,7 +62,9 @@ namespace MedEase.EF.Services
            
             doctorsDTOs = new List<DoctorInfoGetDto>();
 
-            foreach (Doctor doctor in _unitOfWork.Doctors.GetAll())
+            var result =(List<Doctor>) await _unitOfWork.Doctors.FindAllWithSelectAsync(d => d.IsConfirmed == true);
+
+            foreach (Doctor doctor in result)
             {
 
 
@@ -79,10 +81,12 @@ namespace MedEase.EF.Services
 
         public async Task<DoctorInfoGetDto> GetDoctor(int ID)
         {
+            DoctorInfoGetDto doctorDTO = null;
+
             Doctor doctor = _unitOfWork.Doctors.Find(d => d.ID == ID,
                new List<Expression<Func<Doctor, object>>>()
                {
-                    d=>d.AppUser,
+                   d=>d.AppUser,
                    d=>d.Insurances,
                    d=>d.Certificates,
                    d=>d.SubSpecialities,
@@ -90,21 +94,21 @@ namespace MedEase.EF.Services
                    d=>d.AppUser.Address
 
                });
-            DoctorInfoGetDto doctorDTO = new DoctorInfoGetDto();
-            doctorDTO = _mapper.Map<DoctorInfoGetDto>(doctor);
-            doctorDTO = _mapper.Map<DoctorInfoGetDto>(doctor.AppUser);
-            doctorDTO.Faculty = doctor.Faculty;
-            doctorDTO.addressDto = _mapper.Map<AddressDto>(doctor.AppUser.Address);
-            doctorDTO.Name = doctor.AppUser.FirstName + " " + doctor.AppUser.LastName;
-            doctorDTO.age = calucaluteAge(doctor.AppUser.BirthDate);
-            doctorDTO.SpecialityName = doctor.Speciality.Name;
-            doctorDTO.DoctorcerInsurance = await GetDoctorInsurranecs(doctor.ID);
-            doctorDTO.DoctorSubspiciality = await GetDoctorSubspiciality(doctor.ID);
-            doctorDTO.Doctorcertificates = _mapper.Map<List<CertificateDto>>(doctor.Certificates);
+            if (doctor != null)
+            {
+                doctorDTO = new DoctorInfoGetDto();
+                doctorDTO = _mapper.Map<DoctorInfoGetDto>(doctor);
+                doctorDTO.addressDto = _mapper.Map<AddressDto>(doctor.AppUser.Address);
+                doctorDTO.age = calucaluteAge(doctor.AppUser.BirthDate);
+                doctorDTO.DoctorcerInsurance = await GetDoctorInsurranecs(doctor.ID);
+                doctorDTO.DoctorSubspiciality = await GetDoctorSubspiciality(doctor.ID);
+                doctorDTO.Doctorcertificates = _mapper.Map<List<CertificateDto>>(doctor.Certificates);
 
+            }
             return doctorDTO;
+
         }
-       
+
 
         public async Task<DoctorSchedule> CreateScheduleAsync(DoctorScheduleDto scheduleDto)
         {
@@ -128,7 +132,7 @@ namespace MedEase.EF.Services
         }
         public async Task<bool> EditDoctor(DoctorEditDto doctorDto,int id)
         {
-            Doctor doctor=_unitOfWork.Doctors.Find(d=>d.ID==id,
+            Doctor doctor=_unitOfWork.Doctors.Find(d=>d.ID==id &&d.IsConfirmed==true,
                 new List<Expression<Func<Doctor, object>>>()
                 {
                    d=>d.AppUser,
@@ -144,6 +148,9 @@ namespace MedEase.EF.Services
                 doctor.AppUser.PhoneNumber = doctorDto.PhoneNumber;
                 doctor.AppUser.Building = doctorDto.Building;
                 doctor.AppUser.Street = doctorDto.Street;
+                doctor.ProfilePicture = doctorDto.ProfilePicture;
+                doctor.AppUser.Address.City = doctorDto.City;
+                doctor.AppUser.Address.Region = doctorDto.Region;
 
                 _unitOfWork.Doctors.Update(doctor);
                 _unitOfWork.Complete();
@@ -184,11 +191,7 @@ namespace MedEase.EF.Services
 
               });
             Certificates Newcertificate = new Certificates();
-            //Newcertificate = _mapper.Map<Certificates>(certificate);
-            Newcertificate.Title = certificate.Title;
-            Newcertificate.Description= certificate.Description;
-            Newcertificate.IssueDate = certificate.IssueDate;
-            Newcertificate.Issuer = certificate.Issuer;
+            Newcertificate = _mapper.Map<Certificates>(certificate);
             Newcertificate.Doctor = doctor;
 
 
@@ -254,11 +257,16 @@ namespace MedEase.EF.Services
 
         }
 
-        public int calucaluteAge(DateTime birtdate)
+        public int calucaluteAge(DateTime birthDate)
         {
             DateTime dataNow = DateTime.Today;
 
-            return dataNow.Year - birtdate.Year;
+            int age = dataNow.Year - birthDate.Year;
+
+            if (dataNow.Month < birthDate.Month || (dataNow.Month == birthDate.Month && dataNow.Day < birthDate.Day))
+                age--;
+
+            return age;
         }
 
         public async Task<IEnumerable<ReviewDto>> GetDoctorReviews(int Id)

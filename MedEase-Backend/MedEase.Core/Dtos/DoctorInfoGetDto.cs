@@ -13,7 +13,6 @@ namespace MedEase.Core.Dtos
     {
         public int ID { get; set; }
 
-        [Required, Range(10, 10000)]
 
         public float Fees { get; set; }
 
