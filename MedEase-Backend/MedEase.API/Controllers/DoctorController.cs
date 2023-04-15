@@ -1,9 +1,13 @@
-﻿using MedEase.Core.Dtos;
+﻿using MedEase.Core;
+using MedEase.Core.Consts;
+using MedEase.Core.Dtos;
 using MedEase.Core.Models;
 using MedEase.EF;
 using MedEase.EF.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace MedEase.API.Controllers
 {
@@ -67,12 +71,12 @@ namespace MedEase.API.Controllers
             return Ok(new ApiResponse(200, true, reviews.ToList()));
         }
 
-        [HttpPost("Reviews")]
         /////////////////////////////////////////
         ///             FOREIGN KEY VALIDATIONS         ==> اللي ياخد باله منها يبقى يسألني عليها
         ///                                     ++++++++
         ///             +++++ انتوا ليه مش حاطين ال     ModelState.IsValid ???
         ////////////////////////////////////////
+        [HttpPost("Reviews")]
         public async Task<ActionResult<ApiResponse>> Reviews(ReviewDto dto)
         {
             if(!ModelState.IsValid) { return BadRequest(new ApiResponse(400, false, ModelState)); };
@@ -108,6 +112,39 @@ namespace MedEase.API.Controllers
             return Ok(new ApiResponse(200, true, await _doctorService.AddDoctorInsurance(docID, insurance)));
         }
 
-       
+        [Authorize (Roles = ("Doctor"))]
+        [HttpGet ("/Questions/Unanswered")]
+        public async Task<ActionResult<ApiResponse>> Questions()
+        {
+            if(!int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out int docId))
+                { return BadRequest(new ApiResponse(401, false, "User Not Found")); }
+
+            return Ok(await _doctorService.GetQuestionsByDoctorSpeciality(docId));
+        }
+        
+        [Authorize (Roles = ("Doctor"))]
+        [HttpGet ("/Questions/Answered")]
+        public async Task<ActionResult<ApiResponse>> DoctorQuestions()
+        {
+            if(!int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out int docId))
+                { return BadRequest(new ApiResponse(401, false, "User Not Found")); }
+
+            return Ok(await _doctorService.GetDoctorAnsweredQuestions(docId));
+        }
+        
+        [Authorize (Roles = ("Doctor"))]                    //Not Finsished
+        [HttpPost ("/Questions/Answer")]
+        public async Task<ActionResult<ApiResponse>> DoctorAnswerQuestions(AnswerDto dto)
+        {
+            if (!ModelState.IsValid) { return BadRequest(new ApiResponse(400, false, ModelState)); };
+
+            //if (!int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out int docId))
+            //    { return BadRequest(new ApiResponse(401, false, "User Not Found")); }
+
+            return Ok(await _doctorService.DoctorAnswerQuestions(dto));
+        }
+
+
+
     }
 }

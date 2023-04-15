@@ -31,6 +31,8 @@ namespace MedEase.EF
         public IBaseRepository<Review> Reviews { get; private set; }
         public IBaseRepository<Examination> Examinations { get; private set; }
 
+        public IBaseRepository<Question> Questions { get; set; }
+
         public UnitOfWork(ApplicationDbContext context)
         {
             _context = context;
@@ -49,6 +51,7 @@ namespace MedEase.EF
             DoctorSchedule = new BaseRepository<DoctorSchedule>(_context);
             Reviews = new BaseRepository<Review>(_context);
             Examinations = new BaseRepository<Examination>(_context);
+            Questions = new BaseRepository<Question>(_context);
 
         }
 

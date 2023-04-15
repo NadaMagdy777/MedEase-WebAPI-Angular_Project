@@ -286,5 +286,39 @@ namespace MedEase.EF.Services
             ReviewDto reviewDto = _mapper.Map<ReviewDto>(review);
             return reviewDto;
         }
+
+        public async Task<ApiResponse> GetQuestionsByDoctorSpeciality(int docId)
+        {
+            int? docSpecId = (int?) await _unitOfWork.Doctors.FindWithSelectAsync(d => d.ID == docId, d => d.SpecialityID);
+
+            if (docSpecId == null) { return new ApiResponse(404, false, "User Not Found"); }
+
+            IEnumerable<Question> questions = await _unitOfWork.Questions
+                .FindAllAsync(q => q.SpecialityId == docSpecId.Value && !q.IsAnswered);
+
+            return new ApiResponse(200, true, _mapper.Map<IEnumerable<QuestionDto>>(questions).ToList());
+        }
+
+        public async Task<ApiResponse?> GetDoctorAnsweredQuestions(int docId)
+        {
+            IEnumerable<Question> questions = 
+                await _unitOfWork.Questions.FindAllAsync(q => q.DoctorId == docId);
+
+            return new ApiResponse(200, true, _mapper.Map<IEnumerable<QuestionDto>>(questions).ToList());
+        }
+
+        public async Task<ApiResponse> DoctorAnswerQuestions(AnswerDto dto)
+        {
+            Question question = await _unitOfWork.Questions.FindAsync(q => q.Id == dto.Id);
+
+            if (question == null) { return new ApiResponse(400, false); }
+
+            question.Answer = dto.Answer;
+            question.DoctorId = dto.DoctorId;
+
+            _unitOfWork.Complete();
+
+            return (new(200, true, _mapper.Map<QuestionDto>(question)));
+        }
     }
 }

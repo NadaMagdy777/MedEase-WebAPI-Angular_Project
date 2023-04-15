@@ -1,4 +1,5 @@
-﻿using MedEase.Core.Dtos;
+﻿using MedEase.Core;
+using MedEase.Core.Dtos;
 
 using MedEase.Core.Dtos;
 using MedEase.Core.Models;
@@ -22,5 +23,8 @@ namespace MedEase.EF.Services
 
 
 
+        Task<ApiResponse> GetQuestionsByDoctorSpeciality(int docId);
+        Task<ApiResponse> GetDoctorAnsweredQuestions(int docId);
+        Task<ApiResponse> DoctorAnswerQuestions(AnswerDto dto);
     }
 }

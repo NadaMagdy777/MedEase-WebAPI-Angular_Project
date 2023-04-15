@@ -41,6 +41,12 @@ namespace MedEase.EF.Data
         {
         }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder//.LogTo(log => Console.WriteLine(log), Microsoft.Extensions.Logging.LogLevel.Information)
+                .EnableSensitiveDataLogging();
+        }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

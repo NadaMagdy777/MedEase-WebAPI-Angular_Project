@@ -21,10 +21,12 @@
 
             switch (statusCode)
             {
+                case 200:
+                    return "Ok";
                 case 400:
                     return "Bad Request";        
                 case 401:
-                    return "You are not Authorized";                
+                    return "Not Authorized";                
                 case 404:
                     return "Not Found";
                 case 500:
