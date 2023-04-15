@@ -9,6 +9,6 @@ namespace MedEase.Core.Interfaces
 {
     public interface ITokenGenerator
     {
-        Task<string> GenerateToken(AppUser user);
+        Task<string> GenerateToken(AppUser user, int Id);
     }
 }

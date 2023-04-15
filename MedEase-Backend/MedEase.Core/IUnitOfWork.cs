@@ -21,6 +21,7 @@ namespace MedEase.Core
         public IBaseRepository<Speciality> Speciality { get; }
 
         public IBaseRepository<Certificates> Certificate { get; }
+        public IBaseRepository<Review> Reviews { get; }
 
         public IBaseRepository<Insurance> Insurance { get; }
 
@@ -28,6 +29,7 @@ namespace MedEase.Core
         public IBaseRepository<PatientInsurance> PatientInsurance { get; }
         public IBaseRepository<DoctorSubspeciality> DoctorSubspeciality { get; }
         public IBaseRepository<DoctorSchedule> DoctorSchedule { get; }
+        public IBaseRepository<Examination> Examinations { get; }
 
         int Complete();
     }
