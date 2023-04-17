@@ -13,14 +13,16 @@ namespace MedEase.Core.Models
         public Doctor Doctor { get; set; }
         public bool IsWorking { get; set; } = false;
         public DateTime WeekDay { get; set; } = DateTime.Now;
-        public string StartTime { get; set; }
-        public string EndTime { get; set; }
+        public TimeSpan StartTime { get; set; }
+        public TimeSpan EndTime { get; set; }
         public int TimeInterval { get; set; } = 10;
-        public DoctorSchedule()
-        {
-            StartTime = WeekDay.TimeOfDay.ToString();
-            EndTime = WeekDay.TimeOfDay.ToString();
-        }
+        //public DoctorSchedule()
+        //{
+        //    StartTime = WeekDay.TimeOfDay.ToString();
+        //    EndTime = WeekDay.TimeOfDay.ToString();
+        //}
 
     }
 }
+
+

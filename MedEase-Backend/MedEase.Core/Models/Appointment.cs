@@ -12,9 +12,9 @@ namespace MedEase.Core.Models
     {
         public int ID { get; set; }
         public DateTime Date { get; set; }
-        public Status Status { get; set; }
-        public bool PatientConfirmation { get; set; }
-        public bool DoctorConfirmation { get; set; }
+        public Status Status { get; set; } = Status.confirmed;
+        public bool PatientConfirmation { get; set; } = false;
+        public bool DoctorConfirmation { get; set; } = false;
        
         [ForeignKey("Patient")]
         public virtual int PatientID { get; set; }

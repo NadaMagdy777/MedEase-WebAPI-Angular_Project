@@ -23,6 +23,7 @@ namespace MedEase.Core.Dtos
         
         [Required, MinLength(3), MaxLength(30)]
         public string LastName { get; set; }
+        public bool AllowVisa { get; set;}        //==>ignore
 
         [Required] 
         [RegularExpression("^01[0-2,5]{1}[0-9]{8}$", ErrorMessage = "Please enter valide phone number")]

@@ -9,6 +9,8 @@ namespace MedEase.Core.Consts
     public enum Status
     {
         canceled,
+        DoctorCanceled,
+        PatientCanceled,
         patientPending,
         doctorPending,
         confirmed

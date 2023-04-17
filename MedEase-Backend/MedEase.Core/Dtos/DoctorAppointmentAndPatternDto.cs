@@ -11,7 +11,7 @@ namespace MedEase.Core.Dtos
         public int Pattern { get; set; }
         public List<DateTime> ReservedAppointmanet{ get; set; }
         public DateTime WeekDay { get; set; } 
-        public string StartTime { get; set; } 
-        public string EndTime { get; set; } 
+        public TimeSpan StartTime { get; set; } 
+        public TimeSpan EndTime { get; set; } 
     }
 }
