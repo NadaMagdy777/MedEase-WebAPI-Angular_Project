@@ -145,10 +145,10 @@ namespace MedEase.API.Controllers
             return Ok(await _doctorService.DoctorAnswerQuestions(dto));
         }
 
-        [HttpPut]
-        [Route("")]
-        public ActionResult<ApiResponse> EditSchedule([FromServices] ApplicationDbContext context, int Id, DoctorEditScheduleDto dto)
-        {
+        //[HttpPut]
+        //[Route("")]
+        //public ActionResult<ApiResponse> EditSchedule([FromServices] ApplicationDbContext context, int Id, DoctorEditScheduleDto dto)
+        //{
 
 
 
@@ -156,7 +156,7 @@ namespace MedEase.API.Controllers
 
 
 
-            return Ok(new ApiResponse(200, true, data));
-        }
+        //    return Ok(new ApiResponse(200, true, data));
+        //}
     }
 }
