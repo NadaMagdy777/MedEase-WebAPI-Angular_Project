@@ -1,4 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using MedEase.Core;
+using MedEase.Core.Dtos;
+using MedEase.Core.Interfaces.Services;
+using MedEase.EF.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MedEase.API.Controllers
@@ -7,5 +11,44 @@ namespace MedEase.API.Controllers
     [ApiController]
     public class PatientController : ControllerBase
     {
+        private readonly IPatientService _patientService;
+
+        public PatientController(IPatientService patientService)
+        {
+            this._patientService = patientService;
+        }
+        
+        
+        [HttpGet("id")]
+        public async Task<IActionResult> GetPatient(int ID)
+        {
+
+            if (!ModelState.IsValid) { return BadRequest(new ApiResponse(400, false, ModelState)); };
+            var Result = await _patientService.GetPatient(ID);
+            if (Result == null)
+            {
+                return Ok(new ApiResponse(200, true, message: "not Found"));
+            }
+            return Ok(new ApiResponse(200, true, Result))
+            ;
+        }
+        
+        [HttpPut]
+        public async Task<IActionResult> Edit(PatientEditDto patient, int id)
+        {
+            if (!ModelState.IsValid) { return BadRequest(new ApiResponse(400, false, ModelState)); };
+
+            return Ok(new ApiResponse(200, true, await _patientService.EditPatient(patient,id)));
+        }
+
+        [HttpPost("MedicalHistor")]
+        public async Task<IActionResult> AddMedicalHistory(PatientMedicalHistoryDto history,int PatientID)
+        {
+
+            if (!ModelState.IsValid) { return BadRequest(new ApiResponse(400, false, ModelState)); };
+    
+            return Ok(new ApiResponse(200, true, await _patientService.AddMedicalHistory(history, PatientID)))
+            ;
+        }
     }
 }

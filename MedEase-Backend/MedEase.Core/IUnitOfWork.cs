@@ -31,6 +31,8 @@ namespace MedEase.Core
         public IBaseRepository<DoctorSchedule> DoctorSchedule { get; }
         public IBaseRepository<Examination> Examinations { get; }
         public IBaseRepository<Question> Questions { get; }
+        public IBaseRepository<PatientMedicalHistory> PatientMedicalHistory { get; }
+
 
         int Complete();
     }
