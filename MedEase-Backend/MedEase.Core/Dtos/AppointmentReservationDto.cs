@@ -16,6 +16,6 @@ namespace MedEase.Core.Dtos
         public bool HasInvestigations { get; set; }
         public string Description { get; set; }
         public bool HasImage { get; set; }
-        public string Image { get; set; }
+        public string Image { get; set; }       //==> array of bytes
     }
 }

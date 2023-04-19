@@ -14,6 +14,6 @@ namespace MedEase.Core.Models
         [ForeignKey ("Investigation")]
         public int InvestigationId {get; set; }
         public Investigation Investigation { get; set; }
-        public string Image { get; set; }
+        public string Image { get; set; }           //==> array of bytes
     }
 }

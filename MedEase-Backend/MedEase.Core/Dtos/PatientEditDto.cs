@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MedEase.Core.Dtos
 {
-    internal class PatientEditDto
+    public class PatientEditDto
     {
         [Required, DataType(DataType.Password)]
         public string Password { get; set; }
