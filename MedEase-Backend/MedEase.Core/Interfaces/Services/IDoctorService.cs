@@ -26,5 +26,6 @@ namespace MedEase.EF.Services
         Task<ApiResponse> GetQuestionsByDoctorSpeciality(int docId);
         Task<ApiResponse> GetDoctorAnsweredQuestions(int docId);
         Task<ApiResponse> DoctorAnswerQuestions(AnswerDto dto);
+        Task<ApiResponse> EditScheduleDoctor(int Id, DoctorEditScheduleDto doctorEditScheduleDto);
     }
 }

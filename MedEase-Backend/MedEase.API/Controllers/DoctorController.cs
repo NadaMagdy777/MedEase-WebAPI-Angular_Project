@@ -145,10 +145,22 @@ namespace MedEase.API.Controllers
             return Ok(await _doctorService.DoctorAnswerQuestions(dto));
         }
 
-        [HttpPut]
-        [Route("")]
-        public ActionResult<ApiResponse> EditSchedule([FromServices] ApplicationDbContext context, int Id, DoctorEditScheduleDto dto)
+        [HttpPut("/Doctor/Schedule")]
+       
+        public async Task <ActionResult<ApiResponse>> EditSchedule(int Id, DoctorEditScheduleDto doctoreditschedualdto)
         {
+           
+
+            if(ModelState.IsValid ) 
+            {
+                
+ 
+                return Ok(await _doctorService.EditScheduleDoctor(Id,doctoreditschedualdto));
+            }
+            else
+        {
+                return BadRequest(ModelState);
+            }
 
 
 
@@ -156,7 +168,8 @@ namespace MedEase.API.Controllers
 
 
 
-            return Ok(new ApiResponse(200, true, data));
         }
+
+    
     }
 }

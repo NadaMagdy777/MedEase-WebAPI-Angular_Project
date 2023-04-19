@@ -18,3 +18,4 @@
 /MedEase-Backend/MedEase.EF/Migrations
 /MedEase-Backend/MedEase.EF/Data/Migrations/ApplicationDbContextModelSnapshot.cs
 /MedEase-Backend/MedEase.EF/Data/Migrations/ApplicationDbContextModelSnapshot.cs
+*.json
