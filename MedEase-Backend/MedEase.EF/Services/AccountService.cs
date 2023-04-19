@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -41,6 +42,10 @@ namespace MedEase.EF.Services
             _mapper = mapper;
         }
 
+        public AccountService()
+        {
+        }
+
         public async Task<ApiResponse> LoginUser(UserLoginDto dto)
         {
             AppUser user = await _userManager.FindByEmailAsync(dto.Email);
@@ -69,7 +74,6 @@ namespace MedEase.EF.Services
 
             int? DocId =    (int?) await _unitOfWork.Doctors
                 .FindWithSelectAsync(dr => dr.AppUserID == user.Id, dr => dr.ID);
-
             return DocId.Value;
         }
 
@@ -113,6 +117,35 @@ namespace MedEase.EF.Services
                 Name = $"{docDto.FirstName} {docDto.LastName}",
                 Email = user.Email,
                 Token = await _tokenGenerator.GenerateToken(user, doctor.ID),
+            });
+        }
+
+        public async Task<ApiResponse> RegisterPatient(UserRegisterDto dto)
+        {
+
+            AppUser user = _mapper.Map<AppUser>(dto);
+            Patient patient = new() { AppUser = user };
+            user.Patient = patient;
+
+            IdentityResult result;
+            try
+            {
+                result = await _userManager.CreateAsync(user, dto.Password);
+            }
+            catch (Exception)
+            {
+                return new ApiResponse(400, false, null, "InValid Inputs");
+            }
+
+            if (!result.Succeeded) { return new ApiResponse(400, false, result.Errors); }      //result.Errors
+
+            await _userManager.AddToRoleAsync(user, Roles.Patient.ToString());
+
+            return new ApiResponse(200, true, new UserDto
+            {
+                Name = $"{dto.FirstName} {dto.LastName}",
+                Email = user.Email,
+                Token = await _tokenGenerator.GenerateToken(user, patient.ID),
             });
         }
     }

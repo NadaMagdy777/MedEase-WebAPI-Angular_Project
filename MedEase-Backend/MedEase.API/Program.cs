@@ -45,6 +45,7 @@ namespace MedEase.API
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddScoped<ITokenGenerator, TokenGenerator>();
             builder.Services.AddScoped<IDoctorService, DoctorService>();
+            builder.Services.AddScoped<IPatientService, PatientService>();
             builder.Services.AddScoped<IAccountService, AccountService>();
 
             //Cors policy           ======> NEED EDITS
