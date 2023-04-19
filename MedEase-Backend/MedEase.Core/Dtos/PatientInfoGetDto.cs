@@ -26,5 +26,8 @@ namespace MedEase.Core.Dtos
         public DateTime BirthDate { get; set; }
 
         public string Email { get; set; }
+
+        public string insuranceNmae { get; set; }
+        public PatientMedicalHistoryDto History { get; set; }
     }
 }

@@ -11,7 +11,7 @@ namespace MedEase.Core.Interfaces.Services
     {
         Task<bool> EditPatient(PatientEditDto patient, int id);
         Task<PatientInfoGetDto> GetPatient(int ID);
-        Task<bool> AddPatientInsurance(int PatientID, InsuranceDto InsuranceDto);
+        Task<bool> AddPatientInsurance(int PatientID, int InsuranceID);
         Task<bool> AddMedicalHistory(PatientMedicalHistoryDto medicalHistoryDto, int PatientID);
 
     }

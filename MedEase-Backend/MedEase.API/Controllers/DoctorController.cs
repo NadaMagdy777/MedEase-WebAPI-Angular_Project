@@ -107,10 +107,10 @@ namespace MedEase.API.Controllers
         }
 
         [HttpPost("Insurance")]
-        public async Task<IActionResult> AddDoctorInsurance(int docID, InsuranceDto insurance)
+        public async Task<IActionResult> AddDoctorInsurance(int docID, int insuranceID)
         {
             if (!ModelState.IsValid) { return BadRequest(new ApiResponse(400, false, ModelState)); };
-            return Ok(new ApiResponse(200, true, await _doctorService.AddDoctorInsurance(docID, insurance)));
+            return Ok(new ApiResponse(200, true, await _doctorService.AddDoctorInsurance(docID, insuranceID)));
         }
 
         [Authorize (Roles = ("Doctor"))]

@@ -22,7 +22,6 @@ namespace MedEase.API.Controllers
         [HttpGet("id")]
         public async Task<IActionResult> GetPatient(int ID)
         {
-
             if (!ModelState.IsValid) { return BadRequest(new ApiResponse(400, false, ModelState)); };
             var Result = await _patientService.GetPatient(ID);
             if (Result == null)
@@ -49,6 +48,13 @@ namespace MedEase.API.Controllers
     
             return Ok(new ApiResponse(200, true, await _patientService.AddMedicalHistory(history, PatientID)))
             ;
+        }
+
+        [HttpPost("Insurance")]
+        public async Task<IActionResult> AddPatientInsurance(int PatientID, int insuranceID)
+        {
+            if (!ModelState.IsValid) { return BadRequest(new ApiResponse(400, false, ModelState)); };
+            return Ok(new ApiResponse(200, true, await _patientService.AddPatientInsurance(PatientID, insuranceID)));
         }
     }
 }

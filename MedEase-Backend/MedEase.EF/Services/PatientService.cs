@@ -24,7 +24,7 @@ namespace MedEase.EF.Services
         }
         public async Task<bool> EditPatient(PatientEditDto patientDto, int id)
         {
-            Patient patient = _unitOfWork.Patients.Find(d => d.ID == id ,
+            Patient patient =await _unitOfWork.Patients.FindAsync(d => d.ID == id ,
                new List<Expression<Func<Patient, object>>>()
                {
                    d=>d.AppUser,
@@ -57,7 +57,7 @@ namespace MedEase.EF.Services
         {
             PatientInfoGetDto patientDTO = null;
 
-            Patient patient = _unitOfWork.Patients.Find(d => d.ID == ID,
+            Patient patient = await _unitOfWork.Patients.FindAsync(d => d.ID == ID,
                new List<Expression<Func<Patient, object>>>()
                {
                    d=>d.AppUser,
@@ -65,25 +65,22 @@ namespace MedEase.EF.Services
                   
 
                });
-            if (patient != null)
-            {
-                patientDTO = new PatientInfoGetDto();
-                patientDTO = _mapper.Map<PatientInfoGetDto>(patient);
-              
+                if (patient != null)
+                {
+                    patientDTO = new PatientInfoGetDto();
+                    patientDTO = _mapper.Map<PatientInfoGetDto>(patient);
+                    patientDTO.History = _mapper.Map<PatientMedicalHistoryDto>(patient.History);
 
-            }
+
+
+                }
             return patientDTO;
 
         }
 
-
-        public int CheckInsuraceFound(string InsuranceName)
+        public async Task<bool> AddPatientInsurance(int PatientID, int InsuranceID)
         {
-            throw new NotImplementedException();
-        }
-        public async Task<bool> AddPatientInsurance(int PatientID, InsuranceDto InsuranceDto)
-        {
-            Patient patient = _unitOfWork.Patients.Find(d => d.ID == PatientID,
+            Patient patient = await _unitOfWork.Patients.FindAsync(d => d.ID == PatientID,
                new List<Expression<Func<Patient, object>>>()
                {
                    d=>d.AppUser,
@@ -93,15 +90,11 @@ namespace MedEase.EF.Services
 
                 if(patient.Insurance is null)
                 {
-                    Insurance NewInsurance = new Insurance();
-                    NewInsurance = _mapper.Map<Insurance>(InsuranceDto);
-
-                    await _unitOfWork.Insurance.AddAsync(NewInsurance);
-                    _unitOfWork.Complete();
+              
 
                     PatientInsurance patientInsurance = new PatientInsurance();
-                    patientInsurance.Insurance = NewInsurance;
-                    patientInsurance.Patient = patient;
+                    patientInsurance.InsuranceID=InsuranceID;
+                    patientInsurance.PatientID = PatientID;
                     await _unitOfWork.PatientInsurance.AddAsync(patientInsurance);
                     _unitOfWork.Complete();
 
@@ -112,13 +105,13 @@ namespace MedEase.EF.Services
 
         public async Task<bool> AddMedicalHistory(PatientMedicalHistoryDto medicalHistoryDto,int PatientID)
         {
-            Patient patient = _unitOfWork.Patients.Find(P => P.ID == PatientID,
-              new List<Expression<Func<Patient, object>>>()
-              {
+             Patient patient =await _unitOfWork.Patients.FindAsync(P => P.ID == PatientID,
+             new List<Expression<Func<Patient, object>>>()
+             {
                    d=>d.AppUser,
                    d=>d.History
 
-              });
+             });
 
             if(patient.History is null)
             {
