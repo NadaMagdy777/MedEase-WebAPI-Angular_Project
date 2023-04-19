@@ -18,4 +18,45 @@
 /MedEase-Backend/MedEase.EF/Migrations
 /MedEase-Backend/MedEase.EF/Data/Migrations/ApplicationDbContextModelSnapshot.cs
 /MedEase-Backend/MedEase.EF/Data/Migrations/ApplicationDbContextModelSnapshot.cs
-*.json
+/MedEase-Frontend/.vscode
+/MedEase-Frontend/node_modules
+# Compiled output
+/MedEase-Frontend/dist
+/MedEase-Frontend/tmp
+/MedEase-Frontend/out-tsc
+/MedEase-Frontend/bazel-out
+
+# Node
+/MedEase-Frontend/node_modules
+/MedEase-Frontend/npm-debug.log
+/MedEase-Frontend/yarn-error.log
+
+# IDEs and editors
+/MedEase-Frontend/.idea/
+/MedEase-Frontend/.project
+/MedEase-Frontend/.classpath
+/MedEase-Frontend/.c9/
+/MedEase-Frontend/*.launch
+/MedEase-Frontend/.settings/
+/MedEase-Frontend/*.sublime-workspace
+
+# Visual Studio Code
+/MedEase-Frontend/.vscode/*
+/MedEase-Frontend/!.vscode/settings.json
+/MedEase-Frontend/!.vscode/tasks.json
+/MedEase-Frontend/!.vscode/launch.json
+/MedEase-Frontend/!.vscode/extensions.json
+/MedEase-Frontend/.history/*
+
+# Miscellaneous
+/MedEase-Frontend/.angular/cache
+/MedEase-Frontend/.sass-cache/
+/MedEase-Frontend/connect.lock
+/MedEase-Frontend/coverage
+/MedEase-Frontend/libpeerconnection.log
+/MedEase-Frontend/testem.log
+/MedEase-Frontend/typings
+
+# System files
+/MedEase-Frontend/.DS_Store
+/MedEase-Frontend/Thumbs.db

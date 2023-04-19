@@ -33,6 +33,7 @@ namespace MedEase.API
             builder.Services.AddAutoMapper(typeof(DoctorInformationProfile));
             builder.Services.AddAutoMapper(typeof(CertificateProfile));
             builder.Services.AddAutoMapper(typeof(InsuranceProfile));
+            builder.Services.AddAutoMapper(typeof(PatientInformationProfile));
 
 
 
@@ -44,8 +45,14 @@ namespace MedEase.API
 
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddScoped<ITokenGenerator, TokenGenerator>();
-            builder.Services.AddScoped<IDoctorService, DoctorService>();
             builder.Services.AddScoped<IAccountService, AccountService>();
+            builder.Services.AddScoped<IPatientService, PatientService>();
+            builder.Services.AddScoped<IDoctorService, DoctorService>();
+            builder.Services.AddScoped<IPatientService, PatientService>();
+            builder.Services.AddScoped<IAccountService, AccountService>();
+            builder.Services.AddScoped<IAdminService, AdminService>();
+
+
 
             //Cors policy           ======> NEED EDITS
             builder.Services.AddCors(opt =>

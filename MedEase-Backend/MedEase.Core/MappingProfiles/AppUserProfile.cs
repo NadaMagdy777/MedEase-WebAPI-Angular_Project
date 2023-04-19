@@ -9,9 +9,12 @@ namespace MedEase.Core.MappingProfiles
     {
         public AppUserProfile()
         {
+            CreateMap<AppUser, UserRegisterDto>().ReverseMap()
+                .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.Email))
+                .ReverseMap();
+
             CreateMap<DoctorRegisterDto, AppUser>()
                 .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.Email))
-
                 .ReverseMap();
         }
     }

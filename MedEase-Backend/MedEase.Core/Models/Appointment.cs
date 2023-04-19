@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace MedEase.Core.Models
 {
-    public class Appointment
+    public class Appointment        //Payment Method
     {
         public int ID { get; set; }
         public DateTime Date { get; set; }
-        public Status Status { get; set; } = Status.confirmed;
-        public bool PatientConfirmation { get; set; } = false;
-        public bool DoctorConfirmation { get; set; } = false;
+        public Status Status { get; set; } 
+        public bool PatientConfirmation { get; set; }
+        public bool DoctorConfirmation { get; set; } 
        
         [ForeignKey("Patient")]
         public virtual int PatientID { get; set; }
@@ -24,6 +24,7 @@ namespace MedEase.Core.Models
         public virtual int DoctorID { get; set; }
         public virtual Doctor Doctor { get; set; }
 
-        public AppointmentInsurance Insurance { get; set; }
+        public AppointmentInsurance? Insurance { get; set; }
+        public Investigation? Investigation { get; set; }
     }
 }

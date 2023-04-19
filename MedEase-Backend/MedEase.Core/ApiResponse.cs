@@ -11,11 +11,11 @@
         }
 
         public int StatusCode { get; set; }
-        public string Message { get; set; }
+        public string? Message { get; set; }
         public bool Success { get; set; }
-        public dynamic Data { get; set; }
+        public dynamic? Data { get; set; }
 
-        private string GetDefaultResponseMessage(int statusCode)
+        private string? GetDefaultResponseMessage(int statusCode)
         {
             string code;
 

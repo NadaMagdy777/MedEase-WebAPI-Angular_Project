@@ -9,6 +9,7 @@ namespace MedEase.Core.MappingProfiles
         public DoctorProfile()
         {
             CreateMap<Doctor, DoctorRegisterDto>().ReverseMap();
+            CreateMap<Doctor, DoctorEditDto>().ReverseMap();
         }
     }
 }
