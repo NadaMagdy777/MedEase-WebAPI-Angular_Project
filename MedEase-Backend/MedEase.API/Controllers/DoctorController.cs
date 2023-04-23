@@ -84,7 +84,7 @@ namespace MedEase.API.Controllers
 
             return Ok(new ApiResponse(200, true, await _doctorService.CreateReview(dto)));
         }
-      
+
 
         [HttpPut]
         public async Task<IActionResult> Edit(DoctorEditDto doctor,int id)
@@ -118,21 +118,21 @@ namespace MedEase.API.Controllers
         public async Task<ActionResult<ApiResponse>> Questions()
         {
             if(!int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out int docId))
-                { return BadRequest(new ApiResponse(401, false, "User Not Found")); }
+            { return BadRequest(new ApiResponse(401, false, "User Not Found")); }
 
             return Ok(await _doctorService.GetQuestionsByDoctorSpeciality(docId));
         }
-        
+
         [Authorize (Roles = ("Doctor"))]
         [HttpGet ("/Questions/Answered")]
         public async Task<ActionResult<ApiResponse>> DoctorQuestions()
         {
             if(!int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out int docId))
-                { return BadRequest(new ApiResponse(401, false, "User Not Found")); }
+            { return BadRequest(new ApiResponse(401, false, "User Not Found")); }
 
             return Ok(await _doctorService.GetDoctorAnsweredQuestions(docId));
         }
-        
+
         [Authorize (Roles = ("Doctor"))]                    //Not Finsished
         [HttpPost ("/Questions/Answer")]
         public async Task<ActionResult<ApiResponse>> DoctorAnswerQuestions(AnswerDto dto)
@@ -145,10 +145,22 @@ namespace MedEase.API.Controllers
             return Ok(await _doctorService.DoctorAnswerQuestions(dto));
         }
 
-        //[HttpPut]
-        //[Route("")]
-        //public ActionResult<ApiResponse> EditSchedule([FromServices] ApplicationDbContext context, int Id, DoctorEditScheduleDto dto)
-        //{
+        [HttpPut("/Doctor/Schedule")]
+       
+        public async Task <ActionResult<ApiResponse>> EditSchedule(int Id, DoctorEditScheduleDto doctoreditschedualdto)
+        {
+           
+
+            if(ModelState.IsValid ) 
+            {
+                
+ 
+                return Ok(await _doctorService.EditScheduleDoctor(Id,doctoreditschedualdto));
+            }
+            else
+            {
+                return BadRequest(ModelState);
+            }
 
 
 
@@ -156,7 +168,7 @@ namespace MedEase.API.Controllers
 
 
 
-        //    return Ok(new ApiResponse(200, true, data));
-        //}
+            return Ok(new ApiResponse(200, true, data));
+        }
     }
 }

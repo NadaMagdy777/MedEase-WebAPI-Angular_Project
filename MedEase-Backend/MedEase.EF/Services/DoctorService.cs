@@ -306,5 +306,26 @@ namespace MedEase.EF.Services
 
             return (new(200, true, _mapper.Map<QuestionDto>(question)));
         }
+        public async Task<ApiResponse> EditScheduleDoctor(int Id,DoctorEditScheduleDto doctorEditScheduleDto)
+        {
+            DoctorSchedule orgdoctorschedule = await _unitOfWork.DoctorSchedule.FindAsync(d => d.Id == Id);
+            if (orgdoctorschedule != null) 
+            {
+                orgdoctorschedule.Id = doctorEditScheduleDto.Id;
+                orgdoctorschedule.DoctorId = doctorEditScheduleDto.DoctorId;
+                orgdoctorschedule.WeekDay = doctorEditScheduleDto.WeekDay;
+                orgdoctorschedule.StartTime = doctorEditScheduleDto.StartTime;
+                orgdoctorschedule.EndTime = doctorEditScheduleDto.EndTime;
+                orgdoctorschedule.TimeInterval = doctorEditScheduleDto.TimeInterval;
+                _unitOfWork.Complete();
+
+                return new ApiResponse(200, true, orgdoctorschedule, "Updated");
+
+            }
+            else
+            {
+                return new ApiResponse(400, false, null, "Bad Request");
+            }
+        }
     }
 }

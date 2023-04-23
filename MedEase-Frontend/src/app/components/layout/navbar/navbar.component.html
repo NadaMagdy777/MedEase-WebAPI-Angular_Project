@@ -1,1 +1,43 @@
-<p>navbar works!</p>
+<nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-primary">
+    <div class="container">
+        <a class="navbar-brand" routerLinkActive="active" routerLink="/home">Navbar</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" routerLinkActive="active" routerLink="/home">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link p-0" routerLinkActive="active" routerLink="/home"><span class="btn btn-outline-light"> Sign Up </span><span
+                            class="mx-2">|</span> </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link p-0" routerLinkActive="active" routerLink="/home"><span class="btn btn-outline-light"> Login </span><span
+                            class="mx-2">|</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLinkActive="active" routerLink="/home">Vezeeta For Doctors <span class="mx-2">|</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLinkActive="active" routerLink="/home">Contact Us <span class="mx-2">|</span></a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
+                        aria-expanded="false">
+                        Egypt
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
