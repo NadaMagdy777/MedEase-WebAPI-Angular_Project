@@ -1,57 +1,196 @@
-<div class="container-fluid">
-    <div class="row h-25">
+<div class="container-fluid mb-5" id="page">
+    <div class="row">
       
     </div>
-    <div class="row">
+    <div class="row d-flex justify-content-center">
       <div class="col-2">
-        <div id="accordion">
-          <div class="card">
-            <div class="card-header" id="headingOne">
-              <h5 class="mb-0">
-                <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                  Collapsible Group Item #1
-                </button>
-              </h5>
+        <div class="border rounded d-fixed">
+          <div class="card-header text-white bg-primary" id="headingOne">
+            <h5>
+              <i class="fa-solid fa-filter text-white"></i>
+              <button class="btn text-white">
+               Filters
+              </button>
+            </h5>
+           
+
+          </div>
+          <div class="card  bg-white">
+           <div class="card-header  filter border-bottom-0 d-flex justify-content-between" id="headingOne" data-toggle="collapse" data-target="#Title" aria-expanded="false" aria-controls="Title">
+               <h5 class="mb-0">
+                  <i class="fa-solid fa-graduation-cap "></i>
+                  <p class="d-inline  ml-2"  >
+                    Title
+                  </p>
+               </h5> 
+               <h5 class="mb-0">
+                <i class="dropdown-toggle"></i>
+
+               </h5>
+
             </div>
-        
-            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+            <div class="collapse " id="Title">        
               <div class="card-body">
-                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                  <label class="form-check-label" for="defaultCheck1">
+                    Professor
+                  </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                    <label class="form-check-label" for="defaultCheck1">
+                      Lecturer
+                    </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                  <label class="form-check-label" for="defaultCheck1">
+                    consultant
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                  <label class="form-check-label" for="defaultCheck1">
+                    specialist
+                  </label>
+                </div>
               </div>
             </div>
           </div>
           <div class="card">
-            <div class="card-header" id="headingTwo">
+            <div class="card-header filter border-bottom-0 d-flex justify-content-between" id="headingTwo" data-toggle="collapse" data-target="#Gender" aria-expanded="false" aria-controls="Gender">
               <h5 class="mb-0">
-                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                  Collapsible Group Item #2
-                </button>
+
+                <i class="fa-solid fa-venus-mars"></i>
+                <p class="d-inline ml-2">Gender</p>
               </h5>
+              <h5 class="mb-0">
+                <i class="dropdown-toggle"></i>
+
+              </h5>
+
             </div>
-            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+            <div class="collapse " id="Gender">
               <div class="card-body">
-                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="female">
+                  <label class="form-check-label" for="female">
+                    Female
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="male">
+                  <label class="form-check-label" for="male">
+                     Male
+                  </label>
+                </div>
               </div>
             </div>
           </div>
-          <div class="card">
-            <div class="card-header" id="headingThree">
+          <div class="card ">
+            <div class="card-header filter border-bottom-0 d-flex justify-content-between" id="headingTwo" data-toggle="collapse" data-target="#Availability" aria-expanded="false" aria-controls="Availability">
               <h5 class="mb-0">
-                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                  Collapsible Group Item #3
-                </button>
+                <i class="fa-regular fa-calendar-days"></i>   
+                <p class="d-inline  ml-2"  >
+                  Availability
+                </p>
+              </h5>
+              <h5 class="mb-0">
+                <i class="dropdown-toggle"></i>
               </h5>
             </div>
-            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+            <div class="collapse multi-collapse" id="Availability">
               <div class="card-body">
-                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="AnyDay">
+                  <label class="form-check-label" for="AnyDay">
+                    Any Day
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="Today">
+                  <label class="form-check-label" for="Today">
+                    Today
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="Tommorrow">
+                  <label class="form-check-label" for="Tommorrow">
+                    Tommorrow
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card  "data-toggle="collapse" data-target="#ExaminationFee" aria-expanded="false" aria-controls="ExaminationFee">
+            <div class="card-header border-bottom-0 filter d-flex justify-content-between" id="headingTwo">
+              <h5 class="mb-0">
+                <i class="fa-solid fa-money-bill-wave filter-icon"></i>
+                <p class="d-inline  ml-2"  >
+                  Examination Fee
+                </p>
+              </h5>
+              <h5 class="mb-0">
+                <i class="dropdown-toggle"></i>
+
+              </h5>
+            </div>
+            <div class="collapse multi-collapse" id="ExaminationFee">
+              <div class="card-body border-0">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" value="" id="Any">
+                  <label class="form-check-label" for="Any">
+                    Any Day
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" value="" id="Fee1">
+                  <label class="form-check-label" for="Fee1">
+                    Less Than 50
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" value="" id="Fee2">
+                  <label class="form-check-label" for="Fee2">
+                    From 50 To 100
+
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" value="" id="Fee3">
+                  <label class="form-check-label" for="Fee3">
+                    From 100 To 200
+
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" value="" id="Fee4">
+                  <label class="form-check-label" for="Fee4">
+                    From 200 To 300
+
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" value="" id="Fee5">
+                  <label class="form-check-label" for="Fee5">
+                    Greater Than 300
+
+                  </label>
+                </div>
               </div>
             </div>
           </div>
         </div>
+        
       </div>
-      <div class="col-8">
-        One of three columns
+      
+      
+
+
+        
+      <div class="col-8 ">
+        <app-doctor-index></app-doctor-index>
       </div>
     </div>
 </div>

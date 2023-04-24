@@ -1,0 +1,28 @@
+#doctorTitle{
+    color: blue; 
+    display: inline-block;
+    font-size: 14px;
+    margin: 0px 4px 0px 0px;
+
+    vertical-align: middle;
+
+}
+
+#doctorName{
+    color: blue; 
+    margin: 0px 4px;
+    display: inline-block;
+    font-size: 21px;
+    vertical-align: middle;
+    font-weight: bold;
+
+
+}
+.textoverflow{
+    text-overflow: ellipsis;
+}
+.starRateColor{
+    color: #ffb624;
+    margin-left: 2%;
+    font-size: 20px;
+}
