@@ -1,10 +1,17 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 import { NavbarComponent } from './components/layout/navbar/navbar.component';
 import { FooterComponent } from './components/layout/footer/footer.component';
+import { HomeComponent } from './components/home/home/home.component';
+import { BrowserAnimationsModule  } from "@angular/platform-browser/animations";
+import { CarouselComponent } from './components/home/carousel/carousel.component';
+import { CarouselModule } from 'ngx-owl-carousel-o';
+import { SearchComponent } from './components/home/search/search.component';
+
 import { AllDoctorComponent } from './components/Doctor/all-doctor/all-doctor.component';
 import { DoctorIndexComponent } from './components/Doctor/doctor-index/doctor-index.component';
 
@@ -14,7 +21,10 @@ import { DoctorIndexComponent } from './components/Doctor/doctor-index/doctor-in
     NavbarComponent,
     FooterComponent,
     AllDoctorComponent,
-    DoctorIndexComponent
+    DoctorIndexComponent,
+    HomeComponent,
+    CarouselComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
