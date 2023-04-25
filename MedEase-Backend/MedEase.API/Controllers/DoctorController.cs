@@ -168,7 +168,7 @@ namespace MedEase.API.Controllers
 
 
 
-            return Ok(new ApiResponse(200, true, data));
+            //return Ok(new ApiResponse(200, true, data));
         }
     }
 }

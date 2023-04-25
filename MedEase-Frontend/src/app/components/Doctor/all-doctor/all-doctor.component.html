@@ -2,8 +2,8 @@
     <div class="row">
       
     </div>
-    <div class="row d-flex justify-content-center">
-      <div class="col-2">
+    <div class="row d-flex justify-content-center ">
+      <div class="col-2 mt-5">
         <div class="border rounded d-fixed">
           <div class="card-header text-white bg-primary" id="headingOne">
             <h5>
@@ -123,8 +123,8 @@
               </div>
             </div>
           </div>
-          <div class="card  "data-toggle="collapse" data-target="#ExaminationFee" aria-expanded="false" aria-controls="ExaminationFee">
-            <div class="card-header border-bottom-0 filter d-flex justify-content-between" id="headingTwo">
+          <div class="card " >
+            <div class="card-header border-bottom-0 filter d-flex justify-content-between" id="headingTwo" data-toggle="collapse" data-target="#ExaminationFee" aria-expanded="false" aria-controls="ExaminationFee">
               <h5 class="mb-0">
                 <i class="fa-solid fa-money-bill-wave filter-icon"></i>
                 <p class="d-inline  ml-2"  >
@@ -138,41 +138,36 @@
             </div>
             <div class="collapse multi-collapse" id="ExaminationFee">
               <div class="card-body border-0">
+              
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" value="" id="Any">
-                  <label class="form-check-label" for="Any">
-                    Any Day
-                  </label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" value="" id="Fee1">
+                  <input class="form-check-input" type="radio" name="optRadio" value="" id="Fee1">
                   <label class="form-check-label" for="Fee1">
                     Less Than 50
                   </label>
                 </div>
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" value="" id="Fee2">
+                  <input class="form-check-input" type="radio" name="optRadio" value="" id="Fee2">
                   <label class="form-check-label" for="Fee2">
                     From 50 To 100
 
                   </label>
                 </div>
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" value="" id="Fee3">
+                  <input class="form-check-input" type="radio" name="optRadio" value="" id="Fee3">
                   <label class="form-check-label" for="Fee3">
                     From 100 To 200
 
                   </label>
                 </div>
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" value="" id="Fee4">
+                  <input class="form-check-input" type="radio" name="optRadio" value="" id="Fee4">
                   <label class="form-check-label" for="Fee4">
                     From 200 To 300
 
                   </label>
                 </div>
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" value="" id="Fee5">
+                  <input class="form-check-input" type="radio" name="optRadio" value="" id="Fee5">
                   <label class="form-check-label" for="Fee5">
                     Greater Than 300
 
@@ -184,10 +179,6 @@
         </div>
         
       </div>
-      
-      
-
-
         
       <div class="col-8 ">
         <app-doctor-index></app-doctor-index>
