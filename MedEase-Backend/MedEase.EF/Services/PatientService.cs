@@ -77,7 +77,7 @@ namespace MedEase.EF.Services
             Patient patient =await _unitOfWork.Patients.FindAsync(d => d.ID == id ,
                new List<Expression<Func<Patient, object>>>()
                {
-                   d=>d.AppUser,
+                   d=>d.AppUser.Address,
 
                });
 
@@ -119,11 +119,11 @@ namespace MedEase.EF.Services
                 {
                     patientDTO = new PatientInfoGetDto();
                     patientDTO = _mapper.Map<PatientInfoGetDto>(patient);
-                    patientDTO.History = _mapper.Map<PatientMedicalHistoryDto>(patient.History);
+                patientDTO.History = _mapper.Map<PatientMedicalHistoryDto>(patient.History);
 
 
 
-                }
+            }
             return patientDTO;
 
         }

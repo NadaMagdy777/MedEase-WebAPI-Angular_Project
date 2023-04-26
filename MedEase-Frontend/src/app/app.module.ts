@@ -13,6 +13,9 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { AllDoctorComponent } from './components/Doctor/all-doctor/all-doctor.component';
 import { DoctorIndexComponent } from './components/Doctor/doctor-index/doctor-index.component';
+import { ProfileComponent } from './components/Patient/profile/profile.component';
+import { AppointmentsComponent } from './components/Patient/appointments/appointments.component';
+import { InsuranceComponent } from './components/Patient/insurance/insurance.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +26,9 @@ import { DoctorIndexComponent } from './components/Doctor/doctor-index/doctor-in
     DoctorIndexComponent,
     HomeComponent,
     CarouselComponent,
+    ProfileComponent,
+    AppointmentsComponent,
+    InsuranceComponent
   ],
   imports: [
     BrowserModule,

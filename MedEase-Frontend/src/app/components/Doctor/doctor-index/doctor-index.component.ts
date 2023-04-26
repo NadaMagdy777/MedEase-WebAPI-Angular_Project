@@ -14,8 +14,7 @@ export class DoctorIndexComponent implements OnInit{
   errorMessage: any;
   p:number=1;
   constructor(private DoctorService:DoctorService,private router:Router){
-   
-    
+      
     
   }
   ngOnInit(): void {
