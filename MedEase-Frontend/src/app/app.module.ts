@@ -11,7 +11,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CarouselComponent } from './components/home/carousel/carousel.component';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { SearchComponent } from './components/home/search/search.component';
 import { AllDoctorComponent } from './components/Doctor/all-doctor/all-doctor.component';
 import { DoctorIndexComponent } from './components/Doctor/doctor-index/doctor-index.component';
 
@@ -24,7 +23,6 @@ import { DoctorIndexComponent } from './components/Doctor/doctor-index/doctor-in
     DoctorIndexComponent,
     HomeComponent,
     CarouselComponent,
-    SearchComponent,
   ],
   imports: [
     BrowserModule,
