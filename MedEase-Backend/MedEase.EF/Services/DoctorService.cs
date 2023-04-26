@@ -327,5 +327,10 @@ namespace MedEase.EF.Services
                 return new ApiResponse(400, false, null, "Bad Request");
             }
         }
+
+        public async Task<ApiResponse> GetSpecialities()
+        {
+            return new ApiResponse(200, true, _mapper.Map<IEnumerable<SpecialityDto>>(await _unitOfWork.Speciality.GetAllAsync()));
+        }
     }
 }

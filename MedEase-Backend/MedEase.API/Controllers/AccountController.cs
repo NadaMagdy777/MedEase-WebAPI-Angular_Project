@@ -48,5 +48,10 @@ namespace MedEase.API.Controllers
             return Ok(await _accountService.RegisterPatient(dto));
         }
 
+        [HttpGet ("Addresses")]
+        public async Task<ActionResult<ApiResponse>> GetAddresses()
+        {
+            return Ok(await _accountService.GetAddresses());
+        }   
     }   
 }

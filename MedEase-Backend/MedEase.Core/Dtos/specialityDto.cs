@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace MedEase.Core.Dtos
 {
-    public class specialityDto
+    public class SpecialityDto
     {
-        public int id { get; set; }
-        public string name { get; set; }
+        public int ID { get; set; }
+        public string Name { get; set; }
     }
 }

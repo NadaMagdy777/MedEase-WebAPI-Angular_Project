@@ -35,6 +35,7 @@ namespace MedEase.EF
 
         public IBaseRepository<PatientMedicalHistory> PatientMedicalHistory { get; set; }
         public IBaseRepository<Investigation> Investigation { get; set; }
+        public IBaseRepository<Address> Addresses { get; set; }
 
 
         public UnitOfWork(ApplicationDbContext context)
@@ -58,6 +59,7 @@ namespace MedEase.EF
             Questions = new BaseRepository<Question>(_context);
             PatientMedicalHistory=new BaseRepository<PatientMedicalHistory>(_context);
             Investigation = new BaseRepository<Investigation>(_context);
+            Addresses = new BaseRepository<Address>(_context);
 
         }
 

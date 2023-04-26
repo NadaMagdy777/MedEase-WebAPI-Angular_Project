@@ -1,6 +1,65 @@
-<div class="w-100 opacity-50 bg-info d-flex align-items-center justify-content-center" style="height: 100vh;">
-    <div class="w-75 h-25 bg-light row align-items-center search-border">
-        <div class="h-75 w-75 search-border offset-1 col-8"></div>
-        <div class="h-75 w-75 search-border col-2 bg-success text-center align-middle">Search</div>
+<div class="w-100 opacity-50 bg-info p-0" style="height: 93vh">
+  <div class="p-5 h2" style="height: 18vh">
+    "Your Health, Made Easy with MedEase"
+  </div>
+  <br />
+  <div
+    class="w-100 h-75 bg-danger d-flex justify-content-center align-items-center"
+    style="height: 90vh"
+  >
+    <div
+      class="w-75 bg-light d-flex flex-column justify-content-start align-items-center search-border"
+      style="height: 25vh"
+    >
+      <div class="h5 fw-bold text-center mt-1">Find a Doctor</div>
+      <div class="w-75 h-75 bg-light row align-items-center search-border mb-2">
+        <div
+          class="h-100 w-75 search-border mx-3 col-9 d-flex justify-content-evenly"
+        >
+          <div class="w-25 h-100 search-border d-flex flex-column mx-1">
+            <div>Specialty</div>
+            <select [(ngModel)]="selectedSpecialty" class="border-0 h-100">
+              <ng-container *ngFor="let specialty of specialties">
+                <option [value]="specialty.id">{{ specialty.name }}</option>
+              </ng-container>
+            </select>
+          </div>
+          <div class="w-25 h-100 search-border d-flex flex-column mx-1">
+            <div>City</div>
+            <select
+              [(ngModel)]="selectedCity"
+              (change)="updateCity()"
+              class="border-0 h-100"
+            >
+              <ng-container *ngFor="let city of cities">
+                <option [value]="city">{{ city }}</option>
+              </ng-container>
+            </select>
+          </div>
+          <div class="w-25 h-100 search-border d-flex flex-column mx-1">
+            <div>Region</div>
+            <select [(ngModel)]="selectedRegion" class="border-0 h-100">
+              <ng-container *ngFor="let region of regions">
+                <option [value]="region" selected>{{ region }}</option>
+              </ng-container>
+            </select>
+          </div>
+          <div class="w-25 h-100 search-border d-flex flex-column mx-1">
+            <div>Name</div>
+            <input
+              [(ngModel)]="selectedDoctor"
+              type="text"
+              class="border-0 h-100"
+            />
+          </div>
+        </div>
+        <button
+          class="h-100 w-100 search-border col-2 bg-primary d-flex flex-column justify-content-center align-items-center h5 mx-2"
+          (click)="search()"
+        >
+          <div class="text-center">Search</div>
+        </button>
+      </div>
     </div>
+  </div>
 </div>

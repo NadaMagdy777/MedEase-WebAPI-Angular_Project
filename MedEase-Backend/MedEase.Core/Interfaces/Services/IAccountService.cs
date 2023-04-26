@@ -12,5 +12,6 @@ namespace MedEase.Core.Interfaces.Services
         Task<ApiResponse> LoginUser(UserLoginDto dto);
         Task<ApiResponse> RegisterDoctor(DoctorRegisterDto docDto);
         Task<ApiResponse> RegisterPatient(UserRegisterDto dto);
+        Task<ApiResponse> GetAddresses();
     }
 }
