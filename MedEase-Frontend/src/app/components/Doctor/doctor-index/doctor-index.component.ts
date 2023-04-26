@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { DoctorService } from 'src/app/Services/Doctor/doctor.service';
 import { Doctor } from 'src/app/SharedClassesAndTypes/Doctor/Doctor';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { DoctorService } from 'src/app/services/Doctor/doctor.service';
 
 
 @Component({
