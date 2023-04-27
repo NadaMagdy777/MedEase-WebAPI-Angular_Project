@@ -14,7 +14,7 @@ import { ProfileComponent } from './components/Patient/profile/profile.component
 import { AppointmentsComponent } from './components/Patient/appointments/appointments.component';
 import { InsuranceComponent } from './components/Patient/insurance/insurance.component';
 import { DoctorDetailsComponent } from './components/Doctor/doctor-details/doctor-details.component';
-
+import { HomeBannerComponent } from './components/home/home/home-banner/home-banner.component';
 
 @NgModule({
   declarations: [
@@ -27,8 +27,8 @@ import { DoctorDetailsComponent } from './components/Doctor/doctor-details/docto
     AppointmentsComponent,
     InsuranceComponent,
     DoctorDetailsComponent,
-   
 
+    HomeBannerComponent,
   ],
   imports: [
     BrowserModule,
