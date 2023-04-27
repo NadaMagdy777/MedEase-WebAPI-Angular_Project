@@ -10,9 +10,10 @@ import { HomeComponent } from './components/home/home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CarouselComponent } from './components/home/carousel/carousel.component';
 import { CarouselModule } from 'ngx-owl-carousel-o';
-import { NgxPaginationModule } from 'ngx-pagination';
-import { AllDoctorComponent } from './components/Doctor/all-doctor/all-doctor.component';
-import { DoctorIndexComponent } from './components/Doctor/doctor-index/doctor-index.component';
+import { ProfileComponent } from './components/Patient/profile/profile.component';
+import { AppointmentsComponent } from './components/Patient/appointments/appointments.component';
+import { InsuranceComponent } from './components/Patient/insurance/insurance.component';
+import { DoctorDetailsComponent } from './components/Doctor/doctor-details/doctor-details.component';
 import { HomeBannerComponent } from './components/home/home/home-banner/home-banner.component';
 
 @NgModule({
@@ -20,16 +21,18 @@ import { HomeBannerComponent } from './components/home/home/home-banner/home-ban
     AppComponent,
     NavbarComponent,
     FooterComponent,
-    AllDoctorComponent,
-    DoctorIndexComponent,
     HomeComponent,
     CarouselComponent,
+    ProfileComponent,
+    AppointmentsComponent,
+    InsuranceComponent,
+    DoctorDetailsComponent,
+
     HomeBannerComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgxPaginationModule,
     CarouselModule,
     BrowserAnimationsModule,
     HttpClientModule,

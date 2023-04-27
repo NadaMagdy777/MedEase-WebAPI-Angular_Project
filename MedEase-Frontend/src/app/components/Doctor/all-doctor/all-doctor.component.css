@@ -7,3 +7,30 @@
    cursor: pointer;
 }
 
+.fs-14{
+    font-size: 20px;
+}
+.text-red{
+    color: red;
+}
+
+#slide{
+    background-image: url("https://d1aovdz1i2nnak.cloudfront.net/vezeeta-web-reactjs/54241/_next/static/images/search-header-background-en.jpg");
+background-size: cover;
+height: 174px;
+background-color: rgb(236, 236, 236);
+
+}
+#legendstyle{
+    background-color: #0070cd;
+    color: white;
+    border-radius: 5px;
+    padding: 5px;
+}
+.pointer{
+    cursor: pointer;
+
+}
+
+
+

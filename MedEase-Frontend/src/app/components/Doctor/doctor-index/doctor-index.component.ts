@@ -1,7 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { DoctorService } from 'src/app/Services/Doctor/doctor.service';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Doctor } from 'src/app/SharedClassesAndTypes/Doctor/Doctor';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 
 
 @Component({
@@ -9,27 +7,39 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router';
   templateUrl: './doctor-index.component.html',
   styleUrls: ['./doctor-index.component.css']
 })
-export class DoctorIndexComponent implements OnInit{
+export class DoctorIndexComponent implements OnInit ,OnChanges{
+  @Input() FilterdDoctor!:Doctor[]
   DoctorList!:Doctor[]
+  load:boolean=false;
   errorMessage: any;
   p:number=1;
-  constructor(private DoctorService:DoctorService,private router:Router){
+  constructor(){
    
     
     
   }
+  
   ngOnInit(): void {
-    this.DoctorService.GetAllDoctors().subscribe({
-      next:data=>{
-        let dataJson = JSON.parse(JSON.stringify(data))
-        this.DoctorList=dataJson.data
-       console.log(this.DoctorList)},
-      error:error=>this.errorMessage=error
-    })
+    this.DoctorList=this.FilterdDoctor
+
+  }
+  
+  ngOnChanges(changes: SimpleChanges): void {
+      
+      this.DoctorList=this.FilterdDoctor
+      this.p=1
+
+
+
+      
+      
+  }
+ 
+
     
 
 
 
-  }
+  
 
 }
