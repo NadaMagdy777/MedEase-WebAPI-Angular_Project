@@ -52,11 +52,11 @@ namespace MedEase.API.Controllers
             return Ok( await _doctorService.GetPatternAndAppointmentAsync(Id)); // call Function 
         }
 
-        [HttpPost ("reserve/appointment")]
+        /*[HttpPost ("reserve/appointment")]
         public async Task<IActionResult> ReserveAppointment(ReserveAppointmentDto appointmentDto)
         {
             return Ok(await _doctorService.ReserveAppointmentAsync(appointmentDto));
-        }
+        }*/
 
         [HttpPost("create/schedule")]
         public async Task<IActionResult> CreateSchedule(DoctorScheduleDto scheduleDto)

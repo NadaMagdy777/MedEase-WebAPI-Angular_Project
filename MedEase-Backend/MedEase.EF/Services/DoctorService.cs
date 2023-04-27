@@ -28,7 +28,7 @@ namespace MedEase.EF.Services
             this._unitOfWork = unitOfWork;
             this._mapper = mapper;
         }
-        public async Task<Appointment> ReserveAppointmentAsync(ReserveAppointmentDto appointmentDto)
+        /*public async Task<Appointment> ReserveAppointmentAsync(ReserveAppointmentDto appointmentDto)      //depricated
         {
             Appointment appointment = new Appointment();
             appointment = _mapper.Map<Appointment>(appointmentDto);
@@ -37,7 +37,7 @@ namespace MedEase.EF.Services
             _unitOfWork.Complete();
 
             return appointment;
-        }
+        }*/
         public async Task<List<DoctorAppointmentAndPatternDto>> GetPatternAndAppointmentAsync(int Id)
         {
 
@@ -99,7 +99,7 @@ namespace MedEase.EF.Services
                 doctorDTO = new DoctorInfoGetDto();
                 doctorDTO = _mapper.Map<DoctorInfoGetDto>(doctor);
                 doctorDTO.addressDto = _mapper.Map<AddressDto>(doctor.AppUser.Address);
-                doctorDTO.age = calucaluteAge(doctor.AppUser.BirthDate);
+                doctorDTO.age = CalucaluteAge(doctor.AppUser.BirthDate);
                 doctorDTO.DoctorcerInsurance = await GetDoctorInsurranecs(doctor.ID);
                 doctorDTO.DoctorSubspiciality = await GetDoctorSubspiciality(doctor.ID);
                 doctorDTO.Doctorcertificates = _mapper.Map<List<CertificateDto>>(doctor.Certificates);
@@ -243,7 +243,7 @@ namespace MedEase.EF.Services
 
         }
 
-        public int calucaluteAge(DateTime birthDate)
+        public int CalucaluteAge(DateTime birthDate)
         {
             DateTime dataNow = DateTime.Today;
 
