@@ -59,10 +59,10 @@ namespace MedEase.EF.Services
         public async Task<List<DoctorInfoGetDto>> GetAll()
         {
             List<DoctorInfoGetDto> doctorsDTOs;
-           
+
             doctorsDTOs = new List<DoctorInfoGetDto>();
 
-            var result =(List<Doctor>) await _unitOfWork.Doctors.FindAllWithSelectAsync(d => d.IsConfirmed == true);
+            var result = (List<Doctor>)await _unitOfWork.Doctors.FindAllWithSelectAsync(d => d.IsConfirmed == true);
 
             foreach (Doctor doctor in result)
             {
@@ -112,7 +112,7 @@ namespace MedEase.EF.Services
 
         public async Task<DoctorSchedule> CreateScheduleAsync(DoctorScheduleDto scheduleDto)
         {
-            if (!scheduleDto.IsWorking)
+            if (scheduleDto.IsWorking)
             {
                 DoctorSchedule schedule = new DoctorSchedule();
                 schedule = _mapper.Map<DoctorSchedule>(scheduleDto);
@@ -124,22 +124,19 @@ namespace MedEase.EF.Services
 
             }
 
-            return null; 
-
-
-
+            return null;
 
         }
-        public async Task<int> EditDoctor(DoctorEditDto doctorDto,int id)
+        public async Task<int> EditDoctor(DoctorEditDto doctorDto, int id)
         {
-            Doctor doctor=_unitOfWork.Doctors.Find(d=>d.ID==id &&d.IsConfirmed==true,
+            Doctor doctor = _unitOfWork.Doctors.Find(d => d.ID == id && d.IsConfirmed == true,
                 new List<Expression<Func<Doctor, object>>>()
                 {
                    d=>d.AppUser,
-               
+
                 });
-           
-            if(doctor!=null)
+
+            if (doctor != null)
             {
                 //doctor = _mapper.Map<Doctor>(doctorDto);
                 doctor.AppUser.FirstName = doctorDto.FirstName;
@@ -156,12 +153,12 @@ namespace MedEase.EF.Services
                 return _unitOfWork.Complete();
 
 
-                
+
             }
             return 0;
-           
+
         }
-        public async Task<int> AddDoctorSubspiciality(int DoctorID,SubspecialityDto subspeciality)
+        public async Task<int> AddDoctorSubspiciality(int DoctorID, SubspecialityDto subspeciality)
         {
             Doctor doctor = _unitOfWork.Doctors.Find(d => d.ID == DoctorID,
               new List<Expression<Func<Doctor, object>>>()
@@ -175,11 +172,11 @@ namespace MedEase.EF.Services
             await _unitOfWork.SubSpeciality.AddAsync(Newsubspeciality);
             _unitOfWork.Complete();
 
-            DoctorSubspeciality doctorSubspeciality=new DoctorSubspeciality();
+            DoctorSubspeciality doctorSubspeciality = new DoctorSubspeciality();
             doctorSubspeciality.SubSpeciality = Newsubspeciality;
-            doctorSubspeciality.doctor =doctor;
+            doctorSubspeciality.doctor = doctor;
             await _unitOfWork.DoctorSubspeciality.AddAsync(doctorSubspeciality);
-           return _unitOfWork.Complete();
+            return _unitOfWork.Complete();
 
         }
         public async Task<int> AddDoctorCertificate(int DoctorID, CertificateDto certificate)
@@ -197,14 +194,14 @@ namespace MedEase.EF.Services
 
             await _unitOfWork.Certificate.AddAsync(Newcertificate);
             doctor.Certificates.Add(Newcertificate);
-            return  _unitOfWork.Complete();
+            return _unitOfWork.Complete();
 
-             
+
 
         }
         public async Task<int> AddDoctorInsurance(int DoctorID, int insurnceID)
         {
-         
+
             DoctorInsurance doctorInsurance = new DoctorInsurance();
             doctorInsurance.DoctorID = DoctorID;
             doctorInsurance.InsuranceID = insurnceID;
@@ -214,13 +211,13 @@ namespace MedEase.EF.Services
         }
         public async Task<List<InsuranceDto>> GetDoctorInsurranecs(int DocId)
         {
-            var insurances =  await _unitOfWork.DoctorInsurance.FindAllWithSelectAsync(d => d.DoctorID == DocId,d=>d.Insurance,
+            var insurances = await _unitOfWork.DoctorInsurance.FindAllWithSelectAsync(d => d.DoctorID == DocId, d => d.Insurance,
             new List<Expression<Func<DoctorInsurance, object>>>()
              {
                  d=>d.Insurance
              });
 
-            List<InsuranceDto> doctorInsurance =new List<InsuranceDto>();
+            List<InsuranceDto> doctorInsurance = new List<InsuranceDto>();
             doctorInsurance = _mapper.Map<List<InsuranceDto>>(insurances.ToList());
 
             return doctorInsurance;
@@ -232,7 +229,7 @@ namespace MedEase.EF.Services
             new List<Expression<Func<DoctorSubspeciality, object>>>()
              {
                  d=>d.SubSpeciality
-             }); 
+             });
 
             List<SubspecialityDto> doctorSubspeciality = new List<SubspecialityDto>();
             doctorSubspeciality = _mapper.Map<List<SubspecialityDto>>(subspeciality.ToList());
@@ -275,7 +272,7 @@ namespace MedEase.EF.Services
 
         public async Task<ApiResponse> GetQuestionsByDoctorSpeciality(int docId)
         {
-            int? docSpecId = (int?) await _unitOfWork.Doctors.FindWithSelectAsync(d => d.ID == docId, d => d.SpecialityID);
+            int? docSpecId = (int?)await _unitOfWork.Doctors.FindWithSelectAsync(d => d.ID == docId, d => d.SpecialityID);
 
             if (docSpecId == null) { return new ApiResponse(404, false, "User Not Found"); }
 
@@ -287,7 +284,7 @@ namespace MedEase.EF.Services
 
         public async Task<ApiResponse?> GetDoctorAnsweredQuestions(int docId)
         {
-            IEnumerable<Question> questions = 
+            IEnumerable<Question> questions =
                 await _unitOfWork.Questions.FindAllAsync(q => q.DoctorId == docId);
 
             return new ApiResponse(200, true, _mapper.Map<IEnumerable<QuestionDto>>(questions).ToList());
@@ -306,10 +303,10 @@ namespace MedEase.EF.Services
 
             return (new(200, true, _mapper.Map<QuestionDto>(question)));
         }
-        public async Task<ApiResponse> EditScheduleDoctor(int Id,DoctorEditScheduleDto doctorEditScheduleDto)
+        public async Task<ApiResponse> EditScheduleDoctor(int Id, DoctorEditScheduleDto doctorEditScheduleDto)
         {
             DoctorSchedule orgdoctorschedule = await _unitOfWork.DoctorSchedule.FindAsync(d => d.Id == Id);
-            if (orgdoctorschedule != null) 
+            if (orgdoctorschedule != null)
             {
                 orgdoctorschedule.Id = doctorEditScheduleDto.Id;
                 orgdoctorschedule.DoctorId = doctorEditScheduleDto.DoctorId;
@@ -326,6 +323,62 @@ namespace MedEase.EF.Services
             {
                 return new ApiResponse(400, false, null, "Bad Request");
             }
+        }
+
+
+        public async Task<IEnumerable<AppointmentStatusDto>> GetPendingAppointmentsAsync(int docId)
+        {
+
+            IEnumerable<Appointment> pendingAppoints = await FindDoctorAppointments(docId, a => a.Status == Status.doctorPending);
+            return _mapper.Map<IEnumerable<AppointmentStatusDto>>(pendingAppoints);
+
+        }
+        public async Task<IEnumerable<AppointmentStatusDto>> GetConfirmedAppointmentsAsync(int docId)
+        {
+
+            IEnumerable<Appointment> confirmedAppoints = await FindDoctorAppointments(docId, a => a.Status == Status.confirmed && a.DoctorConfirmation == true);
+            return _mapper.Map<IEnumerable<AppointmentStatusDto>>(confirmedAppoints);
+
+        }
+        public async Task<IEnumerable<Appointment>> FindDoctorAppointments(int docId, Predicate<Appointment> statusCriteria)
+        {
+            Doctor doctor = await _unitOfWork.Doctors.FindAsync(d => d.ID == docId,
+            new List<Expression<Func<Doctor, object>>>()
+            {
+               d => d.Appointments.Select(a => a.Patient.History)
+            });
+
+            return doctor.Appointments.FindAll(statusCriteria).ToList();
+        }
+        public async Task<PrescriptionDrug> CreatePrescriptionAsync(PrescriptionDrugDto prescriptionDto)
+        {
+            PrescriptionDrug prescriptionDrug = new PrescriptionDrug();
+            prescriptionDrug = _mapper.Map<PrescriptionDrug>(prescriptionDto);
+
+            await _unitOfWork.Prescriptions.AddAsync(prescriptionDrug);
+            _unitOfWork.Complete();
+
+            return prescriptionDrug;
+        }
+        public async Task<Diagnosis> CreateDiagnosisAsync(DiagnosisDto diagnosisDto)
+        {
+            Diagnosis diagnosis = new Diagnosis();
+            diagnosis = _mapper.Map<Diagnosis>(diagnosisDto);
+
+            await _unitOfWork.Diagnosis.AddAsync(diagnosis);
+            _unitOfWork.Complete();
+
+            return diagnosis;
+        }
+        public async Task<Examination> CreateExaminationAsync(ExaminationDto examinationDto)
+        {
+            Examination examination = new Examination();
+            examination = _mapper.Map<Examination>(examinationDto);
+
+            await _unitOfWork.Examinations.AddAsync(examination);
+            _unitOfWork.Complete();
+
+            return examination;
         }
 
         public async Task<ApiResponse> GetSpecialities()

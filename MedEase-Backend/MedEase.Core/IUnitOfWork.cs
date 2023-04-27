@@ -33,6 +33,8 @@ namespace MedEase.Core
         public IBaseRepository<Question> Questions { get; }
         public IBaseRepository<PatientMedicalHistory> PatientMedicalHistory { get; }
         public IBaseRepository<Investigation> Investigation { get; }
+        public IBaseRepository<PrescriptionDrug> Prescriptions { get; }
+        public IBaseRepository<Diagnosis> Diagnosis { get; }
         public IBaseRepository<Address> Addresses { get; }
 
 
