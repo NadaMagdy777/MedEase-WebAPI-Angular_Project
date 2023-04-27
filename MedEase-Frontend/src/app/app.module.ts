@@ -7,10 +7,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { NavbarComponent } from './components/layout/navbar/navbar.component';
 import { FooterComponent } from './components/layout/footer/footer.component';
 import { HomeComponent } from './components/home/home/home.component';
-import { BrowserAnimationsModule  } from "@angular/platform-browser/animations";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CarouselComponent } from './components/home/carousel/carousel.component';
 import { CarouselModule } from 'ngx-owl-carousel-o';
-import { SearchComponent } from './components/home/search/search.component';
+import { ProfileComponent } from './components/Patient/profile/profile.component';
+import { AppointmentsComponent } from './components/Patient/appointments/appointments.component';
+import { InsuranceComponent } from './components/Patient/insurance/insurance.component';
 import { DoctorDetailsComponent } from './components/Doctor/doctor-details/doctor-details.component';
 
 
@@ -21,7 +23,9 @@ import { DoctorDetailsComponent } from './components/Doctor/doctor-details/docto
     FooterComponent,
     HomeComponent,
     CarouselComponent,
-    SearchComponent,
+    ProfileComponent,
+    AppointmentsComponent,
+    InsuranceComponent,
     DoctorDetailsComponent,
    
 
@@ -30,9 +34,12 @@ import { DoctorDetailsComponent } from './components/Doctor/doctor-details/docto
     BrowserModule,
     AppRoutingModule,
     CarouselModule,
-    HttpClientModule
+    BrowserAnimationsModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

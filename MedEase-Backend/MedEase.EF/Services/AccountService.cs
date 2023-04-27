@@ -148,5 +148,11 @@ namespace MedEase.EF.Services
                 Token = await _tokenGenerator.GenerateToken(user, patient.ID),
             });
         }
+
+        public async Task<ApiResponse> GetAddresses()
+        {
+            IEnumerable<Address> addresses = await _unitOfWork.Addresses.GetAllAsync();
+            return new ApiResponse(200, true, addresses);
+        }
     }
 }

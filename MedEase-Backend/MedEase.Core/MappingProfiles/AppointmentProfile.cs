@@ -15,6 +15,7 @@ namespace MedEase.Core.MappingProfiles
         {
             CreateMap<Appointment, ReserveAppointmentDto>().ReverseMap();
             CreateMap<Appointment, AppointmentReservationDto>().ReverseMap();
+            CreateMap<Appointment, AppointmentStatusDto>().ReverseMap();
         }
     }
 }

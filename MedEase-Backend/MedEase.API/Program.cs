@@ -25,16 +25,20 @@ namespace MedEase.API
             // Add services to the container.
 
             builder.Services.AddControllers();
+
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            builder.Services.AddAutoMapper(typeof(AppointmentProfile));
             builder.Services.AddAutoMapper(typeof(AppUserProfile));
-            builder.Services.AddAutoMapper(typeof(DoctorInformationProfile));
             builder.Services.AddAutoMapper(typeof(CertificateProfile));
+            builder.Services.AddAutoMapper(typeof(DoctorInformationProfile));
+            builder.Services.AddAutoMapper(typeof(DoctorScheduleProfile));
+            builder.Services.AddAutoMapper(typeof(ExaminationProfile));
             builder.Services.AddAutoMapper(typeof(InsuranceProfile));
+            builder.Services.AddAutoMapper(typeof(InvestigationProfile));
             builder.Services.AddAutoMapper(typeof(PatientInformationProfile));
-
 
 
 

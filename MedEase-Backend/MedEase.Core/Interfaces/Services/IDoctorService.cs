@@ -23,5 +23,11 @@ namespace MedEase.EF.Services
         Task<ApiResponse> GetDoctorAnsweredQuestions(int docId);
         Task<ApiResponse> DoctorAnswerQuestions(AnswerDto dto);
         Task<ApiResponse> EditScheduleDoctor(int Id, DoctorEditScheduleDto doctorEditScheduleDto);
+        Task<IEnumerable<AppointmentStatusDto>> GetPendingAppointmentsAsync(int Id);
+        Task<IEnumerable<AppointmentStatusDto>> GetConfirmedAppointmentsAsync(int Id);
+        Task<PrescriptionDrug> CreatePrescriptionAsync(PrescriptionDrugDto prescriptionDto);
+        Task<Diagnosis> CreateDiagnosisAsync(DiagnosisDto diagnosisDto);
+        Task<Examination> CreateExaminationAsync(ExaminationDto examinationDto);
+
     }
 }

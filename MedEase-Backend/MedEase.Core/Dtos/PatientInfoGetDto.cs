@@ -10,9 +10,9 @@ namespace MedEase.Core.Dtos
 {
     public class PatientInfoGetDto
     {
-        public string Name { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
 
-       
         public string PhoneNumber { get; set; }
 
         public int Building { get; set; }
@@ -27,7 +27,7 @@ namespace MedEase.Core.Dtos
 
         public string Email { get; set; }
 
-        public string insuranceNmae { get; set; }
+        public string insuranceName { get; set; }
         public PatientMedicalHistoryDto History { get; set; }
     }
 }

@@ -1,7 +1,59 @@
-<owl-carousel-o [options]="customOptions">
-  <ng-container *ngFor="let img of imgSrcsArr; let i = index">
-    <ng-template carouselSlide [id]="img + i">
-      <img [src]="img" alt="MedEase" title="MedEase" />
-    </ng-template>
-  </ng-container>
-</owl-carousel-o>
+<div class="overflow-hidden position-relative">
+  <div class="overlay p-3">
+    <div class="container-fluid">
+      <table class="table table-bordered rounded">
+        <thead>
+          <tr>
+            <th class="p-1">
+              <div class="form-group m-1">
+                <label for="Specialty">Specialty</label><br>
+                <select id="Specialty" [(ngModel)]="selectedSpecialtyId" class="form-control">
+                  <ng-container *ngFor="let Specialty of Specialties">
+                    <option [value]="Specialty.id">{{ Specialty.name }}</option>
+                  </ng-container>
+                </select>
+              </div>
+            </th>
+            <th class="p-1">
+              <div class="form-group m-1">
+                <label for="City">City</label>
+                <select id="City" (change)="updateCity()" [(ngModel)]="selectedCityId" class="form-control">
+                  <ng-container *ngFor="let City of Cities">
+                    <option [value]="City">{{ City }}</option>
+                  </ng-container>
+                </select>
+              </div>
+            </th>
+            <th class="p-1">
+              <div class="form-group m-1">
+                <label for="Region">Region</label>
+                <select id="Region" [(ngModel)]="selectedRegionId" class="form-control">
+                  <ng-container *ngFor="let Region of Regons">
+                    <option [value]="Region">{{ Region }}</option>
+                  </ng-container>
+                </select>
+              </div>
+            </th>
+            <th class="p-1 w-25">
+              <div class="form-group m-1">
+                <label for="Name">Name</label><br>
+                <input type="text" class="form-control" [(ngModel)]="Name" id="Name">
+              </div>
+            </th>
+            <th class="p-1">
+              <button (click)="search()" class="btn btn-primary w-100 mb-1">Search</button>
+            </th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+  </div>
+  <owl-carousel-o [options]="customOptions">
+    <ng-container *ngFor="let img of imgSrcsArr; let i = index">
+      <ng-template carouselSlide [id]="img + i">
+        <img [src]="img" alt="MedEase" title="MedEase" />
+      </ng-template>
+    </ng-container>
+  </owl-carousel-o>
+</div>
+<!-- <app-search></app-search> -->

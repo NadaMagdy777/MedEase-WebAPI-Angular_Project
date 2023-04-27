@@ -16,8 +16,7 @@ namespace MedEase.API.Controllers
     [ApiController]
     public class DoctorController : ControllerBase
     {
-        private readonly IDoctorService _doctorService;
-
+        private readonly IDoctorService _doctorService;    
         public DoctorController(IDoctorService doctorService)
         {
             this._doctorService = doctorService;
@@ -52,16 +51,22 @@ namespace MedEase.API.Controllers
             return Ok( await _doctorService.GetPatternAndAppointmentAsync(Id)); // call Function 
         }
 
-        [HttpPost ("reserve/appointment")]
+        [HttpPost ("appointment/reserve")]
         public async Task<IActionResult> ReserveAppointment(ReserveAppointmentDto appointmentDto)
         {
             return Ok(await _doctorService.ReserveAppointmentAsync(appointmentDto));
         }
 
-        [HttpPost("create/schedule")]
-        public async Task<IActionResult> CreateSchedule(DoctorScheduleDto scheduleDto)
+        [HttpPost("schedule/new")]
+        public async Task<ActionResult<ApiResponse>> CreateSchedule(DoctorScheduleDto scheduleDto)
         {
-            return Ok(await _doctorService.CreateScheduleAsync(scheduleDto));
+            DoctorSchedule schedule = await _doctorService.CreateScheduleAsync(scheduleDto);
+            
+            if(schedule is null)
+            {
+                return BadRequest(new ApiResponse(401, false, "null object"));
+            }
+            return Ok(new ApiResponse(200, true, schedule));
         }
 
         [HttpGet ("Reviews")]
@@ -145,8 +150,7 @@ namespace MedEase.API.Controllers
             return Ok(await _doctorService.DoctorAnswerQuestions(dto));
         }
 
-        [HttpPut("/Doctor/Schedule")]
-       
+        [HttpPut("/Schedule")]
         public async Task <ActionResult<ApiResponse>> EditSchedule(int Id, DoctorEditScheduleDto doctoreditschedualdto)
         {
            
@@ -162,13 +166,44 @@ namespace MedEase.API.Controllers
                 return BadRequest(ModelState);
             }
 
-
-
-
-
-
-
             //return Ok(new ApiResponse(200, true, data));
+        }
+
+
+        [HttpGet("appointments/pending")]
+        public async Task<ActionResult<ApiResponse>> GetPendingAppointments()
+        {
+            if (!int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out int docId))
+            { return BadRequest(new ApiResponse(401, false, "User Not Found")); }
+
+            return Ok(new ApiResponse(200, true, await _doctorService.GetPendingAppointmentsAsync(docId)));
+        }
+
+        [HttpGet("appointments/confirmed")]
+        public async Task<ActionResult<ApiResponse>> GetConfirmedAppointments()
+        {
+            if (!int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out int docId))
+            { return BadRequest(new ApiResponse(401, false, "User Not Found")); }
+
+            return Ok(new ApiResponse(200, true, await _doctorService.GetConfirmedAppointmentsAsync(docId)));
+        }  
+        
+        [HttpPost("prescription/new")]
+        public async Task<ActionResult<ApiResponse>> CreatePrescription(PrescriptionDrugDto prescriptionDto)
+        {
+            return Ok(new ApiResponse(200, true, await _doctorService.CreatePrescriptionAsync(prescriptionDto)));
+        }
+
+        [HttpPost("diagnosis/new")]
+        public async Task<ActionResult<ApiResponse>> CreateDiagnosis(DiagnosisDto diagnosisDto)
+        {
+            return Ok(new ApiResponse(200, true, await _doctorService.CreateDiagnosisAsync(diagnosisDto)));
+        }
+
+        [HttpPost("examination/new")]
+        public async Task<ActionResult<ApiResponse>> CreateExamination(ExaminationDto examinationDto)
+        {    
+            return Ok(new ApiResponse(200, true, await _doctorService.CreateExaminationAsync(examinationDto)));
         }
     }
 }
