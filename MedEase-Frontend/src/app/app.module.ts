@@ -13,6 +13,7 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { AllDoctorComponent } from './components/Doctor/all-doctor/all-doctor.component';
 import { DoctorIndexComponent } from './components/Doctor/doctor-index/doctor-index.component';
+import { HomeBannerComponent } from './components/home/home/home-banner/home-banner.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { DoctorIndexComponent } from './components/Doctor/doctor-index/doctor-in
     DoctorIndexComponent,
     HomeComponent,
     CarouselComponent,
+    HomeBannerComponent,
   ],
   imports: [
     BrowserModule,
