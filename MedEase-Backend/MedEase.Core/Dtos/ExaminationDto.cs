@@ -13,8 +13,5 @@ namespace MedEase.Core.Dtos
         public int DoctorID { get; set; }
         public int PatientID { get; set; }
         public int AppointmentID { get; set; }
-        public int? ReviewID { get; set; }
-        public int? DiagnosisID { get; set; }
-        public List<PrescriptionDrugDto>? PrescribedDrugs { get; set; }
     }
 }

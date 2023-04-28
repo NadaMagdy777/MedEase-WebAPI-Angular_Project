@@ -16,6 +16,7 @@ using MedEase.Core.Consts;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Numerics;
+using Microsoft.EntityFrameworkCore.Query;
 
 namespace MedEase.EF.Services
 {
@@ -103,6 +104,8 @@ namespace MedEase.EF.Services
                 doctorDTO.DoctorcerInsurance = await GetDoctorInsurranecs(doctor.ID);
                 doctorDTO.DoctorSubspiciality = await GetDoctorSubspiciality(doctor.ID);
                 doctorDTO.Doctorcertificates = _mapper.Map<List<CertificateDto>>(doctor.Certificates);
+                doctorDTO.WaitingTime =await CaluclutDoctorWaitingTime(doctor.ID);
+                doctorDTO.Rating = await CaluclutDoctorRating(doctor.ID);
 
             }
             return doctorDTO;
@@ -384,6 +387,73 @@ namespace MedEase.EF.Services
         public async Task<ApiResponse> GetSpecialities()
         {
             return new ApiResponse(200, true, _mapper.Map<IEnumerable<SpecialityDto>>(await _unitOfWork.Speciality.GetAllAsync()));
+        }
+
+        public async Task<int> CaluclutDoctorWaitingTime(int DocID)
+        {
+            IEnumerable<Review> Reviews = (IEnumerable<Review>)await _unitOfWork.Reviews
+                 .FindAllAsync(r => r.Examination.DoctorID == DocID, new List<Expression<Func<Review, object>>>()
+               {
+                 r=>r.Examination
+
+               }) ;
+            
+            var ReviewsList=Reviews.ToList();
+            
+            int NumOfReviews = ReviewsList.Count;
+            int WaitingTimeSum = 0;
+            int WaitingTimeAverage = 0;
+
+            if (NumOfReviews > 0)
+            {
+                foreach (var item in ReviewsList)
+                {
+                    WaitingTimeSum += item.WaitingTimeinMins;
+                }
+
+                 WaitingTimeAverage = WaitingTimeSum / NumOfReviews;
+                return WaitingTimeAverage;
+
+
+            }
+
+
+
+            return WaitingTimeAverage;
+
+        }
+        public async Task<float> CaluclutDoctorRating(int DocID)
+        {
+            IEnumerable<Review> Reviews = (IEnumerable<Review>)await _unitOfWork.Reviews
+                 .FindAllAsync(r => r.Examination.DoctorID == DocID, new List<Expression<Func<Review, object>>>()
+               {
+                 r=>r.Examination
+
+               });
+
+            var ReviewsList = Reviews.ToList();
+
+            int NumOfReviews = ReviewsList.Count;
+            int RatingSum = 0;
+            float RatingAverage = 0;
+
+            if (NumOfReviews > 0)
+            {
+                foreach (var item in ReviewsList)
+                {
+                    RatingSum += item.DoctorRate;
+                }
+
+                RatingAverage = RatingSum / NumOfReviews;
+                return RatingAverage;
+
+
+            }
+
+
+
+            return RatingAverage;
+
         }
     }
 }
