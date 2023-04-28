@@ -35,7 +35,7 @@ export class AddressService implements OnDestroy {
 
   getAddresses(): Observable<IApiResponse> {
     return this._httpClient.get<IApiResponse>(
-      'http://localhost:45829/api/Account/Addresses'
+      'http://localhost:5180/api/Account/Addresses'
     );
   }
 

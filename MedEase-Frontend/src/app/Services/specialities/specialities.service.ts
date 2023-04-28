@@ -11,7 +11,7 @@ export class SpecialtiesService {
 
   getSpecialties(): Observable<IApiResponse> {
     return this._httpClient.get<IApiResponse>(
-      'http://localhost:45829/api/Doctor/Speciality'
+      'http://localhost:5180/api/Doctor/Speciality'
     );
   }
 }
