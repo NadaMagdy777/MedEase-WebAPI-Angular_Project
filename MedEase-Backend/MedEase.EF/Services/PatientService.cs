@@ -26,7 +26,7 @@ namespace MedEase.EF.Services
             this._mapper = mapper;
         }
 
-        public async Task<ApiResponse> ReserveAppointment(AppointmentReservationDto dto)
+/*        public async Task<ApiResponse> ReserveAppointment(AppointmentReservationDto dto)
         {
             Appointment appointment = _mapper.Map<Appointment>(dto);
             appointment.Status = Status.doctorPending;
@@ -54,7 +54,7 @@ namespace MedEase.EF.Services
             _unitOfWork.Complete();
 
             return new(200, true, appointment);         //==>Appointment Dto
-        }
+        }*/
 
         public async Task<ApiResponse> AddAppointmentInestigation(AppointmentInvestigationDto dto)
         {

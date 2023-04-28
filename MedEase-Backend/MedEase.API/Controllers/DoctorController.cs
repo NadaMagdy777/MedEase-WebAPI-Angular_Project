@@ -27,7 +27,7 @@ namespace MedEase.API.Controllers
         public async Task<IActionResult> getAll()
         {
 
-            return Ok(new ApiResponse(200, true, await _doctorService.GetAll()));
+            return Ok(new ApiResponse(200, true, await _doctorService.GetAllDoctors()));
 
         }
 
@@ -149,40 +149,16 @@ namespace MedEase.API.Controllers
         [HttpPut("/Schedule")]
         public async Task <ActionResult<ApiResponse>> EditSchedule(int Id, DoctorEditScheduleDto doctoreditschedualdto)
         {
-           
+            if (!ModelState.IsValid) { return BadRequest(new ApiResponse(400, false, ModelState)); };
 
-            if(ModelState.IsValid ) 
-            {
-                
- 
-                return Ok(await _doctorService.EditScheduleDoctor(Id,doctoreditschedualdto));
-            }
-            else
-            {
-                return BadRequest(ModelState);
-            }
-
-            //return Ok(new ApiResponse(200, true, data));
+            return Ok(await _doctorService.EditScheduleDoctor(Id, doctoreditschedualdto));
         }
 
-
-        [HttpGet("appointments/pending")]
-        public async Task<ActionResult<ApiResponse>> GetPendingAppointments()
+        [HttpGet("Speciality")]
+        public async Task<ActionResult<ApiResponse>> GetSpecialities()
         {
-            if (!int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out int docId))
-            { return BadRequest(new ApiResponse(401, false, "User Not Found")); }
-
-            return Ok(new ApiResponse(200, true, await _doctorService.GetPendingAppointmentsAsync(docId)));
+            return Ok(await _doctorService.GetSpecialities());
         }
-
-        [HttpGet("appointments/confirmed")]
-        public async Task<ActionResult<ApiResponse>> GetConfirmedAppointments()
-        {
-            if (!int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out int docId))
-            { return BadRequest(new ApiResponse(401, false, "User Not Found")); }
-
-            return Ok(new ApiResponse(200, true, await _doctorService.GetConfirmedAppointmentsAsync(docId)));
-        }  
         
         [HttpPost("prescription/new")]
         public async Task<ActionResult<ApiResponse>> CreatePrescription(PrescriptionDrugDto prescriptionDto)
