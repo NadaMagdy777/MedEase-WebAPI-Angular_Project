@@ -13,6 +13,7 @@ namespace MedEase.Core.Dtos
     {
         public int Quantity { get; set; }
         public string? Notes { get; set; }
+        public string? DrugName { get; set; }
         public int? DrugID { get; set; }
         public int ExaminationID { get; set; }
     }

@@ -18,6 +18,9 @@ namespace MedEase.Core.Interfaces.Repositories
         Task<T> FindAsync(Expression<Func<T, bool>> criteria, List<Expression<Func<T, object>>> includes = null);
         Task<object> FindWithSelectAsync(Expression<Func<T, bool>> criteria,
             Expression<Func<T, object>> selects = null, List<Expression<Func<T, object>>> includes = null);
+        
+        Task<TDto> FindDtoAsync<TDto>(Expression<Func<T, bool>> predicate, Expression<Func<T, TDto>> select);
+
         IEnumerable<T> FindAll(Expression<Func<T, bool>> criteria, List<Expression<Func<T, object>>> includes = null);
         IEnumerable<T> FindAll(Expression<Func<T, bool>> criteria, int take, int skip);
         IEnumerable<T> FindAll(Expression<Func<T, bool>> criteria, int? take, int? skip,
@@ -27,7 +30,12 @@ namespace MedEase.Core.Interfaces.Repositories
         Task<IEnumerable<T>> FindAllAsync(Expression<Func<T, bool>> criteria, int skip, int take);
         Task<IEnumerable<T>> FindAllAsync(Expression<Func<T, bool>> criteria, int? skip, int? take,
             Expression<Func<T, object>> orderBy = null, string orderByDirection = OrderBy.Ascending);
-        Task<IEnumerable<object>> FindAllWithSelectAsync(Expression<Func<T, bool>> criteria, Expression<Func<T, object>> selects = null, List<Expression<Func<T, object>>> includes = null);
+        Task<IEnumerable<object>> FindAllWithSelectAsync(Expression<Func<T, bool>> criteria, Expression<Func<T, object>> selects = null, 
+            List<Expression<Func<T, object>>> includes = null);
+
+        Task<IEnumerable<TDto>> GetDtoAsync<TDto>(Expression<Func<T, bool>> predicate, Expression<Func<T, TDto>> select, 
+            Expression<Func<TDto, object>> orderBy = null, string orderByDirection = OrderBy.Descending);
+
         T Add(T entity);
         Task<T> AddAsync(T entity);
         IEnumerable<T> AddRange(IEnumerable<T> entities);
