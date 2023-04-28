@@ -6,7 +6,7 @@ import { DoctorDetailsComponent } from 'src/app/components/Doctor/doctor-details
 const routes: Routes = [
   
   {
-    path:'',
+    path:':speciality/:city/:region/:name',
     component:AllDoctorComponent,
     children:[
       {path:'All',component:DoctorIndexComponent},
