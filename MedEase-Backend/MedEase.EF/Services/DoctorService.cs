@@ -473,10 +473,7 @@ namespace MedEase.EF.Services
             return examination;
         }
 
-        public async Task<ApiResponse> GetSpecialities()
-        {
-            return new ApiResponse(200, true, _mapper.Map<IEnumerable<SpecialityDto>>(await _unitOfWork.Speciality.GetAllAsync()));
-        }
+     
 
         public async Task<int> CaluclutDoctorWaitingTime(int DocID)
         {
