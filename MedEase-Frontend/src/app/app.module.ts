@@ -10,6 +10,12 @@ import { HomeComponent } from './components/home/home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CarouselComponent } from './components/home/carousel/carousel.component';
 import { CarouselModule } from 'ngx-owl-carousel-o';
+import { ProfileComponent } from './components/Patient/profile/profile.component';
+import { AppointmentsComponent } from './components/Patient/appointments/appointments.component';
+import { InsuranceComponent } from './components/Patient/insurance/insurance.component';
+import { DoctorDetailsComponent } from './components/Doctor/doctor-details/doctor-details.component';
+import { AppointementsComponent } from './components/Doctor/appointements/appointements.component';
+
 import { AppointmentsComponent } from './components/patient/appointments/appointments.component';
 import { InsuranceComponent } from './components/patient/insurance/insurance.component';
 import { HomeBannerComponent } from './components/home/home/home-banner/home-banner.component';
@@ -27,6 +33,10 @@ import { DoctorConfirmedAppointmentsComponent } from 'src/app/components/doctor/
     CarouselComponent,
     AppointmentsComponent,
     InsuranceComponent,
+    DoctorDetailsComponent,
+    AppointementsComponent,
+   
+
     HomeBannerComponent,
 
     DoctorAppointmentsComponent,
