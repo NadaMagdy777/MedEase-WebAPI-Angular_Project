@@ -14,6 +14,7 @@ import { ProfileComponent } from './components/Patient/profile/profile.component
 import { AppointmentsComponent } from './components/Patient/appointments/appointments.component';
 import { InsuranceComponent } from './components/Patient/insurance/insurance.component';
 import { DoctorDetailsComponent } from './components/Doctor/doctor-details/doctor-details.component';
+import { AppointementsComponent } from './components/Doctor/appointements/appointements.component';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import { DoctorDetailsComponent } from './components/Doctor/doctor-details/docto
     AppointmentsComponent,
     InsuranceComponent,
     DoctorDetailsComponent,
+    AppointementsComponent,
    
 
   ],
