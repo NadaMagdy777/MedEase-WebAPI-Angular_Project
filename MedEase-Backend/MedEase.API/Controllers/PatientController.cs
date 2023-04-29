@@ -21,14 +21,6 @@ namespace MedEase.API.Controllers
             this._patientService = patientService;
         }
 
-        [HttpPost ("Appointment")]
-        public async Task<ActionResult<ApiResponse>> ReserveAppointment(AppointmentReservationDto dto)
-        {
-            if (!ModelState.IsValid) { return BadRequest(new ApiResponse(400, false, ModelState)); };
-
-            return Ok(await _patientService.ReserveAppointment(dto));
-        }
-
         [HttpPost ("Investigation")]
         public async Task<ActionResult<ApiResponse>> AddInvestigation(AppointmentInvestigationDto dto)
         {

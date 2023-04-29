@@ -31,6 +31,11 @@ namespace MedEase.Core.Dtos
 
         public List<SubspecialityDto> DoctorSubspiciality { get; set; }
 
+        public int WaitingTime { get; set; }
+
+        public float Rating { get; set; }
+
+
         public string SpecialityName { get; set; }
 
         public List<CertificateDto> Doctorcertificates { get; set; }

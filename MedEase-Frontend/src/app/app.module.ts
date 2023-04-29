@@ -16,6 +16,9 @@ import { InsuranceComponent } from './components/Patient/insurance/insurance.com
 import { DoctorDetailsComponent } from './components/Doctor/doctor-details/doctor-details.component';
 import { AppointementsComponent } from './components/Doctor/appointements/appointements.component';
 
+import { AppointmentsComponent } from './components/patient/appointments/appointments.component';
+import { InsuranceComponent } from './components/patient/insurance/insurance.component';
+import { HomeBannerComponent } from './components/home/home/home-banner/home-banner.component';
 
 @NgModule({
   declarations: [
@@ -24,13 +27,14 @@ import { AppointementsComponent } from './components/Doctor/appointements/appoin
     FooterComponent,
     HomeComponent,
     CarouselComponent,
-    ProfileComponent,
     AppointmentsComponent,
     InsuranceComponent,
     DoctorDetailsComponent,
     AppointementsComponent,
    
 
+    HomeBannerComponent,
+      
   ],
   imports: [
     BrowserModule,
@@ -40,6 +44,7 @@ import { AppointementsComponent } from './components/Doctor/appointements/appoin
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    
   ],
   providers: [],
   bootstrap: [AppComponent],

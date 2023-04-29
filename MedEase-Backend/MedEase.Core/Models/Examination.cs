@@ -23,13 +23,8 @@ namespace MedEase.Core.Models
         public int AppointmentID { get; set; }
         public Appointment Appointment { get; set; }
 
-        [ForeignKey("Review")]
-        public int ReviewID { get; set; }
         public Review Review { get; set; }
 
-
-        [ForeignKey("Diagnosis")]
-        public int DiagnosisID { get; set; }
         public Diagnosis Diagnosis { get; set; }
 
         public List<PrescriptionDrug> PrescribedDrugs { get; set; }

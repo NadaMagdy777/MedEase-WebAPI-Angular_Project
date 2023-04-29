@@ -77,6 +77,16 @@ namespace MedEase.EF.Repositories
             return await query.FirstOrDefaultAsync(criteria);
         }
 
+        public async Task<TDto> FindDtoAsync<TDto>(
+            Expression<Func<T, bool>> predicate,
+            Expression<Func<T, TDto>> select
+)
+        {
+            IQueryable<T> query = _context.Set<T>();
+
+            return await query.Where(predicate).Select(select).FirstOrDefaultAsync();
+        }
+
         public IEnumerable<T> FindAll(Expression<Func<T, bool>> criteria, List<Expression<Func<T, object>>> includes = null)
         {
             IQueryable<T> query = _context.Set<T>();
@@ -167,6 +177,27 @@ namespace MedEase.EF.Repositories
 
             return await query.Where(criteria).ToListAsync();
         }
+
+        public async Task<IEnumerable<TDto>> GetDtoAsync<TDto>(
+            Expression<Func<T, bool>> predicate, Expression<Func<T, TDto>> select,
+            Expression<Func<TDto, object>> orderBy = null, string orderByDirection = OrderBy.Descending
+        )
+        {
+            IQueryable<T> query = _context.Set<T>();
+
+            IQueryable<TDto> finalQuery = query.Where(predicate).Select(select);
+
+            if (orderBy != null)
+            {
+                if (orderByDirection == OrderBy.Ascending)
+                    finalQuery = finalQuery.OrderBy(orderBy);
+                else
+                    finalQuery = finalQuery.OrderByDescending(orderBy);
+            }
+
+            return await finalQuery.ToListAsync();
+        }
+
 
         public T Add(T entity)
         {

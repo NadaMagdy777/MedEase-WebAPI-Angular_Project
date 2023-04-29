@@ -23,6 +23,8 @@
             {
                 case 200:
                     return "Ok";
+                case 201:
+                    return "Created";
                 case 400:
                     return "Bad Request";        
                 case 401:

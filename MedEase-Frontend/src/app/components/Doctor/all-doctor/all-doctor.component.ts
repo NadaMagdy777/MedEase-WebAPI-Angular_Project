@@ -13,7 +13,19 @@ filteredDoctorList:Doctor[]=this.DoctorList
 errorMessage: any;
 genderFilter:number[]=[]
 feesFilter:number=0
+selectedSorting:any=0
+specialityId:number=0
+cityName:string="Egypt"
+regionID:number=0
+Doctorname:string=""
 
+
+
+constructor(private DoctorService:DoctorService,private router:Router ,private route:ActivatedRoute){
+   
+    
+    
+}
 Doctorfilter(){
   this.filteredDoctorList=this.DoctorList
   if(this.genderFilter.length>0){
@@ -76,11 +88,7 @@ onFeeChange(fee:number,event:any){
 
 
 }
-constructor(private DoctorService:DoctorService,private router:Router){
-   
-    
-    
-  }
+
   ngOnInit(): void {
     this.DoctorService.GetAllDoctors().subscribe({
       next:data=>{
@@ -90,7 +98,65 @@ constructor(private DoctorService:DoctorService,private router:Router){
        console.log(this.DoctorList)},
       error:error=>this.errorMessage=error
     })
+    this.specialityId= this.route.snapshot.params['speciality']
+    this.cityName=this.route.snapshot.params['city']
+    this.regionID=this.route.snapshot.params['region']
+    this.Doctorname=this.route.snapshot.params['name']
+    console.log(this.specialityId)
+    console.log(this.cityName)
+    console.log(this.regionID)
+    console.log(this.Doctorname)
     
+  }
+  changeSorting(selectObject:any) {
+    this.Doctorfilter() 
+    this.sortDoctor(selectObject.target.value)
+  }
+
+  sortDoctor(sortby:number){
+    if(sortby==1){
+      this.sortDoctorByRatingDesc()
+    }
+
+    else if(sortby==2){
+      this.sortDoctorByFeesAsec()
+    }
+    
+    else if(sortby==3){
+      this.sortDoctorByFeesDesc()
+     }
+     else{
+      this.sortDoctorByLessWaitingTime()
+     }
+
+
+    
+
+
+  }
+  sortDoctorByRatingDesc(){
+    this.filteredDoctorList.sort((firstDoctor, secondDoctor) => {
+      return secondDoctor.rating - firstDoctor.rating;
+   });
+
+  }
+  sortDoctorByFeesAsec(){
+    this.filteredDoctorList.sort((firstDoctor, secondDoctor) => {
+      return firstDoctor.fees - secondDoctor.fees;
+  });
+
+  }
+  sortDoctorByFeesDesc(){
+    this.filteredDoctorList.sort((firstDoctor, secondDoctor) => {
+      return secondDoctor.fees - firstDoctor.fees;
+  });
+    
+
+  }
+  sortDoctorByLessWaitingTime(){
+    this.filteredDoctorList.sort((firstDoctor, secondDoctor) => {
+      return firstDoctor.waitingTime - secondDoctor.waitingTime;
+  });
   }
 
 }

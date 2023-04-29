@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace MedEase.Core.Consts
 {
-    public enum Roles
+    public class Roles
     {
-        Doctor,
-        Patient
+        public const string Doctor = "Doctor";
+        public const string Patient = "Patient";
     }
 }

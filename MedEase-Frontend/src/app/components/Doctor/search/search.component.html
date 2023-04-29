@@ -1,0 +1,77 @@
+<div class="row  d-flex justify-content-center " id="slide">
+    <div class="col-10 p-5 ">
+        <h1 class="fs-14 font-weight-bold">Book now With Doctor in Egypt</h1> 
+         <span class="fs-14"><span>Book online or call</span>  <i class="fa-solid fa-phone text-red ml-1 "></i> <h1 class="d-inline fs-14 font-weight-bold"> 1911</h1></span> 
+         <p class="fs-14">15000 Doctors - 9000 Professors and Consultants - More than 40 Specialties</p>
+         <table class="table bg-white table-bordered border rounded">
+            <thead>
+              <tr>
+                <th class="p-1">
+                  <div class="form-group m-1">
+                    <label for="Specialty">Specialty</label><br />
+                    <select
+                      id="Specialty"
+                      [(ngModel)]="selectedSpecialtyId"
+                      class="form-control"
+                    >
+                      <option value="0" selected>-select specialty-</option>
+                      <ng-container *ngFor="let Specialty of specialties">
+                        <option [value]="Specialty.id">{{ Specialty.name }}</option>
+                      </ng-container>
+                    </select>
+                  </div>
+                </th>
+                <th class="p-1">
+                  <div class="form-group m-1">
+                    <label for="City">City</label>
+                    <select
+                      id="City"
+                      (change)="updateCity()"
+                      [(ngModel)]="selectedCity"
+                      class="form-control"
+                    >
+                      <option value="0" selected>-select city-</option>
+                      <ng-container *ngFor="let City of cities">
+                        <option [value]="City">{{ City }}</option>
+                      </ng-container>
+                    </select>
+                  </div>
+                </th>
+                <th class="p-1">
+                  <div class="form-group m-1">
+                    <label for="Region">Region</label>
+                    <select
+                      id="Region"
+                      [(ngModel)]="selectedRegion"
+                      class="form-control"
+                    >
+                      <option value="0" selected>-select region-</option>
+                      <ng-container *ngFor="let Region of regions">
+                        <option [value]="Region">{{ Region }}</option>
+                      </ng-container>
+                    </select>
+                  </div>
+                </th>
+                <th class="p-1 w-25">
+                  <div class="form-group m-1">
+                    <label for="Name">Name</label><br />
+                    <input
+                      type="text"
+                      class="form-control"
+                      [(ngModel)]="selectedName"
+                      id="Name"
+                    />
+                  </div>
+                </th>
+                <th class="p-1">
+                  <a class="btn btn-success w-100 mb-1" href="/doctor/{{selectedSpecialtyId}}/{{selectedCity}}/{{selectedRegion}}/{{selectedName}}">
+                    Search
+                  </a>
+                
+                </th>
+              </tr>
+            </thead>
+          </table>
+    </div>
+      
+</div>

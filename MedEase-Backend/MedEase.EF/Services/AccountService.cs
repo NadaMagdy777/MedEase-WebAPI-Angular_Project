@@ -110,7 +110,7 @@ namespace MedEase.EF.Services
 
             if (!result.Succeeded) { return new ApiResponse(400, false, result.Errors); }      //result.Errors
 
-            await _userManager.AddToRoleAsync(user, Roles.Doctor.ToString());
+            await _userManager.AddToRoleAsync(user, Roles.Doctor);
 
             return new ApiResponse(200, true, new UserDto
             {
@@ -139,7 +139,7 @@ namespace MedEase.EF.Services
 
             if (!result.Succeeded) { return new ApiResponse(400, false, result.Errors); }      //result.Errors
 
-            await _userManager.AddToRoleAsync(user, Roles.Patient.ToString());
+            await _userManager.AddToRoleAsync(user, Roles.Patient);
 
             return new ApiResponse(200, true, new UserDto
             {
