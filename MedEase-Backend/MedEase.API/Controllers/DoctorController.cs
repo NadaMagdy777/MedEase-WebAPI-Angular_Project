@@ -46,9 +46,9 @@ namespace MedEase.API.Controllers
 
 
         [HttpGet("GetAppointmentsandPattern")]
-        public async Task<IActionResult> getAppointmentAndPattern(int Id)
+        public async Task<ActionResult<ApiResponse>> getAppointmentAndPattern(int Id)
         {
-            return Ok( await _doctorService.GetPatternAndAppointmentAsync(Id)); // call Function 
+            return Ok(new ApiResponse(200, true, await _doctorService.GetPatternAndAppointmentAsync(Id))); // call Function 
         }
 
         /*[HttpPost ("reserve/appointment")]

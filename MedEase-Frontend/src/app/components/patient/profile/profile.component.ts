@@ -11,7 +11,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 })
 export class ProfileComponent {
 
-  id:number = 2;//this.actRoute.snapshot.params['id'];
+  id:number = 1;//this.actRoute.snapshot.params['id'];
   errorMessage: any;
 
   patient:Patient = {
@@ -143,7 +143,7 @@ export class ProfileComponent {
 
     if(window.confirm('Are you sure, you want to update?')){
       this._patientService.UpdatePatientInfo(this.id, this.patient)
-      .subscribe(data => this.router.navigate(['/accountProfile']));
+      .subscribe(() => this.router.navigate(['/account/profile']));
     }
   }
 
