@@ -118,38 +118,6 @@ namespace MedEase.API.Controllers
             return Ok(new ApiResponse(200, true, await _doctorService.AddDoctorInsurance(docID, insuranceID)));
         }
 
-        [Authorize (Roles = ("Doctor"))]
-        [HttpGet ("/Questions/Unanswered")]
-        public async Task<ActionResult<ApiResponse>> Questions()
-        {
-            if(!int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out int docId))
-            { return BadRequest(new ApiResponse(401, false, "User Not Found")); }
-
-            return Ok(await _doctorService.GetQuestionsByDoctorSpeciality(docId));
-        }
-
-        [Authorize (Roles = ("Doctor"))]
-        [HttpGet ("/Questions/Answered")]
-        public async Task<ActionResult<ApiResponse>> DoctorQuestions()
-        {
-            if(!int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out int docId))
-            { return BadRequest(new ApiResponse(401, false, "User Not Found")); }
-
-            return Ok(await _doctorService.GetDoctorAnsweredQuestions(docId));
-        }
-
-        [Authorize (Roles = ("Doctor"))]                    //Not Finsished
-        [HttpPost ("/Questions/Answer")]
-        public async Task<ActionResult<ApiResponse>> DoctorAnswerQuestions(AnswerDto dto)
-        {
-            if (!ModelState.IsValid) { return BadRequest(new ApiResponse(400, false, ModelState)); };
-
-            //if (!int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out int docId))
-            //    { return BadRequest(new ApiResponse(401, false, "User Not Found")); }
-
-            return Ok(await _doctorService.DoctorAnswerQuestions(dto));
-        }
-
         [HttpPut("/Schedule")]
         public async Task <ActionResult<ApiResponse>> EditSchedule(int Id, DoctorEditScheduleDto doctoreditschedualdto)
         {
@@ -176,10 +144,10 @@ namespace MedEase.API.Controllers
             return Ok(new ApiResponse(200, true, await _doctorService.CreateDiagnosisAsync(diagnosisDto)));
         }
 
-        [HttpPost("examination/new")]
-        public async Task<ActionResult<ApiResponse>> CreateExamination(ExaminationDto examinationDto)
-        {    
-            return Ok(new ApiResponse(200, true, await _doctorService.CreateExaminationAsync(examinationDto)));
-        }
+        //[HttpPost("examination/new")]
+        //public async Task<ActionResult<ApiResponse>> CreateExamination(ExaminationDto examinationDto)
+        //{    
+        //    return Ok(new ApiResponse(200, true, await _doctorService.CreateExaminationAsync(examinationDto)));
+        //}
     }
 }

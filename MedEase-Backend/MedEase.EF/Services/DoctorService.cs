@@ -251,49 +251,21 @@ namespace MedEase.EF.Services
             return reviews;
         }
 
-        public async Task<ReviewDto> CreateReview(ReviewDto dto)
+        public async Task<ApiResponse> CreateReview(ReviewDto dto)
         {
-            /////////Check Review ID
+            int? ExaminationID = await _unitOfWork.Examinations.FindDtoAsync(e => e.AppointmentID == dto.AppointmentID, e => e.ID);
+            if (ExaminationID.Value == 0) { return new(404, false); }
+
             Review review = _mapper.Map<Review>(dto);
+            review.ExaminationID = ExaminationID.Value;
+
             review = await _unitOfWork.Reviews.AddAsync(review);
-            _unitOfWork.Complete();
-            ReviewDto reviewDto = _mapper.Map<ReviewDto>(review);
-            return reviewDto;
-        }
-
-        public async Task<ApiResponse> GetQuestionsByDoctorSpeciality(int docId)
-        {
-            int? docSpecId = (int?)await _unitOfWork.Doctors.FindWithSelectAsync(d => d.ID == docId, d => d.SpecialityID);
-
-            if (docSpecId == null) { return new ApiResponse(404, false, "User Not Found"); }
-
-            IEnumerable<Question> questions = await _unitOfWork.Questions
-                .FindAllAsync(q => q.SpecialityId == docSpecId.Value && !q.IsAnswered);
-
-            return new ApiResponse(200, true, _mapper.Map<IEnumerable<QuestionDto>>(questions).ToList());
-        }
-
-        public async Task<ApiResponse?> GetDoctorAnsweredQuestions(int docId)
-        {
-            IEnumerable<Question> questions =
-                await _unitOfWork.Questions.FindAllAsync(q => q.DoctorId == docId);
-
-            return new ApiResponse(200, true, _mapper.Map<IEnumerable<QuestionDto>>(questions).ToList());
-        }
-
-        public async Task<ApiResponse> DoctorAnswerQuestions(AnswerDto dto)
-        {
-            Question question = await _unitOfWork.Questions.FindAsync(q => q.Id == dto.Id);
-
-            if (question == null) { return new ApiResponse(400, false); }
-
-            question.Answer = dto.Answer;
-            question.DoctorId = dto.DoctorId;
 
             _unitOfWork.Complete();
 
-            return (new(200, true, _mapper.Map<QuestionDto>(question)));
+            return new(200, true, _mapper.Map<ReviewDto>(review));
         }
+
         public async Task<ApiResponse> EditScheduleDoctor(int Id, DoctorEditScheduleDto doctorEditScheduleDto)
         {
             DoctorSchedule orgdoctorschedule = await _unitOfWork.DoctorSchedule.FindAsync(d => d.Id == Id);
@@ -320,6 +292,51 @@ namespace MedEase.EF.Services
         {
             return new ApiResponse(200, true, _mapper.Map<IEnumerable<SpecialityDto>>(await _unitOfWork.Speciality.GetAllAsync()));
         }
+
+        public async Task<PrescriptionDrug> CreatePrescriptionAsync(PrescriptionDrugDto prescriptionDto)
+        {
+            PrescriptionDrug prescriptionDrug = new PrescriptionDrug();
+            prescriptionDrug = _mapper.Map<PrescriptionDrug>(prescriptionDto);
+
+            await _unitOfWork.Prescriptions.AddAsync(prescriptionDrug);
+            _unitOfWork.Complete();
+
+            return prescriptionDrug;
+        }
+
+        public async Task<DiagnosisDto> CreateDiagnosisAsync(DiagnosisDto dto)
+        {
+            Diagnosis diagnosis = new Diagnosis();
+            diagnosis.Details = dto.Details;
+            diagnosis.ExaminationID = 
+                await _unitOfWork.Examinations
+                .FindDtoAsync(e => e.AppointmentID == dto.AppointmentID,e => e.ID);
+
+            await _unitOfWork.Diagnosis.AddAsync(diagnosis);
+
+            try
+            {
+                _unitOfWork.Complete();
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+
+            return _mapper.Map<DiagnosisDto>(diagnosis);
+        }
+
+
+        /*//public async Task<Examination> CreateExaminationAsync(ExaminationDto examinationDto)   //to be continued
+        //{
+        //    Examination examination = new Examination();
+        //    examination = _mapper.Map<Examination>(examinationDto);
+
+        //    await _unitOfWork.Examinations.AddAsync(examination);
+        //    _unitOfWork.Complete();
+
+        //    return examination;
+        //}
 
         //public async Task<IEnumerable<AppointmentStatusDto>> GetPendingAppointmentsAsync(int docId)   ///asd/asd/asd/asd/asd/asd/               //    DELETE        <<======
         //{
@@ -355,119 +372,88 @@ namespace MedEase.EF.Services
         //    return doctor.Appointments.FindAll(statusCriteria).ToList();
         //}
 
-       /* public async Task<ApiResponse> GetPendingAppointmentsAsync2(int docId)   ///asd/asd/asd/asd/asd/asd/               //    Final        <<======
-        {
-            IEnumerable<DoctorPendingAppointmentDetailsDto> pendingAppoints = await _unitOfWork.Appointments
-                .GetDtoAsync(a => a.DoctorID == docId && a.Status == Status.doctorPending,
-                a => new DoctorPendingAppointmentDetailsDto
-                {
-                    AppointmentID = a.ID,
-                    PatientID = a.PatientID,
-                    PatientName = $"{a.Patient.AppUser.FirstName} {a.Patient.AppUser.LastName}",
-                    PatientBirthDate = a.Patient.AppUser.BirthDate.Date,
-                    Date = a.Date,
-                    PatientGender = a.Patient.AppUser.Gender,
-                    PatientPhone = a.Patient.AppUser.PhoneNumber,
-                    Status = a.Status,
-                    History = _mapper.Map<PatientMedicalHistoryDto>(a.Patient.History),
-                    investigation = _mapper.Map<AppointmentInvestigationDto>(a.Investigation),
-                },
-                dpap => dpap.Date, OrderBy.Descending);
+        /* public async Task<ApiResponse> GetPendingAppointmentsAsync2(int docId)   ///asd/asd/asd/asd/asd/asd/               //    Final        <<======
+         {
+             IEnumerable<DoctorPendingAppointmentDetailsDto> pendingAppoints = await _unitOfWork.Appointments
+                 .GetDtoAsync(a => a.DoctorID == docId && a.Status == Status.doctorPending,
+                 a => new DoctorPendingAppointmentDetailsDto
+                 {
+                     AppointmentID = a.ID,
+                     PatientID = a.PatientID,
+                     PatientName = $"{a.Patient.AppUser.FirstName} {a.Patient.AppUser.LastName}",
+                     PatientBirthDate = a.Patient.AppUser.BirthDate.Date,
+                     Date = a.Date,
+                     PatientGender = a.Patient.AppUser.Gender,
+                     PatientPhone = a.Patient.AppUser.PhoneNumber,
+                     Status = a.Status,
+                     History = _mapper.Map<PatientMedicalHistoryDto>(a.Patient.History),
+                     investigation = _mapper.Map<AppointmentInvestigationDto>(a.Investigation),
+                 },
+                 dpap => dpap.Date, OrderBy.Descending);
 
 
 
-            int? docSpecId = await _unitOfWork.Doctors.FindDtoAsync<int?>(d => d.ID == docId, d => d.SpecialityID);
+             int? docSpecId = await _unitOfWork.Doctors.FindDtoAsync<int?>(d => d.ID == docId, d => d.SpecialityID);
 
-            foreach (DoctorPendingAppointmentDetailsDto dto in pendingAppoints)
-            {
-                if (dto.investigation is not null)
-                {
-                    dto.investigation.Image =
-                        (string)                                                                //==> should be byte[]
-                        await _unitOfWork.Investigation
-                        .FindWithSelectAsync(i => i.AppointmentId == dto.AppointmentID, i => i.InvestigationImage.Image);
-                }
+             foreach (DoctorPendingAppointmentDetailsDto dto in pendingAppoints)
+             {
+                 if (dto.investigation is not null)
+                 {
+                     dto.investigation.Image =
+                         (string)                                                                //==> should be byte[]
+                         await _unitOfWork.Investigation
+                         .FindWithSelectAsync(i => i.AppointmentId == dto.AppointmentID, i => i.InvestigationImage.Image);
+                 }
 
-                dto.Diagnoses = await _unitOfWork.Diagnosis
-                    .GetDtoAsync(d => d.Examination.PatientID == dto.PatientID && d.Examination.Doctor.SpecialityID == docSpecId,
-                    d => new DiagnosisDto
-                    {
-                        Details = d.Details
-                    });
-            }
+                 dto.Diagnoses = await _unitOfWork.Diagnosis
+                     .GetDtoAsync(d => d.Examination.PatientID == dto.PatientID && d.Examination.Doctor.SpecialityID == docSpecId,
+                     d => new DiagnosisDto
+                     {
+                         Details = d.Details
+                     });
+             }
 
-            return new ApiResponse(200, true, pendingAppoints);
-        }
+             return new ApiResponse(200, true, pendingAppoints);
+         }
 
-        public async Task<ApiResponse> GetConfirmedAppointmentsAsync2(int docId)   ///asd/asd/asd/asd/asd/asd/               //    Final        <<======
-        {
-            IEnumerable<DoctorConfirmedAppointmentDetailsDto> confirmedAppoints = await _unitOfWork.Appointments
-                .GetDtoAsync(a => a.Status == Status.patientPending && a.DoctorConfirmation == true && a.DoctorID == docId, 
-                a => new DoctorConfirmedAppointmentDetailsDto
-                {
-                    AppointmentID = a.ID,
-                    PatientID = a.PatientID,
-                    PatientName = $"{a.Patient.AppUser.FirstName} {a.Patient.AppUser.LastName}",
-                    PatientBirthDate = a.Patient.AppUser.BirthDate.Date,
-                    Date = a.Date,
-                    PatientGender = a.Patient.AppUser.Gender,
-                    PatientPhone = a.Patient.AppUser.PhoneNumber,
-                    Status = a.Status,                    
-                }, 
-                dcap => dcap.Date, OrderBy.Descending);
+         public async Task<ApiResponse> GetConfirmedAppointmentsAsync2(int docId)   ///asd/asd/asd/asd/asd/asd/               //    Final        <<======
+         {
+             IEnumerable<DoctorConfirmedAppointmentDetailsDto> confirmedAppoints = await _unitOfWork.Appointments
+                 .GetDtoAsync(a => a.Status == Status.patientPending && a.DoctorConfirmation == true && a.DoctorID == docId, 
+                 a => new DoctorConfirmedAppointmentDetailsDto
+                 {
+                     AppointmentID = a.ID,
+                     PatientID = a.PatientID,
+                     PatientName = $"{a.Patient.AppUser.FirstName} {a.Patient.AppUser.LastName}",
+                     PatientBirthDate = a.Patient.AppUser.BirthDate.Date,
+                     Date = a.Date,
+                     PatientGender = a.Patient.AppUser.Gender,
+                     PatientPhone = a.Patient.AppUser.PhoneNumber,
+                     Status = a.Status,                    
+                 }, 
+                 dcap => dcap.Date, OrderBy.Descending);
 
-            foreach (DoctorConfirmedAppointmentDetailsDto dto in confirmedAppoints)
-            {
-                dto.Diagnosis = await _unitOfWork.Diagnosis
-                    .FindDtoAsync(d => d.Examination.AppointmentID == dto.AppointmentID,
-                    d => new DiagnosisDto
-                    {
-                        Details = d.Details
-                    });
+             foreach (DoctorConfirmedAppointmentDetailsDto dto in confirmedAppoints)
+             {
+                 dto.Diagnosis = await _unitOfWork.Diagnosis
+                     .FindDtoAsync(d => d.Examination.AppointmentID == dto.AppointmentID,
+                     d => new DiagnosisDto
+                     {
+                         Details = d.Details
+                     });
 
-                dto.Prescription = await _unitOfWork.Prescriptions                          ////==> Should return DrugName
-                    .GetDtoAsync(p => p.Examination.AppointmentID == dto.AppointmentID,
-                    p => new PrescriptionDrugDto
-                    {
-                        DrugID = p.DrugID,
-                        DrugName = p.Drug.Name,
-                        Notes = p.Notes,
-                        Quantity = p.Quantity,
-                    });
-            }
+                 dto.Prescription = await _unitOfWork.Prescriptions                          ////==> Should return DrugName
+                     .GetDtoAsync(p => p.Examination.AppointmentID == dto.AppointmentID,
+                     p => new PrescriptionDrugDto
+                     {
+                         DrugID = p.DrugID,
+                         DrugName = p.Drug.Name,
+                         Notes = p.Notes,
+                         Quantity = p.Quantity,
+                     });
+             }
 
-            return new(200, true, confirmedAppoints.Where(a => a.Diagnosis == null || a.Prescription == null));
-        }*/
-
-        public async Task<PrescriptionDrug> CreatePrescriptionAsync(PrescriptionDrugDto prescriptionDto)
-        {
-            PrescriptionDrug prescriptionDrug = new PrescriptionDrug();
-            prescriptionDrug = _mapper.Map<PrescriptionDrug>(prescriptionDto);
-
-            await _unitOfWork.Prescriptions.AddAsync(prescriptionDrug);
-            _unitOfWork.Complete();
-
-            return prescriptionDrug;
-        }
-        public async Task<Diagnosis> CreateDiagnosisAsync(DiagnosisDto diagnosisDto)
-        {
-            Diagnosis diagnosis = new Diagnosis();
-            diagnosis = _mapper.Map<Diagnosis>(diagnosisDto);
-
-            await _unitOfWork.Diagnosis.AddAsync(diagnosis);
-            _unitOfWork.Complete();
-
-            return diagnosis;
-        }
-        public async Task<Examination> CreateExaminationAsync(ExaminationDto examinationDto)   //to be continues
-        {
-            Examination examination = new Examination();
-            examination = _mapper.Map<Examination>(examinationDto);
-
-            await _unitOfWork.Examinations.AddAsync(examination);
-            _unitOfWork.Complete();
-
-            return examination;
-        }
+             return new(200, true, confirmedAppoints.Where(a => a.Diagnosis == null || a.Prescription == null));
+         }*/
     }
 }

@@ -39,21 +39,6 @@ namespace MedEase.EF.Services
                await GetPatientAppointmentsAsync(a => (a.Status == Status.confirmed || a.Status == Status.DoctorCanceled)
                && a.PatientID == patientID);
 
-            foreach (PatientAppointmentDetailsDto dto in appointments)
-            {
-                dto.DiagnosisDetails = await _unitOfWork.Diagnosis.FindDtoAsync(d => d.Examination.AppointmentID == dto.AppointmentID, 
-                    d => d.Details);
-
-                dto.Prescription = await _unitOfWork.Prescriptions.GetDtoAsync(p => p.Examination.AppointmentID == dto.AppointmentID,
-                    p => new PrescriptionDrugDto
-                    {
-                        DrugID = p.DrugID,
-                        DrugName = p.Drug.Name,
-                        Notes = p.Notes,
-                        Quantity = p.Quantity
-                    });
-            }
-
             return new(200, true, appointments);
         }
 
@@ -73,6 +58,33 @@ namespace MedEase.EF.Services
 
             foreach (PatientAppointmentDetailsDto dto in appointments)
             {
+                dto.DiagnosisDetails = await _unitOfWork.Diagnosis.FindDtoAsync(d => d.Examination.AppointmentID == dto.AppointmentID,
+                    d => d.Details);
+
+                dto.Prescription = await _unitOfWork.Prescriptions.GetDtoAsync(p => p.Examination.AppointmentID == dto.AppointmentID,
+                    p => new PrescriptionDrugDto
+                    {
+                        DrugID = p.DrugID,
+                        DrugName = p.Drug.Name,
+                        Notes = p.Notes,
+                        Quantity = p.Quantity
+                    });
+            }
+
+            foreach (PatientAppointmentDetailsDto dto in appointments)
+            {
+                dto.DiagnosisDetails = await _unitOfWork.Diagnosis.FindDtoAsync(d => d.Examination.AppointmentID == dto.AppointmentID,
+                     d => d.Details);
+
+                dto.Prescription = await _unitOfWork.Prescriptions.GetDtoAsync(p => p.Examination.AppointmentID == dto.AppointmentID,
+                    p => new PrescriptionDrugDto
+                    {
+                        DrugID = p.DrugID,
+                        DrugName = p.Drug.Name,
+                        Notes = p.Notes,
+                        Quantity = p.Quantity
+                    });
+
                 dto.Reviewd =
                     (await _unitOfWork.Reviews.FindAsync(r => r.Examination.AppointmentID == dto.AppointmentID)) is not null;
             }
@@ -127,7 +139,8 @@ namespace MedEase.EF.Services
         public async Task<ApiResponse> GetDoctorConfirmedAppointmentsAsync(int docId)   ///asd/asd/asd/asd/asd/asd/    //    Final        <<======
         {
             IEnumerable<DoctorConfirmedAppointmentDetailsDto> confirmedAppoints = await _unitOfWork.Appointments
-                .GetDtoAsync(a => a.Status == Status.patientPending && a.DoctorConfirmation == true && a.DoctorID == docId,
+                .GetDtoAsync(a => a.Status != Status.DoctorCanceled && a.Status != Status.canceled &&
+                    a.Status != Status.doctorPending && a.DoctorConfirmation == true && a.DoctorID == docId,
                 a => new DoctorConfirmedAppointmentDetailsDto
                 {
                     AppointmentID = a.ID,
@@ -147,7 +160,8 @@ namespace MedEase.EF.Services
                     .FindDtoAsync(d => d.Examination.AppointmentID == dto.AppointmentID,
                     d => new DiagnosisDto
                     {
-                        Details = d.Details
+                        Details = d.Details,
+                        ExaminationID = d.ExaminationID,
                     });
 
                 dto.Prescription = await _unitOfWork.Prescriptions                          ////==> Should return DrugName
@@ -161,7 +175,7 @@ namespace MedEase.EF.Services
                     });
             }
 
-            return new(200, true, confirmedAppoints.Where(a => a.Diagnosis == null || a.Prescription == null));
+            return new(200, true, confirmedAppoints);//.Where(a => a.Diagnosis == null || a.Prescription == null));
         }
 
         public async Task<ApiResponse> ReserveAppointment(AppointmentReservationDto dto)
@@ -211,6 +225,11 @@ namespace MedEase.EF.Services
             appointment.Status = Status.patientPending;
             appointment.DoctorConfirmation = dto.Action;
 
+            if (appointment.DoctorConfirmation)
+            {
+                await CreateExaminationAsync(appointment);
+            }
+
             _unitOfWork.Complete();
 
             return new(201, true, "Action Set Successfully");
@@ -226,9 +245,21 @@ namespace MedEase.EF.Services
             {
                 case true:
                     appointment.Status = appointment.DoctorConfirmation ? Status.confirmed : Status.DoctorCanceled;
+
+                    if (!appointment.DoctorConfirmation) 
+                        {await CreateExaminationAsync(appointment);}
+
                     break;
                 case false:
-                    appointment.Status = appointment.DoctorConfirmation ? Status.PatientCanceled : Status.canceled;
+
+                    if (appointment.Date > DateTime.Now)
+                    {
+                        appointment.Status = Status.canceled;
+                    }
+                    else
+                    {
+                        appointment.Status = appointment.DoctorConfirmation ? Status.PatientCanceled : Status.canceled;
+                    }
                     break;
             }
 
@@ -237,6 +268,20 @@ namespace MedEase.EF.Services
             _unitOfWork.Complete();
 
             return new(201, true, "Action Set Successfully");
+        }
+
+        private async Task<Examination> CreateExaminationAsync(Appointment appointment)   //to be continued
+        {
+            Examination examination = new()
+            {
+                DoctorID = appointment.DoctorID,
+                PatientID = appointment.PatientID,
+                AppointmentID = appointment.ID,
+            };
+            
+            await _unitOfWork.Examinations.AddAsync(examination);
+
+            return examination;
         }
     }
 }
