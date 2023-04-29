@@ -7,20 +7,13 @@
   <title>Document</title>
 </head>
 <body>
-  <div class="container-fluid mb-5 d-flex flex-column justify-content-center">
-    <div class="row  d-flex justify-content-center " id="slide">
-        <div class="col-10 p-5">
-            <h1 class="fs-14 font-weight-bold">Book now With Doctor in Egypt</h1> 
-             <span class="fs-14"><span>Book online or call</span>  <i class="fa-solid fa-phone text-red ml-1 "></i> <h1 class="d-inline fs-14 font-weight-bold"> 1911</h1></span> 
-             <p class="fs-14">15000 Doctors - 9000 Professors and Consultants - More than 40 Specialties</p>
-        </div>
-          
-    </div>
-    <div class="row d-flex justify-content-center "id="page">
-      <div class=" col-sm-10 col-lg-2 mt-5">
-        <div class="border rounded d-fixed">
-          <div class="card-header text-white bg-green" id="headingOne">
-            <h5>
+  <div class="container-fluid mb-5  d-flex flex-column justify-content-center">
+    <app-search></app-search>
+    <div class="row d-flex justify-content-center pt-5 pb-5 "id="page">
+      <div class=" col-sm-10 col-lg-2 ">
+        <div class="border rounde d-fixed">
+          <div class="card text-white bg-green" id="headingOne">
+            <h5 class=" d-flex align-items-center justify-content-center">
               <i class="fa-solid fa-filter text-white"></i>
               <button class="btn text-white">
                Filters
@@ -200,32 +193,33 @@
         
       </div>
         
-      <div class="col-8 mt-5">
+      <div class="col-8 ">
         <div class="col-12  d-flex justify-content-between mt-2">
           <h1 class="fs-14 font-weight-bold">All Specialities 208 Doctors</h1> 
           <div class="d-flex">
             <div class="form-group d-flex align-baseline d-inline">
               <label class="" for="exampleFormControlSelect1 align-baseline">Sorting:</label>
-              <select class="form-control ml-2 p-2" id="exampleFormControlSelect1">
-                <option class="mt-2">Best Match</option>
-                <option class="mt-2">Top Rated</option>
-                <option class="mt-2">Price Low To High</option>
-                <option class="mt-2">Price High To Low</option>
-                <option class="mt-2">Less Waiting Time</option>
+              <select class="form-control ml-2 p-2" id="exampleFormControlSelect1" (change)="changeSorting($event)"   
+              >
+                <option class="mt-2" selected [value]="0">Best Match</option>
+                <option class="mt-2" [value]="1">Top Rated</option>
+                <option class="mt-2" [value]="2">Price Low To High</option>
+                <option class="mt-2" [value]="3">Price High To Low</option>
+                <option class="mt-2" [value]="4">Less Waiting Time</option>
               </select>
             </div>
           </div>
         </div>
 
-        <app-doctor-index [FilterdDoctor]="filteredDoctorList"></app-doctor-index>
+        <app-doctor-index class="p-5" [FilterdDoctor]="filteredDoctorList"></app-doctor-index>
 
       </div>
     </div>
-    <div class="row d-flex justify-content-center">
+    <div class="row d-flex justify-content-center p-5">
       <div class="col-10">
         <form>
-          <fieldset class="border rounded p-5">
-            <legend class="w-auto p-2">
+          <fieldset class="border ">
+            <legend class="w-auto pl-2 " id="legendstyle">
               <div id="legendstyle">
                 <i class="fa-regular fa-circle-question "></i>
                 <span style="font-size: 15px; margin-left: 5px;">FAQs</span>
@@ -289,6 +283,7 @@
             
            </fieldset>
         </form>
+       
        
       </div>
         

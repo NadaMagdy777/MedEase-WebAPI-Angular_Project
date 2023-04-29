@@ -8,6 +8,8 @@ export class Doctor{
         public gender:any,
         public age:number,
         public building:number,
+        public waitingTime:any,
+        public rating:any,
         public street :string,
         public addressDto:any,
         public doctorSubspiciality:any,

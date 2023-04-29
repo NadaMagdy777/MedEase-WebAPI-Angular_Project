@@ -1,3 +1,4 @@
+import { environment } from './../../../environments/environment';
 import { IApiResponse } from '../../SharedClassesAndTypes/iapi-response';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -11,7 +12,7 @@ export class SpecialtiesService {
 
   getSpecialties(): Observable<IApiResponse> {
     return this._httpClient.get<IApiResponse>(
-      'http://localhost:45829/api/Doctor/Speciality'
+      environment.apiUrl + '/Doctor/Speciality'
     );
   }
 }

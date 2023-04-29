@@ -59,21 +59,6 @@ namespace MedEase.EF.Services
             foreach (PatientAppointmentDetailsDto dto in appointments)
             {
                 dto.DiagnosisDetails = await _unitOfWork.Diagnosis.FindDtoAsync(d => d.Examination.AppointmentID == dto.AppointmentID,
-                    d => d.Details);
-
-                dto.Prescription = await _unitOfWork.Prescriptions.GetDtoAsync(p => p.Examination.AppointmentID == dto.AppointmentID,
-                    p => new PrescriptionDrugDto
-                    {
-                        DrugID = p.DrugID,
-                        DrugName = p.Drug.Name,
-                        Notes = p.Notes,
-                        Quantity = p.Quantity
-                    });
-            }
-
-            foreach (PatientAppointmentDetailsDto dto in appointments)
-            {
-                dto.DiagnosisDetails = await _unitOfWork.Diagnosis.FindDtoAsync(d => d.Examination.AppointmentID == dto.AppointmentID,
                      d => d.Details);
 
                 dto.Prescription = await _unitOfWork.Prescriptions.GetDtoAsync(p => p.Examination.AppointmentID == dto.AppointmentID,
@@ -119,13 +104,12 @@ namespace MedEase.EF.Services
             {
                 if (dto.investigation is not null)
                 {
-                    dto.investigation.Image =
-                        (string)                                                                //==> should be byte[]
+                    dto.investigation.Image =                            //==> should be byte[]
                         await _unitOfWork.Investigation
-                        .FindWithSelectAsync(i => i.AppointmentId == dto.AppointmentID, i => i.InvestigationImage.Image);
+                        .FindDtoAsync(i => i.AppointmentId == dto.AppointmentID, i => i.InvestigationImage.Image);
                 }
 
-                dto.Diagnoses = await _unitOfWork.Diagnosis
+                dto.PreviousDiagnoses = await _unitOfWork.Diagnosis
                     .GetDtoAsync(d => d.Examination.PatientID == dto.PatientID && d.Examination.Doctor.SpecialityID == docSpecId,
                     d => new DiagnosisDto
                     {
@@ -213,7 +197,7 @@ namespace MedEase.EF.Services
                 return new(500, false, ex.Message);
             }
 
-            return new(201, true);// appointment);//_mapper.Map<PatientAppointmentDetailsDto>(appointment));    //==>Short Appointment Dto
+            return new(201, true, "Appointment Reserved");// appointment);//_mapper.Map<PatientAppointmentDetailsDto>(appointment));    //==>Short Appointment Dto
         }
 
         public async Task<ApiResponse> DoctorAppointmentAction(AppointmentActionDto dto)
@@ -270,7 +254,7 @@ namespace MedEase.EF.Services
             return new(201, true, "Action Set Successfully");
         }
 
-        private async Task<Examination> CreateExaminationAsync(Appointment appointment)   //to be continued
+        private async Task<Examination> CreateExaminationAsync(Appointment appointment)
         {
             Examination examination = new()
             {

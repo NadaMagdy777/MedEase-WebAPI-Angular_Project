@@ -3,6 +3,7 @@ import { Injectable, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subscription, BehaviorSubject } from 'rxjs';
 import { IAddress } from 'src/app/SharedClassesAndTypes/iaddress';
 import { IApiResponse } from 'src/app/SharedClassesAndTypes/iapi-response';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -35,7 +36,7 @@ export class AddressService implements OnDestroy {
 
   private getAddresses(): Observable<IApiResponse> {
     return this._httpClient.get<IApiResponse>(
-      'http://localhost:45829/api/Account/Addresses'
+      environment.apiUrl + '/Account/Addresses'
     );
   }
 

@@ -1,0 +1,38 @@
+#page{
+    background-color: #e2e6ea;
+}
+.filter{
+   color: #299c22; 
+   background-color: white;
+   cursor: pointer;
+}
+
+.fs-14{
+    font-size: 20px;
+}
+.text-red{
+    color: red;
+}
+
+#slide{
+    background-image: url("https://d1aovdz1i2nnak.cloudfront.net/vezeeta-web-reactjs/54241/_next/static/images/search-header-background-en.jpg");
+/*     background-image: url("https://www.seaconlogistics.com/uploads/images/6/8/684b3f9b9fbb67a320f026783dc4ad62c3692d89/header/44fd8f/nelipak-2.jpg");
+ */
+background-size: cover;
+height:fit-content;
+background-color: rgb(236, 236, 236);
+
+}
+#legendstyle{
+    background-color:#299c22;
+    color: white;
+    border-radius: 5px;
+    padding: 5px;
+}
+.pointer{
+    cursor: pointer;
+
+}
+.bg-green{
+    background-color: #299c22;
+}

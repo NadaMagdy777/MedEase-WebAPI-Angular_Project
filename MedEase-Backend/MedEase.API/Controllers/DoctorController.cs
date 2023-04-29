@@ -77,11 +77,7 @@ namespace MedEase.API.Controllers
             return Ok(new ApiResponse(200, true, reviews.ToList()));
         }
 
-        /////////////////////////////////////////
-        ///             FOREIGN KEY VALIDATIONS         ==> اللي ياخد باله منها يبقى يسألني عليها
-        ///                                     ++++++++
-        ///             +++++ انتوا ليه مش حاطين ال     ModelState.IsValid ???
-        ////////////////////////////////////////
+        
         [HttpPost("Reviews")]
         public async Task<ActionResult<ApiResponse>> Reviews(ReviewDto dto)
         {

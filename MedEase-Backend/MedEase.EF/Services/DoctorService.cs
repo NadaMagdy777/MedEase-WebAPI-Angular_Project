@@ -96,6 +96,9 @@ namespace MedEase.EF.Services
                 doctorDTO.DoctorcerInsurance = await GetDoctorInsurranecs(doctor.ID);
                 doctorDTO.DoctorSubspiciality = await GetDoctorSubspiciality(doctor.ID);
                 doctorDTO.Doctorcertificates = _mapper.Map<List<CertificateDto>>(doctor.Certificates);
+                doctorDTO.WaitingTime =await CaluclutDoctorWaitingTime(doctor.ID);
+                doctorDTO.Rating = await CaluclutDoctorRating(doctor.ID);
+
             }
             return doctorDTO;
 
@@ -327,6 +330,77 @@ namespace MedEase.EF.Services
         }
 
 
+
+        /// <summary>
+        ///                                             حرام عليك ياللي عملت كدة           
+        /// </summary>
+        public async Task<int> CaluclutDoctorWaitingTime(int DocID)
+        {
+            IEnumerable<Review> Reviews = (IEnumerable<Review>)await _unitOfWork.Reviews
+                 .FindAllAsync(r => r.Examination.DoctorID == DocID, new List<Expression<Func<Review, object>>>()
+               {
+                 r=>r.Examination
+
+               });
+
+            var ReviewsList = Reviews.ToList();
+
+            int NumOfReviews = ReviewsList.Count;
+            int WaitingTimeSum = 0;
+            int WaitingTimeAverage = 0;
+
+            if (NumOfReviews > 0)
+            {
+                foreach (var item in ReviewsList)
+                {
+                    WaitingTimeSum += item.WaitingTimeinMins;
+                }
+
+                WaitingTimeAverage = WaitingTimeSum / NumOfReviews;
+                return WaitingTimeAverage;
+
+
+            }
+
+
+
+            return WaitingTimeAverage;
+
+        }
+        public async Task<float> CaluclutDoctorRating(int DocID)
+        {
+            IEnumerable<Review> Reviews = (IEnumerable<Review>)await _unitOfWork.Reviews
+                 .FindAllAsync(r => r.Examination.DoctorID == DocID, new List<Expression<Func<Review, object>>>()
+               {
+                 r=>r.Examination
+
+               });
+
+            var ReviewsList = Reviews.ToList();
+
+            int NumOfReviews = ReviewsList.Count;
+            int RatingSum = 0;
+            float RatingAverage = 0;
+
+            if (NumOfReviews > 0)
+            {
+                foreach (var item in ReviewsList)
+                {
+                    RatingSum += item.DoctorRate;
+                }
+
+                RatingAverage = RatingSum / NumOfReviews;
+                return RatingAverage;
+
+
+            }
+
+
+
+            return RatingAverage;
+
+        }
+
         /*//public async Task<Examination> CreateExaminationAsync(ExaminationDto examinationDto)   //to be continued
         //{
         //    Examination examination = new Examination();
@@ -453,7 +527,7 @@ namespace MedEase.EF.Services
                      });
              }
 
-             return new(200, true, confirmedAppoints.Where(a => a.Diagnosis == null || a.Prescription == null));
-         }*/
+            return new(200, true, confirmedAppoints.Where(a => a.Diagnosis == null || a.Prescription == null));
+        }*/
     }
 }

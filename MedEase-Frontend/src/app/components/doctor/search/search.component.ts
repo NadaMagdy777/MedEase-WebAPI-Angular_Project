@@ -1,17 +1,16 @@
 import { IAddress } from 'src/app/SharedClassesAndTypes/iaddress';
 import { Component } from '@angular/core';
-import { OwlOptions } from 'ngx-owl-carousel-o';
 import { ISpecialty } from 'src/app/SharedClassesAndTypes/Doctor/ispeciality';
 import { Subscription } from 'rxjs';
-import { AddressService } from 'src/app/Services/address/address.service';
 import { SpecialtiesService } from 'src/app/Services/specialities/specialities.service';
+import { AddressService } from 'src/app/Services/address/address.service';
 
 @Component({
-  selector: 'app-carousel',
-  templateUrl: './carousel.component.html',
-  styleUrls: ['./carousel.component.css'],
+  selector: 'app-search',
+  templateUrl: './search.component.html',
+  styleUrls: ['./search.component.css']
 })
-export class CarouselComponent {
+export class SearchComponent {
   selectedSpecialtyId: number = 0;
   selectedCity: string = 'Egypt';
   selectedRegion: string = '0';
@@ -21,30 +20,6 @@ export class CarouselComponent {
   regions: string[] = [];
   allSubscriptions: Subscription[] = [];
 
-  imgSrcsArr: string[] = [
-    '../../../assets/image/home/homecarousel1-eg (1).jpg',
-    '../../../assets/image/home/homecarousel1-eg (2).jpg',
-    '../../../assets/image/home/homecarousel1-eg (3).jpg',
-    '../../../assets/image/home/homecarousel1-eg (4).jpg',
-  ];
-
-  customOptions: OwlOptions = {
-    loop: true,
-    mouseDrag: false,
-    touchDrag: false,
-    pullDrag: false,
-    dots: false,
-    navSpeed: 500,
-    navText: ['', ''],
-    autoplay: true,
-    responsive: {
-      0: { items: 1 },
-      400: { items: 1 },
-      740: { items: 1 },
-      940: { items: 1 },
-    },
-    nav: false,
-  };
 
   constructor(
     private _addressService: AddressService,

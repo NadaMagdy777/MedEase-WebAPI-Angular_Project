@@ -13,7 +13,7 @@ namespace MedEase.Core.Dtos
         public DateTime PatientBirthDate { get; set; }
         public Gender PatientGender { get; set; }
         public AppointmentInvestigationDto investigation { get; set; }
-        public IEnumerable<DiagnosisDto> Diagnoses { get; set; }
+        public IEnumerable<DiagnosisDto> PreviousDiagnoses { get; set; }
         public PatientMedicalHistoryDto History { get; set; }
     }
 }
