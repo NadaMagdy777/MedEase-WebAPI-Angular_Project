@@ -27,7 +27,6 @@ import { HomeBannerComponent } from './components/home/home/home-banner/home-ban
     AppointmentsComponent,
     InsuranceComponent,
     DoctorDetailsComponent,
-
     HomeBannerComponent,
   ],
   imports: [

@@ -33,7 +33,7 @@ export class AddressService implements OnDestroy {
     this.allSubscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 
-  getAddresses(): Observable<IApiResponse> {
+  private getAddresses(): Observable<IApiResponse> {
     return this._httpClient.get<IApiResponse>(
       'http://localhost:45829/api/Account/Addresses'
     );

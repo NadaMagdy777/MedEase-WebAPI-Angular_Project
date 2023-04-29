@@ -7,6 +7,7 @@ import { InsuranceComponent } from './components/Patient/insurance/insurance.com
 import { HomeComponent } from './components/home/home/home.component';
 
 const routes: Routes = [
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
   {path:"home",component:HomeComponent,canActivate:[AuthGuard]},
   {path:"doctor",loadChildren:()=>import('./modules/Doctor/doctor/doctor.module').then(mod=>mod.DoctorModule)},
   {path:'accountProfile',component:ProfileComponent},
@@ -15,7 +16,7 @@ const routes: Routes = [
 
 
 
-  {path:"**",component:HomeComponent},
+  {path:"**",component:HomeComponent},    ///=======> Not Found Component
 ];
 
 @NgModule({
