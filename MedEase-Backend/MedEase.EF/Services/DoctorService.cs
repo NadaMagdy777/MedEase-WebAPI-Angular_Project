@@ -16,6 +16,7 @@ using MedEase.Core.Consts;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Numerics;
+using MedEase.EF.Data;
 
 namespace MedEase.EF.Services
 {
@@ -23,59 +24,51 @@ namespace MedEase.EF.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        public DoctorService(IUnitOfWork unitOfWork, IMapper mapper)
+        private readonly ApplicationDbContext _ctx;
+        public DoctorService(IUnitOfWork unitOfWork, IMapper mapper, ApplicationDbContext ctx)
         {
             this._unitOfWork = unitOfWork;
             this._mapper = mapper;
-        }
-        public async Task<Appointment> ReserveAppointmentAsync(ReserveAppointmentDto appointmentDto)
-        {
-            Appointment appointment = new Appointment();
-            appointment = _mapper.Map<Appointment>(appointmentDto);
-
-            await _unitOfWork.Appointments.AddAsync(appointment);
-            _unitOfWork.Complete();
-
-            return appointment;
+            _ctx = ctx;
         }
         public async Task<List<DoctorAppointmentAndPatternDto>> GetPatternAndAppointmentAsync(int Id)
         {
 
             List<DoctorAppointmentAndPatternDto> result = new List<DoctorAppointmentAndPatternDto>();
 
-            IEnumerable<DoctorSchedule> drs = await _unitOfWork.DoctorSchedule.FindAllAsync(dr => dr.IsWorking == true && dr.DoctorId == Id && dr.WeekDay.Date >= DateTime.Now.Date);
-
+            IEnumerable<DoctorSchedule> drs = await _unitOfWork.DoctorSchedule
+                .FindAllAsync(dr => dr.IsWorking == true && dr.DoctorId == Id && dr.WeekDay.Date >= DateTime.Now.Date);
 
             foreach (var item in drs)
             {
-                IEnumerable<DateTime> reservedAppointments = (IEnumerable<DateTime>)await _unitOfWork.Appointments.FindAllWithSelectAsync(app => app.Status != Status.canceled && app.DoctorID == Id && app.Date.Date == item.WeekDay.Date, app => app.Date);
-                result.Add(new DoctorAppointmentAndPatternDto() { ReservedAppointmanet = reservedAppointments.ToList(), EndTime = item.EndTime, StartTime = item.StartTime, Pattern = item.TimeInterval, WeekDay = item.WeekDay });
+                IEnumerable<DateTime> reservedAppointments = await _unitOfWork.Appointments
+                    .GetDtoAsync(app => app.Status != Status.canceled && app.DoctorID == Id && app.Date.Date == item.WeekDay.Date,
+                    app => app.Date);
+                result
+                    .Add(new DoctorAppointmentAndPatternDto() {
+                        ReservedAppointmanet = reservedAppointments.ToList(), 
+                        EndTime = item.EndTime, 
+                        StartTime = item.StartTime, 
+                        Pattern = item.TimeInterval,
+                        WeekDay = item.WeekDay });
             }
             return result;
-
         }
 
 
-        public async Task<List<DoctorInfoGetDto>> GetAll()
+        public async Task<List<DoctorInfoGetDto>> GetAllDoctors()
         {
             List<DoctorInfoGetDto> doctorsDTOs;
 
             doctorsDTOs = new List<DoctorInfoGetDto>();
 
-            var result = (List<Doctor>)await _unitOfWork.Doctors.FindAllWithSelectAsync(d => d.IsConfirmed == true);
+            IEnumerable<Doctor> result = await _unitOfWork.Doctors.FindAllAsync(d => d.IsConfirmed == true);
 
             foreach (Doctor doctor in result)
             {
-
-
-                DoctorInfoGetDto doctorDTO = await GetDoctor(doctor.ID);
+                DoctorInfoGetDto doctorDTO = await GetDoctor(doctor.ID);                    //////////          WEIRD       <<<================
                 doctorsDTOs.Add(doctorDTO);
             }
-
-
-
-
-
             return doctorsDTOs;
         }
 
@@ -99,16 +92,17 @@ namespace MedEase.EF.Services
                 doctorDTO = new DoctorInfoGetDto();
                 doctorDTO = _mapper.Map<DoctorInfoGetDto>(doctor);
                 doctorDTO.addressDto = _mapper.Map<AddressDto>(doctor.AppUser.Address);
-                doctorDTO.age = calucaluteAge(doctor.AppUser.BirthDate);
+                doctorDTO.age = CalucaluteAge(doctor.AppUser.BirthDate);
                 doctorDTO.DoctorcerInsurance = await GetDoctorInsurranecs(doctor.ID);
                 doctorDTO.DoctorSubspiciality = await GetDoctorSubspiciality(doctor.ID);
                 doctorDTO.Doctorcertificates = _mapper.Map<List<CertificateDto>>(doctor.Certificates);
+                doctorDTO.WaitingTime =await CaluclutDoctorWaitingTime(doctor.ID);
+                doctorDTO.Rating = await CaluclutDoctorRating(doctor.ID);
 
             }
             return doctorDTO;
 
         }
-
 
         public async Task<DoctorSchedule> CreateScheduleAsync(DoctorScheduleDto scheduleDto)
         {
@@ -240,7 +234,7 @@ namespace MedEase.EF.Services
 
         }
 
-        public int calucaluteAge(DateTime birthDate)
+        public int CalucaluteAge(DateTime birthDate)
         {
             DateTime dataNow = DateTime.Today;
 
@@ -254,8 +248,8 @@ namespace MedEase.EF.Services
 
         public async Task<IEnumerable<ReviewDto>> GetDoctorReviews(int Id)
         {
-            IEnumerable<ReviewDto> reviews = (IEnumerable<ReviewDto>)await _unitOfWork.Reviews
-                .FindAllWithSelectAsync(r => r.Examination.DoctorID == Id, r => _mapper.Map<ReviewDto>(r));
+            IEnumerable<ReviewDto> reviews = await _unitOfWork.Reviews
+                .GetDtoAsync(r => r.Examination.DoctorID == Id, r => _mapper.Map<ReviewDto>(r));
 
             return reviews;
         }
@@ -325,31 +319,129 @@ namespace MedEase.EF.Services
             }
         }
 
-
-        public async Task<IEnumerable<AppointmentStatusDto>> GetPendingAppointmentsAsync(int docId)
+        public async Task<ApiResponse> GetSpecialities()
         {
-
-            IEnumerable<Appointment> pendingAppoints = await FindDoctorAppointments(docId, a => a.Status == Status.doctorPending);
-            return _mapper.Map<IEnumerable<AppointmentStatusDto>>(pendingAppoints);
-
+            return new ApiResponse(200, true, _mapper.Map<IEnumerable<SpecialityDto>>(await _unitOfWork.Speciality.GetAllAsync()));
         }
-        public async Task<IEnumerable<AppointmentStatusDto>> GetConfirmedAppointmentsAsync(int docId)
-        {
 
-            IEnumerable<Appointment> confirmedAppoints = await FindDoctorAppointments(docId, a => a.Status == Status.confirmed && a.DoctorConfirmation == true);
-            return _mapper.Map<IEnumerable<AppointmentStatusDto>>(confirmedAppoints);
+        //public async Task<IEnumerable<AppointmentStatusDto>> GetPendingAppointmentsAsync(int docId)   ///asd/asd/asd/asd/asd/asd/               //    DELETE        <<======
+        //{
+        //    int sepc = (int)await _unitOfWork.Doctors.FindWithSelectAsync(d => d.ID == docId, d => d.SpecialityID);
 
-        }
-        public async Task<IEnumerable<Appointment>> FindDoctorAppointments(int docId, Predicate<Appointment> statusCriteria)
+        //    //IEnumerable<Appointment> pendingAppoints = await FindDoctorAppointments(docId, a => a.Status == Status.doctorPending);
+        //    IEnumerable<Appointment> pendingAppoints = await _unitOfWork.Appointments.FindAllAsync(a => a.DoctorID == docId, new()
+        //    {
+        //        a => a.Investigation,
+        //        a => a.Investigation.InvestigationImage,
+        //        a => a.Patient.History,
+        //    });
+        //    return _mapper.Map<IEnumerable<AppointmentStatusDto>>(pendingAppoints);
+
+        //}
+
+        //public async Task<IEnumerable<AppointmentStatusDto>> GetConfirmedAppointmentsAsync(int docId)   ///asd/asd/asd/asd/asd/asd/               //    DELETE        <<======
+        //{
+
+        //    IEnumerable<Appointment> confirmedAppoints = await FindDoctorAppointments(docId, a => a.Status == Status.confirmed && a.DoctorConfirmation == true);
+        //    return _mapper.Map<IEnumerable<AppointmentStatusDto>>(confirmedAppoints);
+
+        //}
+
+        //public async Task<IEnumerable<Appointment>> FindDoctorAppointments(int docId, Predicate<Appointment> statusCriteria)   ///asd/asd/asd/asd/asd/asd/               //    DELETE        <<======
+        //{
+        //    Doctor doctor = await _unitOfWork.Doctors.FindAsync(d => d.ID == docId,
+        //    new List<Expression<Func<Doctor, object>>>()
+        //    {
+        //       d => d.Appointments.Select(a => a.Patient.History)
+        //    });
+
+        //    return doctor.Appointments.FindAll(statusCriteria).ToList();
+        //}
+
+       /* public async Task<ApiResponse> GetPendingAppointmentsAsync2(int docId)   ///asd/asd/asd/asd/asd/asd/               //    Final        <<======
         {
-            Doctor doctor = await _unitOfWork.Doctors.FindAsync(d => d.ID == docId,
-            new List<Expression<Func<Doctor, object>>>()
+            IEnumerable<DoctorPendingAppointmentDetailsDto> pendingAppoints = await _unitOfWork.Appointments
+                .GetDtoAsync(a => a.DoctorID == docId && a.Status == Status.doctorPending,
+                a => new DoctorPendingAppointmentDetailsDto
+                {
+                    AppointmentID = a.ID,
+                    PatientID = a.PatientID,
+                    PatientName = $"{a.Patient.AppUser.FirstName} {a.Patient.AppUser.LastName}",
+                    PatientBirthDate = a.Patient.AppUser.BirthDate.Date,
+                    Date = a.Date,
+                    PatientGender = a.Patient.AppUser.Gender,
+                    PatientPhone = a.Patient.AppUser.PhoneNumber,
+                    Status = a.Status,
+                    History = _mapper.Map<PatientMedicalHistoryDto>(a.Patient.History),
+                    investigation = _mapper.Map<AppointmentInvestigationDto>(a.Investigation),
+                },
+                dpap => dpap.Date, OrderBy.Descending);
+
+
+
+            int? docSpecId = await _unitOfWork.Doctors.FindDtoAsync<int?>(d => d.ID == docId, d => d.SpecialityID);
+
+            foreach (DoctorPendingAppointmentDetailsDto dto in pendingAppoints)
             {
-               d => d.Appointments.Select(a => a.Patient.History)
-            });
+                if (dto.investigation is not null)
+                {
+                    dto.investigation.Image =
+                        (string)                                                                //==> should be byte[]
+                        await _unitOfWork.Investigation
+                        .FindWithSelectAsync(i => i.AppointmentId == dto.AppointmentID, i => i.InvestigationImage.Image);
+                }
 
-            return doctor.Appointments.FindAll(statusCriteria).ToList();
+                dto.Diagnoses = await _unitOfWork.Diagnosis
+                    .GetDtoAsync(d => d.Examination.PatientID == dto.PatientID && d.Examination.Doctor.SpecialityID == docSpecId,
+                    d => new DiagnosisDto
+                    {
+                        Details = d.Details
+                    });
+            }
+
+            return new ApiResponse(200, true, pendingAppoints);
         }
+
+        public async Task<ApiResponse> GetConfirmedAppointmentsAsync2(int docId)   ///asd/asd/asd/asd/asd/asd/               //    Final        <<======
+        {
+            IEnumerable<DoctorConfirmedAppointmentDetailsDto> confirmedAppoints = await _unitOfWork.Appointments
+                .GetDtoAsync(a => a.Status == Status.patientPending && a.DoctorConfirmation == true && a.DoctorID == docId, 
+                a => new DoctorConfirmedAppointmentDetailsDto
+                {
+                    AppointmentID = a.ID,
+                    PatientID = a.PatientID,
+                    PatientName = $"{a.Patient.AppUser.FirstName} {a.Patient.AppUser.LastName}",
+                    PatientBirthDate = a.Patient.AppUser.BirthDate.Date,
+                    Date = a.Date,
+                    PatientGender = a.Patient.AppUser.Gender,
+                    PatientPhone = a.Patient.AppUser.PhoneNumber,
+                    Status = a.Status,                    
+                }, 
+                dcap => dcap.Date, OrderBy.Descending);
+
+            foreach (DoctorConfirmedAppointmentDetailsDto dto in confirmedAppoints)
+            {
+                dto.Diagnosis = await _unitOfWork.Diagnosis
+                    .FindDtoAsync(d => d.Examination.AppointmentID == dto.AppointmentID,
+                    d => new DiagnosisDto
+                    {
+                        Details = d.Details
+                    });
+
+                dto.Prescription = await _unitOfWork.Prescriptions                          ////==> Should return DrugName
+                    .GetDtoAsync(p => p.Examination.AppointmentID == dto.AppointmentID,
+                    p => new PrescriptionDrugDto
+                    {
+                        DrugID = p.DrugID,
+                        DrugName = p.Drug.Name,
+                        Notes = p.Notes,
+                        Quantity = p.Quantity,
+                    });
+            }
+
+            return new(200, true, confirmedAppoints.Where(a => a.Diagnosis == null || a.Prescription == null));
+        }*/
+
         public async Task<PrescriptionDrug> CreatePrescriptionAsync(PrescriptionDrugDto prescriptionDto)
         {
             PrescriptionDrug prescriptionDrug = new PrescriptionDrug();
@@ -370,7 +462,7 @@ namespace MedEase.EF.Services
 
             return diagnosis;
         }
-        public async Task<Examination> CreateExaminationAsync(ExaminationDto examinationDto)
+        public async Task<Examination> CreateExaminationAsync(ExaminationDto examinationDto)   //to be continues
         {
             Examination examination = new Examination();
             examination = _mapper.Map<Examination>(examinationDto);
@@ -381,9 +473,73 @@ namespace MedEase.EF.Services
             return examination;
         }
 
-        public async Task<ApiResponse> GetSpecialities()
+     
+
+        public async Task<int> CaluclutDoctorWaitingTime(int DocID)
         {
-            return new ApiResponse(200, true, _mapper.Map<IEnumerable<SpecialityDto>>(await _unitOfWork.Speciality.GetAllAsync()));
+            IEnumerable<Review> Reviews = (IEnumerable<Review>)await _unitOfWork.Reviews
+                 .FindAllAsync(r => r.Examination.DoctorID == DocID, new List<Expression<Func<Review, object>>>()
+               {
+                 r=>r.Examination
+
+               }) ;
+            
+            var ReviewsList=Reviews.ToList();
+            
+            int NumOfReviews = ReviewsList.Count;
+            int WaitingTimeSum = 0;
+            int WaitingTimeAverage = 0;
+
+            if (NumOfReviews > 0)
+            {
+                foreach (var item in ReviewsList)
+                {
+                    WaitingTimeSum += item.WaitingTimeinMins;
+                }
+
+                 WaitingTimeAverage = WaitingTimeSum / NumOfReviews;
+                return WaitingTimeAverage;
+
+
+            }
+
+
+
+            return WaitingTimeAverage;
+
+        }
+        public async Task<float> CaluclutDoctorRating(int DocID)
+        {
+            IEnumerable<Review> Reviews = (IEnumerable<Review>)await _unitOfWork.Reviews
+                 .FindAllAsync(r => r.Examination.DoctorID == DocID, new List<Expression<Func<Review, object>>>()
+               {
+                 r=>r.Examination
+
+               });
+
+            var ReviewsList = Reviews.ToList();
+
+            int NumOfReviews = ReviewsList.Count;
+            int RatingSum = 0;
+            float RatingAverage = 0;
+
+            if (NumOfReviews > 0)
+            {
+                foreach (var item in ReviewsList)
+                {
+                    RatingSum += item.DoctorRate;
+                }
+
+                RatingAverage = RatingSum / NumOfReviews;
+                return RatingAverage;
+
+
+            }
+
+
+
+            return RatingAverage;
+
         }
     }
 }

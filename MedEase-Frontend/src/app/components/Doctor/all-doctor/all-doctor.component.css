@@ -2,7 +2,7 @@
     background-color: #e2e6ea;
 }
 .filter{
-   color: blue; 
+   color: #299c22; 
    background-color: white;
    cursor: pointer;
 }
@@ -22,7 +22,7 @@ background-color: rgb(236, 236, 236);
 
 }
 #legendstyle{
-    background-color: #0070cd;
+    background-color:#299c22;
     color: white;
     border-radius: 5px;
     padding: 5px;
@@ -30,6 +30,9 @@ background-color: rgb(236, 236, 236);
 .pointer{
     cursor: pointer;
 
+}
+.bg-green{
+    background-color: #299c22;
 }
 
 

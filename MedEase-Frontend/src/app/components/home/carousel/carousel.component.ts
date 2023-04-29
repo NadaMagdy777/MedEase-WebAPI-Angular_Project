@@ -1,10 +1,10 @@
+import { IAddress } from 'src/app/SharedClassesAndTypes/iaddress';
 import { Component } from '@angular/core';
 import { OwlOptions } from 'ngx-owl-carousel-o';
-import { ISpeciality } from 'src/app/SharedClassesAndTypes/Doctor/ispeciality';
-import { AddressService } from 'src/app/services/address/address.service';
-import { SpecialtiesService } from 'src/app/services/specialities/specialities.service';
+import { ISpecialty } from 'src/app/SharedClassesAndTypes/Doctor/ispeciality';
 import { Subscription } from 'rxjs';
-import { IAddress } from 'src/app/SharedClassesAndTypes/iaddress';
+import { AddressService } from 'src/app/Services/address/address.service';
+import { SpecialtiesService } from 'src/app/Services/specialities/specialities.service';
 
 @Component({
   selector: 'app-carousel',
@@ -12,19 +12,15 @@ import { IAddress } from 'src/app/SharedClassesAndTypes/iaddress';
   styleUrls: ['./carousel.component.css'],
 })
 export class CarouselComponent {
-  selectedSpecialtyId:number=0;
-  selectedCityId:number=0;
-  selectedRegionId:number=0;
-  Name:string="";
-  Specialties:ISpeciality[]=[];
-  Cities:string[]=[];
-  Regons:string[]=[];
+  selectedSpecialtyId: number = 0;
+  selectedCity: string = 'Egypt';
+  selectedRegion: string = '0';
+  selectedName: string = 'NotSelected';
+  specialties: ISpecialty[] = [];
+  cities: string[] = [];
+  regions: string[] = [];
   allSubscriptions: Subscription[] = [];
 
-  constructor(private addressService: AddressService, private specialtiesServices: SpecialtiesService) 
-  {
-
-  }
   imgSrcsArr: string[] = [
     '../../../assets/image/home/homecarousel1-eg (1).jpg',
     '../../../assets/image/home/homecarousel1-eg (2).jpg',
@@ -41,51 +37,53 @@ export class CarouselComponent {
     navSpeed: 500,
     navText: ['', ''],
     autoplay: true,
-    responsive: {0: {items: 1},400: {items: 1},740: {items: 1},940: {items: 1}},
+    responsive: {
+      0: { items: 1 },
+      400: { items: 1 },
+      740: { items: 1 },
+      940: { items: 1 },
+    },
     nav: false,
   };
+
+  constructor(
+    private _addressService: AddressService,
+    private _specialtiesServices: SpecialtiesService
+  ) {}
+
   ngOnDestroy(): void {
     this.allSubscriptions.forEach((subscription) => subscription.unsubscribe());
   }
+
   ngOnInit(): void {
     this.allSubscriptions.push(
-      this.addressService.getCities().subscribe((response) => {
-        
-        console.log(response.data[0]);
-        console.log(response.data[0].City);
-        this.Cities = response.data.map(a => a.City);
-        
-        // console.log(this.Cities);
-        
+      this._addressService.getCities().subscribe((response) => {
+        this.cities = response;
       })
     );
-    // this.allSubscriptions.push(
-    //   this.addressService.getRegions().subscribe((response) => {
-    //     this.Regons = response;
-    //   })
-    // );
-    // this.allSubscriptions.push(
-    //   this.specialtiesServices.getSpecialties().subscribe((response) => {
-    //     this.Specialties = response.data;
-    //   })
-    // );
+    this.allSubscriptions.push(
+      this._addressService.getRegions().subscribe((response) => {
+        this.regions = response;
+      })
+    );
+    this.allSubscriptions.push(
+      this._specialtiesServices.getSpecialties().subscribe((response) => {
+        this.specialties = response.data;
+      })
+    );
   }
 
   updateCity(): void {
-  //   this.addressService.updateRegions(this.Cities[this.selectedCityId]);
-  //   console.log()
+    this._addressService.updateRegions(this.selectedCity);
   }
 
   search() {
-    console.log(this.selectedCityId);
-    console.log(this.selectedRegionId);
+    console.log(this.selectedCity);
+    console.log(this.selectedRegion);
     console.log(this.selectedSpecialtyId);
-    console.log(this.Name);
-
-    // console.log(this.addressService.getAddressID(this.Cities[this.selectedCityId], this.Regons[this.selectedRegionId]));
-    
+    console.log(this.selectedName);
+    console.log(
+      this._addressService.getAddressID(this.selectedCity, this.selectedRegion)
+    );
   }
-
-
-
 }

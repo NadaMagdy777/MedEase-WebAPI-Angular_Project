@@ -6,9 +6,14 @@
           <tr>
             <th class="p-1">
               <div class="form-group m-1">
-                <label for="Specialty">Specialty</label><br>
-                <select id="Specialty" [(ngModel)]="selectedSpecialtyId" class="form-control">
-                  <ng-container *ngFor="let Specialty of Specialties">
+                <label for="Specialty">Specialty</label><br />
+                <select
+                  id="Specialty"
+                  [(ngModel)]="selectedSpecialtyId"
+                  class="form-control"
+                >
+                  <option value="0" selected>-select specialty-</option>
+                  <ng-container *ngFor="let Specialty of specialties">
                     <option [value]="Specialty.id">{{ Specialty.name }}</option>
                   </ng-container>
                 </select>
@@ -17,8 +22,14 @@
             <th class="p-1">
               <div class="form-group m-1">
                 <label for="City">City</label>
-                <select id="City" (change)="updateCity()" [(ngModel)]="selectedCityId" class="form-control">
-                  <ng-container *ngFor="let City of Cities">
+                <select
+                  id="City"
+                  (change)="updateCity()"
+                  [(ngModel)]="selectedCity"
+                  class="form-control"
+                >
+                  <option value="0" selected>-select city-</option>
+                  <ng-container *ngFor="let City of cities">
                     <option [value]="City">{{ City }}</option>
                   </ng-container>
                 </select>
@@ -27,8 +38,13 @@
             <th class="p-1">
               <div class="form-group m-1">
                 <label for="Region">Region</label>
-                <select id="Region" [(ngModel)]="selectedRegionId" class="form-control">
-                  <ng-container *ngFor="let Region of Regons">
+                <select
+                  id="Region"
+                  [(ngModel)]="selectedRegion"
+                  class="form-control"
+                >
+                  <option value="0" selected>-select region-</option>
+                  <ng-container *ngFor="let Region of regions">
                     <option [value]="Region">{{ Region }}</option>
                   </ng-container>
                 </select>
@@ -36,12 +52,20 @@
             </th>
             <th class="p-1 w-25">
               <div class="form-group m-1">
-                <label for="Name">Name</label><br>
-                <input type="text" class="form-control" [(ngModel)]="Name" id="Name">
+                <label for="Name">Name</label><br />
+                <input
+                  type="text"
+                  class="form-control"
+                  [(ngModel)]="selectedName"
+                  id="Name"
+                />
               </div>
             </th>
             <th class="p-1">
-              <button (click)="search()" class="btn btn-primary w-100 mb-1">Search</button>
+              <a class="btn btn-success w-100 mb-1" href="/doctor/{{selectedSpecialtyId}}/{{selectedCity}}/{{selectedRegion}}/{{selectedName}}">
+                Search
+              </a>
+            
             </th>
           </tr>
         </thead>
@@ -56,4 +80,3 @@
     </ng-container>
   </owl-carousel-o>
 </div>
-<!-- <app-search></app-search> -->

@@ -9,9 +9,9 @@ namespace MedEase.EF.Services
     public interface IDoctorService
     {
         Task<List<DoctorAppointmentAndPatternDto>> GetPatternAndAppointmentAsync(int Id);
-        Task<Appointment> ReserveAppointmentAsync(ReserveAppointmentDto appointmentDto);
+        //Task<Appointment> ReserveAppointmentAsync(ReserveAppointmentDto appointmentDto);
         Task<DoctorSchedule> CreateScheduleAsync(DoctorScheduleDto ScheduleDto);
-        Task<List<DoctorInfoGetDto>> GetAll();
+        Task<List<DoctorInfoGetDto>> GetAllDoctors();
         Task<IEnumerable<ReviewDto>> GetDoctorReviews(int Id);
         Task<ReviewDto> CreateReview(ReviewDto dto);
         Task<int> EditDoctor(DoctorEditDto doctorDto, int id);
@@ -23,8 +23,13 @@ namespace MedEase.EF.Services
         Task<ApiResponse> GetDoctorAnsweredQuestions(int docId);
         Task<ApiResponse> DoctorAnswerQuestions(AnswerDto dto);
         Task<ApiResponse> EditScheduleDoctor(int Id, DoctorEditScheduleDto doctorEditScheduleDto);
-        Task<IEnumerable<AppointmentStatusDto>> GetPendingAppointmentsAsync(int Id);
-        Task<IEnumerable<AppointmentStatusDto>> GetConfirmedAppointmentsAsync(int Id);
+        Task<ApiResponse> GetSpecialities();
+
+        //Task<IEnumerable<AppointmentStatusDto>> GetPendingAppointmentsAsync(int Id);
+        //Task<IEnumerable<AppointmentStatusDto>> GetConfirmedAppointmentsAsync(int Id);
+        //Task<ApiResponse> GetPendingAppointmentsAsync2(int Id);
+        //Task<ApiResponse> GetConfirmedAppointmentsAsync2(int docId);
+
         Task<PrescriptionDrug> CreatePrescriptionAsync(PrescriptionDrugDto prescriptionDto);
         Task<Diagnosis> CreateDiagnosisAsync(DiagnosisDto diagnosisDto);
         Task<Examination> CreateExaminationAsync(ExaminationDto examinationDto);

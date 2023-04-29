@@ -79,15 +79,15 @@ namespace MedEase.EF.Data
                 new IdentityRole
                 {
                     Id = "R1",
-                    Name = Core.Consts.Roles.Doctor.ToString(),
-                    NormalizedName = Core.Consts.Roles.Doctor.ToString().ToUpper(),
+                    Name = Core.Consts.Roles.Doctor,
+                    NormalizedName = Core.Consts.Roles.Doctor.ToUpper(),
                     ConcurrencyStamp = Guid.NewGuid().ToString()
                 },
                 new IdentityRole
                 {
                     Id = "R2",
-                    Name = Core.Consts.Roles.Patient.ToString(),
-                    NormalizedName = Core.Consts.Roles.Patient.ToString().ToUpper(),
+                    Name = Core.Consts.Roles.Patient,
+                    NormalizedName = Core.Consts.Roles.Patient.ToUpper(),
                     ConcurrencyStamp = Guid.NewGuid().ToString()
                 }
                 );
