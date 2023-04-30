@@ -20,5 +20,6 @@ namespace MedEase.Core.Dtos
         [Required, Range(1, 300)]
         public int WaitingTimeinMins { get; set; }
         public int ExaminationID { get; set; }
+        public int AppointmentID { get; set; }
     }
 }

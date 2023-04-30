@@ -9,12 +9,12 @@
                 <label for="Specialty">Specialty</label><br />
                 <select
                   id="Specialty"
-                  [(ngModel)]="selectedSpecialtyId"
+                  [(ngModel)]="selectedSpecialtyName"
                   class="form-control"
                 >
                   <option value="0" selected>-select specialty-</option>
                   <ng-container *ngFor="let Specialty of specialties">
-                    <option [value]="Specialty.id">{{ Specialty.name }}</option>
+                    <option [value]="Specialty.name">{{ Specialty.name }}</option>
                   </ng-container>
                 </select>
               </div>
@@ -62,7 +62,7 @@
               </div>
             </th>
             <th class="p-1">
-              <a class="btn btn-success w-100 mb-1" href="/doctor/{{selectedSpecialtyId}}/{{selectedCity}}/{{selectedRegion}}/{{selectedName}}">
+              <a class="btn btn-success w-100 mb-1" href="/doctor/{{selectedSpecialtyName}}/{{selectedCity}}/{{selectedRegion}}/{{selectedName}}">
                 Search
               </a>
             

@@ -15,7 +15,9 @@ namespace MedEase.Core.MappingProfiles
         {
             CreateMap<Examination, ExaminationDto>().ReverseMap();
             CreateMap<PrescriptionDrug, PrescriptionDrugDto>().ReverseMap();
-            CreateMap<Diagnosis, DiagnosisDto>().ReverseMap();
+            CreateMap<Diagnosis, DiagnosisDto>()
+                .ForMember(src => src.ExaminationID, opt => opt.MapFrom(dest => dest.ExaminationID))
+                .ReverseMap();
         }
     }
 }

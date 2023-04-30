@@ -17,6 +17,7 @@ using System.Net;
 using System.Text.RegularExpressions;
 using System.Numerics;
 using MedEase.EF.Data;
+using System.Drawing.Printing;
 
 namespace MedEase.EF.Services
 {
@@ -98,6 +99,8 @@ namespace MedEase.EF.Services
                 doctorDTO.Doctorcertificates = _mapper.Map<List<CertificateDto>>(doctor.Certificates);
                 doctorDTO.WaitingTime =await CaluclutDoctorWaitingTime(doctor.ID);
                 doctorDTO.Rating = await CaluclutDoctorRating(doctor.ID);
+                doctorDTO.visitors = await GetCountOfDoctorPatients(doctor.ID);
+
 
             }
             return doctorDTO;
@@ -254,49 +257,21 @@ namespace MedEase.EF.Services
             return reviews;
         }
 
-        public async Task<ReviewDto> CreateReview(ReviewDto dto)
+        public async Task<ApiResponse> CreateReview(ReviewDto dto)
         {
-            /////////Check Review ID
+            int? ExaminationID = await _unitOfWork.Examinations.FindDtoAsync(e => e.AppointmentID == dto.AppointmentID, e => e.ID);
+            if (ExaminationID.Value == 0) { return new(404, false); }
+
             Review review = _mapper.Map<Review>(dto);
+            review.ExaminationID = ExaminationID.Value;
+
             review = await _unitOfWork.Reviews.AddAsync(review);
-            _unitOfWork.Complete();
-            ReviewDto reviewDto = _mapper.Map<ReviewDto>(review);
-            return reviewDto;
-        }
-
-        public async Task<ApiResponse> GetQuestionsByDoctorSpeciality(int docId)
-        {
-            int? docSpecId = (int?)await _unitOfWork.Doctors.FindWithSelectAsync(d => d.ID == docId, d => d.SpecialityID);
-
-            if (docSpecId == null) { return new ApiResponse(404, false, "User Not Found"); }
-
-            IEnumerable<Question> questions = await _unitOfWork.Questions
-                .FindAllAsync(q => q.SpecialityId == docSpecId.Value && !q.IsAnswered);
-
-            return new ApiResponse(200, true, _mapper.Map<IEnumerable<QuestionDto>>(questions).ToList());
-        }
-
-        public async Task<ApiResponse?> GetDoctorAnsweredQuestions(int docId)
-        {
-            IEnumerable<Question> questions =
-                await _unitOfWork.Questions.FindAllAsync(q => q.DoctorId == docId);
-
-            return new ApiResponse(200, true, _mapper.Map<IEnumerable<QuestionDto>>(questions).ToList());
-        }
-
-        public async Task<ApiResponse> DoctorAnswerQuestions(AnswerDto dto)
-        {
-            Question question = await _unitOfWork.Questions.FindAsync(q => q.Id == dto.Id);
-
-            if (question == null) { return new ApiResponse(400, false); }
-
-            question.Answer = dto.Answer;
-            question.DoctorId = dto.DoctorId;
 
             _unitOfWork.Complete();
 
-            return (new(200, true, _mapper.Map<QuestionDto>(question)));
+            return new(200, true, _mapper.Map<ReviewDto>(review));
         }
+
         public async Task<ApiResponse> EditScheduleDoctor(int Id, DoctorEditScheduleDto doctorEditScheduleDto)
         {
             DoctorSchedule orgdoctorschedule = await _unitOfWork.DoctorSchedule.FindAsync(d => d.Id == Id);
@@ -452,7 +427,7 @@ namespace MedEase.EF.Services
 
             return prescriptionDrug;
         }
-        public async Task<Diagnosis> CreateDiagnosisAsync(DiagnosisDto diagnosisDto)
+        public async Task<DiagnosisDto> CreateDiagnosisAsync(DiagnosisDto diagnosisDto)
         {
             Diagnosis diagnosis = new Diagnosis();
             diagnosis = _mapper.Map<Diagnosis>(diagnosisDto);
@@ -460,7 +435,7 @@ namespace MedEase.EF.Services
             await _unitOfWork.Diagnosis.AddAsync(diagnosis);
             _unitOfWork.Complete();
 
-            return diagnosis;
+            return _mapper.Map<DiagnosisDto>(diagnosis);
         }
         public async Task<Examination> CreateExaminationAsync(ExaminationDto examinationDto)   //to be continues
         {
@@ -536,10 +511,15 @@ namespace MedEase.EF.Services
 
             }
 
-
-
             return RatingAverage;
 
         }
+        public async Task<int> GetCountOfDoctorPatients(int DocId)
+        {
+            int patientCount =  _unitOfWork.Reviews.Count(A => A.Examination.DoctorID == DocId);
+            return patientCount;
+                      
+        }
     }
 }
+    

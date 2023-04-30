@@ -1,0 +1,40 @@
+#page{
+    background-color: #e2e6ea;
+  
+}
+.border-style{
+    position: sticky;
+    border-radius: 15px;
+    
+}
+.text-green{
+    color: #289b22;
+}
+.text-bold{
+    font-weight: bold;
+}
+.starRateColor{
+    color: #ffb624;
+    font-size: 35px;
+}
+#BookInfoTitle{
+    background-color: #289b22;
+
+/*     border-radius: 25px 0px 25px 0px;
+ */
+ border-radius: 25px 25px 0px 0px ;
+ height: 30px;
+}
+.fs-30{
+    font-size: 30px;
+}
+.bg-green{
+    background-color: #289b22;
+}
+.subspeciality-style{
+    border: solid 1px #289b22 ;
+    border-radius: 10px;
+    color: #289b22;
+    height: fit-content;
+    margin-right: 2%;
+}
