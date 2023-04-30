@@ -24,7 +24,7 @@ namespace MedEase.API.Controllers
             this._accountService = accountService;
         }
 
-        [HttpPost("/login")]
+        [HttpPost("login")]
         public async Task<ActionResult<ApiResponse>> Login(UserLoginDto dto)
         {
             if (!ModelState.IsValid) { return BadRequest(new ApiResponse(400, false, ModelState)); };
