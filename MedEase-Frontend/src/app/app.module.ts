@@ -17,9 +17,6 @@ import { AppointementsComponent } from './components/doctor/appointements/appoin
 
 import { HomeBannerComponent } from './components/home/home/home-banner/home-banner.component';
 
-import { DoctorAppointmentsComponent } from 'src/app/components/doctor/doctor-appointments/doctor-appointments.component';
-import { DoctorPendingAppointmentsComponent } from 'src/app/components/doctor/doctor-pending-appointments/doctor-pending-appointments.component';
-import { DoctorConfirmedAppointmentsComponent } from 'src/app/components/doctor/doctor-confirmed-appointments/doctor-confirmed-appointments.component';
 
 @NgModule({
   declarations: [
@@ -34,10 +31,6 @@ import { DoctorConfirmedAppointmentsComponent } from 'src/app/components/doctor/
    
 
     HomeBannerComponent,
-
-    DoctorAppointmentsComponent,
-    DoctorPendingAppointmentsComponent,
-    DoctorConfirmedAppointmentsComponent,
       
   ],
   imports: [

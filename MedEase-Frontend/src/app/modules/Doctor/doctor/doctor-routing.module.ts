@@ -12,16 +12,18 @@ const routes: Routes = [
   {
     path: ':speciality/:city/:region/:name',
     component: AllDoctorComponent,
-    children: [
-      { path: 'All', component: DoctorIndexComponent },
-       { path: 'Appointment', component: DoctorAppointmentsComponent, children: [
-         { path: '',  redirectTo: '/Pending', pathMatch: 'full' },
-        { path: 'Pending', component: DoctorPendingAppointmentsComponent },
-        { path: 'Confirmed', component: DoctorConfirmedAppointmentsComponent },
-      ] },
-    ],
+    children: [{ path: 'All', component: DoctorIndexComponent }],
   },
   { path: 'details/:id', component: DoctorDetailsComponent },
+  {
+    path: 'Appointment',
+    component: DoctorAppointmentsComponent,
+    children: [
+      // { path: '', redirectTo: '/Pending', pathMatch: 'full' },
+      { path: 'Pending', component: DoctorPendingAppointmentsComponent },
+      { path: 'Confirmed', component: DoctorConfirmedAppointmentsComponent },
+    ],
+  },
 ];
 
 @NgModule({
