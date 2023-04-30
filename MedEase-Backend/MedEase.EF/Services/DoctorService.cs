@@ -427,7 +427,7 @@ namespace MedEase.EF.Services
 
             return prescriptionDrug;
         }
-        public async Task<Diagnosis> CreateDiagnosisAsync(DiagnosisDto diagnosisDto)
+        public async Task<DiagnosisDto> CreateDiagnosisAsync(DiagnosisDto diagnosisDto)
         {
             Diagnosis diagnosis = new Diagnosis();
             diagnosis = _mapper.Map<Diagnosis>(diagnosisDto);
@@ -435,7 +435,7 @@ namespace MedEase.EF.Services
             await _unitOfWork.Diagnosis.AddAsync(diagnosis);
             _unitOfWork.Complete();
 
-            return diagnosis;
+            return _mapper.Map<DiagnosisDto>(diagnosis);
         }
         public async Task<Examination> CreateExaminationAsync(ExaminationDto examinationDto)   //to be continues
         {
