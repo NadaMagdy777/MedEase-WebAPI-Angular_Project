@@ -37,3 +37,9 @@
 .text-green{
     color: #7cbb69;
 }
+.a-style{
+    text-decoration: none;
+}
+.a-style :hover{
+    background-color: lightgray;
+}

@@ -13,8 +13,8 @@ const routes: Routes = [
     children:[
       {path:'All',component:DoctorIndexComponent},
     ]
-   },
-   {path:'details',component:DoctorDetailsComponent}
+  },
+  {path:'details/:id',component:DoctorDetailsComponent}
 ];
 
 @NgModule({

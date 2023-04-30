@@ -15,6 +15,7 @@ export class Doctor{
         public doctorSubspiciality:any,
         public specialityName:string,
         public doctorcertificates:any,
-        public doctorcerInsurance:any
+        public doctorcerInsurance:any,
+        public visitors:number
     ){}
 }

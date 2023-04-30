@@ -14,10 +14,10 @@ errorMessage: any;
 genderFilter:number[]=[]
 feesFilter:number=0
 selectedSorting:any=0
-specialityId:number=0
+specialityName:string="All"
 cityName:string="Egypt"
-regionID:number=0
-Doctorname:string=""
+regionName:string="All"
+Doctorname:string="All"
 
 
 
@@ -94,19 +94,66 @@ onFeeChange(fee:number,event:any){
       next:data=>{
         let dataJson = JSON.parse(JSON.stringify(data))
         this.DoctorList=dataJson.data
+        
+        this.specialityName= this.route.snapshot.params['speciality']
+        this.cityName=this.route.snapshot.params['city']
+        this.regionName=this.route.snapshot.params['region']
+        this.Doctorname=this.route.snapshot.params['name']
+        console.log(this.specialityName)
+        console.log(this.cityName)
+        console.log(this.regionName)
+        console.log(this.Doctorname)
+        this.fileterDoctorWhenLoadingPage()
         this.filteredDoctorList=this.DoctorList
-       console.log(this.DoctorList)},
+
+      },
       error:error=>this.errorMessage=error
     })
-    this.specialityId= this.route.snapshot.params['speciality']
-    this.cityName=this.route.snapshot.params['city']
-    this.regionID=this.route.snapshot.params['region']
-    this.Doctorname=this.route.snapshot.params['name']
-    console.log(this.specialityId)
-    console.log(this.cityName)
-    console.log(this.regionID)
-    console.log(this.Doctorname)
     
+   
+    
+    
+  }
+  fileterDoctorWhenLoadingPage(){
+    if(this.specialityName!="All"){
+      this.filterDoctorBySpeciality()
+    }
+    if(this.cityName !="Egypt"){
+      if(this.regionName!="All"){
+         this.filterDoctorByFullAddress();
+      }
+      else{
+             this.filterDoctorBycity()
+      }
+    }
+
+    if(this.Doctorname!="All"){
+      this.filterDoctorByName()
+    }
+
+  }
+  filterDoctorBySpeciality(){
+    this.DoctorList=this.DoctorList.filter((doctor:Doctor)=>{
+      return doctor.specialityName===this.specialityName
+    });
+  }
+
+  filterDoctorBycity(){
+    this.DoctorList=this.DoctorList.filter((doctor:Doctor)=>{
+      return doctor.addressDto.city===this.cityName
+    });
+  }
+
+  filterDoctorByFullAddress(){
+    this.DoctorList=this.DoctorList.filter((doctor:Doctor)=>{
+      return doctor.addressDto.city===this.cityName && doctor.addressDto.region===this.regionName
+    });
+  }
+
+  filterDoctorByName(){
+    this.DoctorList=this.DoctorList.filter((doctor:Doctor)=>{
+      return doctor.name.indexOf(this.Doctorname) > -1
+    });
   }
   changeSorting(selectObject:any) {
     this.Doctorfilter() 

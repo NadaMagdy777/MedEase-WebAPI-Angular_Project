@@ -20,5 +20,12 @@ export class DoctorService {
       
     }));
   }
+  GetDoctorByID(id:number):Observable<Doctor[]>
+  {
+    return this.http.get<Doctor[]>(this._url+"/id?ID="+id).pipe(catchError((err)=>{
+      return throwError(()=>err.message ||"server error");
+      
+    }));
+  }
 
 }

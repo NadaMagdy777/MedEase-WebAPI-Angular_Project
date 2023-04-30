@@ -9,6 +9,7 @@ import { DoctorIndexComponent } from 'src/app/components/Doctor/doctor-index/doc
 import { MinutesToTimePipe } from 'src/app/pipes/minutes-to-time.pipe';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SearchComponent } from 'src/app/components/Doctor/search/search.component';
+import { DoctorDetailsComponent } from 'src/app/components/Doctor/doctor-details/doctor-details.component';
 
 
 
@@ -19,7 +20,8 @@ import { SearchComponent } from 'src/app/components/Doctor/search/search.compone
     DoctorIndexComponent,
     AllDoctorComponent,
     MinutesToTimePipe,
-    SearchComponent
+    SearchComponent,
+    DoctorDetailsComponent
   ],
   imports: [
     CommonModule,
