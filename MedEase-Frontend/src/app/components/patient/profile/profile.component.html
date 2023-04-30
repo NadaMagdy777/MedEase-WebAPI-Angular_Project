@@ -78,6 +78,10 @@
 
                 <div *ngIf="region?.touched &&region?.invalid" class="text-danger">
                     <small *ngIf="region?.errors?.['required']">region is required</small>
+                    <small *ngIf="region?.errors?.['minlength']" class="text-danger">Input must be at least 2
+                        characters</small>
+                    <small *ngIf="region?.errors?.['maxlength']" class="text-danger">Input must be less than 50
+                        characters</small>
                 </div>
             </div>
 

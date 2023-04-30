@@ -1,5 +1,5 @@
 import { Component, NgZone } from '@angular/core';
-import { Patient } from 'src/app/SharedClassesAndTypes/patient/patient';
+import { Patient } from 'src/app/sharedClassesAndTypes/patient/patient';
 import { PatientService } from 'src/app/services/patient/patient.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -29,7 +29,7 @@ export class ProfileComponent {
   };
 
   EditProfileForm:FormGroup;
-
+  
   constructor(
     private _patientService:PatientService,
     public actRoute: ActivatedRoute,
@@ -44,7 +44,7 @@ export class ProfileComponent {
         phone:['',[Validators.required]],
         address:this.fb.group({
           building:[0,[Validators.required]],
-          street:['',[Validators.required]],
+          street:['',[Validators.required,Validators.minLength(2),Validators.maxLength(50)]],
           region:['',[Validators.required]],
           city:['',[Validators.required]]
         })
@@ -60,19 +60,19 @@ export class ProfileComponent {
         this.patient.phoneNumber = data;
       });
       this.EditProfileForm.get('email')?.valueChanges.subscribe((data) => {
-        this.patient.phoneNumber = data;
+        this.patient.email = data;
       });
-      this.EditProfileForm.get('building')?.valueChanges.subscribe((data) => {
-        this.patient.phoneNumber = data;
+      this.EditProfileForm.controls['address'].get('building')?.valueChanges.subscribe((data) => {
+        this.patient.building = data;
       });
-      this.EditProfileForm.get('street')?.valueChanges.subscribe((data) => {
-        this.patient.phoneNumber = data;
+      this.EditProfileForm.controls['address'].get('street')?.valueChanges.subscribe((data) => {
+        this.patient.street = data;
       });
-      this.EditProfileForm.get('region')?.valueChanges.subscribe((data) => {
-        this.patient.phoneNumber = data;
+      this.EditProfileForm.controls['address'].get('region')?.valueChanges.subscribe((data) => {
+        this.patient.region = data;
       });
-      this.EditProfileForm.get('city')?.valueChanges.subscribe((data) => {
-        this.patient.phoneNumber = data;
+      this.EditProfileForm.controls['address'].get('city')?.valueChanges.subscribe((data) => {
+        this.patient.city = data;
       });
     }
   
