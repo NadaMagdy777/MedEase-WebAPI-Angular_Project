@@ -17,6 +17,7 @@ using System.Net;
 using System.Text.RegularExpressions;
 using System.Numerics;
 using MedEase.EF.Data;
+using System.Drawing.Printing;
 
 namespace MedEase.EF.Services
 {
@@ -98,6 +99,8 @@ namespace MedEase.EF.Services
                 doctorDTO.Doctorcertificates = _mapper.Map<List<CertificateDto>>(doctor.Certificates);
                 doctorDTO.WaitingTime =await CaluclutDoctorWaitingTime(doctor.ID);
                 doctorDTO.Rating = await CaluclutDoctorRating(doctor.ID);
+                doctorDTO.visitors = await GetCountOfDoctorPatients(doctor.ID);
+
 
             }
             return doctorDTO;
@@ -536,10 +539,15 @@ namespace MedEase.EF.Services
 
             }
 
-
-
             return RatingAverage;
 
         }
+        public async Task<int> GetCountOfDoctorPatients(int DocId)
+        {
+            int patientCount =  _unitOfWork.Reviews.Count(A => A.Examination.DoctorID == DocId);
+            return patientCount;
+                      
+        }
     }
 }
+    

@@ -35,7 +35,7 @@ namespace MedEase.Core.Dtos
 
         public float Rating { get; set; }
 
-
+        public int visitors { get; set; }
         public string SpecialityName { get; set; }
 
         public List<CertificateDto> Doctorcertificates { get; set; }
