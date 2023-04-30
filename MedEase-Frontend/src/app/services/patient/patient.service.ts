@@ -1,8 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
-import { Patient } from 'src/app/SharedClassesAndTypes/patient/patient';
-import { PatientEdit } from 'src/app/SharedClassesAndTypes/patient/patientEdit';
+import { Patient } from 'src/app/sharedClassesAndTypes/patient/patient';
+import { PatientEdit } from 'src/app/sharedClassesAndTypes/patient/patientEdit';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
