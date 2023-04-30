@@ -5,9 +5,7 @@ import { AppointmentsComponent } from './components/patient/appointments/appoint
 import { InsuranceComponent } from './components/patient/insurance/insurance.component';
 import { HomeComponent } from './components/home/home/home.component';
 
-import { DoctorAppointmentsComponent } from 'src/app/components/doctor/doctor-appointments/doctor-appointments.component';
-import { DoctorPendingAppointmentsComponent } from 'src/app/components/doctor/doctor-pending-appointments/doctor-pending-appointments.component';
-import { DoctorConfirmedAppointmentsComponent } from 'src/app/components/doctor/doctor-confirmed-appointments/doctor-confirmed-appointments.component';
+
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -19,15 +17,8 @@ const routes: Routes = [
 
 
 
-  //{path:"**",component:HomeComponent},    ///=======> Not Found Component
-      // { path: '**', component: DoctorAppointmentsComponent, children: [
-      //   { path: '',  redirectTo: '/Pending', pathMatch: 'full' },
-      //   { path: 'Pending', component: DoctorPendingAppointmentsComponent },
-      //   { path: 'Confirmed', component: DoctorConfirmedAppointmentsComponent },
-      // ] },
 
-      { path: '**', component: DoctorPendingAppointmentsComponent },
-      // { path: '**', component: DoctorConfirmedAppointmentsComponent },
+      { path: '**', component: HomeComponent},
 
 
     ];

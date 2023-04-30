@@ -14,14 +14,14 @@ const routes: Routes = [
     component: AllDoctorComponent,
     children: [
       { path: 'All', component: DoctorIndexComponent },
-      // { path: 'Appointment', component: DoctorAppointmentsComponent, children: [
-      //   { path: '',  redirectTo: '/Pending', pathMatch: 'full' },
-      //   { path: 'Pending', component: DoctorPendingAppointmentsComponent },
-      //   { path: 'Confirmed', component: DoctorConfirmedAppointmentsComponent },
-      // ] },
+       { path: 'Appointment', component: DoctorAppointmentsComponent, children: [
+         { path: '',  redirectTo: '/Pending', pathMatch: 'full' },
+        { path: 'Pending', component: DoctorPendingAppointmentsComponent },
+        { path: 'Confirmed', component: DoctorConfirmedAppointmentsComponent },
+      ] },
     ],
   },
-  { path: 'details', component: DoctorDetailsComponent },
+  { path: 'details/:id', component: DoctorDetailsComponent },
 ];
 
 @NgModule({
