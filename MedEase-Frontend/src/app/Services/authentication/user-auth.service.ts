@@ -14,17 +14,6 @@ export class UserAuthService {
 
   login(email: string, password: string) {
     this._httpClient.post<IApiResponse>(this.baseUrl + '/login', { email, password })
-      .subscribe((response:IApiResponse) => {
-        console.log(response);
-        
-        // if (response.success) {
-        //   localStorage.setItem('token', response.data);
-        //   this.loggedUserSubject.next(true);
-        // }
-      });
-    // let usrToken = '123456789';
-    // localStorage.setItem('token', usrToken);
-    // this.loggedUserSubject.next(true);
   }
 
   logout() {
