@@ -15,6 +15,7 @@ namespace MedEase.Core.MappingProfiles
         {
             CreateMap<Question, QuestionDto>().ReverseMap();
             CreateMap<Question, AnswerDto>().ReverseMap();
+            CreateMap<Question, PatientQuestionDto>().ReverseMap();
         }
     }
 }

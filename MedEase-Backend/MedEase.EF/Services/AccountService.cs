@@ -108,7 +108,7 @@ namespace MedEase.EF.Services
                 return new ApiResponse(400, false, null, "InValid Inputs");
             }
 
-            if (!result.Succeeded) { return new ApiResponse(400, false, result.Errors); }      //result.Errors
+            if (!result.Succeeded) { return new ApiResponse(400, false, result.Errors); }
 
             await _userManager.AddToRoleAsync(user, Roles.Doctor);
 

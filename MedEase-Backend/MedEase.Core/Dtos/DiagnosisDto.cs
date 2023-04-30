@@ -11,6 +11,7 @@ namespace MedEase.Core.Dtos
     public class DiagnosisDto
     {
         public string Details { get; set; }
-        public int ExaminationID { get; set; }
+        public int? ExaminationID { get; set; }                 //====> WHY???? HOW ???
+        public int? AppointmentID { get; set; }
     }
 }

@@ -257,49 +257,21 @@ namespace MedEase.EF.Services
             return reviews;
         }
 
-        public async Task<ReviewDto> CreateReview(ReviewDto dto)
+        public async Task<ApiResponse> CreateReview(ReviewDto dto)
         {
-            /////////Check Review ID
+            int? ExaminationID = await _unitOfWork.Examinations.FindDtoAsync(e => e.AppointmentID == dto.AppointmentID, e => e.ID);
+            if (ExaminationID.Value == 0) { return new(404, false); }
+
             Review review = _mapper.Map<Review>(dto);
+            review.ExaminationID = ExaminationID.Value;
+
             review = await _unitOfWork.Reviews.AddAsync(review);
-            _unitOfWork.Complete();
-            ReviewDto reviewDto = _mapper.Map<ReviewDto>(review);
-            return reviewDto;
-        }
-
-        public async Task<ApiResponse> GetQuestionsByDoctorSpeciality(int docId)
-        {
-            int? docSpecId = (int?)await _unitOfWork.Doctors.FindWithSelectAsync(d => d.ID == docId, d => d.SpecialityID);
-
-            if (docSpecId == null) { return new ApiResponse(404, false, "User Not Found"); }
-
-            IEnumerable<Question> questions = await _unitOfWork.Questions
-                .FindAllAsync(q => q.SpecialityId == docSpecId.Value && !q.IsAnswered);
-
-            return new ApiResponse(200, true, _mapper.Map<IEnumerable<QuestionDto>>(questions).ToList());
-        }
-
-        public async Task<ApiResponse?> GetDoctorAnsweredQuestions(int docId)
-        {
-            IEnumerable<Question> questions =
-                await _unitOfWork.Questions.FindAllAsync(q => q.DoctorId == docId);
-
-            return new ApiResponse(200, true, _mapper.Map<IEnumerable<QuestionDto>>(questions).ToList());
-        }
-
-        public async Task<ApiResponse> DoctorAnswerQuestions(AnswerDto dto)
-        {
-            Question question = await _unitOfWork.Questions.FindAsync(q => q.Id == dto.Id);
-
-            if (question == null) { return new ApiResponse(400, false); }
-
-            question.Answer = dto.Answer;
-            question.DoctorId = dto.DoctorId;
 
             _unitOfWork.Complete();
 
-            return (new(200, true, _mapper.Map<QuestionDto>(question)));
+            return new(200, true, _mapper.Map<ReviewDto>(review));
         }
+
         public async Task<ApiResponse> EditScheduleDoctor(int Id, DoctorEditScheduleDto doctorEditScheduleDto)
         {
             DoctorSchedule orgdoctorschedule = await _unitOfWork.DoctorSchedule.FindAsync(d => d.Id == Id);
