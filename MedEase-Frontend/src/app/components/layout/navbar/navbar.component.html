@@ -9,18 +9,27 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link p-0" routerLinkActive="active" routerLink="/home"><span class="btn btn-outline-dark py-1 mr-2"> Sign Up </span> </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link p-0" routerLinkActive="active" routerLink="/home"><span class="btn btn-outline-dark py-1"> Login </span></a>
-                </li>
+                <ng-container *ngIf="!isUserLogged">
+                    <li class="nav-item">
+                        <a class="nav-link p-0" routerLinkActive="active" routerLink="/register"><span class="btn btn-outline-dark py-1 mr-2"> Sign Up </span> </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link p-0" routerLinkActive="active" routerLink="/login"><span class="btn btn-outline-dark py-1"> Login </span></a>
+                    </li>
+                </ng-container>
+                <ng-container *ngIf="isUserLogged">
+                    <li class="nav-item">
+                        <span (click)="onLogOut()" class="nav-link p-0"><span class="btn btn-outline-dark py-1 mr-2"> Log out </span> </span>
+                    </li>
+                </ng-container>
                 <li class="nav-item active">
                     <a class="nav-link px-1" routerLinkActive="active" routerLink="/home"><span class="mx-1">|</span> Home <span class="mx-1">|</span></a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link px-1" routerLinkActive="active" routerLink="/home">Vezeeta For Doctors <span class="mx-1">|</span></a>
-                </li>
+                <ng-container *ngIf="!isUserLogged">
+                    <li class="nav-item">
+                        <a class="nav-link px-1" routerLinkActive="active" routerLink="/home">Vezeeta For Doctors <span class="mx-1">|</span></a>
+                    </li>
+                </ng-container>
                 <li class="nav-item">
                     <a class="nav-link px-1" routerLinkActive="active" routerLink="/home">Contact Us <span class="mx-1">|</span></a>
                 </li>

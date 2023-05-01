@@ -35,7 +35,7 @@ export class DoctorPendingAppointmentsComponent implements OnInit {
       /////
   //For Test Only (Remove Later)
   ////
-    this._userAuthService.login("user@example.com","123abcABC@");
+    // this._userAuthService.login("user@example.com","123abcABC@");
   /////
   //For Test Only (Remove Later)
   ////

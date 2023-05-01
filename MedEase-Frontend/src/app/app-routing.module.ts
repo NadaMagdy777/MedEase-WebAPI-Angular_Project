@@ -1,3 +1,4 @@
+import { LoginComponent } from './components/authentication/login/login.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './Authentication/auth.guard';
@@ -10,6 +11,7 @@ import { HomeComponent } from './components/home/home/home.component';
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   {path:"home",component:HomeComponent,canActivate:[AuthGuard]},
+  {path:'login', component: LoginComponent},
   {path:"doctor",loadChildren:()=>import('./modules/Doctor/doctor/doctor.module').then(mod=>mod.DoctorModule)},
   {path:'account',loadChildren:()=>import('./modules/patient/patient.module').then(mod=>mod.PatientModule)},
   {path:'userAppointments',component:AppointmentsComponent},
