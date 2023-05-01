@@ -11,8 +11,10 @@ import { DoctorPendingAppointmentsComponent } from 'src/app/components/doctor/do
 import { DoctorConfirmedAppointmentsComponent } from 'src/app/components/doctor/doctor-confirmed-appointments/doctor-confirmed-appointments.component';
 import { MinutesToTimePipe } from 'src/app/pipes/minutes-to-time.pipe';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { SearchComponent } from 'src/app/components/doctor/search/search.component';
-import { DoctorDetailsComponent } from 'src/app/components/doctor/doctor-details/doctor-details.component';
+import { SearchComponent } from 'src/app/components/Doctor/search/search.component';
+import { DoctorDetailsComponent } from 'src/app/components/Doctor/doctor-details/doctor-details.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptor } from 'src/app/interceptors/token.interceptor';
 
 @NgModule({
   declarations: [
@@ -32,6 +34,11 @@ import { DoctorDetailsComponent } from 'src/app/components/doctor/doctor-details
     NgbModule,
     FormsModule
 
-  ]
+  ],
+  providers:[{
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptor,
+    multi: true
+  }]
 })
 export class DoctorModule {}

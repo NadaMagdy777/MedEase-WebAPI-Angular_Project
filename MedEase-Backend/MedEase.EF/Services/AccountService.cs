@@ -49,10 +49,10 @@ namespace MedEase.EF.Services
         public async Task<ApiResponse> LoginUser(UserLoginDto dto)
         {
             AppUser user = await _userManager.FindByEmailAsync(dto.Email);
-            if (user == null) { return new ApiResponse(404, false); }
+            if (user == null) { return new ApiResponse(404, false, null, "User not found"); }
 
             var result = await _signInManager.CheckPasswordSignInAsync(user, dto.Password, false);
-            if (!result.Succeeded) { return new ApiResponse(401, false); }
+            if (!result.Succeeded) { return new ApiResponse(401, false, null, "Invalid password"); }
 
             int Id = await GetUserTypeId(user);
 
