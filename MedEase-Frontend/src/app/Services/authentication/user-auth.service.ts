@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { IApiResponse } from 'src/app/SharedClassesAndTypes/iapi-response';
+import { IApiResponse } from 'src/app/sharedClassesAndTypes/iapi-response';
 import jwtDecode from 'jwt-decode';
 
 @Injectable({

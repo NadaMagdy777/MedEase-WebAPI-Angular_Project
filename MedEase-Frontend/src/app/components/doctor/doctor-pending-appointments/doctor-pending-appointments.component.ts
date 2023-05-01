@@ -17,6 +17,7 @@ export class DoctorPendingAppointmentsComponent implements OnInit {
 
   pendingAppointments: IDoctorPendingAppointmentDetailsDto[] = [];
   allSubscriptions: Subscription[] = [];
+  date=new Date().getTime()
 
   ngOnInit(): void {
     this.allSubscriptions.push(
@@ -31,6 +32,7 @@ export class DoctorPendingAppointmentsComponent implements OnInit {
           }
         })
     );
+ 
 
       /////
   //For Test Only (Remove Later)

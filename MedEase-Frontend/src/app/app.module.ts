@@ -33,6 +33,8 @@ import { TokenInterceptor } from './interceptors/token.interceptor';
 
     HomeBannerComponent,
              LoginComponent,
+            
+             
       
   ],
   imports: [
@@ -43,6 +45,7 @@ import { TokenInterceptor } from './interceptors/token.interceptor';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    
     
   ],
   providers: [{
