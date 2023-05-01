@@ -31,7 +31,6 @@ export class PatientService {
   }
 
   UpdatePatientInfo(id: number, patient:any):Observable<PatientEdit>{
-    console.log(patient);
     return this.http.put<PatientEdit>(
       `${environment.apiUrl}/${this._url}?id=${id}`, 
       JSON.stringify(patient),

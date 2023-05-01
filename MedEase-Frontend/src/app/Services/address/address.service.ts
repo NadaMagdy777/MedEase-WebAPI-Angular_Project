@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subscription, BehaviorSubject } from 'rxjs';
-import { IAddress } from 'src/app/SharedClassesAndTypes/iaddress';
+import { IAddress } from 'src/app/sharedClassesAndTypes/iaddress';
 import { IApiResponse } from 'src/app/SharedClassesAndTypes/iapi-response';
 import { environment } from 'src/environments/environment';
 

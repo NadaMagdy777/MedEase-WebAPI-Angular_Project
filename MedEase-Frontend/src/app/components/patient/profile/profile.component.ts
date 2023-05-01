@@ -3,6 +3,7 @@ import { Patient } from 'src/app/sharedClassesAndTypes/patient/patient';
 import { PatientService } from 'src/app/services/patient/patient.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AddressService } from 'src/app/services/address/address.service';
 
 @Component({
   selector: 'app-profile',
@@ -28,10 +29,16 @@ export class ProfileComponent {
     history: undefined
   };
 
+  CitiesList:string[] = [];
+  RegionsList:string[] = [];
+  selectedCity: string = 'Egypt';
+  selectedRegion: string = 'Egypt';
+
   EditProfileForm:FormGroup;
   
   constructor(
     private _patientService:PatientService,
+    private _addressService:AddressService,
     public actRoute: ActivatedRoute,
     public router: Router,
     private fb:FormBuilder) 
@@ -73,10 +80,13 @@ export class ProfileComponent {
       });
       this.EditProfileForm.controls['address'].get('city')?.valueChanges.subscribe((data) => {
         this.patient.city = data;
+        this.selectedCity = data;
+        this.updateCity();
       });
     }
   
   ngOnInit(): void {
+
     this._patientService
     .GetPatientById(this.id)
     .subscribe({
@@ -88,6 +98,19 @@ export class ProfileComponent {
       error:(error: any)=>this.errorMessage=error,
     });   
 
+    this._addressService.getCities().subscribe({
+      next:(data:any)=>{
+        this.CitiesList = data;
+      },
+      error:(error: any)=>this.errorMessage=error,
+    });
+
+    this._addressService.getRegions().subscribe({
+      next:(data:any)=>{
+        this.RegionsList = data;
+      },
+      error:(error: any)=>this.errorMessage=error,
+    });
   }
 
   LoadFormData(): void {
@@ -138,12 +161,18 @@ export class ProfileComponent {
     return this.EditProfileForm.controls['address'].get('city');
   }
 
+  updateCity(): void {
+    this._addressService.updateRegions(this.selectedCity);
+    this.selectedRegion = this.patient.region;
+    console.log(this.selectedRegion);
+  }
+
   updatePatientInfo():void {
     console.log(this.patient)
-
+    console.log(this._addressService.getAddressID(this.selectedCity, this.selectedRegion))
     if(window.confirm('Are you sure, you want to update?')){
       this._patientService.UpdatePatientInfo(this.id, this.patient)
-      .subscribe(() => this.router.navigate(['/account/profile']));
+      .subscribe(); //() => this.router.navigate(['/account/profile'])
     }
   }
 
