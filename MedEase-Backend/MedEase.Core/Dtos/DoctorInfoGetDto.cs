@@ -33,11 +33,11 @@ namespace MedEase.Core.Dtos
 
         public int WaitingTime { get; set; }
 
-        public float Rating { get; set; }
+        public int Rating { get; set; }
 
         public int visitors { get; set; }
         public string SpecialityName { get; set; }
-
+        public int ClincRating { get; set; }
         public List<CertificateDto> Doctorcertificates { get; set; }
 
         public List<InsuranceDto> DoctorcerInsurance { get; set; }

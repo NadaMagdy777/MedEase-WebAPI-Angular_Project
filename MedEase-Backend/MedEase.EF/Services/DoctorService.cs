@@ -100,6 +100,7 @@ namespace MedEase.EF.Services
                 doctorDTO.WaitingTime =await CaluclutDoctorWaitingTime(doctor.ID);
                 doctorDTO.Rating = await CaluclutDoctorRating(doctor.ID);
                 doctorDTO.visitors = await GetCountOfDoctorPatients(doctor.ID);
+                doctorDTO.ClincRating=await CaluclutClincRating(doctor.ID);
 
 
             }
@@ -135,7 +136,6 @@ namespace MedEase.EF.Services
 
             if (doctor != null)
             {
-                //doctor = _mapper.Map<Doctor>(doctorDto);
                 doctor.AppUser.FirstName = doctorDto.FirstName;
                 doctor.AppUser.LastName = doctorDto.LastName;
                 doctor.Fees = doctorDto.Fees;
@@ -251,8 +251,17 @@ namespace MedEase.EF.Services
 
         public async Task<IEnumerable<ReviewDto>> GetDoctorReviews(int Id)
         {
-            IEnumerable<ReviewDto> reviews = await _unitOfWork.Reviews
-                .GetDtoAsync(r => r.Examination.DoctorID == Id, r => _mapper.Map<ReviewDto>(r));
+            //IEnumerable<ReviewDto> reviews1 = await _unitOfWork.Reviews
+            //    .GetDtoAsync(r => r.Examination.DoctorID == Id, r => _mapper.Map<ReviewDto>(r));
+            
+              var reviewsList= await _unitOfWork.Reviews.FindAllAsync(R => R.Examination.DoctorID == Id,
+               new List<Expression<Func<Review, object>>>()
+               {
+                   R=>R.Examination.Patient.AppUser
+
+
+               }); 
+             List<ReviewDto> reviews = _mapper.Map<List<ReviewDto>>(reviewsList.ToList());
 
             return reviews;
         }
@@ -298,6 +307,7 @@ namespace MedEase.EF.Services
         {
             return new ApiResponse(200, true, _mapper.Map<IEnumerable<SpecialityDto>>(await _unitOfWork.Speciality.GetAllAsync()));
         }
+
 
         //public async Task<IEnumerable<AppointmentStatusDto>> GetPendingAppointmentsAsync(int docId)   ///asd/asd/asd/asd/asd/asd/               //    DELETE        <<======
         //{
@@ -483,7 +493,42 @@ namespace MedEase.EF.Services
             return WaitingTimeAverage;
 
         }
-        public async Task<float> CaluclutDoctorRating(int DocID)
+        public async Task<int> CaluclutDoctorRating(int DocID)
+        {
+            IEnumerable<Review> Reviews = (IEnumerable<Review>)await _unitOfWork.Reviews
+                 .FindAllAsync(r => r.Examination.DoctorID == DocID, new List<Expression<Func<Review, object>>>()
+               {
+                 r=>r.Examination
+
+               });
+           
+
+            
+
+            var ReviewsList = Reviews.ToList();
+
+            int NumOfReviews = ReviewsList.Count;
+            int RatingSum = 0;
+            int RatingAverage = 0;
+
+            if (NumOfReviews > 0)
+            {
+                foreach (var item in ReviewsList)
+                {
+                    RatingSum += item.ClinicRate;
+                }
+
+                RatingAverage = RatingSum / NumOfReviews;
+                return RatingAverage;
+
+
+            }
+
+            return RatingAverage;
+
+        }
+
+        public async Task<int> CaluclutClincRating(int DocID)
         {
             IEnumerable<Review> Reviews = (IEnumerable<Review>)await _unitOfWork.Reviews
                  .FindAllAsync(r => r.Examination.DoctorID == DocID, new List<Expression<Func<Review, object>>>()
@@ -496,7 +541,7 @@ namespace MedEase.EF.Services
 
             int NumOfReviews = ReviewsList.Count;
             int RatingSum = 0;
-            float RatingAverage = 0;
+            int RatingAverage = 0;
 
             if (NumOfReviews > 0)
             {
@@ -514,6 +559,8 @@ namespace MedEase.EF.Services
             return RatingAverage;
 
         }
+
+
         public async Task<int> GetCountOfDoctorPatients(int DocId)
         {
             int patientCount =  _unitOfWork.Reviews.Count(A => A.Examination.DoctorID == DocId);
