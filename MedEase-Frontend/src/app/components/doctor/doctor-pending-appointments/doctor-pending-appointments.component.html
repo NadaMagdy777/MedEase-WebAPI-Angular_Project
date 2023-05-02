@@ -1,5 +1,25 @@
-<div>  
+<div class="container-fluid">  
     Doctor Pending Appointments Comp
     {{pendingAppointments | json}}
+    <div>
+        <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">First</th>
+                <th scope="col">Last</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let appoinment of pendingAppointments">
+                <th scope="row">1</th>
+                <td>{{appoinment.patientName}}</td>
+                <td>{{appoinment.date}}</td>
+                <td *ngIf="AppoinmentConfirm(appoinment)">hello</td>
+              </tr>
+              
+            </tbody>
+          </table>
+    </div>
    
 </div>
