@@ -34,9 +34,7 @@ import { DoctorRegisterComponent } from './components/authentication/doctor-regi
    
 
     HomeBannerComponent,
-             LoginComponent,
-             PatientRegisterComponent,
-             DoctorRegisterComponent,
+    LoginComponent,
       
   ],
   imports: [

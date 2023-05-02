@@ -1,5 +1,12 @@
 <div class="container">
-    <form [formGroup]="EditProfileForm" (ngSubmit)="updatePatientInfo()">
+    <div>
+        <form [formGroup]="imageForm">
+            <input #imageInput type="file" accept="image/*" (change)="ProcessFile($event)">
+            <img [src]="imageUrl"/>
+        </form>
+    </div>
+<div class="container">
+    <form [formGroup]="EditProfileForm" (ngSubmit)="updateDoctorInfo()">
         <div class="form-group">
             <label>First Name</label>
             <input [class.is-invalid]="fname?.invalid &&fname?.touched" 
@@ -50,6 +57,24 @@
                 <small *ngIf="EditProfileForm.errors?.['phone']">Phone must be like 01*********</small>
             </div>
         </div>
+        <div class="form-group">
+            <label>Fees</label>
+            <input type="number" class="form-control" formControlName="fees"
+                [class.is-invalid]="fees?.touched &&fees?.invalid">
+
+            <div *ngIf="fees?.touched &&fees?.invalid" class="text-danger">
+                <small *ngIf="fees?.errors?.['required']">fees is required</small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>waitingTime</label>
+            <input type="number" class="form-control" formControlName="waitingTime"
+                [class.is-invalid]="waitingTime?.touched &&waitingTime?.invalid">
+
+            <div *ngIf="waitingTime?.touched &&waitingTime?.invalid" class="text-danger">
+                <small *ngIf="waitingTime?.errors?.['required']">waiting Time is required</small>
+            </div>
+        </div>
         <div formGroupName="address">
             <div class="form-group">
                 <label>Building</label>
@@ -97,4 +122,5 @@
         </div>
         
     </form>
+    </div>
 </div>

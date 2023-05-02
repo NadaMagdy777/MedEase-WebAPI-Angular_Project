@@ -1,5 +1,5 @@
 import { Subscription } from 'rxjs';
-import { IDoctorPendingAppointmentDetailsDto } from './../../../SharedClassesAndTypes/appointment/i-doctor-pending-appointment-details-dto';
+import { IDoctorPendingAppointmentDetailsDto } from './../../../sharedClassesAndTypes/appointment/i-doctor-pending-appointment-details-dto';
 import { AppointmentService } from './../../../services/appointment/appointment.service';
 import { Component, OnInit } from '@angular/core';
 import { UserAuthService } from 'src/app/services/authentication/user-auth.service';

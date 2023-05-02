@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DoctorService } from 'src/app/services/doctor/doctor.service';
-import { Doctor } from 'src/app/SharedClassesAndTypes/Doctor/Doctor';
+import { Doctor } from 'src/app/sharedClassesAndTypes/doctor/doctor';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 
 @Component({
@@ -11,7 +11,7 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 export class DoctorDetailsComponent {
 
   doctorId!:number
-  doctor:Doctor=new Doctor(0,0,'','','','',0,0,0,0,'',0,0,'','','',0);
+  doctor:Doctor=new Doctor(0,0,'','','','',0,0,0,0,'',0,0,'','','',0,'','');
   errorMessage: any;
   constructor(private DoctorService:DoctorService,private router:Router ,private route:ActivatedRoute){
    

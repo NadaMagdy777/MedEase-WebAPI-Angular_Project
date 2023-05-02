@@ -89,7 +89,7 @@ namespace MedEase.EF.Services
                 patient.AppUser.PhoneNumber = patientDto.PhoneNumber;
                 patient.AppUser.Building = patientDto.Building;
                 patient.AppUser.Street = patientDto.Street;
-                patient.AppUser.Address.ID = await ChangeAddress(patientDto.City, patientDto.Region);
+                patient.AppUser.AddressID = await GetAddressId(patientDto.City, patientDto.Region);
                 patient.AppUser.BirthDate = patientDto.BirthDate;
                 patient.AppUser.Email= patientDto.Email;
                 
@@ -102,7 +102,7 @@ namespace MedEase.EF.Services
             return false;
 
         }
-        private async Task<int> ChangeAddress(string city, string region)
+        private async Task<int> GetAddressId(string city, string region)
         {
             Address address = await _unitOfWork.Addresses
                 .FindAsync(a => a.City == city && a.Region == region);
