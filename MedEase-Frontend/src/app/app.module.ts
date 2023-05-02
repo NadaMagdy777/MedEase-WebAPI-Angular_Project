@@ -32,7 +32,7 @@ import { TokenInterceptor } from './interceptors/token.interceptor';
    
 
     HomeBannerComponent,
-             LoginComponent,
+    LoginComponent,
       
   ],
   imports: [

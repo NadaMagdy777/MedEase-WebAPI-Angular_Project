@@ -11,7 +11,7 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 export class DoctorDetailsComponent {
 
   doctorId!:number
-  doctor:Doctor=new Doctor(0,0,'','','','',0,0,0,0,'',0,0,'','','',0);
+  doctor:Doctor=new Doctor(0,0,'','','','',0,0,0,0,'',0,0,'','','',0,'','');
   errorMessage: any;
   constructor(private DoctorService:DoctorService,private router:Router ,private route:ActivatedRoute){
    
