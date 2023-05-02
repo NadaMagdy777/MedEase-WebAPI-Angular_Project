@@ -43,7 +43,7 @@ export class SearchComponent {
     );
     this.allSubscriptions.push(
       this._specialtiesServices.getSpecialties().subscribe((response) => {
-        this.specialties = response.data;
+        this.specialties = response;
       })
     );
   }

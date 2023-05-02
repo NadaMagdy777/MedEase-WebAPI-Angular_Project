@@ -12,8 +12,8 @@ import { SpecialtiesService } from 'src/app/Services/specialities/specialities.s
   styleUrls: ['./carousel.component.css'],
 })
 export class CarouselComponent {
-  selectedSpecialtyName: string = "All";
-  selectedCity: string = 'Egypt';
+  selectedSpecialtyName: string = 'All';
+  selectedCity: string = 'Cairo';
   selectedRegion: string = 'All';
   selectedName: string = 'All';
   specialties: ISpecialty[] = [];
@@ -68,7 +68,7 @@ export class CarouselComponent {
     );
     this.allSubscriptions.push(
       this._specialtiesServices.getSpecialties().subscribe((response) => {
-        this.specialties = response.data;
+        this.specialties = response;
       })
     );
   }
