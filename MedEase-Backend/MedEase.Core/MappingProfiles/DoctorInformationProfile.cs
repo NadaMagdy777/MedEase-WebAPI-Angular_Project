@@ -23,7 +23,9 @@ namespace MedEase.Core.MappingProfiles
                 .ReverseMap(); ;
             CreateMap<AppUser, DoctorInfoGetDto>().ReverseMap();
             CreateMap<Address, AddressDto>().ReverseMap();
-            CreateMap<SubspecialityDto, SubSpeciality>().ReverseMap();
+            CreateMap<SubspecialityDto, SubSpeciality>()
+                .ForMember(dest => dest.specialityID , opt => opt.MapFrom(src => src.SepcID))
+                .ReverseMap();
             CreateMap<CertificateDto, Certificates>().ReverseMap();
 
 

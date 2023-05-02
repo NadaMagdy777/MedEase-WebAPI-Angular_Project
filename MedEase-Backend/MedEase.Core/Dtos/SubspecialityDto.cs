@@ -9,8 +9,9 @@ namespace MedEase.Core.Dtos
 {
     public class SubspecialityDto
     {
-        [Required, MinLength(4), MaxLength(50)]
+        public int ID { get; set; }
 
+        [Required, MinLength(4), MaxLength(50)]
         public string Name { get; set; }
 
         [Required]

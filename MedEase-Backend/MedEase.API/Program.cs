@@ -57,6 +57,7 @@ namespace MedEase.API
             builder.Services.AddScoped<IAdminService, AdminService>();
             builder.Services.AddScoped<IQuestionService, QuestionService>();
             builder.Services.AddScoped<IAppointmentService, AppointmentService>();
+            builder.Services.AddScoped<IGeneralService, GeneralService>();
 
 
 

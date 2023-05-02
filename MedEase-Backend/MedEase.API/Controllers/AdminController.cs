@@ -17,12 +17,12 @@ namespace MedEase.API.Controllers
         {
             this._adminService = adminService;
         }
+        
         [HttpPost("Add/Insurance")]
         public async Task<IActionResult> AddInsurance(InsuranceDto insurance)
         {
             if (!ModelState.IsValid) { return BadRequest(new ApiResponse(400, false, ModelState)); };
             return Ok(new ApiResponse(200, true, await _adminService.AddInsurance(insurance)));
         }
-
     }
 }
