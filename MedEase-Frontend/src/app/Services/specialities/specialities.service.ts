@@ -1,10 +1,10 @@
-import { ISpecialty } from 'src/app/SharedClassesAndTypes/Doctor/ispeciality';
+import { ISpecialty } from 'src/app/sharedClassesAndTypes/Doctor/ispeciality';
 import { environment } from './../../../environments/environment';
 import { IApiResponse } from '../../sharedClassesAndTypes/iapi-response';
 import { HttpClient } from '@angular/common/http';
 import { Injectable, OnDestroy, OnInit } from '@angular/core';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { ISubSpecialty } from 'src/app/SharedClassesAndTypes/Doctor/isub-specialty';
+import { ISubSpecialty } from 'src/app/sharedClassesAndTypes/Doctor/isub-specialty';
 
 @Injectable({
   providedIn: 'root',

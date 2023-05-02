@@ -1,9 +1,9 @@
 import { IAddress } from 'src/app/sharedClassesAndTypes/iaddress';
 import { Component } from '@angular/core';
 import { OwlOptions } from 'ngx-owl-carousel-o';
-import { ISpecialty } from 'src/app/sharedClassesAndTypes/doctor/ispeciality';
 import { Subscription } from 'rxjs';
-import { AddressService } from 'src/app/services/address/address.service';
+import { ISpecialty } from 'src/app/sharedClassesAndTypes/Doctor/ispeciality';
+import { AddressService } from 'src/app/Services/address/address.service';
 import { SpecialtiesService } from 'src/app/services/specialities/specialities.service';
 
 @Component({

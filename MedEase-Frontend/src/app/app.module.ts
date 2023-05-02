@@ -30,11 +30,10 @@ import { DoctorRegisterComponent } from './components/authentication/doctor-regi
     CarouselComponent,
     AppointmentsComponent,
     InsuranceComponent,
-
-   
-
     HomeBannerComponent,
     LoginComponent,
+    PatientRegisterComponent,
+    DoctorRegisterComponent
       
   ],
   imports: [

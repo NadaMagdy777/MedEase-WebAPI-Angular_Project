@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AddressService } from 'src/app/services/address/address.service';
+import { AddressService } from 'src/app/Services/address/address.service';
 import { DoctorService } from 'src/app/services/doctor/doctor.service';
 import { ImageService } from 'src/app/services/image.service';
 import { Doctor } from 'src/app/sharedClassesAndTypes/doctor/doctor';
@@ -36,7 +36,8 @@ export class EditProfileComponent {
     doctorcerInsurance: undefined,
     visitors: 0,
     email: '',
-    profilePicture:undefined
+    profilePicture:undefined,
+    clincRating:0
   };
 
   doctorEdit:DoctorEdit = {

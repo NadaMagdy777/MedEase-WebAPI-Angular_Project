@@ -1,10 +1,10 @@
 import { Router } from '@angular/router';
-import { IInsurance } from './../../../SharedClassesAndTypes/shared/iinsurance';
+import { IInsurance } from './../../../sharedClassesAndTypes/shared/iinsurance';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { AddressService } from 'src/app/Services/address/address.service';
-import { SpecialtiesService } from 'src/app/Services/specialities/specialities.service';
+import { SpecialtiesService } from 'src/app/services/specialities/specialities.service';
 import { Gender } from 'src/app/SharedClassesAndTypes/enums/gender';
 import { UserAuthService } from 'src/app/services/authentication/user-auth.service';
 import { InsuranceService } from 'src/app/services/insurance/insurance.service';

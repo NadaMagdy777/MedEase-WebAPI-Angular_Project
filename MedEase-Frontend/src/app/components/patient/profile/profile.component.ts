@@ -3,7 +3,7 @@ import { Patient } from 'src/app/sharedClassesAndTypes/patient/patient';
 import { PatientService } from 'src/app/services/patient/patient.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { AddressService } from 'src/app/services/address/address.service';
+import { AddressService } from 'src/app/Services/address/address.service';
 
 @Component({
   selector: 'app-profile',

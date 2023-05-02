@@ -1,9 +1,9 @@
 import { IAddress } from 'src/app/sharedClassesAndTypes/iaddress';
 import { Component } from '@angular/core';
-import { ISpecialty } from 'src/app/sharedClassesAndTypes/doctor/ispeciality';
+import { ISpecialty } from 'src/app/sharedClassesAndTypes/Doctor/ispeciality';
 import { Subscription } from 'rxjs';
 import { SpecialtiesService } from 'src/app/services/specialities/specialities.service';
-import { AddressService } from 'src/app/services/address/address.service';
+import { AddressService } from 'src/app/Services/address/address.service';
 
 @Component({
   selector: 'app-search',
