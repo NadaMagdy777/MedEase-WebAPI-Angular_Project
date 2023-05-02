@@ -26,6 +26,9 @@ const routes: Routes = [
       { path: 'Confirmed', component: DoctorConfirmedAppointmentsComponent },
     ],
   },
+  {
+    path:'profile',component: EditProfileComponent
+  },
 ];
 
 @NgModule({
