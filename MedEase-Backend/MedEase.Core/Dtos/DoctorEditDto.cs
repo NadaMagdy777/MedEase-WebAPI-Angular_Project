@@ -14,8 +14,8 @@ namespace MedEase.Core.Dtos
         public float Fees { get; set; }
 
 
-        [Required, DataType(DataType.Password)]
-        public string Password { get; set; }
+        //[Required, DataType(DataType.Password)]
+        //public string Password { get; set; }
 
         [Required, MinLength(3), MaxLength(30)]
 
@@ -25,7 +25,7 @@ namespace MedEase.Core.Dtos
 
         public string LastName { get; set; }
 
-        public byte[]? ProfilePicture { get; set; }
+        public string? ProfilePicture { get; set; }
 
         [Required]
         [RegularExpression("^01[0-2,5]{1}[0-9]{8}$", ErrorMessage = "Please enter valid phone number")]
@@ -44,6 +44,8 @@ namespace MedEase.Core.Dtos
         [Required, MinLength(2), MaxLength(50)]
 
         public string City { get; set; }
+        [Required, EmailAddress]
+        public string Email { get; set; }
 
     }
 }

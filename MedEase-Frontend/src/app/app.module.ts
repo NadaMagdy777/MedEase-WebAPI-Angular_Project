@@ -17,6 +17,8 @@ import { AppointementsComponent } from './components/doctor/appointements/appoin
 import { HomeBannerComponent } from './components/home/home/home-banner/home-banner.component';
 import { LoginComponent } from './components/authentication/login/login.component';
 import { TokenInterceptor } from './interceptors/token.interceptor';
+import { PatientRegisterComponent } from './components/authentication/patient-register/patient-register.component';
+import { DoctorRegisterComponent } from './components/authentication/doctor-register/doctor-register.component';
 
 
 @NgModule({
@@ -32,9 +34,7 @@ import { TokenInterceptor } from './interceptors/token.interceptor';
    
 
     HomeBannerComponent,
-             LoginComponent,
-            
-             
+    LoginComponent,
       
   ],
   imports: [

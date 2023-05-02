@@ -130,7 +130,7 @@ namespace MedEase.EF.Services
             Doctor doctor = _unitOfWork.Doctors.Find(d => d.ID == id && d.IsConfirmed == true,
                 new List<Expression<Func<Doctor, object>>>()
                 {
-                   d=>d.AppUser,
+                   d=>d.AppUser.Address,
 
                 });
 
@@ -142,9 +142,8 @@ namespace MedEase.EF.Services
                 doctor.AppUser.PhoneNumber = doctorDto.PhoneNumber;
                 doctor.AppUser.Building = doctorDto.Building;
                 doctor.AppUser.Street = doctorDto.Street;
-                doctor.ProfilePicture = doctorDto.ProfilePicture;
-                doctor.AppUser.Address.City = doctorDto.City;
-                doctor.AppUser.Address.Region = doctorDto.Region;
+                doctor.ProfilePicture = Convert.FromBase64String(doctorDto.ProfilePicture);
+                doctor.AppUser.AddressID = await GetAddressId(doctorDto.City, doctorDto.Region);
 
                 _unitOfWork.Doctors.Update(doctor);
                 return _unitOfWork.Complete();
@@ -154,6 +153,13 @@ namespace MedEase.EF.Services
             }
             return 0;
 
+        }
+        private async Task<int> GetAddressId(string city, string region)
+        {
+            Address address = await _unitOfWork.Addresses
+                .FindAsync(a => a.City == city && a.Region == region);
+
+            return address.ID;
         }
         public async Task<int> AddDoctorSubspiciality(int DoctorID, SubspecialityDto subspeciality)
         {

@@ -8,6 +8,8 @@ import { SearchComponent } from 'src/app/components/doctor/search/search.compone
 import { DoctorAppointmentsComponent } from 'src/app/components/doctor/doctor-appointments/doctor-appointments.component';
 import { DoctorPendingAppointmentsComponent } from 'src/app/components/doctor/doctor-pending-appointments/doctor-pending-appointments.component';
 import { DoctorConfirmedAppointmentsComponent } from 'src/app/components/doctor/doctor-confirmed-appointments/doctor-confirmed-appointments.component';
+import { DoctorRegisterComponent } from 'src/app/components/authentication/doctor-register/doctor-register.component';
+import { EditProfileComponent } from 'src/app/components/doctor/edit-profile/edit-profile.component';
 const routes: Routes = [
   {
     path: ':speciality/:city/:region/:name',
@@ -16,12 +18,12 @@ const routes: Routes = [
   },
   { path: 'details/:id', component: DoctorDetailsComponent },
   {
-    path: 'Appointment',
+    path: 'appointment',
     component: DoctorAppointmentsComponent,
     children: [
       // { path: '', redirectTo: '/Pending', pathMatch: 'full' },
-      { path: 'Pending', component: DoctorPendingAppointmentsComponent },
-      { path: 'Confirmed', component: DoctorConfirmedAppointmentsComponent },
+      { path: 'pending', component: DoctorPendingAppointmentsComponent },
+      { path: 'confirmed', component: DoctorConfirmedAppointmentsComponent },
     ],
   },
 ];

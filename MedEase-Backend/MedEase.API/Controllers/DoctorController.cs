@@ -121,12 +121,6 @@ namespace MedEase.API.Controllers
 
             return Ok(await _doctorService.EditScheduleDoctor(Id, doctoreditschedualdto));
         }
-
-        [HttpGet("Speciality")]
-        public async Task<ActionResult<ApiResponse>> GetSpecialities()
-        {
-            return Ok(await _doctorService.GetSpecialities());
-        }
         
         [HttpPost("prescription/new")]
         public async Task<ActionResult<ApiResponse>> CreatePrescription(PrescriptionDrugDto prescriptionDto)

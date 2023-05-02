@@ -32,11 +32,14 @@ namespace MedEase.API.Controllers
             return Ok(await _accountService.LoginUser(dto));
         }
 
-        [HttpPost("Doctors/register")]
-        public async Task<ActionResult<ApiResponse>> DoctorRegister(DoctorRegisterDto dto)
+        [HttpPost("Doctor/register")]
+        //[Consumes("multipart/form-data")]
+        public async Task<ActionResult<ApiResponse>> DoctorRegister([FromForm]DoctorRegisterDto? dto)//, 
+            //[FromForm] DocRegisterImages? images)
         {
-            if (!ModelState.IsValid) { return BadRequest(new ApiResponse(400, false, ModelState)); };
-
+            //if (!ModelState.IsValid) { return BadRequest(new ApiResponse(400, false, ModelState)); };
+            // images = images;                 
+            //var x = Request.Body;             
             return Ok(await _accountService.RegisterDoctor(dto));
         }
 
@@ -47,11 +50,5 @@ namespace MedEase.API.Controllers
 
             return Ok(await _accountService.RegisterPatient(dto));
         }
-
-        [HttpGet ("Addresses")]
-        public async Task<ActionResult<ApiResponse>> GetAddresses()
-        {
-            return Ok(await _accountService.GetAddresses());
-        }   
     }   
 }

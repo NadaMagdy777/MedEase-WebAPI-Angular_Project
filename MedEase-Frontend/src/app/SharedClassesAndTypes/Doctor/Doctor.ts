@@ -19,6 +19,9 @@ export class Doctor{
         public doctorcertificates:any,
         public doctorcerInsurance:any,
         public visitors:number,
+        public email:string,
+        public profilePicture:any,
+        public visitors:number,
         public clincRating:number
     ){}
 }

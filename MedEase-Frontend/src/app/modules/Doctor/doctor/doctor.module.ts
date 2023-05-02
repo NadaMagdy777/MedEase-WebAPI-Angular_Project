@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { DoctorRoutingModule } from './doctor-routing.module';
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -15,6 +15,7 @@ import { SearchComponent } from 'src/app/components/doctor/search/search.compone
 import { DoctorDetailsComponent } from 'src/app/components/doctor/doctor-details/doctor-details.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from 'src/app/interceptors/token.interceptor';
+import { EditProfileComponent } from 'src/app/components/doctor/edit-profile/edit-profile.component';
 
 @NgModule({
   declarations: [
@@ -25,15 +26,16 @@ import { TokenInterceptor } from 'src/app/interceptors/token.interceptor';
     AllDoctorComponent,
     MinutesToTimePipe,
     SearchComponent,
-    DoctorDetailsComponent
+    DoctorDetailsComponent,
+    EditProfileComponent
   ],
   imports: [
     CommonModule,
     DoctorRoutingModule,
     NgxPaginationModule,
     NgbModule,
-    FormsModule
-
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers:[{
     provide: HTTP_INTERCEPTORS,

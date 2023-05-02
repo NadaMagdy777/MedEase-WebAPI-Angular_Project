@@ -9,8 +9,8 @@ namespace MedEase.Core.Dtos
 {
     public class InsuranceDto
     {
+        public int ID { get; set; }
         [Required, MinLength(4), MaxLength(150)]
         public string Company { get; set; }
-
     }
 }
