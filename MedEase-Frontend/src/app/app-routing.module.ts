@@ -7,7 +7,7 @@ import { InsuranceComponent } from './components/patient/insurance/insurance.com
 import { HomeComponent } from './components/home/home/home.component';
 import { PatientRegisterComponent } from './components/authentication/patient-register/patient-register.component';
 
-
+import { HistoryComponent } from './components/patient/history/history.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -18,6 +18,8 @@ const routes: Routes = [
   {path:'account',loadChildren:()=>import('./modules/patient/patient.module').then(mod=>mod.PatientModule)},
   {path:'userAppointments',component:AppointmentsComponent},
   {path:'userInsurance',component:InsuranceComponent},
+  {path:'history/:id',component:HistoryComponent},
+
   { path: '**', component: HomeComponent},
 
 

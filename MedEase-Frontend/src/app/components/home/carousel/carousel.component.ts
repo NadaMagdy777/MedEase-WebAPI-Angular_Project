@@ -13,7 +13,7 @@ import { SpecialtiesService } from 'src/app/services/specialities/specialities.s
 })
 export class CarouselComponent {
   selectedSpecialtyName: string = 'All';
-  selectedCity: string = 'Cairo';
+  selectedCity: string = 'Egypt';
   selectedRegion: string = 'All';
   selectedName: string = 'All';
   specialties: ISpecialty[] = [];

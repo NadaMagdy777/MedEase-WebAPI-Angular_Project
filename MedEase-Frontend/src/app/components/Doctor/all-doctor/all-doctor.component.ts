@@ -94,7 +94,7 @@ onFeeChange(fee:number,event:any){
       next:data=>{
         let dataJson = JSON.parse(JSON.stringify(data))
         this.DoctorList=dataJson.data
-        
+         console.log(this.DoctorList)
         this.specialityName= this.route.snapshot.params['speciality']
         this.cityName=this.route.snapshot.params['city']
         this.regionName=this.route.snapshot.params['region']
@@ -105,6 +105,9 @@ onFeeChange(fee:number,event:any){
         console.log(this.Doctorname)
         this.fileterDoctorWhenLoadingPage()
         this.filteredDoctorList=this.DoctorList
+        
+
+        console.log(this.filteredDoctorList)
 
       },
       error:error=>this.errorMessage=error

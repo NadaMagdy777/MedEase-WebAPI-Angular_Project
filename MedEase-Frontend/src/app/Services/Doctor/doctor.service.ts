@@ -23,6 +23,7 @@ export class DoctorService {
   GetAllDoctors(): Observable<Doctor[]> {
     return this.http.get<Doctor[]>(this._url).pipe(
       catchError((err) => {
+       
         return throwError(() => err.message || 'server error');
       })
     );
