@@ -66,7 +66,7 @@ export class UserAuthService {
   }
 
   get getLoggedUserName(): string {
-    if (!this.loggedUser) {
+    if (!this.loggedUser && this.isUserLogged) {
       this.saveUserData();
     }
     return this.loggedUser?.unique_name ?? '';

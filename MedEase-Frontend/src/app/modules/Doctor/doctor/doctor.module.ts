@@ -16,7 +16,6 @@ import { DoctorDetailsComponent } from 'src/app/components/doctor/doctor-details
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from 'src/app/interceptors/token.interceptor';
 import { EditProfileComponent } from 'src/app/components/doctor/edit-profile/edit-profile.component';
-import { DoctorRegisterComponent } from 'src/app/components/authentication/doctor-register/doctor-register.component';
 
 @NgModule({
   declarations: [
@@ -29,8 +28,7 @@ import { DoctorRegisterComponent } from 'src/app/components/authentication/docto
     SearchComponent,
     DoctorDetailsComponent,
     EditProfileComponent,
-    DoctorRegisterComponent
-  ],
+    ],
   imports: [
     CommonModule,
     DoctorRoutingModule,
