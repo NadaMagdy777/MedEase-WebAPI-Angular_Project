@@ -172,7 +172,7 @@
         <div class="form-group">
           <label for="specialityID">Specialty</label>
           <select #specialtySelect id="specialityID" class="form-control" formControlName="specialityID" (change)="onSpecialtySelect(specialtySelect)">
-            <option value="">-- Select Specialty --</option>
+            <option value="" disabled selected>-- Select Specialty --</option>
             <option *ngFor="let speciality of specialties$ | async" [value]="speciality.id">{{ speciality.name }}</option>
           </select>
           <div *ngIf="userRegisterForm.get('specialityID')?.invalid && (userRegisterForm.get('specialityID')?.dirty || userRegisterForm.get('specialityID')?.touched)" class="alert alert-danger">
@@ -203,4 +203,6 @@
                 <span *ngIf="isLoading" class="spinner-border spinner-border-sm"></span>
             </button>
         </div>
-        
+    </form>
+  </div>
+</div>

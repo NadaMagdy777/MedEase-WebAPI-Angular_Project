@@ -11,8 +11,10 @@ import { Gender } from 'src/app/SharedClassesAndTypes/enums/gender';
   styleUrls: ['./patient-register.component.css'],
 })
 export class PatientRegisterComponent {
-  constructor(private _addressService: AddressService,
-    private _userAuthService:UserAuthService) {}
+  constructor(
+    private _addressService: AddressService,
+    private _userAuthService: UserAuthService
+  ) {}
 
   ngOnInit() {
     // this.allSubscriptions.push(
@@ -56,6 +58,7 @@ export class PatientRegisterComponent {
           if (response.success) {
             console.log(response);
             this.isLoading = false;
+            this._userAuthService.confirmUserLogin(response.data.token);
           } else {
             this.serverErrorMsg = response.message;
             console.log(response);

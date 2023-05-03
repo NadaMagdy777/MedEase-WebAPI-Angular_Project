@@ -6,11 +6,13 @@ import { ProfileComponent } from 'src/app/components/patient/profile/profile.com
 import { ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from 'src/app/interceptors/token.interceptor';
+import { AskQuestionComponent } from 'src/app/components/patient/ask-question/ask-question.component';
 
 
 @NgModule({
   declarations: [
-    ProfileComponent
+    ProfileComponent,
+    AskQuestionComponent
   ],
   imports: [
     CommonModule,

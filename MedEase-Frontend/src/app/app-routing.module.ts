@@ -6,12 +6,14 @@ import { AppointmentsComponent } from './components/patient/appointments/appoint
 import { InsuranceComponent } from './components/patient/insurance/insurance.component';
 import { HomeComponent } from './components/home/home/home.component';
 import { PatientRegisterComponent } from './components/authentication/patient-register/patient-register.component';
+import { DoctorAuthGuard } from './guards/doctor-auth.guard';
+import { PatientAuthGuard } from './guards/patient-auth.guard';
 
 
 
 const routes: Routes = [
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
-  {path:"home",component:HomeComponent,canActivate:[AuthGuard]},
+  { path: '', redirectTo: '/Home', pathMatch: 'full' },
+  {path:"Home",component:HomeComponent},
   {path:'login', component: LoginComponent},
   {path:'register', component: PatientRegisterComponent},
   {path:"doctor",loadChildren:()=>import('./modules/doctor/doctor/doctor.module').then(mod=>mod.DoctorModule)},

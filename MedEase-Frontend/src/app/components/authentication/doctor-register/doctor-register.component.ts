@@ -1,3 +1,4 @@
+import { ImageService } from './../../../services/image.service';
 import { Router } from '@angular/router';
 import { IInsurance } from './../../../sharedClassesAndTypes/shared/iinsurance';
 import { Component } from '@angular/core';
@@ -20,7 +21,8 @@ export class DoctorRegisterComponent {
     private _userAuthService: UserAuthService,
     private _specialitiesService: SpecialtiesService,
     private _insuranceService: InsuranceService,
-    private _router: Router
+    private _router: Router,
+    private _imageService:ImageService
   ) {}
 
   ngOnInit() {
@@ -67,76 +69,43 @@ export class DoctorRegisterComponent {
     console.log(this.userRegisterForm.get('addressID')?.value);
   }
 
-  licenseImg: any;
-  pP: any;
   onLicenseImgChange(event: any) {
-    // this.userRegisterForm.patchValue({
-    //   licenseImg: event.target.files[0],
-    // });
-    // console.log("=======================");
-    // console.log(this.userRegisterForm.get('licenseImg')?.value);
-    // console.log(event.target.files[0]);
-    // this.userRegisterForm.value.licenseImg = event.target.files[0];
-    // console.log(this.userRegisterForm.value.licenseImg);
-    this.licenseImg = event.target.files[0];
-    // console.log(this.userRegisterForm.value);
-
-    // const file = event.target.files[0];
-    // const reader = new FileReader();
-    // reader.readAsArrayBuffer(file);
-    // reader.onload = () => {
-    //   const arrayBuffer = reader.result as ArrayBuffer;
-    //   const uint8Array = new Uint8Array(arrayBuffer);
-    //   this.userRegisterForm.patchValue({
-    //     licenseImg: uint8Array,
-    //   });
-    // };
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      const base64String = reader.result as string;
+      const base64Data = base64String.split(",")[1];
+      this.licenseImg = base64Data;
+      // this.userRegisterForm.value.licenseImgTemp = base64String;
+    };
   }
 
   onProfilePictureChange(event: any) {
-    // this.userRegisterForm.patchValue({
-    //   profilePicture: event.target.files[0],
-    // });
-    // console.log("=======================");
-    // console.log(this.userRegisterForm.get('profilePicture')?.value);
-    // console.log(event.target.files[0]);
-    // this.userRegisterForm.value.finalProfilePicture = event.target.files[0];
-    // console.log(this.userRegisterForm.value.finalProfilePicture);
-    
-    this.pP = event.target.files[0];
-    // console.log(this.userRegisterForm.value);
-    
-    // const file = event.target.files[0];
-    // const reader = new FileReader();
-    // reader.readAsArrayBuffer(file);
-    // reader.onload = () => {
-    //   const arrayBuffer = reader.result as ArrayBuffer;
-    //   const uint8Array = new Uint8Array(arrayBuffer);
-    //   this.userRegisterForm.patchValue({
-    //     profilePicture: uint8Array
-    //   });
-    // };
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      const base64String = reader.result as string;
+      const base64Data = base64String.split(",")[1];
+      this.pP = base64Data;
+      // console.log(this.userRegisterForm.value.profilePicture);
+      console.log(base64Data);
+    };
+    // console.log(this.userRegisterForm.value.profilePicture);
   }
 
   onRegisterFormSubmit() {
-    // console.log(this.userRegisterForm.value);
-    // console.log(this.userRegisterForm.value.licenseImg);
-    // console.log(this.userRegisterForm.value.profilePicture);
-    // console.log(this.licenseImg);
-    // console.log(this.pP);
-    this.userRegisterForm.value.licenseImg = this.licenseImg;
-    this.userRegisterForm.value.profilePicture = this.pP;
-    // console.log(this.userRegisterForm.value.licenseImg);
-    // console.log(this.userRegisterForm.value.profilePicture);
+    this.userRegisterForm.value.licenseImgTemp = this.licenseImg;
+    this.userRegisterForm.value.profilePictureTemp = this.pP;
     this.isLoading = true;
     console.log(this.userRegisterForm.value);
-
     this._userAuthService.registerDoctor(this.userRegisterForm.value).subscribe(
       (response) => {
         if (response.success) {
           console.log(response);
           this.isLoading = false;
-          // this._router.navigate(['/login']);
+          this._userAuthService.confirmUserLogin(response.data.token)
         } else {
           this.serverErrorMsg = response.message;
           console.log(response);
@@ -155,6 +124,8 @@ export class DoctorRegisterComponent {
   insurances: IInsurance[] = [];
   isLoading: boolean = false;
   serverErrorMsg: any = '';
+  licenseImg: any;
+  pP: any;
 
   userRegisterForm: FormGroup = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
