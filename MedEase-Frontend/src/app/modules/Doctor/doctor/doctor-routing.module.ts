@@ -27,6 +27,9 @@ const routes: Routes = [
     ],
   },
   { path: 'register', component: DoctorRegisterComponent },
+  {
+    path:'profile',component: EditProfileComponent
+  },
 ];
 
 @NgModule({

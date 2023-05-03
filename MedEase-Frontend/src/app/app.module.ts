@@ -14,11 +14,14 @@ import { AppointmentsComponent } from './components/patient/appointments/appoint
 import { InsuranceComponent } from './components/patient/insurance/insurance.component';
 import { AppointementsComponent } from './components/doctor/appointements/appointements.component';
 
+
 import { HomeBannerComponent } from './components/home/home/home-banner/home-banner.component';
 import { LoginComponent } from './components/authentication/login/login.component';
 import { TokenInterceptor } from './interceptors/token.interceptor';
 import { PatientRegisterComponent } from './components/authentication/patient-register/patient-register.component';
 import { NavUserNamePipe } from './pipes/nav-user-name.pipe';
+import { DoctorRegisterComponent } from './components/authentication/doctor-register/doctor-register.component';
+import { HistoryComponent } from './components/patient/history/history.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +36,9 @@ import { NavUserNamePipe } from './pipes/nav-user-name.pipe';
     LoginComponent,
     PatientRegisterComponent,
     NavUserNamePipe,
+    DoctorRegisterComponent,
+    HistoryComponent
+      
   ],
   imports: [
     BrowserModule,
