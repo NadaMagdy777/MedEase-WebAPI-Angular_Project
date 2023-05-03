@@ -33,13 +33,10 @@ namespace MedEase.API.Controllers
         }
 
         [HttpPost("Doctor/register")]
-        //[Consumes("multipart/form-data")]
-        public async Task<ActionResult<ApiResponse>> DoctorRegister([FromForm]DoctorRegisterDto? dto)//, 
-            //[FromForm] DocRegisterImages? images)
+        public async Task<ActionResult<ApiResponse>> DoctorRegister(DoctorRegisterDto dto)
         {
-            //if (!ModelState.IsValid) { return BadRequest(new ApiResponse(400, false, ModelState)); };
-            // images = images;                 
-            //var x = Request.Body;             
+            if (!ModelState.IsValid) { return BadRequest(new ApiResponse(400, false, ModelState)); };
+            
             return Ok(await _accountService.RegisterDoctor(dto));
         }
 

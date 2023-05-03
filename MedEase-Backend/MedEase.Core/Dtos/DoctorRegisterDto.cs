@@ -22,51 +22,43 @@ namespace MedEase.Core.Dtos
 
 
         //[Required]
-        public IFormFile? LicenseImgForm { get; set; }
+        //public IFormFile? LicenseImgForm { get; set; }
 
         //[Required]
-        public IFormFile? ProfilePictureForm { get; set; }
+        //public IFormFile? ProfilePictureForm { get; set; }
 
         //[ValidateNever, JsonIgnore]
-        //public byte[]? LicenseImg { get; set; }
+        [Required]
+        public string LicenseImg { get; set; }
 
         //[ValidateNever, JsonIgnore]
-        //public byte[]? ProfilePicture { get; set; }
+        [Required]
+        public string ProfilePicture { get; set; }
 
         [Required, MinLength(2), MaxLength(200)]
         public string Faculty { get; set; }
 
         [Required]
-        public string SpecialityIDTemp { get; set; }
-        public string SubSpecialities { get; set; }
-        public string Insurances { get; set; }
+        public int SpecialityID { get; set; }
+        public List<int> SubSpecialities { get; set; }
+        public List<int> Insurances { get; set; }
 
-        public List<int> GetSubSpecialitiesList()
-        {
-            if (SubSpecialities is null)
-            {
-                return null;
-            }
-            return SubSpecialities.Split(',').Where(n => int.TryParse(n,out int _)).Select(n => int.Parse(n)).ToList();
-        }
+        //public List<int> GetSubSpecialitiesList()
+        //{
+        //    if (SubSpecialities is null)
+        //    {
+        //        return null;
+        //    }
+        //    return SubSpecialities.Split(',').Where(n => int.TryParse(n,out int _)).Select(n => int.Parse(n)).ToList();
+        //}
 
-        public List<int> GetInsurancesList()
-        {
-            if (Insurances is null )
-            {
-                return null;   
-            }
-            return Insurances.Split(',').Where(n => int.TryParse(n, out int _)).Select(n => int.Parse(n)).ToList();
-        }
+        //public List<int> GetInsurancesList()
+        //{
+        //    if (Insurances is null )
+        //    {
+        //        return null;   
+        //    }
+        //    return Insurances.Split(',').Where(n => int.TryParse(n, out int _)).Select(n => int.Parse(n)).ToList();
+        //}
     }
-
-    public class DocRegisterImages
-    {
-        //[Required]
-        public IFormFile? LicenseImg { get; set; }
-
-        //[Required]
-        public IFormFile? ProfilePicture { get; set; }
-    }
-
 }

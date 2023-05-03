@@ -177,7 +177,7 @@ namespace MedEase.EF.Services
 
             DoctorSubspeciality doctorSubspeciality = new DoctorSubspeciality();
             doctorSubspeciality.SubSpeciality = Newsubspeciality;
-            doctorSubspeciality.doctor = doctor;
+            doctorSubspeciality.Doctor = doctor;
             await _unitOfWork.DoctorSubspeciality.AddAsync(doctorSubspeciality);
             return _unitOfWork.Complete();
 
