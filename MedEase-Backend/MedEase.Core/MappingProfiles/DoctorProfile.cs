@@ -8,7 +8,21 @@ namespace MedEase.Core.MappingProfiles
     {
         public DoctorProfile()
         {
-            CreateMap<Doctor, DoctorRegisterDto>().ReverseMap();
+            CreateMap<DoctorRegisterDto, Doctor>()
+                //.ForMember(dest => dest.LicenseImg, opt => opt.MapFrom(src => Convert.FromBase64String(src.LicenseImg)))
+                //.ForMember(dest => dest.ProfilePicture, opt => opt.MapFrom(src => Convert.FromBase64String(src.ProfilePicture)))
+                .ForMember(dest => dest.LicenseImg, opt => opt.Ignore())
+                .ForMember(dest => dest.ProfilePicture, opt => opt.Ignore())
+                .ForMember(dest => dest.SubSpecialities, opt => opt.Ignore())
+                //.ForMember(dest => dest.SpecialityID, opt => opt.Ignore())
+                .ForMember(dest => dest.Insurances, opt => opt.Ignore())
+                .ReverseMap();
+            CreateMap<DoctorRegisterDto, Doctor>()
+                .ForMember(dest => dest.LicenseImg, opt => opt.Ignore())
+                .ForMember(dest => dest.ProfilePicture, opt => opt.Ignore())
+                .ForMember(dest => dest.SubSpecialities, opt => opt.Ignore())
+                .ForMember(dest => dest.Insurances, opt => opt.Ignore())
+                .ReverseMap();
             CreateMap<Doctor, DoctorEditDto>().ReverseMap();
         }
     }

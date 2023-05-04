@@ -13,14 +13,14 @@ namespace MedEase.Core.Models
     public class DoctorSubspeciality
     {
         [Column(Order = 0)]
-        [ForeignKey("doctor")]
+        [ForeignKey("Doctor")]
         public int DocID { get; set; }
 
         [Column(Order = 1)]
-        [ForeignKey("subSpeciality")]
-        public int  SubspecID { get; set; }
+        [ForeignKey("SubSpeciality")]
+        public int SubSpecialityID { get; set; }
 
-        public virtual Doctor doctor { get; set; }
+        public virtual Doctor Doctor { get; set; }
 
         public virtual SubSpeciality SubSpeciality { get; set; }
 

@@ -13,7 +13,7 @@ namespace MedEase.Core.Models
         public string Name { get; set; }
 
         [ForeignKey("speciality")]
-        public int SepcID { get; set; }
+        public int specialityID { get; set; }
         public virtual Speciality Speciality { get; set; }
         public virtual List<DoctorSubspeciality> Doctors { get; set; }
 

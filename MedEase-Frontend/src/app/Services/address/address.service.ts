@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subscription, BehaviorSubject } from 'rxjs';
-import { IAddress } from 'src/app/SharedClassesAndTypes/iaddress';
-import { IApiResponse } from 'src/app/SharedClassesAndTypes/iapi-response';
+import { IAddress } from 'src/app/sharedClassesAndTypes/iaddress';
+import { IApiResponse } from 'src/app/sharedClassesAndTypes/iapi-response';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -21,11 +21,11 @@ export class AddressService implements OnDestroy {
         this.allCities.next(
           Array.from(new Set(this.allAddresses.map((x) => x.city)))
         );
-        this.allCityRegions.next(
-          this.allAddresses
-            .filter((address) => address.city === 'Cairo')
-            .map((address) => address.region)
-        );
+        // this.allCityRegions.next(
+        //   this.allAddresses
+        //     .filter((address) => address.city === 'Cairo')
+        //     .map((address) => address.region)
+        // );
       })
     );
   }
@@ -36,7 +36,7 @@ export class AddressService implements OnDestroy {
 
   private getAddresses(): Observable<IApiResponse> {
     return this._httpClient.get<IApiResponse>(
-      environment.apiUrl + '/Account/Addresses'
+      environment.apiUrl + '/General/Addresses'
     );
   }
 

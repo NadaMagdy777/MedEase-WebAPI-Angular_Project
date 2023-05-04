@@ -1,43 +1,91 @@
 <nav class="navbar navbar-expand-lg sticky-top navbar-light bg-light">
-    <div class="container-fluid">
-        <a class="navbar-brand" routerLinkActive="active" routerLink="/home">
-            <img height="40" src="../../../../assets/image/Logo.png" />
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link p-0" routerLinkActive="active" routerLink="/home"><span class="btn btn-outline-dark py-1 mr-2"> Sign Up </span> </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link p-0" routerLinkActive="active" routerLink="/home"><span class="btn btn-outline-dark py-1"> Login </span></a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link px-1" routerLinkActive="active" routerLink="/home"><span class="mx-1">|</span> Home <span class="mx-1">|</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link px-1" routerLinkActive="active" routerLink="/home">Vezeeta For Doctors <span class="mx-1">|</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link px-1" routerLinkActive="active" routerLink="/home">Contact Us <span class="mx-1">|</span></a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle px-1" href="#" role="button" data-toggle="dropdown"
-                        aria-expanded="false">
-                        Egypt
-                    </a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
-                </li>
+  <div class="container-fluid">
+    <a class="navbar-brand" routerLinkActive="active" routerLink="/home">
+      <img height="40" src="../../../../assets/image/Logo.png" />
+    </a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto">
+        <ng-container *ngIf="isUserLogged">
+          <!-- <li class="nav-item mt-2">
+                        <span class="text-muted px-1" ><span class="mx-1"></span> {{loggedUserName | navUserName}} <span class="mx-1">|</span></span>
+                    </li> -->
 
-            </ul>
-        </div>
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle px-1"
+              role="button"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+            <span class="mx-1"></span> {{loggedUserName | navUserName}} <span class="mx-1">|</span>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+            <!-- <span class="mx-1">|</span> -->
+          </li>
+        </ng-container>
+        <li class="nav-item">
+          <a class="nav-link px-1" routerLinkActive="active" routerLink="/Home"
+            ><span class="mx-1"></span> Home <span class="mx-1">|</span></a
+          >
+        </li>
+        <ng-container *ngIf="!isUserLogged">
+          <li class="nav-item">
+            <a
+              class="nav-link px-1"
+              routerLinkActive="active"
+              routerLink="doctor/register"
+              >MedEase For Doctors <span class="mx-1">|</span></a
+            >
+          </li>
+        </ng-container>
+        <li class="nav-item">
+          <a class="nav-link px-1" routerLinkActive="active" routerLink="/home"
+            >Contact us</a
+          >
+        </li>
+        <ng-container *ngIf="!isUserLogged">
+          <li class="nav-item mt-1">
+            <a
+              class="nav-link p-0"
+              routerLinkActive="active"
+              routerLink="/register"
+              ><span class="btn btn-outline-success py-1 mr-2"> Sign up </span>
+            </a>
+          </li>
+          <li class="nav-item mt-1">
+            <a
+              class="nav-link p-0"
+              routerLinkActive="active"
+              routerLink="/login"
+              ><span class="btn btn-outline-success py-1"> Login </span></a
+            >
+          </li>
+        </ng-container>
+        <ng-container *ngIf="isUserLogged">
+          <li class="nav-item mt-1">
+            <span (click)="onLogOut()" class="nav-link p-0"
+              ><span class="btn btn-outline-success py-1 mr-2"> Log out </span>
+            </span>
+          </li>
+        </ng-container>
+      </ul>
     </div>
+  </div>
 </nav>

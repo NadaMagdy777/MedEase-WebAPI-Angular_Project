@@ -13,7 +13,6 @@ namespace MedEase.Core.Dtos
     {
         public int ID { get; set; }
 
-
         public float Fees { get; set; }
 
         public string Faculty { get; set; }
@@ -26,18 +25,19 @@ namespace MedEase.Core.Dtos
         public int age { get; set; }
         public int Building { get; set; }
         public string Street { get; set; }
-
+        public string Email { get; set; }
+        public byte[]? ProfilePicture { get; set; }
         public AddressDto addressDto { get; set; }
 
         public List<SubspecialityDto> DoctorSubspiciality { get; set; }
 
         public int WaitingTime { get; set; }
 
-        public float Rating { get; set; }
+        public int Rating { get; set; }
 
         public int visitors { get; set; }
         public string SpecialityName { get; set; }
-
+        public int ClincRating { get; set; }
         public List<CertificateDto> Doctorcertificates { get; set; }
 
         public List<InsuranceDto> DoctorcerInsurance { get; set; }

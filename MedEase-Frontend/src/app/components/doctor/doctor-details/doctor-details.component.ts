@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { DoctorService } from 'src/app/Services/Doctor/doctor.service';
-import { Doctor } from 'src/app/SharedClassesAndTypes/Doctor/Doctor';
+import { DoctorService } from 'src/app/services/doctor/doctor.service';
+import { Doctor } from 'src/app/sharedClassesAndTypes/doctor/doctor';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { Review } from 'src/app/sharedClassesAndTypes/review/review';
 
 @Component({
   selector: 'app-doctor-details',
@@ -11,8 +12,13 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 export class DoctorDetailsComponent {
 
   doctorId!:number
-  doctor:Doctor=new Doctor(0,0,'','','','',0,0,0,0,'',0,0,'','','',0);
+  //doctor:Doctor=new Doctor(0,0,'','','','',0,0,0,0,'',0,0,'','','',0,'','','');
+  doctor:Doctor=new Doctor(0,0,'','','','',0,0,0,0,'',0,0,'','','',0,0,'','');
+  doctorReview:Review[]=[] 
+  SomeReview:Review[]=[]
   errorMessage: any;
+  reviewShowed:number=1
+  viewMoreBtnShow:boolean=true
   constructor(private DoctorService:DoctorService,private router:Router ,private route:ActivatedRoute){
    
     
@@ -26,16 +32,37 @@ export class DoctorDetailsComponent {
       next:data=>{
         let dataJson = JSON.parse(JSON.stringify(data))
         this.doctor=dataJson.data
+        this.DoctorService.GetDoctorReviews(this.doctorId).subscribe({
+          next:data=>{
+            let dataJson = JSON.parse(JSON.stringify(data))
+            this.doctorReview=dataJson.data
+            this.SomeReview=this.doctorReview.slice(0,this.reviewShowed)
+            
+            
+          },
+          error:error=>this.errorMessage=error
+        })
         
-        
-       
+      
 
       },
       error:error=>this.errorMessage=error
     })
+
+    
     
    
     
     
   }
+  showReview(){
+    this.reviewShowed+=1
+
+    this.SomeReview=this.doctorReview.slice(0,this.reviewShowed)
+    if(this.reviewShowed==this.doctorReview.length){
+      this.viewMoreBtnShow=false
+    }
+  }
+
+
 }

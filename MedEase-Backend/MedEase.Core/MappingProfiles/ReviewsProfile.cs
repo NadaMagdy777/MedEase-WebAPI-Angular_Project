@@ -14,7 +14,9 @@ namespace MedEase.Core.MappingProfiles
         public ReviewsProfile()
         {
 
-            CreateMap<Review, ReviewDto>().ReverseMap();
+            CreateMap<Review, ReviewDto>()
+                .ForMember(r => r.PatientName, a => a.MapFrom(r => r.Examination.Patient.AppUser.FirstName + " " + r.Examination.Patient.AppUser.LastName))
+                .ReverseMap();
         }
     }
 }

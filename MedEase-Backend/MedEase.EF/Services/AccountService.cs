@@ -5,6 +5,7 @@ using MedEase.Core.Dtos;
 using MedEase.Core.Interfaces;
 using MedEase.Core.Interfaces.Services;
 using MedEase.Core.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -49,10 +50,10 @@ namespace MedEase.EF.Services
         public async Task<ApiResponse> LoginUser(UserLoginDto dto)
         {
             AppUser user = await _userManager.FindByEmailAsync(dto.Email);
-            if (user == null) { return new ApiResponse(404, false); }
+            if (user == null) { return new ApiResponse(404, false, null, "User not found"); }
 
             var result = await _signInManager.CheckPasswordSignInAsync(user, dto.Password, false);
-            if (!result.Succeeded) { return new ApiResponse(401, false); }
+            if (!result.Succeeded) { return new ApiResponse(401, false, null, "Invalid password"); }
 
             int Id = await GetUserTypeId(user);
 
@@ -64,38 +65,27 @@ namespace MedEase.EF.Services
             });
         }
 
-        private async Task<int> GetUserTypeId(AppUser user)
-        {
-            int? PtId = (int?)await _unitOfWork.Patients
-                .FindWithSelectAsync(pt => pt.AppUserID == user.Id, pt => pt.ID);
-
-            if (PtId != null) { return PtId.Value; }
-
-
-            int? DocId =    (int?) await _unitOfWork.Doctors
-                .FindWithSelectAsync(dr => dr.AppUserID == user.Id, dr => dr.ID);
-            return DocId.Value;
-        }
-
         public async Task<ApiResponse> RegisterDoctor(DoctorRegisterDto docDto)
         {
             AppUser user = _mapper.Map<AppUser>(docDto);
             Doctor doctor = _mapper.Map<Doctor>(docDto);
             user.Doctor = doctor;
             doctor.AppUser = user;
+            doctor.LicenseImg = Convert.FromBase64String(docDto.LicenseImg);
+            doctor.ProfilePicture = Convert.FromBase64String(docDto.ProfilePicture);
 
             doctor.SubSpecialities = docDto.SubSpecialities
                 .Select(sDtoId => new DoctorSubspeciality
                 {
-                    SubspecID = sDtoId,
-                    DocID = doctor.ID,
+                    SubSpecialityID = sDtoId,
+                    Doctor = doctor,
                 }).ToList();
             
             doctor.Insurances = docDto.Insurances
                 .Select(iDtoId => new DoctorInsurance
                 {
                     InsuranceID = iDtoId,
-                    DoctorID = doctor.ID,
+                    Doctor = doctor,
                 }).ToList();
 
             IdentityResult result;
@@ -122,7 +112,6 @@ namespace MedEase.EF.Services
 
         public async Task<ApiResponse> RegisterPatient(UserRegisterDto dto)
         {
-
             AppUser user = _mapper.Map<AppUser>(dto);
             Patient patient = new() { AppUser = user };
             user.Patient = patient;
@@ -137,7 +126,7 @@ namespace MedEase.EF.Services
                 return new ApiResponse(400, false, null, "InValid Inputs");
             }
 
-            if (!result.Succeeded) { return new ApiResponse(400, false, result.Errors); }      //result.Errors
+            if (!result.Succeeded) { return new ApiResponse(400, false, result.Errors); }      
 
             await _userManager.AddToRoleAsync(user, Roles.Patient);
 
@@ -149,10 +138,25 @@ namespace MedEase.EF.Services
             });
         }
 
-        public async Task<ApiResponse> GetAddresses()
+        private async Task<int> GetUserTypeId(AppUser user)
         {
-            IEnumerable<Address> addresses = await _unitOfWork.Addresses.GetAllAsync();
-            return new ApiResponse(200, true, addresses);
+            int? PtId = (int?)await _unitOfWork.Patients
+                .FindWithSelectAsync(pt => pt.AppUserID == user.Id, pt => pt.ID);
+
+            if (PtId != null) { return PtId.Value; }
+
+
+            int? DocId = (int?)await _unitOfWork.Doctors
+                .FindWithSelectAsync(dr => dr.AppUserID == user.Id, dr => dr.ID);
+            return DocId.Value;
         }
+
+        private async Task<byte[]> GetBytes(IFormFile formFile)
+        {
+            await using var memoryStream = new MemoryStream();
+            await formFile.CopyToAsync(memoryStream);
+            return memoryStream.ToArray();
+        }
+
     }
 }

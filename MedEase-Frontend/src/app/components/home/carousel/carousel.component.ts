@@ -1,10 +1,10 @@
-import { IAddress } from 'src/app/SharedClassesAndTypes/iaddress';
+import { IAddress } from 'src/app/sharedClassesAndTypes/iaddress';
 import { Component } from '@angular/core';
 import { OwlOptions } from 'ngx-owl-carousel-o';
-import { ISpecialty } from 'src/app/SharedClassesAndTypes/Doctor/ispeciality';
 import { Subscription } from 'rxjs';
+import { ISpecialty } from 'src/app/sharedClassesAndTypes/Doctor/ispeciality';
 import { AddressService } from 'src/app/Services/address/address.service';
-import { SpecialtiesService } from 'src/app/Services/specialities/specialities.service';
+import { SpecialtiesService } from 'src/app/services/specialities/specialities.service';
 
 @Component({
   selector: 'app-carousel',
@@ -12,7 +12,7 @@ import { SpecialtiesService } from 'src/app/Services/specialities/specialities.s
   styleUrls: ['./carousel.component.css'],
 })
 export class CarouselComponent {
-  selectedSpecialtyName: string = "All";
+  selectedSpecialtyName: string = 'All';
   selectedCity: string = 'Egypt';
   selectedRegion: string = 'All';
   selectedName: string = 'All';
@@ -68,7 +68,7 @@ export class CarouselComponent {
     );
     this.allSubscriptions.push(
       this._specialtiesServices.getSpecialties().subscribe((response) => {
-        this.specialties = response.data;
+        this.specialties = response;
       })
     );
   }

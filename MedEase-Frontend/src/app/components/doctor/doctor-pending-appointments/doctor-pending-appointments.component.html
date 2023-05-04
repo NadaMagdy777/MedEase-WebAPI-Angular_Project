@@ -1,4 +1,30 @@
-<div>  
+<div class="container-fluid">  
     Doctor Pending Appointments Comp
     {{pendingAppointments | json}}
+    <div>
+        <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col"></th>
+                <th scope="col">Patient Name</th>
+                <th scope="col">Appointment Date</th>
+                <th scope="col">Patient Phone</th>
+                <th scope="col">Confirm Appoinment</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let appoinment of pendingAppointments ; let i = index">
+                <th scope="row">{{i+1}}</th>
+                <td title="click to show patient history"><a href="/history/{{appoinment.patientID}}">{{appoinment.patientName|titlecase}}</a></td>
+                <td>{{appoinment.date|date:"short"}}</td>
+                <td>{{appoinment.patientPhone}}</td>
+                <td *ngIf="AppoinmentConfirm(appoinment)"><button class="btn btn-success "> Confirm</button></td>
+                <td *ngIf="!AppoinmentConfirm(appoinment)"><button class="btn btn-danger disabled"> Confirm</button></td>
+
+              </tr>
+              
+            </tbody>
+          </table>
+    </div>
+   
 </div>

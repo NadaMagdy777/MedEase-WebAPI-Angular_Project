@@ -1,13 +1,21 @@
-<div class="row ">
-    <aside class="col-3 w-25 h-100 d-flex flex-column justify-content-start pt-3">
-        <div class="w-100 h4 p-3 d-flex justify-content-center align-items-center" style="height: 15vh;">
-            <a class="text-decoration-none" routerLink="Pending" routerLinkActive="">Pending Appointments</a>
-        </div>
-        <div class="w-100 h4 p-3 d-flex justify-content-center align-items-center" style="height: 15vh;">
-            <a class="text-decoration-none" routerLink="Confirmed" routerLinkActive="">Confirmed Appointments</a>
-        </div>
-    </aside>
-  <div class="container-fluid">
-    <router-outlet></router-outlet>
+<div class="container-fluid ">
+  <div class="row ">
+    <ul class="nav nav-tabs mb-3" id="ex-with-icons" role="tablist">
+      <li class="nav-item" role="presentation">
+        <a class="nav-link" id="ex-with-icons-tab-2" data-mdb-toggle="tab" routerLink="Pending" role="tab"
+          aria-controls="ex-with-icons-tabs-2" aria-selected="false"><i class="fas fa-chart-line fa-fw me-2"></i>Pending</a>
+      </li>
+      <li class="nav-item" role="presentation">
+        <a class="nav-link" id="ex-with-icons-tab-2" data-mdb-toggle="tab" routerLink="Confirmed" role="tab"
+          aria-controls="ex-with-icons-tabs-2" aria-selected="false"><i class="fas fa-chart-line fa-fw me-2"></i>Confirmed</a>
+      </li>
+      
+    </ul>
+      
+    <div >
+      <router-outlet></router-outlet>
+    </div>
   </div>
+
 </div>
+

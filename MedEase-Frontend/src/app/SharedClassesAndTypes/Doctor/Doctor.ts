@@ -1,3 +1,5 @@
+import { publishFacade } from "@angular/compiler";
+
 export class Doctor{
     constructor(
         public id:number,
@@ -16,6 +18,9 @@ export class Doctor{
         public specialityName:string,
         public doctorcertificates:any,
         public doctorcerInsurance:any,
-        public visitors:number
+        public visitors:number,
+        public clincRating:number,
+        public email:string,
+        public profilePicture:any,
     ){}
 }

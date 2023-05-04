@@ -61,6 +61,7 @@ namespace MedEase.EF.Services
         public async Task<ApiResponse> PatientAskQuestion(PatientQuestionDto dto)
         {
             Question question = _mapper.Map<Question>(dto);
+            question.DateCreated = DateTime.Now;
 
             await _unitOfWork.Questions.AddAsync(question);
 

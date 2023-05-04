@@ -1,8 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
-import { Patient } from 'src/app/SharedClassesAndTypes/patient/patient';
-import { PatientEdit } from 'src/app/SharedClassesAndTypes/patient/patientEdit';
+import { Patient } from 'src/app/sharedClassesAndTypes/patient/patient';
+import { PatientEdit } from 'src/app/sharedClassesAndTypes/patient/patientEdit';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -12,7 +12,7 @@ export class PatientService {
 
   errorMessage: any;
 
-  private _url:string='Patient';
+  private _url:string=`${environment.apiUrl}/Patient`;
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -24,16 +24,15 @@ export class PatientService {
 
   GetPatientById(id:number):Observable<Patient>
   {
-    return this.http.get<Patient>(`${environment.apiUrl}/${this._url}/id?ID=${id}`).pipe(catchError((err)=>{
+    return this.http.get<Patient>(`${this._url}/id?ID=${id}`).pipe(catchError((err)=>{
       return throwError(()=>err.message ||"server error");
       
     }));
   }
 
   UpdatePatientInfo(id: number, patient:any):Observable<PatientEdit>{
-    console.log(patient);
     return this.http.put<PatientEdit>(
-      `${environment.apiUrl}/${this._url}?id=${id}`, 
+      `${this._url}?id=${id}`, 
       JSON.stringify(patient),
       this.httpOptions)
       

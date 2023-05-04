@@ -1,8 +1,9 @@
-import { Component, NgZone } from '@angular/core';
-import { Patient } from 'src/app/SharedClassesAndTypes/patient/patient';
+import { Component } from '@angular/core';
+import { Patient } from 'src/app/sharedClassesAndTypes/patient/patient';
 import { PatientService } from 'src/app/services/patient/patient.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AddressService } from 'src/app/Services/address/address.service';
 
 @Component({
   selector: 'app-profile',
@@ -28,10 +29,16 @@ export class ProfileComponent {
     history: undefined
   };
 
-  EditProfileForm:FormGroup;
+  CitiesList:string[] = [];
+  RegionsList:string[] = [];
+  selectedCity: string = 'Egypt';
+  selectedRegion: string = 'Egypt';
 
+  EditProfileForm:FormGroup;
+  
   constructor(
     private _patientService:PatientService,
+    private _addressService:AddressService,
     public actRoute: ActivatedRoute,
     public router: Router,
     private fb:FormBuilder) 
@@ -44,7 +51,7 @@ export class ProfileComponent {
         phone:['',[Validators.required]],
         address:this.fb.group({
           building:[0,[Validators.required]],
-          street:['',[Validators.required]],
+          street:['',[Validators.required,Validators.minLength(2),Validators.maxLength(50)]],
           region:['',[Validators.required]],
           city:['',[Validators.required]]
         })
@@ -60,23 +67,26 @@ export class ProfileComponent {
         this.patient.phoneNumber = data;
       });
       this.EditProfileForm.get('email')?.valueChanges.subscribe((data) => {
-        this.patient.phoneNumber = data;
+        this.patient.email = data;
       });
-      this.EditProfileForm.get('building')?.valueChanges.subscribe((data) => {
-        this.patient.phoneNumber = data;
+      this.EditProfileForm.controls['address'].get('building')?.valueChanges.subscribe((data) => {
+        this.patient.building = data;
       });
-      this.EditProfileForm.get('street')?.valueChanges.subscribe((data) => {
-        this.patient.phoneNumber = data;
+      this.EditProfileForm.controls['address'].get('street')?.valueChanges.subscribe((data) => {
+        this.patient.street = data;
       });
-      this.EditProfileForm.get('region')?.valueChanges.subscribe((data) => {
-        this.patient.phoneNumber = data;
+      this.EditProfileForm.controls['address'].get('region')?.valueChanges.subscribe((data) => {
+        this.patient.region = data;
       });
-      this.EditProfileForm.get('city')?.valueChanges.subscribe((data) => {
-        this.patient.phoneNumber = data;
+      this.EditProfileForm.controls['address'].get('city')?.valueChanges.subscribe((data) => {
+        this.patient.city = data;
+        this.selectedCity = data;
+        this.updateCity();
       });
     }
   
   ngOnInit(): void {
+
     this._patientService
     .GetPatientById(this.id)
     .subscribe({
@@ -88,6 +98,19 @@ export class ProfileComponent {
       error:(error: any)=>this.errorMessage=error,
     });   
 
+    this._addressService.getCities().subscribe({
+      next:(data:any)=>{
+        this.CitiesList = data;
+      },
+      error:(error: any)=>this.errorMessage=error,
+    });
+
+    this._addressService.getRegions().subscribe({
+      next:(data:any)=>{
+        this.RegionsList = data;
+      },
+      error:(error: any)=>this.errorMessage=error,
+    });
   }
 
   LoadFormData(): void {
@@ -138,12 +161,18 @@ export class ProfileComponent {
     return this.EditProfileForm.controls['address'].get('city');
   }
 
+  updateCity(): void {
+    this._addressService.updateRegions(this.selectedCity);
+    this.selectedRegion = this.patient.region;
+    console.log(this.selectedRegion);
+  }
+
   updatePatientInfo():void {
     console.log(this.patient)
-
+    console.log(this._addressService.getAddressID(this.selectedCity, this.selectedRegion))
     if(window.confirm('Are you sure, you want to update?')){
       this._patientService.UpdatePatientInfo(this.id, this.patient)
-      .subscribe(() => this.router.navigate(['/account/profile']));
+      .subscribe(); //() => this.router.navigate(['/account/profile'])
     }
   }
 
