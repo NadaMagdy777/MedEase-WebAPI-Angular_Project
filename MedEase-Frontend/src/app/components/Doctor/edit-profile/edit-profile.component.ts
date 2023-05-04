@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AddressService } from 'src/app/Services/address/address.service';
-import { DoctorService } from 'src/app/services/doctor/doctor.service';
+import { DoctorService } from 'src/app/Services/Doctor/doctor.service';
 import { ImageService } from 'src/app/services/image.service';
-import { Doctor } from 'src/app/sharedClassesAndTypes/doctor/doctor';
-import { DoctorEdit } from 'src/app/sharedClassesAndTypes/doctor/doctorEdit';
+import { Doctor } from 'src/app/SharedClassesAndTypes/Doctor/Doctor';
+import { DoctorEdit } from 'src/app/SharedClassesAndTypes/Doctor/doctorEdit';
 
 @Component({
   selector: 'app-edit-profile',

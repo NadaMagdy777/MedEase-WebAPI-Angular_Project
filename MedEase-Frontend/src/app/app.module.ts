@@ -35,7 +35,7 @@ import { HistoryComponent } from './components/patient/history/history.component
     PatientRegisterComponent,
     NavUserNamePipe,
     DoctorRegisterComponent,
-    HistoryComponent
+    HistoryComponent,
     LoginComponent,
       
   ],
