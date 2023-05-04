@@ -13,7 +13,6 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
 import { ProfileComponent } from './components/patient/profile/profile.component';
 import { AppointmentsComponent } from './components/patient/appointments/appointments.component';
 import { InsuranceComponent } from './components/patient/insurance/insurance.component';
-import { AppointementsComponent } from './components/doctor/appointements/appointements.component';
 
 import { HomeBannerComponent } from './components/home/home/home-banner/home-banner.component';
 import { LoginComponent } from './components/authentication/login/login.component';
@@ -26,13 +25,12 @@ import { LoginComponent } from './components/authentication/login/login.componen
     FooterComponent,
     HomeComponent,
     CarouselComponent,
-    AppointmentsComponent,
     InsuranceComponent,
 
    
 
     HomeBannerComponent,
-             LoginComponent,
+    LoginComponent,
       
   ],
   imports: [

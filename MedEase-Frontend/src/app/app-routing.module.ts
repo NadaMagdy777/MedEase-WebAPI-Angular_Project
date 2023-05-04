@@ -4,6 +4,7 @@ import { AuthGuard } from './Authentication/auth.guard';
 import { AppointmentsComponent } from './components/patient/appointments/appointments.component';
 import { InsuranceComponent } from './components/patient/insurance/insurance.component';
 import { HomeComponent } from './components/home/home/home.component';
+import { ReserveAppointementComponent } from './components/Doctor/reserve-appointement/reserve-appointement.component';
 
 
 
@@ -14,14 +15,9 @@ const routes: Routes = [
   {path:'account',loadChildren:()=>import('./modules/patient/patient.module').then(mod=>mod.PatientModule)},
   {path:'userAppointments',component:AppointmentsComponent},
   {path:'userInsurance',component:InsuranceComponent},
-
-
-
-
-      { path: '**', component: HomeComponent},
-
-
-    ];
+  {path:'reserve-appointement',component:ReserveAppointementComponent},
+  { path: '**', component: HomeComponent},
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

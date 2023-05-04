@@ -1,1 +1,29 @@
-<p>appointements works!</p>
+<div class="container">
+    <div class="row">
+        <div class="col-4" *ngFor="let day of times; index as daytime">
+                <h4 class="badge badge-primary w-100 mt-4 p-2">{{ day.key }}</h4>
+            <div class="container">
+                <div class="row" *ngFor="let time of day.value; index as i;">
+                    <div *ngIf="i < 5 || showMore" class="p-0">
+                        <div *ngIf="!reserved[daytime].value.includes(time); then thenBlock; else elseBlcok"></div>
+                        
+                        <ng-template #thenBlock>
+                            <div role="button" class="badge badge-light text-dark w-100 p-2 mt-2">
+                                <!-- <a class="nav-link p-0" routerLinkActive="active" routerLink="/reserve-Appointement/{{day.key}}/{{time}}">{{time}}</a>                                 -->
+                                <a (click)="navigate(day.key,time)">{{time}}</a>                                
+                            </div>
+                        </ng-template>
+                        
+                        <ng-template #elseBlcok>
+                            <div class="badge badge-secondary w-100 text-dark p-2 text-decoration-line-through mt-2">
+                                {{time}}
+                            </div>
+                        </ng-template>
+                    </div>
+                </div>    
+            </div>
+            <button (click)="ShowMore()" class="w-100 text-center btn btn-success my-2">More</button>
+
+        </div>
+    </div>
+</div>

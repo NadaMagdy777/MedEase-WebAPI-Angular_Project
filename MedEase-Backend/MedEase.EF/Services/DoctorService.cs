@@ -38,7 +38,7 @@ namespace MedEase.EF.Services
             List<DoctorAppointmentAndPatternDto> result = new List<DoctorAppointmentAndPatternDto>();
 
             IEnumerable<DoctorSchedule> drs = await _unitOfWork.DoctorSchedule
-                .FindAllAsync(dr => dr.IsWorking == true && dr.DoctorId == Id && dr.WeekDay.Date >= DateTime.Now.Date);
+                .FindAllAsync(dr => dr.IsWorking == true && dr.DoctorId == Id && dr.WeekDay.Date >= DateTime.Now.Date,3,0,d=>d.WeekDay,OrderBy.Ascending);
 
             foreach (var item in drs)
             {
