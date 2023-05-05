@@ -2,8 +2,9 @@ import { environment } from './../../../environments/environment';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Doctor } from 'src/app/sharedClassesAndTypes/doctor/doctor';
-import { DoctorEdit } from 'src/app/sharedClassesAndTypes/doctor/doctorEdit';
+import { Doctor } from 'src/app/SharedClassesAndTypes/Doctor/Doctor';
+import { DoctorEdit } from 'src/app/SharedClassesAndTypes/Doctor/doctorEdit';
+import { IreserveAppointement } from 'src/app/SharedClassesAndTypes/Doctor/IReserveAppointement';
 
 @Injectable({
   providedIn: 'root',
@@ -54,5 +55,19 @@ export class DoctorService {
       return throwError(()=>err.message ||"server error");
     }));
   }
+
+  GetDoctorAppointementAndPattern(id:number):Observable<any>
+  {
+    return this.http.get<any>(this._url+"/GetAppointmentsandPattern?Id="+id).pipe(catchError((err)=>{
+      return throwError(()=>err.message ||"server error");
+      
+    }));
+  }
   
+  ReserveAppointement(data:IreserveAppointement):Observable<any>
+  {
+    console.log('sending',environment.apiUrl + '/Appointment/Reserve');    
+    return this.http.post<any>(environment.apiUrl + '/Appointment/Reserve' ,data);
+  }
+
 }

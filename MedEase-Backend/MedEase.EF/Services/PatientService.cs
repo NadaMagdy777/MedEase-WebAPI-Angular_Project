@@ -118,8 +118,8 @@ namespace MedEase.EF.Services
                {
                    d=>d.AppUser,
                    d=>d.AppUser.Address,
-                   d=>d.History
-                  
+                   d=>d.History,
+                   d=>d.Insurance
 
                });
                 if (patient != null)
@@ -179,13 +179,37 @@ namespace MedEase.EF.Services
                patient.History = patientMedical;
                _unitOfWork.Complete();
 
+                return true;
             }
 
             return false;
 
         }
 
+        public async Task<bool> EditMedicalHistory(PatientMedicalHistoryDto medicalHistoryDto, int PatientID)
+        {
+            Patient patient = await _unitOfWork.Patients.FindAsync(P => P.ID == PatientID,
+             new List<Expression<Func<Patient, object>>>()
+             {
+                   d=>d.History
+             });
 
+            if(patient.History is not null)
+            {
+                patient.History.IsSmoking = medicalHistoryDto.IsSmoking;
+                patient.History.HadSurgery = medicalHistoryDto.HadSurgery;
+                patient.History.HasAllergies = medicalHistoryDto.HasAllergies;
+                patient.History.TakeMedications = medicalHistoryDto.TakeMedications;
+                patient.History.HasHospitalized = medicalHistoryDto.HasHospitalized;
+                patient.History.HasChronicIllnesses = medicalHistoryDto.HasChronicIllnesses;
+
+                _unitOfWork.PatientMedicalHistory.Update(patient.History);
+                _unitOfWork.Complete();
+
+                return true;
+            }
+            return false;
+        }
 
 
     }
