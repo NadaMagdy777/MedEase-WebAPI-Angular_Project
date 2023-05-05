@@ -1,6 +1,6 @@
 <div class="container">
     <form [formGroup]="registerationForm" class="p-3" (ngSubmit)="submitData()">
-        <h3> Your Appointement: {{date.toLocaleDateString()}} {{date.toLocaleTimeString()}}</h3>
+        <h3> Your Appointement: {{date.toLocaleDateString()}} {{selectedtimestring}}</h3>
         <div class="form-check mb-3">
             <!-- hasInsurance = !hasInsurance -->
             <input type="checkbox" id = "insurance" (change)="changehasinsurence()" class="form-check-input">
@@ -30,7 +30,7 @@
             <small class="text-danger" *ngIf="description?.invalid && description?.touched">This Field is required</small>
         </div>
 
-        <div class="form-check mb-3">
+        <div class="form-check mb-3" *ngIf="hasInvestigations">
             <!-- hasImage = !hasImage -->
             <input type="checkbox" id = "image" (change)="changehasImage()" class="form-check-input">
             <label for="image" class="form-check-label">Uplaod Image</label>      

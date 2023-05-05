@@ -1,5 +1,5 @@
 export interface IreserveAppointement {
-    date: Date,
+    date: string,
     patientID: number,
     doctorID: number,
     hasInsurance: boolean,
@@ -7,6 +7,5 @@ export interface IreserveAppointement {
     hasInvestigations: boolean,
     description: string,
     hasImage: boolean,
-    // image: File
     image:string
 }

@@ -23,8 +23,7 @@ const routes: Routes = [
   {path:'userInsurance',component:InsuranceComponent},
   {path:'history/:id',component:HistoryComponent},
 
-  { path: '**', component: HomeComponent},
-
+  
   {path:'reserve-appointement',component:ReserveAppointementComponent},
   { path: '**', component: HomeComponent},
   
