@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { DoctorService } from 'src/app/services/doctor/doctor.service';
-import { Doctor } from 'src/app/sharedClassesAndTypes/doctor/doctor';
+import { DoctorService } from 'src/app/Services/Doctor/doctor.service';
+import { Doctor } from 'src/app/SharedClassesAndTypes/Doctor/Doctor';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { Review } from 'src/app/sharedClassesAndTypes/review/review';
+import { Review } from 'src/app/SharedClassesAndTypes/review/review';
 
 @Component({
   selector: 'app-doctor-details',
@@ -12,8 +12,7 @@ import { Review } from 'src/app/sharedClassesAndTypes/review/review';
 export class DoctorDetailsComponent {
 
   doctorId!:number
-  //doctor:Doctor=new Doctor(0,0,'','','','',0,0,0,0,'',0,0,'','','',0,'','','');
-  doctor:Doctor=new Doctor(0,0,'','','','',0,0,0,0,'',0,0,'','','',0,0,'','');
+  doctor:Doctor=new Doctor(0,0,'','','','',0,0,0,0,'',0,[],'','','',0,0,'','',0);
   doctorReview:Review[]=[] 
   SomeReview:Review[]=[]
   errorMessage: any;

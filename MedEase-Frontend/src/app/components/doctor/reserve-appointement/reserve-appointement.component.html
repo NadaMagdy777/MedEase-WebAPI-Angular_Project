@@ -1,0 +1,47 @@
+<div class="container">
+    <form [formGroup]="registerationForm" class="p-3" (ngSubmit)="submitData()">
+        <h3> Your Appointement: {{date.toLocaleDateString()}} {{selectedtimestring}}</h3>
+        <div class="form-check mb-3">
+            <!-- hasInsurance = !hasInsurance -->
+            <input type="checkbox" id = "insurance" (change)="changehasinsurence()" class="form-check-input">
+            <label for="insurance" class="form-check-label">Has Insurance ?</label>      
+        </div>
+
+        <div class="from-group" *ngIf="hasInsurance">            
+            <select formControlName="insurancesId" class="form-select">
+                <option disabled selected>ay kalam </option>
+                <option selected value="1">ay kalam </option>
+                <option *ngFor="let place of insurances">
+                    {{place}}
+                </option>
+            </select>
+            <small class="text-danger" *ngIf="insurancesId?.invalid && insurancesId?.touched">This Field is required</small>
+            <br>
+        </div>
+
+        <div class="form-check mb-3">
+            <!-- hasInvestigations = !hasInvestigations -->
+            <input type="checkbox" id = "investigation" (change)="changehasInvestigations()" class="form-check-input">
+            <label for="investigation" class="form-check-label">Has Investigation ?</label>      
+        </div>
+
+        <div class="form-group" *ngIf="hasInvestigations">
+            <textarea formControlName="description" type="text" class="form-control"></textarea>
+            <small class="text-danger" *ngIf="description?.invalid && description?.touched">This Field is required</small>
+        </div>
+
+        <div class="form-check mb-3" *ngIf="hasInvestigations">
+            <!-- hasImage = !hasImage -->
+            <input type="checkbox" id = "image" (change)="changehasImage()" class="form-check-input">
+            <label for="image" class="form-check-label">Uplaod Image</label>      
+        </div>
+
+        <div class="from-group" *ngIf="hasImage">
+            <input formControlName="image" (change)="addPhoto($event)" type="file" class="form-control" >
+            <small class="text-danger" *ngIf="image?.invalid && image?.touched">This Field is required</small>
+            <br>
+        </div>
+        <button type="submit" [disabled]="registerationForm.invalid" [ngClass]="registerationForm.invalid ? 'btn btn-danger' : 'btn btn-success' " > Reserve Appointement </button>
+    
+    </form>
+</div>

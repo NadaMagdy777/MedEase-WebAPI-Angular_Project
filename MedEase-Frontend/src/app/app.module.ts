@@ -12,7 +12,6 @@ import { CarouselComponent } from './components/home/carousel/carousel.component
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { AppointmentsComponent } from './components/patient/appointments/appointments.component';
 import { InsuranceComponent } from './components/patient/insurance/insurance.component';
-import { AppointementsComponent } from './components/doctor/appointements/appointements.component';
 
 
 import { HomeBannerComponent } from './components/home/home/home-banner/home-banner.component';
@@ -25,6 +24,7 @@ import { HistoryComponent } from './components/patient/history/history.component
 import { AnsweredQuestionsComponent } from './components/patient/questions/answered/answered-questions/answered-questions.component';
 import { UnansweredQuestionsComponent } from './components/patient/questions/unanswered/unanswered-questions/unanswered-questions.component';
 import { PatientQuestionsComponent } from './components/patient/questions/patient-questions/patient-questions.component';
+import { ExaminationInfoComponent } from './components/patient/examination-info/examination-info.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +33,6 @@ import { PatientQuestionsComponent } from './components/patient/questions/patien
     FooterComponent,
     HomeComponent,
     CarouselComponent,
-    AppointmentsComponent,
     InsuranceComponent,
     HomeBannerComponent,
     LoginComponent,
@@ -44,6 +43,10 @@ import { PatientQuestionsComponent } from './components/patient/questions/patien
     AnsweredQuestionsComponent,
     UnansweredQuestionsComponent,
     PatientQuestionsComponent
+    
+    LoginComponent,
+    HistoryComponent,
+    ExaminationInfoComponent
       
   ],
   imports: [

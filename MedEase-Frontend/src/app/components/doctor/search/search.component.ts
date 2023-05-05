@@ -13,8 +13,8 @@ import { AddressService } from 'src/app/Services/address/address.service';
 export class SearchComponent {
   selectedSpecialtyId: number = 0;
   selectedCity: string = 'Egypt';
-  selectedRegion: string = '0';
-  selectedName: string = 'NotSelected';
+  selectedRegion: string = 'All';
+  selectedName: string = 'All';
   specialties: ISpecialty[] = [];
   cities: string[] = [];
   regions: string[] = [];

@@ -1,0 +1,225 @@
+<section style="background-color: #eee;">
+    <div class="container-fluid py-3">
+        <div class="row ">
+            <div class="col-sm-12 col-lg-5 ">
+              <div class="col-12">
+                <legend class="w-auto  text-center d-flex justify-content-center " id="legendstyle">
+                    <div id="legendstyle">
+                    <i class="fa-regular fa-circle-question "></i>
+                    <span style="font-size: 15px; margin-left: 5px;">Patient Information</span>
+        
+                    </div>
+                </legend>
+                    <div class="card mb-4">
+                        <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-3">
+                            <p class="mb-0">Full Name</p>
+                            </div>
+                            <div class="col-sm-9">
+                            <p class="text-muted mb-0">{{patient.firstName+" "+patient.lastName|titlecase}}</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                            <p class="mb-0">Email</p>
+                            </div>
+                            <div class="col-sm-9">
+                            <p class="text-muted mb-0">{{patient.email}}</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                            <p class="mb-0">Phone</p>
+                            </div>
+                            <div class="col-sm-9">
+                            <p class="text-muted mb-0">{{patient.phoneNumber}}</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                            <p class="mb-0">Age</p>
+                            </div>
+                            <div class="col-sm-9">
+                            <p class="text-muted mb-0">{{patient.birthDate}}</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                            <p class="mb-0">Gender</p>
+                            </div>
+                            <div class="col-sm-9">
+                            <p class="text-muted mb-0">{{[0]}}</p>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 mt-2">
+                <legend class="w-auto  text-center d-flex justify-content-center " id="legendstyle">
+                    <div id="legendstyle">
+                    <i class="fa-regular fa-circle-question "></i>
+                    <span style="font-size: 15px; margin-left: 5px;">Medical History</span>
+
+        
+                    </div>
+                </legend>
+                <div class=" h-100" *ngIf="patient.history==null">
+                    <div class="card mb-4">
+                        
+                        <div class="card-body ">
+                          <h5 class="card-title text-center">
+                            this patient didnt have medical history 
+                            
+                           
+                          </h5>
+    
+                        </div>
+                    </div>
+    
+                </div>
+    
+                <div class="" *ngIf="patient.history!=null">
+
+                    <div class="card bg-white mb-3">
+                      
+                        <div class="card-body bg-white">
+                          <h5 class="card-title ">
+                            Has Allergies 
+                            <i class="fa-solid fa-square-check bg-green" *ngIf="patient.history.hasAllergies"></i>
+                            <i class="fa-solid fa-square-xmark bg-red"   *ngIf="!patient.history.hasAllergies"></i>
+                          </h5>
+    
+                        </div>
+                        <div class="card-body ">
+                            <h5 class="card-title">
+                                Has diabetes                        
+                                <i class="fa-solid fa-square-check bg-green" *ngIf="patient.history.hadSurgery"></i>
+                                <i class="fa-solid fa-square-xmark bg-red"   *ngIf="!patient.history.hadSurgery"></i>
+                            </h5>
+      
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                Has ChronicIllnesses                        
+                                <i class="fa-solid fa-square-check bg-green" *ngIf="patient.history.hasChronicIllnesses"></i>
+                                <i class="fa-solid fa-square-xmark bg-red"   *ngIf="!patient.history.hasChronicIllnesses"></i>
+                            </h5>
+      
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                Take Medications                        
+                                <i class="fa-solid fa-square-check bg-green" *ngIf="patient.history.takeMedication"></i>
+                                <i class="fa-solid fa-square-xmark bg-red"   *ngIf="!patient.history.takeMedication"></i>
+                            </h5>
+      
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                Has Hospitalized                      
+                                <i class="fa-solid fa-square-check bg-green" *ngIf="patient.history.hasHospitalized"></i>
+                                <i class="fa-solid fa-square-xmark bg-red"   *ngIf="!patient.history.hasHospitalized"></i>
+                            </h5>
+      
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                Is Smoking                    
+                                <i class="fa-solid fa-square-check bg-green" *ngIf="patient.history.isSmoking"></i>
+                                <i class="fa-solid fa-square-xmark bg-red"   *ngIf="!patient.history.isSmoking"></i>
+                            </h5>
+      
+                        </div>
+                        
+                    </div>
+    
+                    
+                   
+                    
+                </div>
+             </div>
+
+                
+
+            </div>
+            <div class="col-sm-12 col-lg-6 h-100">
+                <div class="col-12">
+                    <legend class="w-auto  text-center d-flex justify-content-center " id="legendstyle">
+                        <div id="legendstyle">
+                        <i class="fa-regular fa-circle-question "></i>
+                        <span style="font-size: 15px; margin-left: 5px;">Investigation</span>
+            
+                        </div>
+                    </legend>
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-12">
+                                <p class="mb-0">Description</p>
+                                </div>
+                                <div class="col-12">
+                                <p class="text-muted mb-0">{{Appointmentinfo.investigation.description
+                                }}</p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-12">
+                                <h5 class="mb-0">Image</h5>
+                                </div>
+                                <div class="col-12 mt-2 " >
+                                <img  class=" border h-100 w-100 img-fluid" src="https://www.drugs.com/health-guide/images/ddca3f92-4b8e-4672-bb6b-f3594ad4e304.jpg" >
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+    
+    
+                </div>
+                
+                
+            </div>
+        </div>
+        <div class="row mt-2 ml-2">
+            <div class="col-11">
+                <legend class="w-auto  text-center d-flex justify-content-center " id="legendstyle">
+                    <div id="legendstyle">
+                    <i class="fa-regular fa-circle-question "></i>
+                    <span style="font-size: 15px; margin-left: 5px;">Pref Diagnosis</span>
+        
+                    </div>
+                </legend>
+                <div class="card mb-4 bg-light">
+                    <div class="card-body bg-white">
+                        <div class="row " *ngFor="let Diagnosis of Somediagnosis">
+                            <div class="col-12">
+                            <p class="mb-0">Details</p>
+                            </div>
+                            <div class="col-12">
+                            <p class="text-muted mb-0">{{Diagnosis.details}}</p>
+                            </div>
+                        </div>
+                       
+                    </div>
+                  
+                </div>
+                    <button  class="btn btn-success "  *ngIf="viewMoreBtn " (click)="showMoreDiagnosis()">show more</button>
+            
+            </div>
+            
+            
+ 
+          
+
+            
+        </div>
+    </div>
+
+      
+  </section>

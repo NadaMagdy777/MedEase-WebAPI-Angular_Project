@@ -63,7 +63,7 @@
 
           </div>
           
-           <div class="col-12 bg-white  border-style p-3  mt-3" *ngIf="doctor.doctorSubspiciality?.length>0;">
+           <div class="col-12 bg-white  border-style p-3  mt-3" *ngIf="doctor.doctorSubspiciality?.length">
              
             <div class="d-flex align-items-baseline">
                <div class="ml-3">
@@ -225,8 +225,9 @@
           <div class="text-center">
             <h5 class="text-bold p-3">Choose Your Appoinment</h5>
             <div class="bg-light mt-2" style="height: 200px; background-color: #f5f5f5;">
-<!--                   but your appoinment here
- -->            </div>
+                <!-- but your appoinment here   -->
+                <!-- <app-appointements [selectedDoctor]="doctorId"></app-appointements> -->
+            </div>
 
           </div>
           <div style="background-color: #e2e6ea; color: gray; height: 3px; "></div>

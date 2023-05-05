@@ -12,7 +12,7 @@ import { SpecialtiesService } from 'src/app/services/specialities/specialities.s
   styleUrls: ['./carousel.component.css'],
 })
 export class CarouselComponent {
-  selectedSpecialtyName: string = 'All';
+  selectedSpecialty: number = 0;
   selectedCity: string = 'Egypt';
   selectedRegion: string = 'All';
   selectedName: string = 'All';
@@ -80,7 +80,7 @@ export class CarouselComponent {
   search() {
     console.log(this.selectedCity);
     console.log(this.selectedRegion);
-    console.log(this.selectedSpecialtyName);
+    console.log(this.selectedSpecialty);
     console.log(this.selectedName);
     console.log(
       this._addressService.getAddressID(this.selectedCity, this.selectedRegion)
