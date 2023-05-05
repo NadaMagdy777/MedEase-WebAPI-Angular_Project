@@ -41,5 +41,16 @@ namespace MedEase.API.Controllers
         {
             return Ok(await _generalService.GetInsurances());
         }
+        [HttpGet("SubSpecialitiesBySpecialityId")]
+        public async Task<ActionResult<ApiResponse>> GetSubSpecialitiesBySpecialityId(int Id)
+        {
+            return Ok(await _generalService.GetSubSpecialitiesBySpecialityId(Id));
+        }
+
+        [HttpGet("BasicInformation")]
+        public async Task<ActionResult<ApiResponse>> GetBasicInfo(int Id)
+        {
+            return Ok(await _generalService.BasicInformation(Id));
+        }
     }
 }

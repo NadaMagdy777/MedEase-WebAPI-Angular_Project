@@ -117,7 +117,8 @@ namespace MedEase.EF.Services
                new List<Expression<Func<Patient, object>>>()
                {
                    d=>d.AppUser,
-                   d=>d.AppUser.Address
+                   d=>d.AppUser.Address,
+                   d=>d.History
                   
 
                });
@@ -125,7 +126,7 @@ namespace MedEase.EF.Services
                 {
                     patientDTO = new PatientInfoGetDto();
                     patientDTO = _mapper.Map<PatientInfoGetDto>(patient);
-                patientDTO.History = _mapper.Map<PatientMedicalHistoryDto>(patient.History);
+                    patientDTO.History = _mapper.Map<PatientMedicalHistoryDto>(patient.History);
 
 
 
