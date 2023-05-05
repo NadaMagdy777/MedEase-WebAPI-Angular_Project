@@ -38,6 +38,8 @@ namespace MedEase.Core.Dtos
         public int visitors { get; set; }
         public string SpecialityName { get; set; }
         public int ClincRating { get; set; }
+        public int SpecialityID { get; set; }
+
         public List<CertificateDto> Doctorcertificates { get; set; }
 
         public List<InsuranceDto> DoctorcerInsurance { get; set; }
