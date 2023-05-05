@@ -18,6 +18,8 @@ import { TokenInterceptor } from 'src/app/interceptors/token.interceptor';
 import { EditProfileComponent } from 'src/app/components/Doctor/edit-profile/edit-profile.component';
 import { AppointementsComponent } from 'src/app/components/Doctor/doctorAppointements/appointements.component';
 import { ReserveAppointementComponent } from 'src/app/components/Doctor/reserve-appointement/reserve-appointement.component';
+import { DiagnosisComponent } from 'src/app/components/patient/diagnosis/diagnosis.component';
+
 
 @NgModule({
   declarations: [
@@ -33,6 +35,7 @@ import { ReserveAppointementComponent } from 'src/app/components/Doctor/reserve-
     ReserveAppointementComponent,
     DoctorDetailsComponent,
     EditProfileComponent,
+    DiagnosisComponent
   ],
   imports: [
     CommonModule,

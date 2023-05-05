@@ -96,10 +96,10 @@
             </div>
           </div>
           <div class="card " *ngIf="subspiciality?.length">
-            <div class="card-header filter border-bottom-0 d-flex justify-content-between" id="headingTwo" data-toggle="collapse" data-target="#Availability" aria-expanded="false" aria-controls="Availability">
+            <div class="card-header filter border-bottom-0 d-flex justify-content-between" id="headingTwo" data-toggle="collapse" data-target="#subspeciality" aria-expanded="false" aria-controls="subspeciality">
               <h5 class="mb-0">
-                <i class="fa-regular fa-calendar-days"></i>   
-                <p class="d-inline  ml-2"  >
+                <i class="fa-solid fa-stethoscope"></i>
+                 <p class="d-inline  ml-2"  >
                   subSpeciality
                 </p>
               </h5>
@@ -107,12 +107,12 @@
                 <i class="dropdown-toggle"></i>
               </h5>
             </div>
-            <div class="collapse multi-collapse" id="Availability">
+            <div class="collapse multi-collapse" id="subspeciality">
               <div class="card-body">
                 <div class="form-check" *ngFor="let item of subspiciality">
-                  <input class="form-check-input" type="checkbox" (change)="onSubSpecialityChange(item.id,$event)" value="" id="AnyDay">
-                  <label class="form-check-label" for="AnyDay">
-                    {{item.name}}
+                  <input class="form-check-input" type="checkbox" (change)="onSubSpecialityChange(item.id,$event)" value="" id="{{item.id}}">
+                  <label class="form-check-label" for="{{item.id}}">
+                    {{item.name|titlecase}}
                   </label>
                 </div>
                 
