@@ -168,8 +168,6 @@ export class ProfileComponent {
   }
 
   updatePatientInfo():void {
-    console.log(this.patient)
-    console.log(this._addressService.getAddressID(this.selectedCity, this.selectedRegion))
     if(window.confirm('Are you sure, you want to update?')){
       this._patientService.UpdatePatientInfo(this.id, this.patient)
       .subscribe(); //() => this.router.navigate(['/account/profile'])
