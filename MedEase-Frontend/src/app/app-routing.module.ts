@@ -24,8 +24,7 @@ const routes: Routes = [
   {path:'userInsurance',component:InsuranceComponent},
   {path:'history/:id',component:ExaminationInfoComponent},
 
-  { path: '**', component: HomeComponent},
-
+  
   {path:'reserve-appointement',component:ReserveAppointementComponent},
   { path: '**', component: HomeComponent},
   

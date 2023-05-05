@@ -12,14 +12,18 @@ export class AppointementsComponent {
   showMore=false;
   times: any[] = [];
   reserved:any[]=[];
-  constructor(private doctorService: DoctorService,private router:Router) {}
+  constructor(private doctorService: DoctorService,private router:Router) {
+    
+    
+  }
   
   ngOnInit(): void {    
-    this.doctorService.GetDoctorAppointementAndPattern(3).subscribe({
+    this.doctorService.GetDoctorAppointementAndPattern(this.selectedDoctor).subscribe({
       next: response => {
+        console.log(response);
 
         response.data.forEach((responceday: any,index=0) => {
-          
+                
           let day = new Date(responceday.weekDay);
           
           //reserved appointements
