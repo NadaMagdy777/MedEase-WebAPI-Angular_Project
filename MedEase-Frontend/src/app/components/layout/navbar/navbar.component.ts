@@ -12,11 +12,18 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   allSubscriptions: Subscription[] = [];
   isUserLogged: boolean = this._userAuthService.isUserLogged;
+  loggedUserName: string = this._userAuthService.getLoggedUserName;
 
   ngOnInit(): void {
     this.allSubscriptions.push(
       this._userAuthService.getLoggedStatus().subscribe((res) => {
         this.isUserLogged = res;
+      })
+    );
+      
+    this.allSubscriptions.push(
+      this._userAuthService.getLoggedUserNameAsObservable().subscribe((res) => {
+        this.loggedUserName = res;
       })
     );
   }
@@ -25,7 +32,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.allSubscriptions.forEach((sub) => sub.unsubscribe());
   }
 
-  onLogOut():void{
+  onLogOut(): void {
     this._userAuthService.logout();
   }
 }

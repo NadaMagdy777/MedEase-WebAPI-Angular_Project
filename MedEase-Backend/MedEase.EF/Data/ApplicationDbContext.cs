@@ -70,7 +70,7 @@ namespace MedEase.EF.Data
                   .HasKey(d => new { d.InsuranceID, d.DoctorID });
             
             builder.Entity<DoctorSubspeciality>()
-                  .HasKey(d => new { d.SubspecID, d.DocID });
+                  .HasKey(d => new { d.SubSpecialityID, d.DocID });
             
             builder.Entity<PrescriptionDrug>()
                   .HasKey(d => new { d.DrugID, d.ExaminationID });

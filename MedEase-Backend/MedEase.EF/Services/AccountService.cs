@@ -71,24 +71,22 @@ namespace MedEase.EF.Services
             Doctor doctor = _mapper.Map<Doctor>(docDto);
             user.Doctor = doctor;
             doctor.AppUser = user;
-            doctor.SpecialityID = int.Parse(docDto.SpecialityIDTemp);
+            doctor.LicenseImg = Convert.FromBase64String(docDto.LicenseImg);
+            doctor.ProfilePicture = Convert.FromBase64String(docDto.ProfilePicture);
 
-            doctor.SubSpecialities = docDto.GetSubSpecialitiesList()
+            doctor.SubSpecialities = docDto.SubSpecialities
                 .Select(sDtoId => new DoctorSubspeciality
                 {
-                    SubspecID = sDtoId,
-                    DocID = doctor.ID,
+                    SubSpecialityID = sDtoId,
+                    Doctor = doctor,
                 }).ToList();
             
-            doctor.Insurances = docDto.GetInsurancesList()
+            doctor.Insurances = docDto.Insurances
                 .Select(iDtoId => new DoctorInsurance
                 {
                     InsuranceID = iDtoId,
-                    DoctorID = doctor.ID,
+                    Doctor = doctor,
                 }).ToList();
-
-            doctor.LicenseImg = await GetBytes(docDto.LicenseImgForm);
-            doctor.ProfilePicture = await GetBytes(docDto.ProfilePictureForm);
 
             IdentityResult result;
             try
@@ -128,7 +126,7 @@ namespace MedEase.EF.Services
                 return new ApiResponse(400, false, null, "InValid Inputs");
             }
 
-            if (!result.Succeeded) { return new ApiResponse(400, false, result.Errors); }      //result.Errors
+            if (!result.Succeeded) { return new ApiResponse(400, false, result.Errors); }      
 
             await _userManager.AddToRoleAsync(user, Roles.Patient);
 

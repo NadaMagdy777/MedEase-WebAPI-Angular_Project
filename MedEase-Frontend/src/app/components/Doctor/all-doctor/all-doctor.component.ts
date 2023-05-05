@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { DoctorService } from 'src/app/services/doctor/doctor.service';
-import { Doctor } from 'src/app/sharedClassesAndTypes/doctor/doctor';
+import { DoctorService } from 'src/app/Services/Doctor/doctor.service';
+import { Doctor } from 'src/app/SharedClassesAndTypes/Doctor/Doctor';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 @Component({
   selector: 'app-all-doctor',
@@ -94,7 +94,7 @@ onFeeChange(fee:number,event:any){
       next:data=>{
         let dataJson = JSON.parse(JSON.stringify(data))
         this.DoctorList=dataJson.data
-        
+         console.log(this.DoctorList)
         this.specialityName= this.route.snapshot.params['speciality']
         this.cityName=this.route.snapshot.params['city']
         this.regionName=this.route.snapshot.params['region']
@@ -105,6 +105,9 @@ onFeeChange(fee:number,event:any){
         console.log(this.Doctorname)
         this.fileterDoctorWhenLoadingPage()
         this.filteredDoctorList=this.DoctorList
+        
+
+        console.log(this.filteredDoctorList)
 
       },
       error:error=>this.errorMessage=error

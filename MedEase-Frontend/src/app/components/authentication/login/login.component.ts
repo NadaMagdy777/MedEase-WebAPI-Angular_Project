@@ -1,4 +1,3 @@
-import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { UserAuthService } from 'src/app/services/authentication/user-auth.service';
 import { Component, OnDestroy } from '@angular/core';
@@ -12,7 +11,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class LoginComponent implements OnDestroy {
   constructor(
     private _userAuthService: UserAuthService,
-    private _router: Router
   ) {}
 
   ngOnDestroy(): void {
@@ -37,11 +35,7 @@ export class LoginComponent implements OnDestroy {
     this.allSubscriptions.push(
       this._userAuthService.login(this.loginForm.value).subscribe((res) => {
         if (res.success) {
-          localStorage.setItem('token', res.data.token);
-          this._userAuthService.saveUserData();
-          this._userAuthService.isLogged.next(true);
-          this._router.navigate(['/Home']);
-
+          this._userAuthService.confirmUserLogin(res.data.token)
           console.log(this._userAuthService.getLoggedUserName);
           console.log(this._userAuthService.getLoggedUserId);
           console.log(this._userAuthService.getLoggedUserRole);
