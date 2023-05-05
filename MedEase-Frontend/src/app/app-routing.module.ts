@@ -23,8 +23,6 @@ const routes: Routes = [
   {path:'history/:id',component:HistoryComponent},
 
   { path: '**', component: HomeComponent},
-
-
     ];
 
 @NgModule({

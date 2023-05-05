@@ -17,7 +17,7 @@ import { AskQuestionComponent } from 'src/app/components/patient/ask-question/as
   imports: [
     CommonModule,
     PatientRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers:[{
     provide: HTTP_INTERCEPTORS,

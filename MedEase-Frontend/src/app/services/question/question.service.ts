@@ -19,11 +19,16 @@ export class QuestionService {
 
   askQuestion(dto: any): Observable<IApiResponse> {
     const question: IPatientQuestionDto = this.getUserQuestion(dto);
-    console.log(question);
 
     return this._httpClient.post<IApiResponse>(
       this.baseUrl + 'Patient/Ask',
       question
+    );
+  }
+
+  getPatientQuestions(isAnswered: boolean): Observable<IApiResponse> {
+    return this._httpClient.get<IApiResponse>(
+      this.baseUrl + 'Patient/' + isAnswered
     );
   }
 
