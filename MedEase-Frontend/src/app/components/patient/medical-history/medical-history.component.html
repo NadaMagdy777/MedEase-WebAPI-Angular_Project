@@ -1,0 +1,150 @@
+<div class="container-fluid" *ngIf="hasMedicalHistory || newMedicalHistory; else NoMedicalHistory">
+    <form [formGroup]="MedicalHistiryForm" (ngSubmit)="hasMedicalHistory?Update():Save()">
+        
+        <div class="form-group">
+            <p>Do you smoke?</p>
+
+            <label>
+                <input [class.is-invalid]="isSmoking?.invalid &&isSmoking?.touched" 
+                    type="radio" formControlName="isSmoking"
+                     id="isSmoking-true" value='true'>
+                Yes
+            </label><br>
+
+            <label>
+                <input [class.is-invalid]="isSmoking?.invalid &&isSmoking?.touched" 
+                        type="radio" formControlName="isSmoking"
+                         id="isSmoking-false" value="false">
+                No
+            </label>  
+
+            <div *ngIf="isSmoking?.invalid && isSmoking?.touched && isSmoking?.dirty">
+                <small *ngIf="isSmoking?.errors?.['required']" class="text-danger">This field is required</small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <p>Have you ever had surgery?</p>
+
+            <label for="hadSurgery-true">
+                <input [class.is-invalid]="hadSurgery?.invalid &&hadSurgery?.touched" 
+                    formControlName="hadSurgery" type="radio" 
+                    name="hadSurgery" id="hadSurgery-true"  value="true">
+                Yes
+            </label><br>
+
+            <label for="hadSurgery-false"> 
+                <input [class.is-invalid]="hadSurgery?.invalid &&hadSurgery?.touched" 
+                    formControlName="hadSurgery" type="radio" 
+                    name="hadSurgery" id="hadSurgery-false"  value="false">
+                No
+            </label>
+
+            <div *ngIf="hadSurgery?.invalid &&hadSurgery?.touched">
+                <small *ngIf="hadSurgery?.errors?.['required']" class="text-danger">This field is required</small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <p>Do you have any allergies?</p>
+
+            <label for="hasAllergies-true">
+                <input [class.is-invalid]="hasAllergies?.invalid &&hasAllergies?.touched" 
+                    formControlName="hasAllergies" type="radio" name="hasAllergies" 
+                    id="hasAllergies-true" value="true">
+                Yes
+            </label><br>
+
+            <label for="hasAllergies-false">
+                <input [class.is-invalid]="hasAllergies?.invalid &&hasAllergies?.touched" 
+                    formControlName="hasAllergies" type="radio" name="hasAllergies" 
+                    id="hasAllergies-false" value="false">
+                No
+            </label>
+
+            <div *ngIf="hasAllergies?.invalid &&hasAllergies?.touched">
+                <small *ngIf="hasAllergies?.errors?.['required']" class="text-danger">This field is required</small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <p>Have you ever been hospitalized?</p>
+
+            <label for="hasHospitalized-true">
+                <input [class.is-invalid]="hasHospitalized?.invalid &&hasHospitalized?.touched"
+                    formControlName="hasHospitalized" type="radio" name="hasHospitalized" 
+                    id="hasHospitalized-true" value="true">
+                Yes
+            </label><br>
+
+            <label for="hasHospitalized-false">
+                <input [class.is-invalid]="hasHospitalized?.invalid &&hasHospitalized?.touched"
+                    formControlName="hasHospitalized" type="radio" name="hasHospitalized" 
+                    id="hasHospitalized-false" value="false">
+                No
+            </label>
+
+            <div *ngIf="hasHospitalized?.invalid &&hasHospitalized?.touched">
+                <small *ngIf="hasHospitalized?.errors?.['required']" class="text-danger">This field is required</small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <p>What medications are you currently taking?</p>
+            
+            <label for="takeMedications-true">
+                <input [class.is-invalid]="takeMedications?.invalid &&takeMedications?.touched"
+                    formControlName="takeMedications" type="radio" name="takeMedications" 
+                    id="takeMedications-true" value="true">
+                Yes
+            </label><br>
+
+            <label for="takeMedications-false">
+                <input [class.is-invalid]="takeMedications?.invalid &&takeMedications?.touched"
+                    formControlName="takeMedications" type="radio" name="takeMedications" 
+                    id="takeMedications-false" value="false">
+                No
+            </label>
+
+            <div *ngIf="takeMedications?.invalid &&takeMedications?.touched">
+                <small *ngIf="takeMedications?.errors?.['required']" class="text-danger">This field is required</small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <p>Have you been diagnosed with any chronic illnesses?</p>
+
+            <label for="hasChronicIllnesses-true">
+                <input [class.is-invalid]="hasChronicIllnesses?.invalid &&hasChronicIllnesses?.touched"
+                    formControlName="hasChronicIllnesses" type="radio" name="hasChronicIllnesses"
+                    id="hasChronicIllnesses-true" value="true">
+                Yes
+            </label><br>
+
+            <label for="hasChronicIllnesses-false">
+                <input [class.is-invalid]="hasChronicIllnesses?.invalid &&hasChronicIllnesses?.touched"
+                    formControlName="hasChronicIllnesses" type="radio" name="hasChronicIllnesses"
+                    id="hasChronicIllnesses-false" value="false">
+                No
+            </label>
+
+            <div *ngIf="hasChronicIllnesses?.invalid &&hasChronicIllnesses?.touched">
+                <small *ngIf="hasChronicIllnesses?.errors?.['required']" class="text-danger">This field is
+                    required</small>
+            </div>
+        </div>
+
+        <div>
+            <button type="submit" class="btn btn-success btn-block">Save</button>
+            <button type="button" class="btn btn-danger  btn-block" (click)="Cancel()">Cancel</button>
+        </div>
+
+    </form>
+</div>
+
+<ng-template #NoMedicalHistory>
+    <div class="container-fluid">
+        No medical history
+        <button class="btn btn-primary" (click)="New()">Add new medicl history</button>
+    </div>
+</ng-template>

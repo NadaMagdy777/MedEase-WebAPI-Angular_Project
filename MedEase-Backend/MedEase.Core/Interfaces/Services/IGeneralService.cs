@@ -12,5 +12,8 @@ namespace MedEase.Core.Interfaces.Services
         Task<ApiResponse> GetInsurances();
         Task<ApiResponse> GetSpecialities();
         Task<ApiResponse> GetSubSpecialities();
+        Task<ApiResponse> GetSubSpecialitiesBySpecialityId(int SpecialityId);
+        Task<ApiResponse> BasicInformation(int SpecialityId);
+
     }
 }

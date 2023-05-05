@@ -60,6 +60,16 @@ namespace MedEase.API.Controllers
             ;
         }
 
+        [HttpPut("MedicalHistor")]
+        public async Task<IActionResult> EditMedicalHistory(PatientMedicalHistoryDto history, int PatientID)
+        {
+
+            if (!ModelState.IsValid) { return BadRequest(new ApiResponse(400, false, ModelState)); };
+
+            return Ok(new ApiResponse(200, true, await _patientService.EditMedicalHistory(history, PatientID)))
+            ;
+        }
+
         [HttpPost("Insurance")]
         public async Task<IActionResult> AddPatientInsurance(int PatientID, int insuranceID)
         {
