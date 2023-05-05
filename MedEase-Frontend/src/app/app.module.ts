@@ -22,6 +22,7 @@ import { PatientRegisterComponent } from './components/authentication/patient-re
 import { NavUserNamePipe } from './pipes/nav-user-name.pipe';
 import { DoctorRegisterComponent } from './components/authentication/doctor-register/doctor-register.component';
 import { HistoryComponent } from './components/patient/history/history.component';
+import { ExaminationInfoComponent } from './components/patient/examination-info/examination-info.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { HistoryComponent } from './components/patient/history/history.component
     PatientRegisterComponent,
     NavUserNamePipe,
     DoctorRegisterComponent,
-    HistoryComponent
+    HistoryComponent,
+    ExaminationInfoComponent
       
   ],
   imports: [
