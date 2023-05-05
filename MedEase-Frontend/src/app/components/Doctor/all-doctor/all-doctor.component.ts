@@ -2,6 +2,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DoctorService } from 'src/app/Services/Doctor/doctor.service';
 import { Doctor } from 'src/app/SharedClassesAndTypes/Doctor/Doctor';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { ISubSpecialty } from 'src/app/sharedClassesAndTypes/Doctor/isub-specialty';
+import { SpecialtiesService } from 'src/app/services/specialities/specialities.service';
 @Component({
   selector: 'app-all-doctor',
   templateUrl: './all-doctor.component.html',
@@ -13,18 +15,58 @@ filteredDoctorList:Doctor[]=this.DoctorList
 errorMessage: any;
 genderFilter:number[]=[]
 feesFilter:number=0
+subspecialityFilter:number[]=[]
 selectedSorting:any=0
-specialityName:string="All"
+specialityId:number=0
 cityName:string="Egypt"
 regionName:string="All"
 Doctorname:string="All"
+subspiciality:ISubSpecialty[]=[]
 
 
 
-constructor(private DoctorService:DoctorService,private router:Router ,private route:ActivatedRoute){
+constructor(private DoctorService:DoctorService,private router:Router ,private route:ActivatedRoute,private specialityService: SpecialtiesService){
    
     
     
+}
+ngOnInit(): void {
+  this.DoctorService.GetAllDoctors().subscribe({
+    next:data=>{
+      let dataJson = JSON.parse(JSON.stringify(data))
+      this.DoctorList=dataJson.data
+       console.log(this.DoctorList)
+      this.specialityId= this.route.snapshot.params['speciality']
+      this.cityName=this.route.snapshot.params['city']
+      this.regionName=this.route.snapshot.params['region']
+      this.Doctorname=this.route.snapshot.params['name']
+      console.log(this.specialityId)
+      console.log(this.cityName)
+      console.log(this.regionName)
+      console.log(this.Doctorname)
+      this.specialityService.GetSubspicilityBySpecialityId(this.specialityId).subscribe({
+        next:data=>{
+          let dataJson = JSON.parse(JSON.stringify(data))
+           this.subspiciality=dataJson.data
+           console.log(this.subspiciality)
+
+
+        },
+        error:error=>this.errorMessage=error
+      })
+      this.fileterDoctorWhenLoadingPage()
+      this.filteredDoctorList=this.DoctorList
+      
+
+      console.log(this.filteredDoctorList)
+
+    },
+    error:error=>this.errorMessage=error
+  })
+  
+ 
+  
+  
 }
 Doctorfilter(){
   this.filteredDoctorList=this.DoctorList
@@ -32,15 +74,44 @@ Doctorfilter(){
     this.filterDoctorByGender()
 
   }
+  if(this.subspecialityFilter.length>0){
+    this.filterDoctorBySubspeciality()
+
+  }
   if(this.feesFilter>0){
     this.filterDoctorByFees()
   }
+
 }
 
 filterDoctorByGender(){
   this.filteredDoctorList=this.filteredDoctorList.filter((doctor:Doctor)=>{
     return this.genderFilter.includes(doctor.gender)
   });
+}
+
+filterDoctorBySubspeciality(){
+  this.filteredDoctorList=this.filteredDoctorList.filter((doctor:Doctor)=>{
+   if( doctor.doctorSubspiciality.filter((sub:ISubSpecialty)=>{
+       return  this.subspecialityFilter.includes(sub.id)
+    }).length>0){
+      return true
+    }
+    else{
+      return false
+    }
+    
+    /* console.log(doctor.doctorSubspiciality.forEach( (sub:ISubSpecialty) =>{
+      console.log(this.subspecialityFilter.includes(sub.id))
+      return this.subspecialityFilter.includes(sub.id)
+    })
+    ); */
+    
+
+  });
+  console.log("filtered list")
+  console.log(this.filteredDoctorList)
+  
 }
 
 filterDoctorByFees(){
@@ -67,6 +138,7 @@ filterDoctorByFees(){
 
 }
 
+
 onGenderChange(GenderID:number,event:any){
   if(event.target.checked){
     this.genderFilter.push(GenderID)
@@ -88,37 +160,22 @@ onFeeChange(fee:number,event:any){
 
 
 }
-
-  ngOnInit(): void {
-    this.DoctorService.GetAllDoctors().subscribe({
-      next:data=>{
-        let dataJson = JSON.parse(JSON.stringify(data))
-        this.DoctorList=dataJson.data
-         console.log(this.DoctorList)
-        this.specialityName= this.route.snapshot.params['speciality']
-        this.cityName=this.route.snapshot.params['city']
-        this.regionName=this.route.snapshot.params['region']
-        this.Doctorname=this.route.snapshot.params['name']
-        console.log(this.specialityName)
-        console.log(this.cityName)
-        console.log(this.regionName)
-        console.log(this.Doctorname)
-        this.fileterDoctorWhenLoadingPage()
-        this.filteredDoctorList=this.DoctorList
-        
-
-        console.log(this.filteredDoctorList)
-
-      },
-      error:error=>this.errorMessage=error
-    })
-    
-   
-    
-    
+onSubSpecialityChange(subspecialityId:number,event:any){
+  if(event.target.checked){
+    this.subspecialityFilter.push(subspecialityId)
   }
+  else{
+    this.subspecialityFilter= this.subspecialityFilter.filter((num:number)=>num!=subspecialityId)
+  }
+  this.Doctorfilter() 
+ 
+
+}
+
+  
   fileterDoctorWhenLoadingPage(){
-    if(this.specialityName!="All"){
+    if(this.specialityId>0){
+      console.log("filter by speciality")
       this.filterDoctorBySpeciality()
     }
     if(this.cityName !="Egypt"){
@@ -137,7 +194,7 @@ onFeeChange(fee:number,event:any){
   }
   filterDoctorBySpeciality(){
     this.DoctorList=this.DoctorList.filter((doctor:Doctor)=>{
-      return doctor.specialityName===this.specialityName
+      return doctor.specialityID==this.specialityId
     });
   }
 
@@ -208,5 +265,6 @@ onFeeChange(fee:number,event:any){
       return firstDoctor.waitingTime - secondDoctor.waitingTime;
   });
   }
+ 
 
 }

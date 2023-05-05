@@ -70,4 +70,17 @@ export class SpecialtiesService implements OnDestroy {
       )
     );
   }
+  GetSubspicilityBySpecialityId(Id:number){
+
+   return this._httpClient.get<IApiResponse>(
+      environment.apiUrl + '/General/SubSpecialitiesBySpecialityId?Id='+Id
+    );
+  }
+
+  GetBasicInformation(Id:number){
+
+    return this._httpClient.get<IApiResponse>(
+       environment.apiUrl + '/General/BasicInformation?Id='+Id
+     );
+   }
 }
