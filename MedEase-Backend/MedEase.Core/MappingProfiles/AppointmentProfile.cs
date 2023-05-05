@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using MedEase.Core.Dtos;
+using Microsoft.AspNetCore.Http;
 
 namespace MedEase.Core.MappingProfiles
 {
@@ -14,7 +15,7 @@ namespace MedEase.Core.MappingProfiles
         public AppointmentProfile()
         {
             CreateMap<Appointment, ReserveAppointmentDto>().ReverseMap();
-            CreateMap<Appointment, AppointmentReservationDto>().ReverseMap();
+            CreateMap<AppointmentReservationDto, Appointment>().ForMember(dest=>dest.Date,option=>option.MapFrom(src=> DateTime.Parse(src.Date))).ReverseMap();
             CreateMap<Appointment, AppointmentStatusDto>().ReverseMap();
         }
     }
