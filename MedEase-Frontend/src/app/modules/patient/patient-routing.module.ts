@@ -6,7 +6,7 @@ import { ProfileComponent } from 'src/app/components/patient/profile/profile.com
 
 const routes: Routes = [
   { path:'profile',component:ProfileComponent},
-  { path:'medicalHistory',component:MedicalHistoryComponent},,
+  { path:'medicalHistory',component:MedicalHistoryComponent},
   { path:'ask',component:AskQuestionComponent},
 ];
 
