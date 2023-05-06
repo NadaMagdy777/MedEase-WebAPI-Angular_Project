@@ -19,7 +19,7 @@ export class DoctorPendingAppointmentsComponent implements OnInit {
   pendingAppointments: IDoctorPendingAppointmentDetailsDto[] = [];
   filteredData: IDoctorPendingAppointmentDetailsDto[] = [];
   allSubscriptions: Subscription[] = [];
-  date=new Date().getTime()
+  date=new Date()
   p:number=1;
 
   ngOnInit(): void {
@@ -43,8 +43,9 @@ export class DoctorPendingAppointmentsComponent implements OnInit {
   }
 
   ConfirmStatus(Appoinment:any){
-    console.log(new Date())
-    return new Date(Appoinment.date).valueOf() <= new Date().valueOf()    
+    
+    return (new Date(Appoinment.date).valueOf() <= new Date(this.date).valueOf()) 
+     
   }
   confirmAppointment(AppoinmentId:number){
     let confirmDto:IAppointmentActionDto=new IAppointmentActionDto(AppoinmentId,true)
