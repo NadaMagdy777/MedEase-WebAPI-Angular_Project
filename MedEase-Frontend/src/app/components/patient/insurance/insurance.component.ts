@@ -109,8 +109,31 @@ export class InsuranceComponent {
 
   Save():void{
     
+    if(this.patient.insurance == null){
+      this._patientService.AddInsurance(this.id, this.insurance)
+      .subscribe(response => {
+        console.log(response)
+      });
+      alert('saved successfully');
+    }
+
+    else{
+      this._patientService.UpdateInsurance(this.id, this.insurance)
+      .subscribe(response => {
+        console.log(response)
+      });
+      alert('updated successfully');
+    }
   }
   Cancel():void{
-
+    if(window.confirm('Are you sure, you want to cancel, you are about to lose the new data?')){
+      
+      if(this.patient.insurance != null){
+        this.LoadFormData(); 
+      }
+      else{
+        this.InsuranceForm.reset();
+      }
+    }
   }
 }
