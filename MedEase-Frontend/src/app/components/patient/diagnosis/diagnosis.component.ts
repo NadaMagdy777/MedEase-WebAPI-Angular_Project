@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DoctorService } from 'src/app/services/doctor/doctor.service';
+import { DoctorService } from 'src/app/services/Doctor/doctor.service';
 import { IDiagnosisDto } from 'src/app/sharedClassesAndTypes/diagnosis/i-diagnosis-dto';
 
 @Component({

@@ -3,10 +3,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AddressService } from 'src/app/services/address/address.service';
 import { UserAuthService } from 'src/app/services/authentication/user-auth.service';
-import { DoctorService } from 'src/app/services/doctor/doctor.service';
+import { DoctorService } from 'src/app/services/Doctor/doctor.service';
 import { ImageService } from 'src/app/services/image.service';
-import { Doctor } from 'src/app/sharedClassesAndTypes/doctor/Doctor';
-import { DoctorEdit } from 'src/app/sharedClassesAndTypes/doctor/doctorEdit';
+import { Doctor } from 'src/app/sharedClassesAndTypes/Doctor/Doctor';
+import { DoctorEdit } from 'src/app/sharedClassesAndTypes/Doctor/doctorEdit';
 
 @Component({
   selector: 'app-edit-profile',
