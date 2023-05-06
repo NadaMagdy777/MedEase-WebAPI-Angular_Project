@@ -24,7 +24,13 @@
           </div>
           <div class="collapse multi-collapse" id="Ques{{i}}">
             <div class="card-body border-0">
-              {{ quest.description }}
+              <div>
+                Q: {{ quest.description }} ?
+              </div>
+              <hr>
+              <div>
+                A: {{quest.answer}}
+              </div>
             </div>
             <div class="card-footer">
               answerd By Dr. <small>{{quest.docName}}</small>

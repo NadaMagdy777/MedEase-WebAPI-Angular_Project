@@ -9,6 +9,7 @@ namespace MedEase.Core.Interfaces.Services
 {
     public interface IQuestionService
     {
+        Task<ApiResponse> GetQuestion(int QId);
         Task<ApiResponse> GetQuestionsByDoctorSpeciality(int docId);
         Task<ApiResponse?> GetDoctorAnsweredQuestions(int docId);
         Task<ApiResponse> DoctorAnswerQuestion(AnswerDto dto);

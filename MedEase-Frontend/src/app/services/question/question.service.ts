@@ -32,6 +32,30 @@ export class QuestionService {
     );
   }
 
+  answerQuestion(dto: any): Observable<IApiResponse> {
+    console.log(dto);
+    
+    return this._httpClient.put<IApiResponse>(
+      this.baseUrl + 'Doctor/Answer',
+      dto
+    );
+  }
+  getQuestion(id:number): Observable<IApiResponse> {
+    return this._httpClient.get<IApiResponse>(
+      this.baseUrl + id
+    );
+  }
+  getDoctorAnswerdQuestions(): Observable<IApiResponse> {
+    return this._httpClient.get<IApiResponse>(
+      this.baseUrl + 'Doctor/Answered'
+    );
+  }
+  getDoctorUnAnswerdQuestions(): Observable<IApiResponse> {
+    return this._httpClient.get<IApiResponse>(
+      this.baseUrl + 'Doctor/Unanswered'
+    );
+  }
+
   private getUserQuestion(dto: any): IPatientQuestionDto {
     const { title, description, specialityId } = dto;
     const patientId = this._userAuthService.getLoggedUserId;

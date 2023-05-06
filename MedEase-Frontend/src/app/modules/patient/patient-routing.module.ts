@@ -17,6 +17,7 @@ const routes: Routes = [
   { path:'questions',component:PatientQuestionsComponent, children:[
     { path:'answered',component:AnsweredQuestionsComponent},
     { path:'unanswered',component:UnansweredQuestionsComponent},
+    { path:'**',component:AnsweredQuestionsComponent},
   ]},
   {
     path: 'Appointment',

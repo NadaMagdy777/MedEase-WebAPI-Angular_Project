@@ -40,6 +40,17 @@ namespace MedEase.API.Controllers
             return Ok(await _questionService.GetDoctorAnsweredQuestions(docId));
         }
 
+        [HttpGet("{id}")]
+        public async Task<ActionResult<ApiResponse>> GetQuestion(int id)
+        {
+            if (!ModelState.IsValid) { return BadRequest(new ApiResponse(400, false, ModelState)); };
+
+            //if (!int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out int docId))
+            //    { return BadRequest(new ApiResponse(401, false, "User Not Found")); }
+
+            return Ok(await _questionService.GetQuestion(id));
+        }
+
         [Authorize(Roles = Roles.Doctor)]                    //Not Finsished
         [HttpPut("Doctor/Answer")]
         public async Task<ActionResult<ApiResponse>> DoctorAnswerQuestion(AnswerDto dto)

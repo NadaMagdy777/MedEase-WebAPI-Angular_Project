@@ -21,6 +21,13 @@ namespace MedEase.EF.Services
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
+        public async Task<ApiResponse> GetQuestion(int QId)
+        {
+            Question questions =
+                await _unitOfWork.Questions.FindAsync(q => q.Id == QId);
+
+            return new ApiResponse(200, true, _mapper.Map<QuestionDto>(questions));
+        }
 
         public async Task<ApiResponse> GetQuestionsByDoctorSpeciality(int docId)
         {

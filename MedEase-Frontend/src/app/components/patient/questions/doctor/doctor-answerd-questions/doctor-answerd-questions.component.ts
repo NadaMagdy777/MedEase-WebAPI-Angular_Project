@@ -4,11 +4,11 @@ import { IQuestionDto } from 'src/app/SharedClassesAndTypes/questions/IQuestionD
 import { QuestionService } from 'src/app/Services/question/question.service';
 
 @Component({
-  selector: 'app-unanswered-questions',
-  templateUrl: './unanswered-questions.component.html',
-  styleUrls: ['./unanswered-questions.component.css']
+  selector: 'app-doctor-answerd-questions',
+  templateUrl: './doctor-answerd-questions.component.html',
+  styleUrls: ['./doctor-answerd-questions.component.css']
 })
-export class UnansweredQuestionsComponent implements OnInit, OnDestroy {
+export class DoctorAnswerdQuestionsComponent implements OnInit, OnDestroy {
   constructor(private _questionService: QuestionService) {}
 
   allQuestions: IQuestionDto[] = [];
@@ -16,7 +16,7 @@ export class UnansweredQuestionsComponent implements OnInit, OnDestroy {
   serverErrorMsg: string = '';
 
   ngOnInit(): void {
-    this._questionService.getPatientQuestions(false).subscribe((res) => {
+    this._questionService.getDoctorAnswerdQuestions().subscribe((res) => {
       if (res.success) {
         this.allQuestions = res.data;
       } else {

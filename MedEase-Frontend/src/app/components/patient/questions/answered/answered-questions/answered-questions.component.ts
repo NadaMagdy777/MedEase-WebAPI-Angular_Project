@@ -1,5 +1,5 @@
 import { IQuestionDto } from 'src/app/SharedClassesAndTypes/questions/IQuestionDto';
-import { QuestionService } from './../../../../../services/question/question.service';
+import { QuestionService } from './../../../../../Services/question/question.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 
@@ -16,7 +16,7 @@ export class AnsweredQuestionsComponent implements OnInit, OnDestroy {
   serverErrorMsg: string = '';
 
   ngOnInit(): void {
-    this._questionService.getPatientQuestions(true).subscribe((res) => {
+    this._questionService.getPatientQuestions(false).subscribe((res) => {
       if (res.success) {
         this.allQuestions = res.data;
       } else {
