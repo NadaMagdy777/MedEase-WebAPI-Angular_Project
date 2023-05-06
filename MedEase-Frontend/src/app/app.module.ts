@@ -10,7 +10,6 @@ import { HomeComponent } from './components/home/home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CarouselComponent } from './components/home/carousel/carousel.component';
 import { CarouselModule } from 'ngx-owl-carousel-o';
-import { AppointmentsComponent } from './components/patient/appointments/appointments.component';
 import { InsuranceComponent } from './components/patient/insurance/insurance.component';
 
 
@@ -21,7 +20,11 @@ import { PatientRegisterComponent } from './components/authentication/patient-re
 import { NavUserNamePipe } from './pipes/nav-user-name.pipe';
 import { DoctorRegisterComponent } from './components/authentication/doctor-register/doctor-register.component';
 import { HistoryComponent } from './components/patient/history/history.component';
+import { AnsweredQuestionsComponent } from './components/patient/questions/answered/answered-questions/answered-questions.component';
+import { UnansweredQuestionsComponent } from './components/patient/questions/unanswered/unanswered-questions/unanswered-questions.component';
+import { PatientQuestionsComponent } from './components/patient/questions/patient-questions/patient-questions.component';
 import { ExaminationInfoComponent } from './components/patient/examination-info/examination-info.component';
+
 
 @NgModule({
   declarations: [
@@ -36,10 +39,14 @@ import { ExaminationInfoComponent } from './components/patient/examination-info/
     PatientRegisterComponent,
     NavUserNamePipe,
     DoctorRegisterComponent,
-    
+    HistoryComponent,
+    AnsweredQuestionsComponent,
+    UnansweredQuestionsComponent,
+    PatientQuestionsComponent,
     LoginComponent,
     HistoryComponent,
-    ExaminationInfoComponent
+    ExaminationInfoComponent,
+  
       
   ],
   imports: [

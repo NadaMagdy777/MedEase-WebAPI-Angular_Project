@@ -4,8 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AddressService } from 'src/app/Services/address/address.service';
 import { DoctorService } from 'src/app/Services/Doctor/doctor.service';
 import { ImageService } from 'src/app/services/image.service';
-import { Doctor } from 'src/app/SharedClassesAndTypes/Doctor/Doctor';
-import { DoctorEdit } from 'src/app/SharedClassesAndTypes/Doctor/doctorEdit';
+import { Doctor } from 'src/app/sharedClassesAndTypes/doctor/Doctor';
+import { DoctorEdit } from 'src/app/sharedClassesAndTypes/doctor/doctorEdit';
 
 @Component({
   selector: 'app-edit-profile',
@@ -30,14 +30,16 @@ export class EditProfileComponent {
     rating: undefined,
     street: '',
     addressDto:undefined,
-    doctorSubspiciality: undefined,
+    doctorSubspiciality:[],
     specialityName: '',
     doctorcertificates: undefined,
     doctorcerInsurance: undefined,
     visitors: 0,
     email: '',
     profilePicture:undefined,
-    clincRating:0
+    clincRating:0,
+    specialityID:0
+
   };
 
   doctorEdit:DoctorEdit = {

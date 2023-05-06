@@ -27,8 +27,7 @@ const routes: Routes = [
   
   {path:'reserve-appointement',component:ReserveAppointementComponent},
   { path: '**', component: HomeComponent},
-  
-];
+    ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

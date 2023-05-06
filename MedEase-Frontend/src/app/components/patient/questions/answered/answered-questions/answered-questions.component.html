@@ -1,0 +1,43 @@
+<div class="container m-3 px-3">
+  <p *ngIf="serverErrorMsg" class="alert alert-danger py-1">
+    {{ serverErrorMsg | lowercase }}
+  </p>
+  <ng-container *ngIf="allQuestions; else noAvailableQuestions">
+    <ng-container *ngFor="let quest of allQuestions; let i = index">
+      <div class="w-75 mx-auto d-flex flex-column justify-content-center">
+        <div class="card">
+          <div
+            class="card-header pointer border border-light rounded d-flex justify-content-between"
+            id="headingTwo"
+            data-toggle="collapse"
+            data-target="#Ques"
+            aria-expanded="false"
+            aria-controls="Ques"
+          >
+            <h5 class="mb-0 w-100 row">
+                <p class="p2 col-10">{{ quest.title }}</p>
+                <p class="text-muted p-2 col-2">{{ quest.dateCreated | date}}</p>
+            </h5>
+            <h5 class="mb-0">
+              <i class="dropdown-toggle"></i>
+            </h5>
+          </div>
+          <div class="collapse multi-collapse" id="Ques">
+            <div class="card-body border-0">
+              {{ quest.description }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </ng-container>
+  <ng-template #noAvailableQuestions>
+    <div class="w-50 h2 text-center text-capitalize">
+      <p>There are no answered questions yet !..</p>
+      <p>
+        make sure to <span><a routerLink="/account/ask">ask</a></span> us a
+        question
+      </p>
+    </div>
+  </ng-template>
+</div>

@@ -56,14 +56,13 @@ namespace MedEase.API.Controllers
         [HttpPost("Patient/Ask")]
         public async Task<ActionResult<ApiResponse>> PatientAskQuestion(PatientQuestionDto dto)
         {
-            if (!ModelState.IsValid) { return BadRequest(new ApiResponse(400, false, ModelState)); };
+            //if (!int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out int patientID))
+            //{ return BadRequest(new ApiResponse(401, false, "User Not Found")); }
 
-            if (!int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out int patientID))
-            { return BadRequest(new ApiResponse(401, false, "User Not Found")); }
-
-            dto.PatientId = patientID;
+            //dto.PatientId = patientID;
 
             /////////       ==>> All The Above Code Could be Reomved In case FrontEnd Gives me the PtID  <<==       /////////
+            if (!ModelState.IsValid) { return BadRequest(new ApiResponse(400, false, ModelState)); };
 
             return Ok(await _questionService.PatientAskQuestion(dto));
         }

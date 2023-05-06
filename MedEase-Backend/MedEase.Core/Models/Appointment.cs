@@ -24,6 +24,7 @@ namespace MedEase.Core.Models
         public virtual int DoctorID { get; set; }
         public virtual Doctor Doctor { get; set; }
 
+        public Examination? Examination { get; set; }
         public AppointmentInsurance? Insurance { get; set; }
         public Investigation? Investigation { get; set; }
     }
