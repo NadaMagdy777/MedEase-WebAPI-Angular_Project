@@ -10,11 +10,6 @@ using System.Security.Claims;
 
 namespace MedEase.API.Controllers
 {
-
-    /// <summary>
-    /// عايز اهندل ان اليوزر يكنسل الحجز قبل ماييجي معاده واخلي الستاتس ب كانسلد
-    /// </summary>
-
     [Route("api/[controller]")]
     [ApiController]
     public class AppointmentController : ControllerBase

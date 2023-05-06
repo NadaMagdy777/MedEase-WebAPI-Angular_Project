@@ -18,5 +18,6 @@ namespace MedEase.Core.Dtos
         public int SpecialityId { get; set; }
         public int PatientId { get; set; }
         public int? DoctorId { get; set; }
+        public string DocName { get; set; }
     }
 }

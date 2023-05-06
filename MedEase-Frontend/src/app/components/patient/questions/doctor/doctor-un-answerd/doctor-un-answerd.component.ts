@@ -1,14 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { IQuestionDto } from 'src/app/SharedClassesAndTypes/questions/IQuestionDto';
 import { QuestionService } from 'src/app/Services/question/question.service';
+import { IQuestionDto } from 'src/app/SharedClassesAndTypes/questions/IQuestionDto';
 
 @Component({
-  selector: 'app-unanswered-questions',
-  templateUrl: './unanswered-questions.component.html',
-  styleUrls: ['./unanswered-questions.component.css']
+  selector: 'app-doctor-un-answerd',
+  templateUrl: './doctor-un-answerd.component.html',
+  styleUrls: ['./doctor-un-answerd.component.css']
 })
-export class UnansweredQuestionsComponent implements OnInit, OnDestroy {
+export class DoctorUnAnswerdComponent implements OnInit, OnDestroy {
   constructor(private _questionService: QuestionService) {}
 
   allQuestions: IQuestionDto[] = [];
@@ -16,7 +16,7 @@ export class UnansweredQuestionsComponent implements OnInit, OnDestroy {
   serverErrorMsg: string = '';
 
   ngOnInit(): void {
-    this._questionService.getPatientQuestions(false).subscribe((res) => {
+    this._questionService.getDoctorUnAnswerdQuestions().subscribe((res) => {
       if (res.success) {
         this.allQuestions = res.data;
       } else {

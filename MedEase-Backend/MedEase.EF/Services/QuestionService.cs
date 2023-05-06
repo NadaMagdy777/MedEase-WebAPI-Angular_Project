@@ -21,6 +21,13 @@ namespace MedEase.EF.Services
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
+        public async Task<ApiResponse> GetQuestion(int QId)
+        {
+            Question questions =
+                await _unitOfWork.Questions.FindAsync(q => q.Id == QId);
+
+            return new ApiResponse(200, true, _mapper.Map<QuestionDto>(questions));
+        }
 
         public async Task<ApiResponse> GetQuestionsByDoctorSpeciality(int docId)
         {
@@ -39,7 +46,15 @@ namespace MedEase.EF.Services
             IEnumerable<Question> questions =
                 await _unitOfWork.Questions.FindAllAsync(q => q.DoctorId == docId);
 
-            return new ApiResponse(200, true, _mapper.Map<IEnumerable<QuestionDto>>(questions).ToList());
+            IEnumerable<QuestionDto> questionsDto = _mapper.Map<IEnumerable<QuestionDto>>(questions);
+
+            foreach (QuestionDto quest in questionsDto)
+            {
+                quest.DocName = await _unitOfWork.Doctors
+                    .FindDtoAsync(d => d.ID == docId, d => $"{d.AppUser.FirstName} {d.AppUser.LastName}");
+            }
+
+            return new ApiResponse(200, true, questionsDto);
         }
 
         public async Task<ApiResponse> DoctorAnswerQuestion(AnswerDto dto)
@@ -75,6 +90,15 @@ namespace MedEase.EF.Services
             IEnumerable<QuestionDto> questions =
                 await _unitOfWork.Questions.GetDtoAsync(q => q.PatientId == patientID && q.IsAnswered == isAnswered,
                 q => _mapper.Map<QuestionDto>(q));
+
+            if (isAnswered)
+            {
+                foreach (QuestionDto quest in questions)
+                {
+                    quest.DocName = await _unitOfWork.Doctors
+                        .FindDtoAsync(d => d.ID == quest.DoctorId, d => $"{d.AppUser.FirstName} {d.AppUser.LastName}");
+                }
+            }
 
             return new ApiResponse(200, true, questions);
         }
