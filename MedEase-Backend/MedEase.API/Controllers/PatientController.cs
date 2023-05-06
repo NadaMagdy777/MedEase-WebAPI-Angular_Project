@@ -70,11 +70,23 @@ namespace MedEase.API.Controllers
             ;
         }
 
-        [HttpPost("Insurance")]
-        public async Task<IActionResult> AddPatientInsurance(int PatientID, int insuranceID)
+        //[HttpPost("Insurance")]
+        //public async Task<IActionResult> AddPatientInsurance(int PatientID, int insuranceID)
+        //{
+        //    if (!ModelState.IsValid) { return BadRequest(new ApiResponse(400, false, ModelState)); };
+        //    return Ok(new ApiResponse(200, true, await _patientService.AddPatientInsurance(PatientID, insuranceID)));
+        //}
+        [HttpPost("Insurance/id")]
+        public async Task<IActionResult> AddPatientInsurance(int PatientID, PatientInsuranceDto insuranceDto)
         {
             if (!ModelState.IsValid) { return BadRequest(new ApiResponse(400, false, ModelState)); };
-            return Ok(new ApiResponse(200, true, await _patientService.AddPatientInsurance(PatientID, insuranceID)));
+            return Ok(new ApiResponse(200, true, await _patientService.AddPatientInsurance(PatientID, insuranceDto)));
+        }
+        [HttpPut("Insurance/id")]
+        public async Task<IActionResult> EditPatientInsurance(int PatientID, PatientInsuranceDto insuranceDto)
+        {
+            if (!ModelState.IsValid) { return BadRequest(new ApiResponse(400, false, ModelState)); };
+            return Ok(new ApiResponse(200, true, await _patientService.EditPatientInsurance(PatientID, insuranceDto)));
         }
     }
 }
