@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { DoctorService } from 'src/app/services/doctor/doctor.service';
-import { Doctor } from 'src/app/sharedClassesAndTypes/doctor/Doctor';
+import { DoctorService } from 'src/app/services/Doctor/doctor.service';
+import { Doctor } from 'src/app/sharedClassesAndTypes/Doctor/Doctor';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { ISubSpecialty } from 'src/app/sharedClassesAndTypes/Doctor/isub-specialty';
 import { SpecialtiesService } from 'src/app/services/specialities/specialities.service';

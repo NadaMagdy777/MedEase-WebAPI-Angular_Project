@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { DoctorService } from 'src/app/services/doctor/doctor.service';
-import { IreserveAppointement } from 'src/app/sharedClassesAndTypes/doctor/IReserveAppointement';
+import { DoctorService } from 'src/app/services/Doctor/doctor.service';
+import { IreserveAppointement } from 'src/app/sharedClassesAndTypes/Doctor/IReserveAppointement';
 import { UserAuthService } from 'src/app/services/authentication/user-auth.service';
 
 @Component({
