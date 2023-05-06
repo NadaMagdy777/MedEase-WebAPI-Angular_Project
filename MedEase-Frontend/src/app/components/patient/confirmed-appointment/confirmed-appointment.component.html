@@ -7,7 +7,7 @@
         <div>
             <div class="form-group d-flex border rounded ">
                 <div class="form-outline">
-                  <input type="search"  class="form-control border-0"  placeholder="Enter Patient Name" #textInput (input)="SearchData(textInput.value)" />
+                  <input type="search"  class="form-control border-0"  placeholder="Enter Doctor Name" #textInput (input)="SearchData(textInput.value)" />
                 </div>
                 <div type="button" class="btn btn-success disabled">
                   <i class="fas fa-search"></i>
@@ -24,18 +24,16 @@
                 <th scope="col"></th>
                 <th scope="col">Patient Name</th>
                 <th scope="col">Appointment Date</th>
-                <th scope="col">Patient Phone</th>
-                <th scope="col">Confirm Appoinment</th>
+                <th scope="col">Show Diagnosis</th>
               </tr>
             </thead>
             <tbody>
               <tr  *ngFor="let appoinment of filteredData  | paginate:{itemsPerPage:1,currentPage:p} let i = index " >
                 <th scope="row">{{i+1}}</th>
-                <td title="click to show patient history">{{appoinment.patientName|titlecase}}</td>
-                <td>{{appoinment.date|date:"short"}}</td>
-                <td>{{appoinment.patientPhone}}</td>
+                <td title="click to show patient history">{{appoinment.doctorName|titlecase}}</td>
+                <td>{{appoinment.dateTime|date:"short"}}</td>
                 <td>
-                  <a class="btn btn-success " *ngIf="appoinment.diagnosis==null" >Add Dignosis</a>
+                  <a class="btn btn-success " *ngIf="appoinment.diagnosisDetails==null" >Add Dignosis</a>
                  
                 </td>
              
