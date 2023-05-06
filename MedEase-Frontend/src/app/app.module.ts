@@ -42,7 +42,7 @@ import { ExaminationInfoComponent } from './components/patient/examination-info/
     HistoryComponent,
     AnsweredQuestionsComponent,
     UnansweredQuestionsComponent,
-    PatientQuestionsComponent
+    PatientQuestionsComponent,
     
     LoginComponent,
     HistoryComponent,

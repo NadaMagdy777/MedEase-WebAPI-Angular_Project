@@ -4,13 +4,13 @@
     </p>
     <ng-container *ngIf="allQuestions; else noAvailableQuestions">
       <ng-container *ngFor="let quest of allQuestions; let i = index">
-        <div class="w-75 mx-auto d-flex flex-column justify-content-center">
+        <div class=" mt-2 w-75 mx-auto d-flex flex-column justify-content-center">
           <div class="card">
             <div
               class="card-header pointer border border-light rounded d-flex justify-content-between"
               id="headingTwo"
               data-toggle="collapse"
-              data-target="#Ques"
+              [attr.data-target]="'#Ques'+i"
               aria-expanded="false"
               aria-controls="Ques"
             >
@@ -22,7 +22,7 @@
                 <i class="dropdown-toggle"></i>
               </h5>
             </div>
-            <div class="collapse multi-collapse" id="Ques">
+            <div class="collapse multi-collapse" id="Ques{{i}}">
               <div class="card-body border-0">
                 {{ quest.description }}
               </div>

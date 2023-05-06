@@ -10,7 +10,7 @@
             class="card-header pointer border border-light rounded d-flex justify-content-between"
             id="headingTwo"
             data-toggle="collapse"
-            data-target="#Ques"
+            [attr.data-target]="'#Ques'+i"
             aria-expanded="false"
             aria-controls="Ques"
           >
@@ -22,13 +22,12 @@
               <i class="dropdown-toggle"></i>
             </h5>
           </div>
-          <div class="collapse multi-collapse" id="Ques">
+          <div class="collapse multi-collapse" id="Ques{{i}}">
             <div class="card-body border-0">
               {{ quest.description }}
             </div>
-            <div class="w-100 bg-black" style="height: 3px;"></div>
-            <div>
-              <span class="h4"> {{quest.docName}}</span> : <span>{{quest.answer}}</span>
+            <div class="card-footer">
+              answerd By Dr. <small>{{quest.docName}}</small>
             </div>
           </div>
         </div>
