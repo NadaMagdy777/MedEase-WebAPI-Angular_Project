@@ -7,6 +7,7 @@ import { DoctorEdit } from 'src/app/SharedClassesAndTypes/Doctor/doctorEdit';
 import { IreserveAppointement } from 'src/app/SharedClassesAndTypes/Doctor/IReserveAppointement';
 import { IDiagnosisDto } from 'src/app/sharedClassesAndTypes/diagnosis/i-diagnosis-dto';
 import { IApiResponse } from 'src/app/sharedClassesAndTypes/iapi-response';
+import { Review } from 'src/app/SharedClassesAndTypes/review/review';
 
 @Injectable({
   providedIn: 'root',
@@ -72,7 +73,11 @@ export class DoctorService {
     return this.http.post<any>(environment.apiUrl + '/Appointment/Reserve' ,data);
   }
   postDiagnosis(data:IDiagnosisDto) :Observable<IApiResponse> {
-    return this.http.post<IApiResponse>(environment.apiUrl + '/diagnosis/new', data);
+    return this.http.post<IApiResponse>(this._url + '/diagnosis/new', data);
+
+  }
+  postReview(data:Review):Observable<IApiResponse>{
+    return this.http.post<IApiResponse>(this._url + '/Reviews', data);
 
   }
 }

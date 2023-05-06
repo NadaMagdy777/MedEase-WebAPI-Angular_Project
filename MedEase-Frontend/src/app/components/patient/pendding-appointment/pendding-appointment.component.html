@@ -25,7 +25,7 @@
               <tr *ngFor="let appoinment of pendingAppointments | paginate:{itemsPerPage:1,currentPage:p} ; let i = index">
                 <th scope="row">{{i+1}}</th>
                 <td title="click to show patient history">{{appoinment.doctorName|titlecase}}</td>
-                <td>{{appoinment.dateTime|date:"short"}}</td>
+                <td>{{appoinment.date}}</td>
                 <td >
                   <button class="btn btn-success " (click)="confirmAppointment(appoinment.appointmentID)"> Confirm</button>
                   <button class="btn btn-danger ml-2 " (click)="cancelAppointment(appoinment.appointmentID)"> Cancel</button>

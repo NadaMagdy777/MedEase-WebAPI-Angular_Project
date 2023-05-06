@@ -7,6 +7,7 @@ import { Gender } from 'src/app/SharedClassesAndTypes/enums/gender';
 
 export interface IDoctorConfirmedAppointmentDetailsDto {
     appointmentID: number;
+    examinationID:number;
     date: Date;
     status: AppointmentStatus;
     patientID: number;

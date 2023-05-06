@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { AppointmentsComponent } from 'src/app/components/patient/appointments/appointments.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { PatientRoutingModule } from './patient-routing.module';
 import { ProfileComponent } from 'src/app/components/patient/profile/profile.component';
@@ -14,6 +15,8 @@ import { ConfirmedAppointmentComponent } from 'src/app/components/patient/confir
 import { PenddingAppointmentComponent } from 'src/app/components/patient/pendding-appointment/pendding-appointment.component';
 import { ReviewComponent } from 'src/app/components/patient/review/review.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { ShowDiagnosisComponent } from 'src/app/components/patient/show-diagnosis/show-diagnosis.component';
+
 
 @NgModule({
   declarations: [
@@ -23,7 +26,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     AppointmentsComponent,
     ConfirmedAppointmentComponent,
     PenddingAppointmentComponent,
-    ReviewComponent
+    ReviewComponent,
+    ShowDiagnosisComponent
 
 
   ],
@@ -32,7 +36,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     PatientRoutingModule,
     ReactiveFormsModule,
     RouterModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    NgbModule
   ],
   providers:[{
     provide: HTTP_INTERCEPTORS,

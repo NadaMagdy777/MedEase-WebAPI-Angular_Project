@@ -9,15 +9,22 @@ import { UnansweredQuestionsComponent } from 'src/app/components/patient/questio
 import { AppointmentsComponent } from 'src/app/components/patient/appointments/appointments.component';
 import { PenddingAppointmentComponent } from 'src/app/components/patient/pendding-appointment/pendding-appointment.component';
 import { ConfirmedAppointmentComponent } from 'src/app/components/patient/confirmed-appointment/confirmed-appointment.component';
+import { ReviewComponent } from 'src/app/components/patient/review/review.component';
+import { ShowDiagnosisComponent } from 'src/app/components/patient/show-diagnosis/show-diagnosis.component';
+
 
 const routes: Routes = [
   { path:'profile',component:ProfileComponent},
   { path:'medicalHistory',component:MedicalHistoryComponent},
   { path:'ask',component:AskQuestionComponent},
+  { path:'Review/:id',component:ReviewComponent},
   { path:'questions',component:PatientQuestionsComponent, children:[
     { path:'answered',component:AnsweredQuestionsComponent},
     { path:'unanswered',component:UnansweredQuestionsComponent},
   ]},
+  {
+    path:'diagnosis/:appointmentId/:doctorName',component:ShowDiagnosisComponent
+  },
   {
     path: 'Appointment',
     component: AppointmentsComponent,
