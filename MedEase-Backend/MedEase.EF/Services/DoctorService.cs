@@ -110,13 +110,13 @@ namespace MedEase.EF.Services
 
         public async Task<DoctorSchedule> CreateScheduleAsync(DoctorScheduleDto scheduleDto)
         {
-            if (scheduleDto.IsWorking)
-            {
-                DoctorSchedule schedule = new DoctorSchedule();
-                schedule = _mapper.Map<DoctorSchedule>(scheduleDto);
+                if (scheduleDto.IsWorking)
+                {
+                    DoctorSchedule schedule = new DoctorSchedule();
+                    schedule = _mapper.Map<DoctorSchedule>(scheduleDto);
 
-                await _unitOfWork.DoctorSchedules.AddAsync(schedule);
-                _unitOfWork.Complete();
+                    await _unitOfWork.DoctorSchedules.AddAsync(schedule);
+                    _unitOfWork.Complete();
 
                 return schedule;
 
@@ -124,6 +124,21 @@ namespace MedEase.EF.Services
 
             return null;
 
+        }
+        public async Task<IEnumerable<DoctorEditScheduleDto>> GetDoctorSchedules(int doctorId)
+        {
+            var doctor = await _unitOfWork.Doctors.FindAsync(d => d.ID == doctorId, 
+               new List<Expression<Func<Doctor, object>>>()
+               {
+                   d => d.Schedule,
+               });
+
+            IEnumerable<DoctorEditScheduleDto> schedules = _mapper.Map<DoctorEditScheduleDto[]>(doctor.Schedule);
+            if (schedules is not null)
+            {
+                return schedules;
+            }
+            return null;
         }
         public async Task<int> EditDoctor(DoctorEditDto doctorDto, int id)
         {
@@ -294,9 +309,9 @@ namespace MedEase.EF.Services
             {
                 orgdoctorschedule.Id = doctorEditScheduleDto.Id;
                 orgdoctorschedule.DoctorId = doctorEditScheduleDto.DoctorId;
-                orgdoctorschedule.WeekDay = doctorEditScheduleDto.WeekDay;
-                orgdoctorschedule.StartTime = doctorEditScheduleDto.StartTime;
-                orgdoctorschedule.EndTime = doctorEditScheduleDto.EndTime;
+                orgdoctorschedule.WeekDay = DateTime.Parse(doctorEditScheduleDto.WeekDay);
+                orgdoctorschedule.StartTime = TimeSpan.Parse(doctorEditScheduleDto.StartTime);
+                orgdoctorschedule.EndTime = TimeSpan.Parse(doctorEditScheduleDto.EndTime);
                 orgdoctorschedule.TimeInterval = doctorEditScheduleDto.TimeInterval;
                 _unitOfWork.Complete();
 

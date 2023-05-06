@@ -13,7 +13,13 @@ namespace MedEase.Core.MappingProfiles
     {
         public DoctorScheduleProfile()
         {
-            CreateMap<DoctorSchedule, DoctorScheduleDto>().ReverseMap();
+            CreateMap<DoctorScheduleDto, DoctorSchedule>()
+                .ForMember(dest => dest.StartTime, opt => opt.MapFrom(src => TimeSpan.Parse(src.StartTime)))
+                .ForMember(dest => dest.EndTime, opt => opt.MapFrom(src => TimeSpan.Parse(src.EndTime)))
+                .ForMember(dest => dest.WeekDay, opt => opt.MapFrom(src => DateTime.Parse(src.WeekDay)))
+                .ReverseMap();
+
+            CreateMap<DoctorEditScheduleDto, DoctorSchedule>().ReverseMap();
         }
     }
 }
