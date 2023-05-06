@@ -126,7 +126,7 @@ namespace MedEase.EF.Services
                 {
                     patientDTO = new PatientInfoGetDto();
                     patientDTO = _mapper.Map<PatientInfoGetDto>(patient);
-                patientDTO.History = _mapper.Map<PatientMedicalHistoryDto>(patient.History);
+                    patientDTO.History = _mapper.Map<PatientMedicalHistoryDto>(patient.History);
 
 
 

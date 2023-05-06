@@ -12,8 +12,7 @@ import { Review } from 'src/app/sharedClassesAndTypes/review/review';
 export class DoctorDetailsComponent {
 
   doctorId!:number
-  //doctor:Doctor=new Doctor(0,0,'','','','',0,0,0,0,'',0,0,'','','',0,'','','');
-  doctor:Doctor=new Doctor(0,0,'','','','',0,0,0,0,'',0,0,'','','',0,0,'','');
+  doctor:Doctor=new Doctor(0,0,'','','','',0,0,0,0,'',0,[],'','','',0,0,'','',0);
   doctorReview:Review[]=[] 
   SomeReview:Review[]=[]
   errorMessage: any;

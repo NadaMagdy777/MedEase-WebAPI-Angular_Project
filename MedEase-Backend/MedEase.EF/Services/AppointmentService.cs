@@ -128,6 +128,7 @@ namespace MedEase.EF.Services
                 a => new DoctorConfirmedAppointmentDetailsDto
                 {
                     AppointmentID = a.ID,
+                    ExaminationID = a.Examination.ID,
                     PatientID = a.PatientID,
                     PatientName = $"{a.Patient.AppUser.FirstName} {a.Patient.AppUser.LastName}",
                     PatientBirthDate = a.Patient.AppUser.BirthDate.Date,

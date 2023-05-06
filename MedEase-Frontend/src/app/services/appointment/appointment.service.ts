@@ -41,4 +41,6 @@ export class AppointmentService {
   reserveAppointment(dto: any): Observable<IApiResponse> {
     return this._httpClient.post<IApiResponse>(this.baseUrl + 'Reserve', dto);
   }
+
+ 
 }

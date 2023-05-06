@@ -2,7 +2,6 @@ import { IDiagnosisDto } from './../diagnosis/i-diagnosis-dto';
 import { IAppointmentInvestigationDto } from './../investigation/i-appointment-investigation-dto';
 import { AppointmentStatus } from '../enums/appointment-status';
 import { IPatientMedicalHistoryDto } from '../patient/i-patient-medical-history-dto';
-//import { Gender } from '../enums/gender';
 import { Gender } from 'src/app/SharedClassesAndTypes/enums/gender';
 
 

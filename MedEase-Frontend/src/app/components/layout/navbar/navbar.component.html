@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg sticky-top navbar-light bg-light">
   <div class="container-fluid">
-    <a class="navbar-brand" routerLinkActive="active" routerLink="/home">
+    <a class="navbar-brand" routerLinkActive="active" routerLink="/Home">
       <img height="40" src="../../../../assets/image/Logo.png" />
     </a>
     <button
@@ -16,30 +16,6 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto">
-        <ng-container *ngIf="isUserLogged">
-          <!-- <li class="nav-item mt-2">
-                        <span class="text-muted px-1" ><span class="mx-1"></span> {{loggedUserName | navUserName}} <span class="mx-1">|</span></span>
-                    </li> -->
-
-          <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle px-1"
-              role="button"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-            <span class="mx-1"></span> {{loggedUserName | navUserName}} <span class="mx-1">|</span>
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Something else here</a>
-            </div>
-            <!-- <span class="mx-1">|</span> -->
-          </li>
-        </ng-container>
         <li class="nav-item">
           <a class="nav-link px-1" routerLinkActive="active" routerLink="/Home"
             ><span class="mx-1"></span> Home <span class="mx-1">|</span></a
@@ -57,9 +33,33 @@
         </ng-container>
         <li class="nav-item">
           <a class="nav-link px-1" routerLinkActive="active" routerLink="/home"
-            >Contact us</a
-          >
+            >Contact us
+            <span class="mx-1" *ngIf="isUserLogged">|</span>
+          </a>
         </li>
+        <ng-container *ngIf="isUserLogged">
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle px-1"
+              role="button"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              <span class="mx-1 mt-1 pt-1">
+                {{ loggedUserName | navUserName }}</span
+              >
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+            <!-- <span class="mx-1">|</span> -->
+          </li>
+        </ng-container>
+        <li class="nav-item pt-2 pe-2 ps-1">|</li>
         <ng-container *ngIf="!isUserLogged">
           <li class="nav-item mt-1">
             <a

@@ -76,7 +76,7 @@ namespace MedEase.EF.Services
                 await _unitOfWork.Questions.GetDtoAsync(q => q.PatientId == patientID && q.IsAnswered == isAnswered,
                 q => _mapper.Map<QuestionDto>(q));
 
-            return new ApiResponse(200, true);
+            return new ApiResponse(200, true, questions);
         }
     }
 }

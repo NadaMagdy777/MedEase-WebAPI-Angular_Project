@@ -11,6 +11,7 @@ import { DoctorAuthGuard } from './guards/doctor-auth.guard';
 import { PatientAuthGuard } from './guards/patient-auth.guard';
 
 import { HistoryComponent } from './components/patient/history/history.component';
+import { ExaminationInfoComponent } from './components/patient/examination-info/examination-info.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/Home', pathMatch: 'full' },
@@ -21,14 +22,12 @@ const routes: Routes = [
   {path:'account',loadChildren:()=>import('./modules/patient/patient.module').then(mod=>mod.PatientModule)},
   {path:'userAppointments',component:AppointmentsComponent},
   {path:'userInsurance',component:InsuranceComponent},
-  {path:'history/:id',component:HistoryComponent},
+  {path:'history/:id',component:ExaminationInfoComponent},
 
-  { path: '**', component: HomeComponent},
-
+  
   {path:'reserve-appointement',component:ReserveAppointementComponent},
   { path: '**', component: HomeComponent},
-  
-];
+    ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

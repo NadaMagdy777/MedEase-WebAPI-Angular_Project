@@ -10,6 +10,7 @@ import { DoctorConfirmedAppointmentsComponent } from 'src/app/components/doctor/
 import { DoctorRegisterComponent } from 'src/app/components/authentication/doctor-register/doctor-register.component';
 import { EditProfileComponent } from 'src/app/components/doctor/edit-profile/edit-profile.component';
 import { DoctorScheduleComponent } from 'src/app/components/doctor/doctor-schedule/doctor-schedule.component';
+import { DiagnosisComponent } from 'src/app/components/patient/diagnosis/diagnosis.component';
 const routes: Routes = [
   {
     path: ':speciality/:city/:region/:name',
@@ -33,6 +34,9 @@ const routes: Routes = [
   {
     path:'schedule',component: DoctorScheduleComponent
   },
+  {
+    path:'Diagnosis/:id',component:DiagnosisComponent
+  }
 ];
 
 @NgModule({

@@ -41,5 +41,37 @@ namespace MedEase.EF.Services
         {
             return new(200, true, _mapper.Map<IEnumerable<SubspecialityDto>>(await _unitOfWork.SubSpeciality.GetAllAsync()));
         }
+
+        public async Task<ApiResponse> GetSubSpecialitiesBySpecialityId(int SpecialityId)
+        {
+          
+           return new(200, true, _mapper.Map<IEnumerable<SubspecialityDto>>(await _unitOfWork.SubSpeciality.FindAllAsync(s=>s.specialityID== SpecialityId)));
+        }
+        public async Task<ApiResponse> BasicInformation(int SpecialityId)
+        {
+            if (SpecialityId > 0)
+            {
+                BasicInformationDto basicInfo = new BasicInformationDto()
+                {
+                    specialityName= (string)await _unitOfWork.Speciality.FindWithSelectAsync(s=>s.ID== SpecialityId,s=>s.Name),
+                    DoctorCount= await _unitOfWork.Doctors.CountAsync(d => d.SpecialityID == SpecialityId && d.IsConfirmed == true)
+                    
+                };
+                return new(200, true, basicInfo);
+
+            }
+            else
+            {
+                BasicInformationDto basicInfo = new BasicInformationDto()
+                {
+                    specialityName = "All",
+                    DoctorCount = await _unitOfWork.Doctors.CountAsync(D=>D.IsConfirmed==true)
+
+                };
+                return new(200, true, basicInfo);
+
+            }
+
+        }
     }
 }

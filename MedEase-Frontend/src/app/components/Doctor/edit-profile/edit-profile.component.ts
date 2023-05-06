@@ -30,14 +30,16 @@ export class EditProfileComponent {
     rating: undefined,
     street: '',
     addressDto:undefined,
-    doctorSubspiciality: undefined,
+    doctorSubspiciality:[],
     specialityName: '',
     doctorcertificates: undefined,
     doctorcerInsurance: undefined,
     visitors: 0,
     email: '',
     profilePicture:undefined,
-    clincRating:0
+    clincRating:0,
+    specialityID:0
+
   };
 
   doctorEdit:DoctorEdit = {

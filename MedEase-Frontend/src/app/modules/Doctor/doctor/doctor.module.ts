@@ -19,6 +19,8 @@ import { EditProfileComponent } from 'src/app/components/doctor/edit-profile/edi
 import { AppointementsComponent } from 'src/app/components/doctor/doctorAppointements/appointements.component';
 import { ReserveAppointementComponent } from 'src/app/components/Doctor/reserve-appointement/reserve-appointement.component';
 import { DoctorScheduleComponent } from 'src/app/components/doctor/doctor-schedule/doctor-schedule.component';
+import { DiagnosisComponent } from 'src/app/components/patient/diagnosis/diagnosis.component';
+
 
 @NgModule({
   declarations: [
@@ -34,7 +36,8 @@ import { DoctorScheduleComponent } from 'src/app/components/doctor/doctor-schedu
     ReserveAppointementComponent,
     DoctorDetailsComponent,
     EditProfileComponent,
-    DoctorScheduleComponent
+    DoctorScheduleComponent,
+    DiagnosisComponent
   ],
   imports: [
     CommonModule,

@@ -18,6 +18,7 @@ export class ReserveAppointementComponent  {
   hasImage:boolean = false;
 
   state:any;
+  selectedtimestring:string="";
   insurances:[]=[];
   data!:IreserveAppointement;
 
@@ -70,8 +71,15 @@ export class ReserveAppointementComponent  {
     this.image?.updateValueAndValidity();
   }
   addPhoto(event:any){
-    // if(this.hasImage)
-    //   this.data.image = <File> event.target.files[0];
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      const base64String = reader.result as string;
+      const base64Data = base64String.split(",")[1];
+      this.data.image = base64Data;
+      // this.userRegisterForm.value.licenseImgTemp = base64String;
+    };
   }
 
   get insurancesId(){
@@ -89,7 +97,7 @@ export class ReserveAppointementComponent  {
   constructor(private fb:FormBuilder,private router:Router,private doctorService:DoctorService) { 
     this.state = this.router.getCurrentNavigation()?.extras.state;
     this.data = {
-                  date : new Date(),
+                  date : "",
                   description:"",
                   doctorID:0,
                   hasImage:this.hasImage,
@@ -99,23 +107,34 @@ export class ReserveAppointementComponent  {
                   patientID:1,
                   image:""
                 }
+                
   }
 
   ngOnInit(): void {
     
     //extract date from router
     let selectedDate = this.state['date'].split('/');
-    let selectedtimestring = this.state['time'].split(' ');
-    let selectedtime = selectedtimestring[0].split(':');
+    this.selectedtimestring = this.state['time'];
+    let selectedtimestringArr = this.state['time'].split(' ');
+    let selectedtime = selectedtimestringArr[0].split(':');
 
-    if(selectedtimestring[1] === 'PM'){
-      selectedtime[0] = (+selectedtime[0] + 12).toString();
+    if(selectedtimestringArr[1] === 'PM'){
+      if(selectedtime[0] === '12'){
+        selectedtime[0] = '12'
+      }
+      else{
+        selectedtime[0] = (+selectedtime[0] + 12).toString();
+      }
+    }else{
+      if(selectedtime[0] === '12')
+        selectedtime[0] = '00'
     }
     
     //set the date to the date the user select
+    // this.date = new Date(selectedDate[2], +selectedDate[0] - 1,selectedDate[1],+selectedtime[0],+selectedtime[1],+selectedtime[2]);
     this.date = new Date(selectedDate[2], +selectedDate[0] - 1,selectedDate[1],+selectedtime[0],+selectedtime[1],+selectedtime[2]);
     
-    this.data.date = this.date;
+    this.data.date = this.date.toLocaleString();
     
     //set doctor id to the selected one 
     this.doctorID = this.state['doctor']
@@ -124,31 +143,21 @@ export class ReserveAppointementComponent  {
 
     this.data.patientID = 1; ///////////////////////////////////////////////////////////// will change
 
-    console.log(this.date,this.doctorID);
   
   }
 
-  // onFileSelect(event) {
-  //   if (event.target.files.length > 0) {
-  //     const file = event.target.files[0];
-  //     this.uploadForm.get('profile').setValue(file);
-  //   }
-  // }
-
   submitData()
   {
-    // const formData = new FormData();
-    // formData.append()
     if(this.hasInsurance)
       this.data.insurancesId = <number> <unknown>this.insurancesId?.value;
     if(this.hasInvestigations)
       this.data.description = <string> this.description?.value;
-
+      
     this.doctorService.ReserveAppointement(this.data).subscribe({
       next:(res)=>{console.log(res)},
       error:(error)=>{console.log(error)}
-    });      
-    console.log(this.data)
+    });     
+     
   }
 
 

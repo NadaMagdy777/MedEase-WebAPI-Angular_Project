@@ -3,6 +3,7 @@ import { IDoctorPendingAppointmentDetailsDto } from './../../../sharedClassesAnd
 import { AppointmentService } from './../../../services/appointment/appointment.service';
 import { Component, OnInit } from '@angular/core';
 import { UserAuthService } from 'src/app/services/authentication/user-auth.service';
+import { IAppointmentActionDto } from 'src/app/sharedClassesAndTypes/appointment/i-appointment-action-dto';
 
 @Component({
   selector: 'app-doctor-pending-appointments',
@@ -16,8 +17,10 @@ export class DoctorPendingAppointmentsComponent implements OnInit {
   ) {}
 
   pendingAppointments: IDoctorPendingAppointmentDetailsDto[] = [];
+  filteredData: IDoctorPendingAppointmentDetailsDto[] = [];
   allSubscriptions: Subscription[] = [];
   date=new Date().getTime()
+  p:number=1;
 
   ngOnInit(): void {
     this.allSubscriptions.push(
@@ -26,26 +29,51 @@ export class DoctorPendingAppointmentsComponent implements OnInit {
         .subscribe((res) => {
           if (res.success) {
             this.pendingAppointments = res.data;
+            this.filteredData=this.pendingAppointments
             console.log(this.pendingAppointments);
           } else {
-            console.log(res.message); /////Bootstrap Error Message
+            console.log(res.message); 
           }
         })
     );
  
   
-      /////
-  //For Test Only (Remove Later)
-  ////
-    // this._userAuthService.login("user@example.com","123abcABC@");
-  /////
-  //For Test Only (Remove Later)
-  ////
+  
 
   }
 
-  AppoinmentConfirm(Appoinment:any){
+  ConfirmStatus(Appoinment:any){
     console.log(new Date())
-    return new Date(Appoinment.date).valueOf() <= new Date(this.date).valueOf()    
+    return new Date(Appoinment.date).valueOf() <= new Date().valueOf()    
   }
+  confirmAppointment(AppoinmentId:number){
+    let confirmDto:IAppointmentActionDto=new IAppointmentActionDto(AppoinmentId,true)
+    this._appointmentService.confirmDoctorAppointment(confirmDto).subscribe((res) => {
+      if (res.success) {
+        console.log("success");
+      } else {
+        console.log(res.message); 
+      }
+    })
+  }
+  cancelAppointment(AppoinmentId:number){
+    let cancelmDto:IAppointmentActionDto=new IAppointmentActionDto(AppoinmentId,false)
+    this._appointmentService.confirmDoctorAppointment(cancelmDto).subscribe((res) => {
+      if (res.success) {
+        console.log("success");
+      } else {
+        console.log(res.message); 
+      }
+    })
+  }
+  SearchData(value:string){
+    this.filteredData=this.pendingAppointments
+    this.filteredData=this.filteredData.filter((Appoinment:IDoctorPendingAppointmentDetailsDto)=>{
+      return Appoinment.patientName.toLowerCase().includes(value.toLowerCase()) 
+    });
+    
+
+
+  }
+
 }

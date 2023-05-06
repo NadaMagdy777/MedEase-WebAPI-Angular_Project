@@ -5,6 +5,7 @@ namespace MedEase.Core.Dtos
     public class DoctorConfirmedAppointmentDetailsDto
     {
         public int AppointmentID { get; set; }
+        public int ExaminationID { get; set; }
         public DateTime Date { get; set; }
         public Status Status { get; set; }
         public int PatientID { get; set; }
