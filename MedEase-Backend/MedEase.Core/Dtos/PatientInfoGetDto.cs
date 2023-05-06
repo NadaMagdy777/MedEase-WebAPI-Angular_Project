@@ -27,7 +27,8 @@ namespace MedEase.Core.Dtos
 
         public string Email { get; set; }
 
-        public string insuranceName { get; set; }
+        //public string insuranceName { get; set; }
+        public PatientInsuranceDto Insurance { get; set; }
         public PatientMedicalHistoryDto History { get; set; }
     }
 }

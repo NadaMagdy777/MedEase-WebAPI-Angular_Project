@@ -68,7 +68,17 @@ namespace MedEase.API.Controllers
             }
             return Ok(new ApiResponse(200, true, schedule));
         }
+        [HttpGet("getSchedules/id")]
+        public async Task<ActionResult<ApiResponse>> GetDoctorSchedules(int DocId)
+        {
+            IEnumerable<DoctorEditScheduleDto> schedules = await _doctorService.GetDoctorSchedules(DocId);
 
+            if (schedules is null)
+            {
+                return BadRequest(new ApiResponse(401, false, "null object"));
+            }
+            return Ok(new ApiResponse(200, true, schedules));
+        }
         [HttpGet ("Reviews")]
         public async Task<ActionResult<ApiResponse>> Reviews (int Id)
         {
@@ -114,7 +124,7 @@ namespace MedEase.API.Controllers
             return Ok(new ApiResponse(200, true, await _doctorService.AddDoctorInsurance(docID, insuranceID)));
         }
 
-        [HttpPut("/Schedule")]
+        [HttpPut("Schedule/id")]
         public async Task <ActionResult<ApiResponse>> EditSchedule(int Id, DoctorEditScheduleDto doctoreditschedualdto)
         {
             if (!ModelState.IsValid) { return BadRequest(new ApiResponse(400, false, ModelState)); };

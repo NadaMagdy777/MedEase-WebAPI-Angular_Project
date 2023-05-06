@@ -1,9 +1,9 @@
 import { UserAuthService } from 'src/app/services/authentication/user-auth.service';
 import { Subscription } from 'rxjs';
-import { AddressService } from 'src/app/Services/address/address.service';
+import { AddressService } from 'src/app/services/address/address.service';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Gender } from 'src/app/SharedClassesAndTypes/enums/gender';
+import { Gender } from 'src/app/sharedClassesAndTypes/enums/gender';
 
 @Component({
   selector: 'app-patient-register',

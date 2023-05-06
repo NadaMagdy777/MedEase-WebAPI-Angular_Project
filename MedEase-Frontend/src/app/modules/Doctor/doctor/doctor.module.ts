@@ -18,6 +18,7 @@ import { TokenInterceptor } from 'src/app/interceptors/token.interceptor';
 import { EditProfileComponent } from 'src/app/components/Doctor/edit-profile/edit-profile.component';
 import { AppointementsComponent } from 'src/app/components/Doctor/doctorAppointements/appointements.component';
 import { ReserveAppointementComponent } from 'src/app/components/Doctor/reserve-appointement/reserve-appointement.component';
+import { DoctorScheduleComponent } from 'src/app/components/Doctor/doctor-schedule/doctor-schedule.component';
 import { DiagnosisComponent } from 'src/app/components/patient/diagnosis/diagnosis.component';
 
 
@@ -35,6 +36,7 @@ import { DiagnosisComponent } from 'src/app/components/patient/diagnosis/diagnos
     ReserveAppointementComponent,
     DoctorDetailsComponent,
     EditProfileComponent,
+    DoctorScheduleComponent,
     DiagnosisComponent
   ],
   imports: [
@@ -44,6 +46,7 @@ import { DiagnosisComponent } from 'src/app/components/patient/diagnosis/diagnos
     NgbModule,
     FormsModule,
     ReactiveFormsModule,
+
   ],
   providers:[{
     provide: HTTP_INTERCEPTORS,

@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { DoctorService } from 'src/app/Services/Doctor/doctor.service';
-import { IreserveAppointement } from 'src/app/SharedClassesAndTypes/Doctor/IReserveAppointement';
+import { DoctorService } from 'src/app/services/doctor/doctor.service';
+import { IreserveAppointement } from 'src/app/sharedClassesAndTypes/doctor/IReserveAppointement';
+import { UserAuthService } from 'src/app/services/authentication/user-auth.service';
 
 @Component({
   selector: 'app-reserve-appointement',
@@ -94,7 +95,7 @@ export class ReserveAppointementComponent  {
     return this.registerationForm.get('image');
   }
 
-  constructor(private fb:FormBuilder,private router:Router,private doctorService:DoctorService) { 
+  constructor(private fb:FormBuilder,private router:Router,private doctorService:DoctorService,private userAuthService: UserAuthService) { 
     this.state = this.router.getCurrentNavigation()?.extras.state;
     this.data = {
                   date : "",
@@ -131,7 +132,6 @@ export class ReserveAppointementComponent  {
     }
     
     //set the date to the date the user select
-    // this.date = new Date(selectedDate[2], +selectedDate[0] - 1,selectedDate[1],+selectedtime[0],+selectedtime[1],+selectedtime[2]);
     this.date = new Date(selectedDate[2], +selectedDate[0] - 1,selectedDate[1],+selectedtime[0],+selectedtime[1],+selectedtime[2]);
     
     this.data.date = this.date.toLocaleString();
@@ -140,9 +140,8 @@ export class ReserveAppointementComponent  {
     this.doctorID = this.state['doctor']
 
     this.data.doctorID = this.doctorID;
-
-    this.data.patientID = 1; ///////////////////////////////////////////////////////////// will change
-
+    
+    this.data.patientID = <number> <unknown>this.userAuthService.getLoggedUserId;    
   
   }
 
@@ -156,7 +155,9 @@ export class ReserveAppointementComponent  {
     this.doctorService.ReserveAppointement(this.data).subscribe({
       next:(res)=>{console.log(res)},
       error:(error)=>{console.log(error)}
-    });     
+    });
+    this.router.navigate(["Home"]);//////////////////////////////////////////////////////////////////////
+
      
   }
 

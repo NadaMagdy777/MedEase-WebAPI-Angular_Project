@@ -13,8 +13,10 @@ namespace MedEase.Core.MappingProfiles
     {
         public InsuranceProfile() {
             CreateMap<InsuranceDto, Insurance>().ReverseMap();
+            CreateMap<PatientInsuranceDto, PatientInsurance>().ReverseMap();
+
         }
-        
+       
 
     }
 }

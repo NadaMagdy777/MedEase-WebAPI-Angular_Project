@@ -12,7 +12,8 @@ namespace MedEase.Core.Interfaces.Services
         //Task<ApiResponse> ReserveAppointment(AppointmentReservationDto dto);
         Task<bool> EditPatient(PatientEditDto patient, int id);
         Task<PatientInfoGetDto> GetPatient(int ID);
-        Task<bool> AddPatientInsurance(int PatientID, int InsuranceID);
+        Task<bool> AddPatientInsurance(int PatientID, PatientInsuranceDto patientInsuranceDto);
+        Task<bool> EditPatientInsurance(int PatientID, PatientInsuranceDto insuranceDto);
         Task<bool> AddMedicalHistory(PatientMedicalHistoryDto medicalHistoryDto, int PatientID);
         Task<bool> EditMedicalHistory(PatientMedicalHistoryDto medicalHistoryDto, int PatientID);
         Task<ApiResponse> AddAppointmentInestigation(AppointmentInvestigationDto dto);

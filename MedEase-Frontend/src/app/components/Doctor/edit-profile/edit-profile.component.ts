@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AddressService } from 'src/app/Services/address/address.service';
-import { DoctorService } from 'src/app/Services/Doctor/doctor.service';
+import { AddressService } from 'src/app/services/address/address.service';
+import { UserAuthService } from 'src/app/services/authentication/user-auth.service';
+import { DoctorService } from 'src/app/services/doctor/doctor.service';
 import { ImageService } from 'src/app/services/image.service';
-import { Doctor } from 'src/app/SharedClassesAndTypes/Doctor/Doctor';
-import { DoctorEdit } from 'src/app/SharedClassesAndTypes/Doctor/doctorEdit';
+import { Doctor } from 'src/app/sharedClassesAndTypes/doctor/Doctor';
+import { DoctorEdit } from 'src/app/sharedClassesAndTypes/doctor/doctorEdit';
 
 @Component({
   selector: 'app-edit-profile',
@@ -14,7 +15,7 @@ import { DoctorEdit } from 'src/app/SharedClassesAndTypes/Doctor/doctorEdit';
 })
 export class EditProfileComponent {
 
-  id:number = 1;//this.actRoute.snapshot.params['id'];
+  id:number = parseInt(this._userAuthService.getLoggedUserId);
   errorMessage: any;
 
   doctor:Doctor = {
@@ -70,6 +71,7 @@ export class EditProfileComponent {
     private _doctorService:DoctorService,
     private _addressService:AddressService,
     private _imageService: ImageService,
+    private _userAuthService:UserAuthService,
     public actRoute: ActivatedRoute,
     public router: Router,
     private fb:FormBuilder) {

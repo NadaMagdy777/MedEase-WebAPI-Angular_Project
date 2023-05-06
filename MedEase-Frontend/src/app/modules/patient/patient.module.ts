@@ -15,6 +15,7 @@ import { ConfirmedAppointmentComponent } from 'src/app/components/patient/confir
 import { PenddingAppointmentComponent } from 'src/app/components/patient/pendding-appointment/pendding-appointment.component';
 import { ReviewComponent } from 'src/app/components/patient/review/review.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { InsuranceComponent } from 'src/app/components/patient/insurance/insurance.component';
 import { ShowDiagnosisComponent } from 'src/app/components/patient/show-diagnosis/show-diagnosis.component';
 
 
@@ -22,10 +23,12 @@ import { ShowDiagnosisComponent } from 'src/app/components/patient/show-diagnosi
   declarations: [
     ProfileComponent,
     MedicalHistoryComponent,
+    InsuranceComponent,
     AskQuestionComponent,
     AppointmentsComponent,
     ConfirmedAppointmentComponent,
     PenddingAppointmentComponent,
+    ReviewComponent,
     ReviewComponent,
     ShowDiagnosisComponent
 

@@ -22,7 +22,7 @@ namespace MedEase.EF.Services
         Task<ApiResponse> GetSpecialities();
         Task<PrescriptionDrug> CreatePrescriptionAsync(PrescriptionDrugDto prescriptionDto);
         Task<DiagnosisDto> CreateDiagnosisAsync(DiagnosisDto diagnosisDto);
-        
+        Task <IEnumerable<DoctorEditScheduleDto>> GetDoctorSchedules(int doctorId);
         //Task<Appointment> ReserveAppointmentAsync(ReserveAppointmentDto appointmentDto);
         //Task<ApiResponse> GetQuestionsByDoctorSpeciality(int docId);
         //Task<ApiResponse> GetDoctorAnsweredQuestions(int docId);

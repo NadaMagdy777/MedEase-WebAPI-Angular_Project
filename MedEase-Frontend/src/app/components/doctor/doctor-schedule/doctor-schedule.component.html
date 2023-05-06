@@ -1,0 +1,54 @@
+<div class="container">
+    <form [formGroup]="ScheduleForm" (ngSubmit)="Save()">
+        <div class="form-group">
+            <label>Date</label>
+            <input [class.is-invalid]="weekDay?.invalid &&weekDay?.touched" (change)="Search()"
+                formControlName="weekDay" type="date"
+                class="form-control">
+
+            <div *ngIf="weekDay?.invalid &&weekDay?.touched">
+                <small *ngIf="weekDay?.errors?.['required']" class="text-danger">This field is required</small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>From</label>
+            <input [class.is-invalid]="startTime?.invalid &&startTime?.touched" 
+                formControlName="startTime" placeholder="Time" type="time"
+                class="form-control">
+                <!-- <ngx-material-timepicker #frompicker></ngx-material-timepicker> -->
+
+            <div *ngIf="startTime?.invalid &&startTime?.touched">
+                <small *ngIf="startTime?.errors?.['required']" class="text-danger">This field is required</small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>To</label>
+            <input [class.is-invalid]="endTime?.invalid &&endTime?.touched" 
+                 formControlName="endTime" placeholder="Time" type="time"
+                class="form-control">
+            <!-- <ngx-material-timepicker #topicker></ngx-material-timepicker> -->
+
+            <div *ngIf="endTime?.invalid &&endTime?.touched">
+                <small *ngIf="endTime?.errors?.['required']" class="text-danger">This field is required</small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>The time period for the examination</label>
+            <input [class.is-invalid]="timeInterval?.invalid &&timeInterval?.touched" 
+                formControlName="timeInterval" type="number"
+                class="form-control">
+
+            <div *ngIf="timeInterval?.invalid &&timeInterval?.touched">
+                <small *ngIf="timeInterval?.errors?.['required']" class="text-danger">This field is required</small>
+            </div>
+        </div>
+       
+        <div>
+            <button type="submit" class="btn btn-success btn-block">Save</button>
+            <button type="button" class="btn btn-danger  btn-block" (click)="Cancel()">Cancel</button>    
+        </div>
+        
+    </form>
+</div>

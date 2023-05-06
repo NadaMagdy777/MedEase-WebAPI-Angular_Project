@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { QuestionService } from './../../../services/question/question.service';
+import { QuestionService } from './../../../Services/question/question.service';
 import { SpecialtiesService } from './../../../services/specialities/specialities.service';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';

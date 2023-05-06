@@ -10,8 +10,6 @@ import { HomeComponent } from './components/home/home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CarouselComponent } from './components/home/carousel/carousel.component';
 import { CarouselModule } from 'ngx-owl-carousel-o';
-import { InsuranceComponent } from './components/patient/insurance/insurance.component';
-
 
 import { HomeBannerComponent } from './components/home/home/home-banner/home-banner.component';
 import { LoginComponent } from './components/authentication/login/login.component';
@@ -24,6 +22,10 @@ import { AnsweredQuestionsComponent } from './components/patient/questions/answe
 import { UnansweredQuestionsComponent } from './components/patient/questions/unanswered/unanswered-questions/unanswered-questions.component';
 import { PatientQuestionsComponent } from './components/patient/questions/patient-questions/patient-questions.component';
 import { ExaminationInfoComponent } from './components/patient/examination-info/examination-info.component';
+import { DoctorAnswerdQuestionsComponent } from './components/patient/questions/doctor/doctor-answerd-questions/doctor-answerd-questions.component';
+import { DoctorUnAnswerdComponent } from './components/patient/questions/doctor/doctor-un-answerd/doctor-un-answerd.component';
+import { AnswerQuestionComponent } from './components/patient/questions/doctor/answer-question/answer-question.component';
+import { QuestionsLayoutComponent } from './components/patient/questions/doctor/questions-layout/questions-layout.component';
 
 
 @NgModule({
@@ -33,7 +35,6 @@ import { ExaminationInfoComponent } from './components/patient/examination-info/
     FooterComponent,
     HomeComponent,
     CarouselComponent,
-    InsuranceComponent,
     HomeBannerComponent,
     LoginComponent,
     PatientRegisterComponent,
@@ -43,9 +44,14 @@ import { ExaminationInfoComponent } from './components/patient/examination-info/
     AnsweredQuestionsComponent,
     UnansweredQuestionsComponent,
     PatientQuestionsComponent,
+    
     LoginComponent,
     HistoryComponent,
     ExaminationInfoComponent,
+    DoctorAnswerdQuestionsComponent,
+    DoctorUnAnswerdComponent,
+    AnswerQuestionComponent,
+    QuestionsLayoutComponent,
   
       
   ],

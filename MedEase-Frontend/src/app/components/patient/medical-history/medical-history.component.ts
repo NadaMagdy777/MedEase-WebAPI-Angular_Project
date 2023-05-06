@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UserAuthService } from 'src/app/services/authentication/user-auth.service';
 import { PatientService } from 'src/app/services/patient/patient.service';
 import { MedicalHistory } from 'src/app/sharedClassesAndTypes/patient/medicalHistory';
 import { Patient } from 'src/app/sharedClassesAndTypes/patient/patient';
@@ -11,9 +12,21 @@ import { Patient } from 'src/app/sharedClassesAndTypes/patient/patient';
 })
 export class MedicalHistoryComponent {
 
-  id:number = 1;//this.actRoute.snapshot.params['id'];
+  id:number = parseInt(this._userAuthService.getLoggedUserId);
   errorMessage: any;
-  patient:Patient | undefined;
+  patient:Patient={
+    firstName: '',
+    lastName: '',
+    phoneNumber: '',
+    building: 0,
+    street: '',
+    region: '',
+    city: '',
+    birthDate: undefined,
+    email: '',
+    insurance: undefined,
+    history: undefined
+  };
   hasMedicalHistory:boolean = false;
   newMedicalHistory:boolean = false;
 
@@ -30,17 +43,18 @@ export class MedicalHistoryComponent {
 
   constructor(
     private _patientService:PatientService,
+    private _userAuthService:UserAuthService,
     private fb:FormBuilder
   )
   {
     this.MedicalHistiryForm = this.fb.group({
 
-      hasAllergies:[false,[Validators.required]],
-      hadSurgery:[false,[Validators.required]],
-      takeMedications:[false,[Validators.required]],
-      hasHospitalized:[false,[Validators.required]],
-      isSmoking:[false,[Validators.required]],
-      hasChronicIllnesses:[false,[Validators.required]],     
+      hasAllergies:['false',[Validators.required]],
+      hadSurgery:['false',[Validators.required]],
+      takeMedications:['false',[Validators.required]],
+      hasHospitalized:['false',[Validators.required]],
+      isSmoking:['false',[Validators.required]],
+      hasChronicIllnesses:['false',[Validators.required]],     
     });
 
     this.MedicalHistiryForm.get('hasAllergies')?.valueChanges.subscribe((data) => {
@@ -97,14 +111,11 @@ export class MedicalHistoryComponent {
       next:(data: any)=> {
           let dataJson = JSON.parse(JSON.stringify(data))
           this.patient = dataJson.data;
-          console.log(dataJson.data.history);
 
           if(this.patient?.history != null){
             this.hasMedicalHistory = true;
             this.LoadFormData();
-            console.log(this.patient.history);
           }
-          console.log(this.hasMedicalHistory);      
       },
       error:(error: any)=>this.errorMessage=error,
     });   
@@ -114,13 +125,14 @@ export class MedicalHistoryComponent {
     // this.MedicalHistiryForm.setValue(this.patient?.history);
     this.MedicalHistiryForm.patchValue({
 
-      hasAllergies:this.medicalHistory.hasAllergies,
-      hadSurgery:this.medicalHistory.hadSurgery,
-      takeMedications:this.medicalHistory.takeMedications,
-      hasHospitalized:this.medicalHistory.hasHospitalized,
-      hasChronicIllnesses:this.medicalHistory.hasChronicIllnesses,
-      isSmoking:this.medicalHistory.isSmoking,
+      hasAllergies:this.patient.history.hasAllergies ? 'true':'false',
+      hadSurgery:this.patient.history.hadSurgery ? 'true':'false',
+      takeMedications:this.patient.history.takeMedications ? 'true':'false',
+      hasHospitalized:this.patient.history.hasHospitalized ? 'true':'false',
+      hasChronicIllnesses:this.patient.history.hasChronicIllnesses ? 'true':'false',
+      isSmoking:this.patient.history.isSmoking ? 'true':'false',
     });
+    
   }
 
   New() : void {
