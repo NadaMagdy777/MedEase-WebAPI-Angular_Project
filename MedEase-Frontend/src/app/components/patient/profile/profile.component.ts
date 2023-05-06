@@ -3,7 +3,8 @@ import { Patient } from 'src/app/sharedClassesAndTypes/patient/patient';
 import { PatientService } from 'src/app/services/patient/patient.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { AddressService } from 'src/app/Services/address/address.service';
+import { AddressService } from 'src/app/services/address/address.service';
+import { UserAuthService } from 'src/app/services/authentication/user-auth.service';
 
 @Component({
   selector: 'app-profile',
@@ -12,7 +13,7 @@ import { AddressService } from 'src/app/Services/address/address.service';
 })
 export class ProfileComponent {
 
-  id:number = 1;//this.actRoute.snapshot.params['id'];
+  id:number = parseInt(this._userAuthService.getLoggedUserId);
   errorMessage: any;
 
   patient:Patient = {
@@ -25,7 +26,7 @@ export class ProfileComponent {
     city: '',
     birthDate: undefined,
     email: '',
-    insuranceName: '',
+    insurance: undefined,
     history: undefined
   };
 
@@ -39,6 +40,7 @@ export class ProfileComponent {
   constructor(
     private _patientService:PatientService,
     private _addressService:AddressService,
+    private _userAuthService:UserAuthService,
     public actRoute: ActivatedRoute,
     public router: Router,
     private fb:FormBuilder) 

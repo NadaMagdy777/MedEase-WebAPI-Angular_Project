@@ -10,8 +10,6 @@ import { HomeComponent } from './components/home/home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CarouselComponent } from './components/home/carousel/carousel.component';
 import { CarouselModule } from 'ngx-owl-carousel-o';
-import { InsuranceComponent } from './components/patient/insurance/insurance.component';
-
 
 import { HomeBannerComponent } from './components/home/home/home-banner/home-banner.component';
 import { LoginComponent } from './components/authentication/login/login.component';
@@ -33,7 +31,6 @@ import { ExaminationInfoComponent } from './components/patient/examination-info/
     FooterComponent,
     HomeComponent,
     CarouselComponent,
-    InsuranceComponent,
     HomeBannerComponent,
     LoginComponent,
     PatientRegisterComponent,

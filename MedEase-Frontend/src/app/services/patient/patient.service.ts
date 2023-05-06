@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
+import { Insurance } from 'src/app/sharedClassesAndTypes/patient/insurance';
 import { MedicalHistory } from 'src/app/sharedClassesAndTypes/patient/medicalHistory';
 import { Patient } from 'src/app/sharedClassesAndTypes/patient/patient';
 import { PatientEdit } from 'src/app/sharedClassesAndTypes/patient/patientEdit';
@@ -66,4 +67,27 @@ export class PatientService {
     }));
   }
   
+  AddInsurance(id:number, insurance:Insurance):Observable<Insurance>{
+    return this.http.post<Insurance>( 
+      `${this._url}/Insurance/id?PatientID=${id}`,
+      JSON.stringify(insurance),
+      this.httpOptions
+    )
+    
+    .pipe(catchError((err)=>{
+      return throwError(()=>err.message ||"server error");
+    }));
+  }
+
+  UpdateInsurance(id:number, insurance:Insurance):Observable<Insurance>{
+    return this.http.put<Insurance>(
+      `${this._url}/Insurance/id?PatientID=${id}`,
+      JSON.stringify(insurance),
+      this.httpOptions
+    )
+    
+    .pipe(catchError((err)=>{
+      return throwError(()=>err.message ||"server error");
+    }));
+  }
 }

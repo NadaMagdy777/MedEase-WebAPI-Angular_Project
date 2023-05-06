@@ -4,7 +4,7 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Patient } from 'src/app/sharedClassesAndTypes/patient/patient';
 import { AppointmentService } from 'src/app/services/appointment/appointment.service';
 import { IDoctorPendingAppointmentDetailsDto } from 'src/app/sharedClassesAndTypes/appointment/i-doctor-pending-appointment-details-dto';
-import { Gender } from 'src/app/SharedClassesAndTypes/enums/gender';
+import { Gender } from 'src/app/sharedClassesAndTypes/enums/gender';
 
 @Component({
   selector: 'app-examination-info',

@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { Subscription } from 'rxjs';
 import { ISpecialty } from 'src/app/sharedClassesAndTypes/Doctor/ispeciality';
-import { AddressService } from 'src/app/Services/address/address.service';
+import { AddressService } from 'src/app/services/address/address.service';
 import { SpecialtiesService } from 'src/app/services/specialities/specialities.service';
 
 @Component({

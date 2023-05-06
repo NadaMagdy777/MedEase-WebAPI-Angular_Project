@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UserAuthService } from 'src/app/services/authentication/user-auth.service';
 import { ScheduleService } from 'src/app/services/doctor/schedule.service';
 import { EditSchedule, Schedule } from 'src/app/sharedClassesAndTypes/doctor/schedule';
 
@@ -11,7 +12,7 @@ import { EditSchedule, Schedule } from 'src/app/sharedClassesAndTypes/doctor/sch
 })
 export class DoctorScheduleComponent {
 
-  id:number = 1;//this.actRoute.snapshot.params['id'];
+  id:number = parseInt(this._userAuthService.getLoggedUserId);
   errorMessage: any;
   scheduleExist:boolean = false;
 
@@ -29,6 +30,7 @@ export class DoctorScheduleComponent {
 
   constructor(
     private _scheduleService:ScheduleService,
+    private _userAuthService:UserAuthService,
     private fb:FormBuilder
   )
   {

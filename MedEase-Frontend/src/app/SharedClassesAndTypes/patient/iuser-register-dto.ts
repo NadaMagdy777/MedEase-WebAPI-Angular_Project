@@ -1,4 +1,4 @@
-import { Gender } from "../enums/gender";
+import { Gender } from 'src/app/sharedClassesAndTypes/enums/gender';
 
 export interface IUserRegisterDto {
     email: string;

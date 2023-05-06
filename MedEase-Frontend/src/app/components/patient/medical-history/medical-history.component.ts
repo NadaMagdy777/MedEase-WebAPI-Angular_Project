@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UserAuthService } from 'src/app/services/authentication/user-auth.service';
 import { PatientService } from 'src/app/services/patient/patient.service';
 import { MedicalHistory } from 'src/app/sharedClassesAndTypes/patient/medicalHistory';
 import { Patient } from 'src/app/sharedClassesAndTypes/patient/patient';
@@ -11,7 +12,7 @@ import { Patient } from 'src/app/sharedClassesAndTypes/patient/patient';
 })
 export class MedicalHistoryComponent {
 
-  id:number = 1;//this.actRoute.snapshot.params['id'];
+  id:number = parseInt(this._userAuthService.getLoggedUserId);
   errorMessage: any;
   patient:Patient={
     firstName: '',
@@ -23,7 +24,7 @@ export class MedicalHistoryComponent {
     city: '',
     birthDate: undefined,
     email: '',
-    insuranceName: '',
+    insurance: undefined,
     history: undefined
   };
   hasMedicalHistory:boolean = false;
@@ -42,6 +43,7 @@ export class MedicalHistoryComponent {
 
   constructor(
     private _patientService:PatientService,
+    private _userAuthService:UserAuthService,
     private fb:FormBuilder
   )
   {

@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { IDoctorRegisterDto } from './../../SharedClassesAndTypes/Doctor/idoctor-register-dto';
+import { IDoctorRegisterDto } from './../../sharedClassesAndTypes/doctor/idoctor-register-dto';
 import { IUserRegisterDto } from './../../SharedClassesAndTypes/patient/iuser-register-dto';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';

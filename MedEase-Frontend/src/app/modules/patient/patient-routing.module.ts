@@ -9,10 +9,12 @@ import { UnansweredQuestionsComponent } from 'src/app/components/patient/questio
 import { AppointmentsComponent } from 'src/app/components/patient/appointments/appointments.component';
 import { PenddingAppointmentComponent } from 'src/app/components/patient/pendding-appointment/pendding-appointment.component';
 import { ConfirmedAppointmentComponent } from 'src/app/components/patient/confirmed-appointment/confirmed-appointment.component';
+import { InsuranceComponent } from 'src/app/components/patient/insurance/insurance.component';
 
 const routes: Routes = [
   { path:'profile',component:ProfileComponent},
   { path:'medicalHistory',component:MedicalHistoryComponent},
+  { path:'insurance',component:InsuranceComponent},
   { path:'ask',component:AskQuestionComponent},
   { path:'questions',component:PatientQuestionsComponent, children:[
     { path:'answered',component:AnsweredQuestionsComponent},

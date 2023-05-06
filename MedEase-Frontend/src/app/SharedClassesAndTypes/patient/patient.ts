@@ -9,7 +9,7 @@ export class Patient{
         public city :string,
         public birthDate:any,
         public email:string,
-        public insuranceName:string,
+        public insurance:any,
         public history:any
     ){}
 }
