@@ -116,13 +116,16 @@ export class MedicalHistoryComponent {
             this.hasMedicalHistory = true;
             this.LoadFormData();
           }
+          else{
+            this.MedicalHistiryForm.reset();
+          }
       },
       error:(error: any)=>this.errorMessage=error,
     });   
   }
 
   LoadFormData(): void {
-    // this.MedicalHistiryForm.setValue(this.patient?.history);
+
     this.MedicalHistiryForm.patchValue({
 
       hasAllergies:this.patient.history.hasAllergies ? 'true':'false',
@@ -135,9 +138,6 @@ export class MedicalHistoryComponent {
     
   }
 
-  New() : void {
-    this.newMedicalHistory = true;
-  }
   Save() : void {
     this._patientService.AddMedicalHistory(this.id, this.medicalHistory)
     .subscribe(response => {
