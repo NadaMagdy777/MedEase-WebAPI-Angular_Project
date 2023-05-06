@@ -22,7 +22,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let appoinment of pendingAppointments | paginate:{itemsPerPage:1,currentPage:p} ; let i = index">
+              <tr *ngFor="let appoinment of filteredData | paginate:{itemsPerPage:1,currentPage:p} ; let i = index">
                 <th scope="row">{{i+1}}</th>
                 <td title="click to show patient history">{{appoinment.doctorName|titlecase}}</td>
                 <td>{{appoinment.date}}</td>
