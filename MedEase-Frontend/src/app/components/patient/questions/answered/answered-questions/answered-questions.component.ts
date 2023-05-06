@@ -16,7 +16,7 @@ export class AnsweredQuestionsComponent implements OnInit, OnDestroy {
   serverErrorMsg: string = '';
 
   ngOnInit(): void {
-    this._questionService.getPatientQuestions(false).subscribe((res) => {
+    this._questionService.getPatientQuestions(true).subscribe((res) => {
       if (res.success) {
         this.allQuestions = res.data;
       } else {

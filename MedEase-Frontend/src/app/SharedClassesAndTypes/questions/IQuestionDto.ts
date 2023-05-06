@@ -3,6 +3,7 @@ export interface IQuestionDto {
   title: string;
   description: string;
   answer: string;
+  docName: string;
   dateCreated: Date;
   isAnswered: boolean;
   specialityId: number;
