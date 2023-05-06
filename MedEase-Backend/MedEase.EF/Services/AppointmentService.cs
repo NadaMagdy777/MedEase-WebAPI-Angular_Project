@@ -87,7 +87,7 @@ namespace MedEase.EF.Services
                     PatientID = a.PatientID,
                     PatientName = $"{a.Patient.AppUser.FirstName} {a.Patient.AppUser.LastName}",
                     PatientBirthDate = a.Patient.AppUser.BirthDate.Date,
-                    Date = a.Date,
+                    Date =a.Date.ToString(),
                     PatientGender = a.Patient.AppUser.Gender,
                     PatientPhone = a.Patient.AppUser.PhoneNumber,
                     Status = a.Status,
@@ -95,7 +95,6 @@ namespace MedEase.EF.Services
                     investigation = _mapper.Map<AppointmentInvestigationDto>(a.Investigation),
                 },
                 dpap => dpap.Date, OrderBy.Descending);
-
 
 
             int? docSpecId = await _unitOfWork.Doctors.FindDtoAsync<int?>(d => d.ID == docId, d => d.SpecialityID);
