@@ -168,12 +168,15 @@
                                 </div>
                             </div>
                             <hr>
-                            <div class="row">
+                            <div class="row" >
                                 <div class="col-12">
                                 <h5 class="mb-0">Image</h5>
                                 </div>
-                                <div class="col-12 mt-2 " >
-                                <img  class=" border h-100 w-100 img-fluid" src="https://www.drugs.com/health-guide/images/ddca3f92-4b8e-4672-bb6b-f3594ad4e304.jpg" >
+                                <div class="col-12 mt-2 "  *ngIf="this.Appointmentinfo.investigation.hasImage==true">
+                                <img  class=" border h-100 w-100 img-fluid" src="{{this.Appointmentinfo.investigation.image}}" >
+                                </div>
+                                <div class="col-12 mt-2 "  *ngIf="this.Appointmentinfo.investigation.hasImage==false">
+                                    <h5 > No Images Send </h5>
                                 </div>
                             </div>
                             

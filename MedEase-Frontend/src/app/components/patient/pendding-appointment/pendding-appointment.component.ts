@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AppointmentService } from 'src/app/services/appointment/appointment.service';
 import { UserAuthService } from 'src/app/services/authentication/user-auth.service';
@@ -13,7 +14,7 @@ import { IPatientAppointmentDetailsDto } from 'src/app/sharedClassesAndTypes/app
 export class PenddingAppointmentComponent {
   constructor(
     private _appointmentService: AppointmentService,
-    private _userAuthService: UserAuthService
+    private _userAuthService: UserAuthService,private router:Router
   ) {}
 
   pendingAppointments: IPatientAppointmentDetailsDto[] = [];
@@ -55,6 +56,8 @@ export class PenddingAppointmentComponent {
         console.log(res.message); 
       }
     })
+    //Review
+    this.router.navigate(['/account/Review',confirmDto.appointmentID])
   }
   cancelAppointment(AppoinmentId:number){
     let cancelmDto:IAppointmentActionDto=new IAppointmentActionDto(AppoinmentId,false)

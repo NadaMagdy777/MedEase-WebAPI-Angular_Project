@@ -1,1 +1,111 @@
-<p>review works!</p>
+<div class="container-fluid d-flex  justify-content-center align-items-center">
+    <div class="col-10 mt-5 ">
+        <div class="col-12 d-flex flex-column justify-content-center align-item-center">
+            <legend class="w-auto  text-center d-flex justify-content-center " id="legendstyle">
+                <div id="legendstyle">
+                    <i class="fa-solid fa-star"></i>
+                    <span style="font-size: 15px; margin-left: 5px;">Review</span>
+    
+                </div>
+            </legend>
+            <div class="card mb-4 col-12 d-flex flex-column justify-content-center align-items-center">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <form [formGroup]="NewReviewForm" (ngSubmit)="SaveReview()">
+                                <div class="form-group mt-1 d-flex justify-content-start align-items-baseline">
+                                   
+                                   <div class="col-7">
+                                    <h3 >Rate Doctor</h3>
+    
+    
+                                   </div>
+                                    <div class="col-5 d-flex align-items-baseline">
+                                        <ngb-rating  class="starRateColor"  [class.is-invalid]="doctorRating?.invalid &&doctorRating?.touched"  formControlName="doctorRating"  [max]="5"  ></ngb-rating> 
+                                        <small  *ngIf="doctorRating?.errors?.['required']" class="text-danger">required</small>
+
+                                    </div>
+                                   
+    
+                                </div>
+                                <div class="form-group mt-1 d-flex justify-content-start align-items-baseline">
+                                   
+                                    <div class="col-7">
+                                     <h3 >Rate Clinc</h3>
+     
+     
+                                    </div>
+                                     <div class="col-5 d-flex align-items-baseline">
+                                         <ngb-rating  class="starRateColor"  [class.is-invalid]="clincRating?.invalid &&clincRating?.touched"  formControlName="clincRating"  [max]="5"  ></ngb-rating> 
+                                         <small *ngIf="clincRating?.errors?.['required']" class="text-danger">required</small>
+
+                                     </div>
+                                    
+     
+                                 </div>
+                                 <div class="form-group row mt-1 d-flex justify-content-start align-items-baseline">
+                                   
+                                    <div class="col-7">
+                                     <h3 >Waiting Minutes</h3>
+                                     
+     
+     
+                                    </div>
+                                     <div class="col-5">
+                                        <input  style="width: 100%;" placeholder="Enter Waiting Minutes" type="number" min="1" max="300"  [class.is-invalid]="WaitingTime?.invalid &&WaitingTime?.touched"  formControlName="WaitingTime">
+                                        <p Class="d-block" *ngIf="WaitingTime?.errors?.['required']" class="text-danger">required</p>
+                                     <p *ngIf="WaitingTime?.errors?.['min']" class="text-danger">Waiting minutes must be at least 1
+                                        characters</p>
+                                    <p *ngIf="WaitingTime?.errors?.['max']" class="text-danger">Waiting minutes must be less than 300
+                                       characters</p>
+                                     </div>
+                                     
+                                    
+     
+                                 </div>
+                                 <div class="form-group mt-1  d-flex justify-content-start align-items-baseline">
+                                   
+                                    <div class="col-7">
+                                     <h3 >Comment</h3>
+     
+     
+                                    </div>
+                                     <div class="col-8">
+                                        <textarea  style="width: 100%;" placeholder="write your comment here" type="text" [class.is-invalid]="comment?.invalid &&comment?.touched"  formControlName="comment"></textarea>
+                                        <p Class="d-block" *ngIf="comment?.errors?.['required']" class="text-danger">required</p>
+                                          <small *ngIf="comment?.errors?.['minlength']" class="text-danger">comment must be at least 4
+                                            characters</small>
+                                           <small *ngIf="comment?.errors?.['maxlength']" class="text-danger">comment must be less than 200
+                                           characters</small>
+
+                                     </div>
+                                     
+                                     
+                                    
+     
+                                 </div>
+                                 <div class="d-flex justify-content-center pt-3">
+                                    <button type="submit"  class="btn btn-success btn-lg" [disabled]="!NewReviewForm.valid">Save</button>                    
+                                    <button type="button" class="btn btn-danger btn-lg ms-2">Cancel</button>
+                                  </div>
+    
+                            
+                            
+                            </form>
+
+                        </div>
+                       
+                        
+                    </div>
+                    
+                    
+                </div>
+            </div>
+
+
+        </div>
+        
+        
+    </div>
+
+</div>

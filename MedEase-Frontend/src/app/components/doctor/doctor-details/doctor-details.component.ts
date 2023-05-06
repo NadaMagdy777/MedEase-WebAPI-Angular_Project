@@ -3,6 +3,7 @@ import { DoctorService } from 'src/app/services/doctor/doctor.service';
 import { Doctor } from 'src/app/sharedClassesAndTypes/doctor/Doctor';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Review } from 'src/app/sharedClassesAndTypes/review/review';
+import { ImageService } from 'src/app/services/image.service';
 
 @Component({
   selector: 'app-doctor-details',
@@ -18,7 +19,7 @@ export class DoctorDetailsComponent {
   errorMessage: any;
   reviewShowed:number=1
   viewMoreBtnShow:boolean=true
-  constructor(private DoctorService:DoctorService,private router:Router ,private route:ActivatedRoute){
+  constructor(private DoctorService:DoctorService,private router:Router ,private route:ActivatedRoute,private _imageService:ImageService){
    
     
     
@@ -31,6 +32,7 @@ export class DoctorDetailsComponent {
       next:data=>{
         let dataJson = JSON.parse(JSON.stringify(data))
         this.doctor=dataJson.data
+        this.doctor.profilePicture=this._imageService.base64ArrayToImage(this.doctor.profilePicture)
         this.DoctorService.GetDoctorReviews(this.doctorId).subscribe({
           next:data=>{
             let dataJson = JSON.parse(JSON.stringify(data))

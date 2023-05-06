@@ -25,23 +25,28 @@
                 <th scope="col">Patient Name</th>
                 <th scope="col">Appointment Date</th>
                 <th scope="col">Patient Phone</th>
-                <th scope="col">Confirm Appoinment</th>
+                <th scope="col">Add Diagnosis</th>
               </tr>
             </thead>
             <tbody>
-              <tr  *ngFor="let appoinment of filteredData  | paginate:{itemsPerPage:1,currentPage:p} let i = index " >
-                <th scope="row">{{i+1}}</th>
-                <td title="click to show patient history">{{appoinment.patientName|titlecase}}</td>
-                <td>{{appoinment.date|date:"short"}}</td>
-                <td>{{appoinment.patientPhone}}</td>
-                <td>
-                  <a class="btn btn-success " *ngIf="appoinment.diagnosis==null" >Add Dignosis</a>
-                 
-                </td>
+              <ng-container *ngFor="let appoinment of filteredData  | paginate:{itemsPerPage:1,currentPage:p} let i = index " >
+                <tr  *ngIf="appoinment.diagnosis==null">
+
+                    <th scope="row">{{i+1}}</th>
+                  <td title="click to show patient history">{{appoinment.patientName|titlecase}}</td>
+                  <td>{{appoinment.date|date:"short"}}</td>
+                  <td>{{appoinment.patientPhone}}</td>
+                  <td>
+                    <a class="btn btn-success "  href="/doctor/Diagnosis/{{appoinment.examinationID}}" >Add Dignosis</a>
+                  
+                  </td>
+                </tr>
+
+                </ng-container>
+                
              
 
 
-              </tr>
               
             </tbody>
           </table>

@@ -1,4 +1,4 @@
-import { IUserRegisterDto } from './../../SharedClassesAndTypes/patient/iuser-register-dto';
+import { IUserRegisterDto } from './../../sharedClassesAndTypes/patient/iuser-register-dto';
 
 export interface IDoctorRegisterDto extends IUserRegisterDto {
   allowVisa: boolean;

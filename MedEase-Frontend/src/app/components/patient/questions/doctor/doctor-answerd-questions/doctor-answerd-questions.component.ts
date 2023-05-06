@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { IQuestionDto } from 'src/app/SharedClassesAndTypes/questions/IQuestionDto';
-import { QuestionService } from 'src/app/Services/question/question.service';
+import { IQuestionDto } from 'src/app/sharedClassesAndTypes/questions/IQuestionDto';
+import { QuestionService } from 'src/app/services/question/question.service';
 
 @Component({
   selector: 'app-doctor-answerd-questions',

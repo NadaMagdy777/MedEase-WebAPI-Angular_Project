@@ -17,7 +17,6 @@ import { TokenInterceptor } from './interceptors/token.interceptor';
 import { PatientRegisterComponent } from './components/authentication/patient-register/patient-register.component';
 import { NavUserNamePipe } from './pipes/nav-user-name.pipe';
 import { DoctorRegisterComponent } from './components/authentication/doctor-register/doctor-register.component';
-import { HistoryComponent } from './components/patient/history/history.component';
 import { AnsweredQuestionsComponent } from './components/patient/questions/answered/answered-questions/answered-questions.component';
 import { UnansweredQuestionsComponent } from './components/patient/questions/unanswered/unanswered-questions/unanswered-questions.component';
 import { PatientQuestionsComponent } from './components/patient/questions/patient-questions/patient-questions.component';
@@ -40,13 +39,11 @@ import { QuestionsLayoutComponent } from './components/patient/questions/doctor/
     PatientRegisterComponent,
     NavUserNamePipe,
     DoctorRegisterComponent,
-    HistoryComponent,
     AnsweredQuestionsComponent,
     UnansweredQuestionsComponent,
     PatientQuestionsComponent,
     
     LoginComponent,
-    HistoryComponent,
     ExaminationInfoComponent,
     DoctorAnswerdQuestionsComponent,
     DoctorUnAnswerdComponent,

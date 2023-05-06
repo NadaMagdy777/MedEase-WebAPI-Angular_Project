@@ -4,6 +4,7 @@ import { Doctor } from 'src/app/sharedClassesAndTypes/doctor/Doctor';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { ISubSpecialty } from 'src/app/sharedClassesAndTypes/Doctor/isub-specialty';
 import { SpecialtiesService } from 'src/app/services/specialities/specialities.service';
+import { ImageService } from 'src/app/services/image.service';
 @Component({
   selector: 'app-all-doctor',
   templateUrl: './all-doctor.component.html',
@@ -23,9 +24,7 @@ regionName:string="All"
 Doctorname:string="All"
 subspiciality:ISubSpecialty[]=[]
 
-
-
-constructor(private DoctorService:DoctorService,private router:Router ,private route:ActivatedRoute,private specialityService: SpecialtiesService){
+constructor(private DoctorService:DoctorService,private router:Router ,private route:ActivatedRoute,private specialityService: SpecialtiesService,private _imageService:ImageService){
    
     
     
@@ -56,6 +55,12 @@ ngOnInit(): void {
       })
       this.fileterDoctorWhenLoadingPage()
       this.filteredDoctorList=this.DoctorList
+      this.filteredDoctorList.forEach((doctor:Doctor)=>{
+        doctor.profilePicture=this._imageService.base64ArrayToImage(doctor.profilePicture)
+        console.log(doctor.profilePicture)
+      })
+
+      
       
 
       console.log(this.filteredDoctorList)
@@ -100,12 +105,6 @@ filterDoctorBySubspeciality(){
     else{
       return false
     }
-    
-    /* console.log(doctor.doctorSubspiciality.forEach( (sub:ISubSpecialty) =>{
-      console.log(this.subspecialityFilter.includes(sub.id))
-      return this.subspecialityFilter.includes(sub.id)
-    })
-    ); */
     
 
   });
@@ -168,6 +167,7 @@ onSubSpecialityChange(subspecialityId:number,event:any){
     this.subspecialityFilter= this.subspecialityFilter.filter((num:number)=>num!=subspecialityId)
   }
   this.Doctorfilter() 
+  
  
 
 }

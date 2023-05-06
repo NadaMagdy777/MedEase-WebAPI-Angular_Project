@@ -5,6 +5,7 @@ import { Patient } from 'src/app/sharedClassesAndTypes/patient/patient';
 import { AppointmentService } from 'src/app/services/appointment/appointment.service';
 import { IDoctorPendingAppointmentDetailsDto } from 'src/app/sharedClassesAndTypes/appointment/i-doctor-pending-appointment-details-dto';
 import { Gender } from 'src/app/sharedClassesAndTypes/enums/gender';
+import { ImageService } from 'src/app/services/image.service';
 
 @Component({
   selector: 'app-examination-info',
@@ -19,10 +20,14 @@ export class ExaminationInfoComponent {
   DiagnosisShowed:number=1
   viewMoreBtn:boolean=true
   
-  Appointmentinfo!: IDoctorPendingAppointmentDetailsDto;
+  Appointmentinfo: IDoctorPendingAppointmentDetailsDto
+  ={appointmentID:0,date:new Date(),previousDiagnoses:[],patientBirthDate:new Date(),patientID
+  :0,patientGender:0,patientPhone:"",
+  investigation:{appointmentId:0,hasImage:false,description:"",image:""},
+ status:0,patientName:"",history:{takeMedications:false,hadSurgery:false,hasAllergies:false,hasChronicIllnesses:false,hasHospitalized:false,isSmoking:false}};
 Gender: any;
   constructor(private PatientService:PatientService,private router:Router ,private route:ActivatedRoute,private _appointmentService: AppointmentService,
-    ){
+    private _imageService:ImageService){
     
     
   }
@@ -36,6 +41,10 @@ Gender: any;
         this.Appointmentinfo=  appointments.find( (appointment:IDoctorPendingAppointmentDetailsDto) =>{
           return appointment.appointmentID==this.appointmentId
         });
+        if(this.Appointmentinfo.investigation !=null){
+          this.Appointmentinfo.investigation.image=this._imageService.base64ArrayToImage(this.Appointmentinfo.investigation.image)
+
+        }
         
         this.Somediagnosis=this.Appointmentinfo.previousDiagnoses.slice(0,this.DiagnosisShowed)
         console.log(this.Appointmentinfo)

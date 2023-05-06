@@ -10,7 +10,7 @@ import { IDiagnosisDto } from 'src/app/sharedClassesAndTypes/diagnosis/i-diagnos
   styleUrls: ['./diagnosis.component.css']
 })
 export class DiagnosisComponent {
-  diagnosis!:IDiagnosisDto
+  diagnosis:IDiagnosisDto={examinationID:0,details:""}
   NewDiagnosisForm:FormGroup;
   EaminationId!:number;
 
@@ -32,7 +32,10 @@ export class DiagnosisComponent {
     }
     ngOnInit(): void {
       this.EaminationId= this.route.snapshot.params['id']
+      console.log(this.EaminationId)
       this.diagnosis.examinationID= this.EaminationId
+      console.log("hello")
+      console.log(this.diagnosis.examinationID)
     }
     SaveDiagnosis(){
       
@@ -40,11 +43,12 @@ export class DiagnosisComponent {
         this.DoctorService.postDiagnosis(this.diagnosis).subscribe((res) => {
           if (res.success) {
              console.log("success");
+             this.router.navigate(['/doctor/Appointment/Confirmed'])
           } else {
             console.log(res.message); 
           }
         })
-         //() => this.router.navigate(['/account/profile'])
+       
       }
 
     }

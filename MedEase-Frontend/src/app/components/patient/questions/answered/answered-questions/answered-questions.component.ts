@@ -1,5 +1,5 @@
-import { IQuestionDto } from 'src/app/SharedClassesAndTypes/questions/IQuestionDto';
-import { QuestionService } from './../../../../../Services/question/question.service';
+import { IQuestionDto } from 'src/app/sharedClassesAndTypes/questions/IQuestionDto';
+import { QuestionService } from './../../../../../services/question/question.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 
