@@ -5,6 +5,7 @@ export class Review{
       public clinicRate: number,
       public waitingTimeinMins: number,
       public examinationID: number,
+      public appointmentID:number,
       public patientName:string
     ){}
 }

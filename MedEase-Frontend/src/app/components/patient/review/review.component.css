@@ -1,0 +1,16 @@
+#legendstyle{
+    background-color:#299c22;
+    color: white;
+    border-radius: 5px;
+    padding: 5px;
+}
+.bg-green{
+    color: rgb(48, 187, 48);
+}
+.bg-red{
+    color: red;
+}
+.starRateColor{
+    color: #ffb624;
+    font-size: 45px;
+}
