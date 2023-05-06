@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Doctor } from 'src/app/SharedClassesAndTypes/Doctor/Doctor';
+import { ImageService } from 'src/app/services/image.service';
 
 
 @Component({
@@ -13,7 +14,7 @@ export class DoctorIndexComponent implements OnInit ,OnChanges{
   load:boolean=false;
   errorMessage: any;
   p:number=1;
-  constructor(){
+  constructor(_imageService:ImageService){
    
     
     
@@ -21,6 +22,7 @@ export class DoctorIndexComponent implements OnInit ,OnChanges{
   
   ngOnInit(): void {
     this.DoctorList=this.FilterdDoctor
+    
 
   }
   
