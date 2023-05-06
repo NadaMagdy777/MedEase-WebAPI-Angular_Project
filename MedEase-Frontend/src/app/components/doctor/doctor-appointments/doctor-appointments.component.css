@@ -1,0 +1,21 @@
+a{
+    text-decoration: none;
+    color:green;
+   }
+   a:hover{
+       border-bottom: 5px solid green;
+       color:green;
+   }
+   a:checked{
+       border-bottom: 5px solid green;
+       color:green;
+   }
+   .nav-link{
+       color: green;
+   }
+   .nav-link:focus{
+       color: green;
+       border-bottom: 5px solid green;
+   
+   }
+   
