@@ -43,7 +43,9 @@ export class DoctorPendingAppointmentsComponent implements OnInit {
   }
 
   ConfirmStatus(Appoinment:any){
-    
+    console.log(new Date(this.date))
+    console.log(new Date(Appoinment.date))
+
     return (new Date(Appoinment.date).valueOf() <= new Date(this.date).valueOf()) 
      
   }

@@ -41,7 +41,10 @@ Gender: any;
         this.Appointmentinfo=  appointments.find( (appointment:IDoctorPendingAppointmentDetailsDto) =>{
           return appointment.appointmentID==this.appointmentId
         });
-        this.Appointmentinfo.investigation.image=this._imageService.base64ArrayToImage(this.Appointmentinfo.investigation.image)
+        if(this.Appointmentinfo.investigation !=null){
+          this.Appointmentinfo.investigation.image=this._imageService.base64ArrayToImage(this.Appointmentinfo.investigation.image)
+
+        }
         
         this.Somediagnosis=this.Appointmentinfo.previousDiagnoses.slice(0,this.DiagnosisShowed)
         console.log(this.Appointmentinfo)
