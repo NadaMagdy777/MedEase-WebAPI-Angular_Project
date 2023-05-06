@@ -2,8 +2,8 @@ import { environment } from './../../../environments/environment';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Doctor } from 'src/app/SharedClassesAndTypes/Doctor/Doctor';
-import { DoctorEdit } from 'src/app/SharedClassesAndTypes/Doctor/doctorEdit';
+import { Doctor } from 'src/app/sharedClassesAndTypes/doctor/Doctor';
+import { DoctorEdit } from 'src/app/sharedClassesAndTypes/doctor/doctorEdit';
 import { IreserveAppointement } from 'src/app/SharedClassesAndTypes/Doctor/IReserveAppointement';
 
 @Injectable({

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DoctorService } from 'src/app/Services/Doctor/doctor.service';
-import { Doctor } from 'src/app/SharedClassesAndTypes/Doctor/Doctor';
+import { Doctor } from 'src/app/sharedClassesAndTypes/doctor/Doctor';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 @Component({
   selector: 'app-all-doctor',

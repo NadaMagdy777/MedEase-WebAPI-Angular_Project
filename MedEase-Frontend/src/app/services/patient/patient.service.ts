@@ -56,7 +56,7 @@ export class PatientService {
 
   UpdateMedicalHistory(id:number, medicalHistory:MedicalHistory):Observable<MedicalHistory>{
     return this.http.put<MedicalHistory>(
-      `${this._url}/MedicalHistor?PatientID=${id}`, /////////
+      `${this._url}/MedicalHistor?PatientID=${id}`,
       JSON.stringify(medicalHistory),
       this.httpOptions
     )
