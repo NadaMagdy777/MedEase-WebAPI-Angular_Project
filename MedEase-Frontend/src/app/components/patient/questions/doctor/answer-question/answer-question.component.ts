@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { QuestionService } from 'src/app/Services/question/question.service';
-import { IQuestionDto } from 'src/app/SharedClassesAndTypes/questions/IQuestionDto';
+import { QuestionService } from 'src/app/services/question/question.service';
+import { IQuestionDto } from 'src/app/sharedClassesAndTypes/questions/IQuestionDto';
 import { UserAuthService } from 'src/app/services/authentication/user-auth.service';
 
 @Component({

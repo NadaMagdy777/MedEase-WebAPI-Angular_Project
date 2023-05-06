@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Review } from 'src/app/SharedClassesAndTypes/review/review';
-import { DoctorService } from 'src/app/Services/Doctor/doctor.service';
+import { Review } from 'src/app/sharedClassesAndTypes/review/review';
+import { DoctorService } from 'src/app/services/doctor/doctor.service';
 
 
 @Component({

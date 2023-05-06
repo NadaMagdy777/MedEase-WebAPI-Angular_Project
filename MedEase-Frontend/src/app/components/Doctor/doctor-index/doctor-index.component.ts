@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { Doctor } from 'src/app/SharedClassesAndTypes/Doctor/Doctor';
+import { Doctor } from 'src/app/sharedClassesAndTypes/doctor/Doctor';
 import { ImageService } from 'src/app/services/image.service';
 
 

@@ -7,7 +7,7 @@ import { DoctorEdit } from 'src/app/sharedClassesAndTypes/doctor/doctorEdit';
 import { IreserveAppointement } from 'src/app/sharedClassesAndTypes/doctor/IReserveAppointement';
 import { IDiagnosisDto } from 'src/app/sharedClassesAndTypes/diagnosis/i-diagnosis-dto';
 import { IApiResponse } from 'src/app/sharedClassesAndTypes/iapi-response';
-import { Review } from 'src/app/SharedClassesAndTypes/review/review';
+import { Review } from 'src/app/sharedClassesAndTypes/review/review';
 
 @Injectable({
   providedIn: 'root',

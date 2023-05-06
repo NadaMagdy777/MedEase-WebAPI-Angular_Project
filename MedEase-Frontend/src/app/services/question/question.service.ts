@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { UserAuthService } from 'src/app/services/authentication/user-auth.service';
 import { Injectable } from '@angular/core';
-import { IPatientQuestionDto } from 'src/app/SharedClassesAndTypes/patient/ipatient-question-dto';
+import { IPatientQuestionDto } from 'src/app/sharedClassesAndTypes/patient/ipatient-question-dto';
 import { IApiResponse } from 'src/app/sharedClassesAndTypes/iapi-response';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
