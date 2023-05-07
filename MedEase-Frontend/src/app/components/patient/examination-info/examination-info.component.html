@@ -44,7 +44,7 @@
                             <p class="mb-0">Age</p>
                             </div>
                             <div class="col-sm-9">
-                            <p class="text-muted mb-0">{{patient.birthDate}}</p>
+                            <p class="text-muted mb-0">{{patient.birthDate|birthdateToAge}}</p>
                             </div>
                         </div>
                         <hr>
@@ -53,7 +53,7 @@
                             <p class="mb-0">Gender</p>
                             </div>
                             <div class="col-sm-9">
-                            <p class="text-muted mb-0">{{[0]}}</p>
+                            <p class="text-muted mb-0">{{this.Appointmentinfo.patientGender}}</p>
                             </div>
                         </div>
                         </div>
@@ -147,7 +147,7 @@
                 
 
             </div>
-            <div class="col-sm-12 col-lg-6 h-100">
+            <div class="col-sm-12 col-lg-6 h-100" >
                 <div class="col-12">
                     <legend class="w-auto  text-center d-flex justify-content-center " id="legendstyle">
                         <div id="legendstyle">
@@ -156,7 +156,21 @@
             
                         </div>
                     </legend>
-                    <div class="card mb-4">
+                    <div class=" h-100" *ngIf="Appointmentinfo.investigation==null">
+                        <div class="card mb-4">
+                            
+                            <div class="card-body ">
+                              <h5 class="card-title text-center">
+                                this patient didnt have any  investigation
+                                
+                               
+                              </h5>
+        
+                            </div>
+                        </div>
+        
+                    </div>
+                    <div class="card mb-4" *ngIf="Appointmentinfo.investigation!=null">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-12">
@@ -189,7 +203,7 @@
                 
             </div>
         </div>
-        <div class="row mt-2 ml-2">
+        <div class="row mt-2 ml-2" >
             <div class="col-11">
                 <legend class="w-auto  text-center d-flex justify-content-center " id="legendstyle">
                     <div id="legendstyle">
@@ -198,7 +212,21 @@
         
                     </div>
                 </legend>
-                <div class="card mb-4 bg-light">
+                <div class=" h-100" *ngIf="Appointmentinfo.previousDiagnoses?.length==0">
+                    <div class="card mb-4">
+                        
+                        <div class="card-body ">
+                          <h5 class="card-title text-center">
+                            this patient didnt have any  previousDiagnoses
+                            
+                           
+                          </h5>
+    
+                        </div>
+                    </div>
+    
+                </div>
+                <div class="card mb-4 bg-light" *ngIf="Appointmentinfo.previousDiagnoses?.length">
                     <div class="card-body bg-white">
                         <div class="row " *ngFor="let Diagnosis of Somediagnosis">
                             <div class="col-12">

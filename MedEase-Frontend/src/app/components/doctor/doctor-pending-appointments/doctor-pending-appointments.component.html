@@ -25,7 +25,7 @@
             <tbody>
               <tr *ngFor="let appoinment of filteredData | paginate:{itemsPerPage:1,currentPage:p} ; let i = index">
                 <th scope="row">{{i+1}}</th>
-                <td title="click to show patient history"><a href="/history/{{appoinment.appointmentID}}">{{appoinment.patientName|titlecase}}</a></td>
+                <td title="click to show patient history"><a href="/account/history/{{appoinment.appointmentID}}">{{appoinment.patientName|titlecase}}</a></td>
                 <td>{{appoinment.date|date:"short"}}</td>
                 <td>{{appoinment.patientPhone}}</td>
                 <td *ngIf="ConfirmStatus(appoinment)">

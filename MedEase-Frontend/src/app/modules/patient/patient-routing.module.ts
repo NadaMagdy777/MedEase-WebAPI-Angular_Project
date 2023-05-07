@@ -12,6 +12,7 @@ import { ConfirmedAppointmentComponent } from 'src/app/components/patient/confir
 import { InsuranceComponent } from 'src/app/components/patient/insurance/insurance.component';
 import { ReviewComponent } from 'src/app/components/patient/review/review.component';
 import { ShowDiagnosisComponent } from 'src/app/components/patient/show-diagnosis/show-diagnosis.component';
+import { ExaminationInfoComponent } from 'src/app/components/patient/examination-info/examination-info.component';
 
 
 const routes: Routes = [
@@ -37,6 +38,8 @@ const routes: Routes = [
       { path: 'Confirmed', component: ConfirmedAppointmentComponent },
     ],
   },
+  {path:'history/:id',component:ExaminationInfoComponent},
+
 ];
 
 @NgModule({

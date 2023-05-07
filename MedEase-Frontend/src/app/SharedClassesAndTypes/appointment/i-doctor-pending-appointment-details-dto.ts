@@ -13,7 +13,7 @@ export interface IDoctorPendingAppointmentDetailsDto {
   patientName: string;
   patientPhone: string;
   patientBirthDate: Date;
-  patientGender: Gender;
+  patientGender: any;
   investigation: IAppointmentInvestigationDto;
   previousDiagnoses: IDiagnosisDto[];
   history: IPatientMedicalHistoryDto;
