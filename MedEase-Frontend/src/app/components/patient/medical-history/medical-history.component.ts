@@ -14,6 +14,10 @@ export class MedicalHistoryComponent {
 
   id:number = parseInt(this._userAuthService.getLoggedUserId);
   errorMessage: any;
+
+  isSaved:boolean = false;
+  isUpdated:boolean = false;
+
   patient:Patient={
     firstName: '',
     lastName: '',
@@ -144,7 +148,7 @@ export class MedicalHistoryComponent {
       console.log(response)
     });
     
-    alert('saved successfully');
+    this.isSaved = true;
   }
   Update() : void {
     if(window.confirm('Are you sure, you want to update?')){
@@ -153,6 +157,8 @@ export class MedicalHistoryComponent {
         console.log(response)
       });
     }
+
+    this.isUpdated = true;
   }
   Cancel() : void { 
     if(window.confirm('Are you sure, you want to cancel, you are about to lose the new data?')){

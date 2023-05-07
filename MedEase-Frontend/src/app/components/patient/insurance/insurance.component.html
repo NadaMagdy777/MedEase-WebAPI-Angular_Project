@@ -1,41 +1,52 @@
 <div class="container">
-    <div class="mb-5 mt-5 border-style">
+    <div class="mb-2 mt-5 border-style">
         <div class="text-center w-100 text-white m-0 mb-2 align-items-center justify-content-center d-flex" id="my-insurance">
             <h5>My Insurance</h5>
         </div>
         <div class="p-3">
-            
+
             <form [formGroup]="InsuranceForm" (ngSubmit)="Save()">
 
                 <div class="form-group">
                     <label>Company Name</label>
                     <select class="form-control" formControlName="insuranceID">
-                        <option selected [value]="insurance.id" *ngFor="let insurance of allInsurance; first as f"  [selected]="f">
+                        <option selected [value]="insurance.id" *ngFor="let insurance of allInsurance; first as f"
+                            [selected]="f">
                             {{insurance.company}}
                         </option>
-                    </select>                 
+                    </select>
                 </div>
 
                 <div class="form-group">
                     <label>Insurance Number</label>
                     <input type="number" class="form-control" formControlName="insuranceNumber"
                         [class.is-invalid]="insuranceNumber?.touched &&insuranceNumber?.invalid">
-    
+
                     <div *ngIf="insuranceNumber?.touched &&insuranceNumber?.invalid" class="text-danger">
                         <small *ngIf="insuranceNumber?.errors?.['required']">This field is required</small>
-                        <small *ngIf="insuranceNumber?.errors?.['minlength']" class="text-danger">Insurance mumber must be at least 4 digits</small>
-                        <small *ngIf="insuranceNumber?.errors?.['maxlength']" class="text-danger">Insurance mumber must be at most 8 digits</small>
+                        <small *ngIf="insuranceNumber?.errors?.['minlength']" class="text-danger">Insurance mumber must
+                            be at least 4 digits</small>
+                        <small *ngIf="insuranceNumber?.errors?.['maxlength']" class="text-danger">Insurance mumber must
+                            be at most 8 digits</small>
                     </div>
                 </div>
-    
-               
+
                 <div>
-                    <button type="submit" class="btn btn-success btn-block" [disabled]="!InsuranceForm.valid">Save</button>
-                    <button type="button" class="btn btn-default btn-block" (click)="Cancel()">Cancel</button>    
+                    <button type="submit" class="btn btn-success btn-block"
+                        [disabled]="!InsuranceForm.valid">Save</button>
+                    <button type="button" class="btn btn-default btn-block" (click)="Cancel()">Cancel</button>
                 </div>
-                
+
             </form>
         </div>
     </div>
-</div>
 
+    <div class="mb-5">
+        <div class="alert alert-success" [hidden]="!isSaved">
+            <strong>Success!</strong> Saved Successfully.
+        </div>
+        <div class="alert alert-success" [hidden]="!isUpdated">
+            <strong>Success!</strong> Updated Successfully.
+        </div>
+    </div>
+</div>

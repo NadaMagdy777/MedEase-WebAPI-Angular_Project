@@ -27,7 +27,7 @@ export class EditProfileComponent {
     gender: undefined,
     age: 0,
     building: 0,
-    waitingTime: undefined,
+    waitingTime: 0,
     rating: undefined,
     street: '',
     addressDto:undefined,
@@ -53,7 +53,6 @@ export class EditProfileComponent {
     region: '',
     city: '',
     street: '',
-    waitingTime: undefined,
     email: ''
   };
 
@@ -66,6 +65,8 @@ export class EditProfileComponent {
 
   EditProfileForm:FormGroup;
   imageForm:FormGroup;
+
+  isUpdated:boolean = false;
 
   constructor(
     private _doctorService:DoctorService,
@@ -91,7 +92,7 @@ export class EditProfileComponent {
         email:['',[Validators.required,Validators.email]],
         phone:['',[Validators.required]],
         fees:[0,[Validators.required]],
-        waitingTime:['',[Validators.required]],
+        waitingTime:[0,[Validators.required]],
         address:this.fb.group({
           building:[0,[Validators.required]],
           street:['',[Validators.required,Validators.minLength(2),Validators.maxLength(50)]],
@@ -114,9 +115,6 @@ export class EditProfileComponent {
       });
       this.EditProfileForm.get('fees')?.valueChanges.subscribe((data) => {
         this.doctorEdit.fees = data;
-      });
-      this.EditProfileForm.get('waitingTime')?.valueChanges.subscribe((data) => {
-        this.doctorEdit.waitingTime = data;
       });
       this.EditProfileForm.controls['address'].get('building')?.valueChanges.subscribe((data) => {
         this.doctorEdit.building = data;
@@ -143,6 +141,8 @@ export class EditProfileComponent {
             let dataJson = JSON.parse(JSON.stringify(data))
             this.doctor = dataJson.data;
             this.LoadFormData();
+            console.log(this.doctor);
+            
         },
         error:(error: any)=>this.errorMessage=error,
       });   
@@ -173,7 +173,6 @@ export class EditProfileComponent {
         email:this.doctor.email,
         phone:this.doctor.phoneNumber,
         fees:this.doctor.fees,
-        waitingTime:this.doctor.waitingTime,
         address:{
           building:this.doctor.building,
           street:this.doctor.street,
@@ -202,10 +201,6 @@ export class EditProfileComponent {
   get fees()
   {
     return this.EditProfileForm.get('fees');
-  }
-  get waitingTime()
-  {
-    return this.EditProfileForm.get('waitingTime');
   }
   get building()
   {
@@ -250,8 +245,9 @@ export class EditProfileComponent {
     console.log(this._addressService.getAddressID(this.selectedCity, this.selectedRegion))
     if(window.confirm('Are you sure, you want to update?')){
       this._doctorService.UpdateDoctorInfo(this.id, this.doctorEdit)
-      .subscribe(); //() => this.router.navigate(['/account/profile'])
+      .subscribe(); 
     }
+    this.isUpdated = !this.isUpdated;
   }
 
   Cancel() : void { 
