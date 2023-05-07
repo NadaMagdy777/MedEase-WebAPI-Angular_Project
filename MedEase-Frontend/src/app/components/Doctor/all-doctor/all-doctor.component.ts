@@ -5,6 +5,9 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { ISubSpecialty } from 'src/app/sharedClassesAndTypes/Doctor/isub-specialty';
 import { SpecialtiesService } from 'src/app/services/specialities/specialities.service';
 import { ImageService } from 'src/app/services/image.service';
+import { ScheduleService } from 'src/app/services/Doctor/schedule.service';
+import { EditSchedule, Schedule } from 'src/app/sharedClassesAndTypes/doctor/schedule';
+import { doctorWorking } from 'src/app/sharedClassesAndTypes/Doctor/doctorworking';
 @Component({
   selector: 'app-all-doctor',
   templateUrl: './all-doctor.component.html',
@@ -16,6 +19,10 @@ filteredDoctorList:Doctor[]=this.DoctorList
 errorMessage: any;
 genderFilter:number[]=[]
 feesFilter:number=0
+workstatus:doctorWorking={
+  today: false,
+  tommorow: false
+}
 subspecialityFilter:number[]=[]
 selectedSorting:any=0
 specialityId:number=0
@@ -23,31 +30,30 @@ cityName:string="Egypt"
 regionName:string="All"
 Doctorname:string="All"
 subspiciality:ISubSpecialty[]=[]
+filterExamination:number[]=[]
 
-constructor(private DoctorService:DoctorService,private router:Router ,private route:ActivatedRoute,private specialityService: SpecialtiesService,private _imageService:ImageService){
+constructor(private DoctorService:DoctorService,private router:Router ,
+  private route:ActivatedRoute,private specialityService: SpecialtiesService,
+  private _imageService:ImageService,
+  private DoctorSchduale:ScheduleService){
    
     
     
+
 }
 ngOnInit(): void {
   this.DoctorService.GetAllDoctors().subscribe({
     next:data=>{
       let dataJson = JSON.parse(JSON.stringify(data))
       this.DoctorList=dataJson.data
-       console.log(this.DoctorList)
       this.specialityId= this.route.snapshot.params['speciality']
       this.cityName=this.route.snapshot.params['city']
       this.regionName=this.route.snapshot.params['region']
       this.Doctorname=this.route.snapshot.params['name']
-      console.log(this.specialityId)
-      console.log(this.cityName)
-      console.log(this.regionName)
-      console.log(this.Doctorname)
       this.specialityService.GetSubspicilityBySpecialityId(this.specialityId).subscribe({
         next:data=>{
           let dataJson = JSON.parse(JSON.stringify(data))
            this.subspiciality=dataJson.data
-           console.log(this.subspiciality)
 
 
         },
@@ -57,13 +63,10 @@ ngOnInit(): void {
       this.filteredDoctorList=this.DoctorList
       this.filteredDoctorList.forEach((doctor:Doctor)=>{
         doctor.profilePicture=this._imageService.base64ArrayToImage(doctor.profilePicture)
-        console.log(doctor.profilePicture)
+        this.getschduale(doctor)
       })
 
       
-      
-
-      console.log(this.filteredDoctorList)
 
     },
     error:error=>this.errorMessage=error
@@ -72,6 +75,35 @@ ngOnInit(): void {
  
   
   
+}
+
+getschduale(doctor:Doctor){
+  doctor.workingstatus=this.workstatus
+
+  var doctorschduale=this.DoctorSchduale.GetAllDoctorSchedules(doctor.id)
+  doctorschduale.forEach((s:EditSchedule[])=>{
+    let dataJson = JSON.parse(JSON.stringify(s))
+      let doctorSchduale =dataJson.data
+    if(doctorSchduale.length>0){
+      doctorSchduale.forEach((secduale:EditSchedule)=>{
+        secduale.weekDay=(secduale.weekDay).split(' ')[0]
+        if(new Date(secduale.weekDay).getDay()==new Date().getDay()){
+         
+          doctor.workingstatus.today=true
+
+
+        }
+        else if(new Date(secduale.weekDay).getDay()==new Date().getDay()+1){
+          doctor.workingstatus.tommorow=true
+        }
+      }
+      ) 
+    }
+  
+})
+
+  
+
 }
 Doctorfilter(){
   this.filteredDoctorList=this.DoctorList
@@ -86,9 +118,40 @@ Doctorfilter(){
   if(this.feesFilter>0){
     this.filterDoctorByFees()
   }
+  if(this.filterExamination.length>0){
+    this.filterDoctorByExaminationDate()
+
+  }
 
 }
 
+filterDoctorByExaminationDate(){
+  if(this.filterExamination.includes(1)){
+    this.filteredDoctorList=this.filteredDoctorList.filter((doctor:Doctor)=>{
+      return doctor.workingstatus.today==true
+      
+    });
+  }
+  if(this.filterExamination.includes(2)){
+    this.filteredDoctorList=this.filteredDoctorList.filter((doctor:Doctor)=>{
+      return doctor.workingstatus.tommorow==true
+      
+    });
+  }
+  
+
+}
+
+onExaChange(examination:number,event:any){
+  if(event.target.checked){
+    this.filterExamination.push(examination)
+  }
+  else{
+    this.filterExamination= this.filterExamination.filter((num:number)=>num!=examination)
+  }
+  this.Doctorfilter() 
+
+}
 filterDoctorByGender(){
   this.filteredDoctorList=this.filteredDoctorList.filter((doctor:Doctor)=>{
     return this.genderFilter.includes(doctor.gender)
@@ -108,8 +171,7 @@ filterDoctorBySubspeciality(){
     
 
   });
-  console.log("filtered list")
-  console.log(this.filteredDoctorList)
+  
   
 }
 
@@ -175,7 +237,6 @@ onSubSpecialityChange(subspecialityId:number,event:any){
   
   fileterDoctorWhenLoadingPage(){
     if(this.specialityId>0){
-      console.log("filter by speciality")
       this.filterDoctorBySpeciality()
     }
     if(this.cityName !="Egypt"){

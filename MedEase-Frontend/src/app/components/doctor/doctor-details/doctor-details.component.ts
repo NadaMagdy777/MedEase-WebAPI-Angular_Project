@@ -13,7 +13,7 @@ import { ImageService } from 'src/app/services/image.service';
 export class DoctorDetailsComponent {
 
   doctorId!:number
-  doctor:Doctor=new Doctor(0,0,'','','','',0,0,0,0,'',0,[],'','','',0,0,'','',0);
+  doctor:Doctor=new Doctor(0,0,'','','','',0,0,0,0,'',0,[],'','','',0,0,'','',0,{today:false,tommorow:false});
   doctorReview:Review[]=[] 
   SomeReview:Review[]=[]
   errorMessage: any;
