@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UserAuthService } from 'src/app/services/authentication/user-auth.service';
 import { ScheduleService } from 'src/app/services/doctor/schedule.service';
 import { EditSchedule, Schedule } from 'src/app/sharedClassesAndTypes/doctor/schedule';
 
@@ -11,8 +12,10 @@ import { EditSchedule, Schedule } from 'src/app/sharedClassesAndTypes/doctor/sch
 })
 export class DoctorScheduleComponent {
 
-  id:number = 1;//this.actRoute.snapshot.params['id'];
+  id:number = parseInt(this._userAuthService.getLoggedUserId);
   errorMessage: any;
+
+  isDisabled:boolean=false;
   scheduleExist:boolean = false;
 
   schedule:EditSchedule = {
@@ -29,6 +32,7 @@ export class DoctorScheduleComponent {
 
   constructor(
     private _scheduleService:ScheduleService,
+    private _userAuthService:UserAuthService,
     private fb:FormBuilder
   )
   {
@@ -42,7 +46,7 @@ export class DoctorScheduleComponent {
     });
 
     this.ScheduleForm.get('isWorking')?.valueChanges.subscribe((data) => {
-      this.schedule.isWorking = JSON.parse(data);
+      this.schedule.isWorking = data;
     });
     this.ScheduleForm.get('weekDay')?.valueChanges.subscribe((data) => {
       this.schedule.weekDay = data;
@@ -100,9 +104,8 @@ export class DoctorScheduleComponent {
       });
       this.scheduleExist = false;
     } 
-    else{
-      this.schedule.isWorking = true;
-      
+    else if(this.schedule.weekDay != null){
+
       this._scheduleService.AddSchedule(this.schedule)
       .subscribe(response => {
         console.log(response)
@@ -143,5 +146,10 @@ export class DoctorScheduleComponent {
         this.ScheduleForm.reset();
       }
     }
+  }
+  Switch(event:any){
+    this.isDisabled=!this.isDisabled;
+    this.isWorking?.setValue(!this.isWorking.value)
+    
   }
 }

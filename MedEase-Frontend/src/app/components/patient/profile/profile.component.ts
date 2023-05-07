@@ -172,7 +172,7 @@ export class ProfileComponent {
   updatePatientInfo():void {
     if(window.confirm('Are you sure, you want to update?')){
       this._patientService.UpdatePatientInfo(this.id, this.patient)
-      .subscribe(); //() => this.router.navigate(['/account/profile'])
+      .subscribe(); 
     }
   }
 
