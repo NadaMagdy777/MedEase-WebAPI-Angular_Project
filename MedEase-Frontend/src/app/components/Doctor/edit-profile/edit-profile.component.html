@@ -1,126 +1,146 @@
 <div class="container">
     <div>
         <form [formGroup]="imageForm">
-            <input #imageInput type="file" accept="image/*" (change)="ProcessFile($event)">
-            <img [src]="imageUrl"/>
+            <div class="text-center mx-auto mt-3 w-50">                
+                <img [src]="imageUrl" class="rounded-circle" width="150" height="150"/>
+                <input class="form-control mt-3" type="file" accept="image/*" (change)="ProcessFile($event)">
+            </div>
         </form>
     </div>
-    <div class="container">
-        <form [formGroup]="EditProfileForm" (ngSubmit)="updateDoctorInfo()">
-            <div class="form-group">
-                <label>First Name</label>
-                <input [class.is-invalid]="fname?.invalid &&fname?.touched" 
-                    formControlName="fname" type="text"
-                    class="form-control">
+    <div class="mb-5 mt-5 border-style">
 
-                <div *ngIf="fname?.invalid &&fname?.touched">
-                    <small *ngIf="fname?.errors?.['required']" class="text-danger">Name is required</small>
-                    <small *ngIf="fname?.errors?.['minlength']" class="text-danger">Name must be at least 3
-                        characters</small>
-                    <small *ngIf="fname?.errors?.['maxlength']" class="text-danger">Name must be less than 30
-                        characters</small>
-                </div>
-            </div>
+        <div class="text-center w-100 text-white m-0 mb-2 align-items-center justify-content-center d-flex" id="manageProfile">
+            <h5>Manage Profile</h5>
+        </div>
+        <div class="p-3">
+            <form [formGroup]="EditProfileForm" (ngSubmit)="updateDoctorInfo()">
+                <div class="container">
+                    <div class="row mt-2">
+                        <div class="col">
+                            <label>First Name</label>
+                            <input [class.is-invalid]="fname?.invalid &&fname?.touched" 
+                                formControlName="fname" type="text"
+                                class="form-control">
 
-            <div class="form-group">
-                <label>Last Name</label>
-                <input [class.is-invalid]="lname?.invalid &&lname?.touched" 
-                    formControlName="lname" type="text"
-                    class="form-control">
+                            <div *ngIf="fname?.invalid &&fname?.touched">
+                                <small *ngIf="fname?.errors?.['required']" class="text-danger">Name is required</small>
+                                <small *ngIf="fname?.errors?.['minlength']" class="text-danger">Name must be at least 3
+                                    characters</small>
+                                <small *ngIf="fname?.errors?.['maxlength']" class="text-danger">Name must be less than 30
+                                    characters</small>
+                            </div>
+                        </div>
 
-                <div *ngIf="lname?.invalid &&lname?.touched">
-                    <small *ngIf="lname?.errors?.['required']" class="text-danger">Name is required</small>
-                    <small *ngIf="lname?.errors?.['minlength']" class="text-danger">Name must be at least 3
-                        characters</small>
-                    <small *ngIf="lname?.errors?.['maxlength']" class="text-danger">Name must be less than 30
-                        characters</small>
-                </div>
-            </div>
+                        <div class="col">
+                            <label>Last Name</label>
+                            <input [class.is-invalid]="lname?.invalid &&lname?.touched" 
+                                formControlName="lname" type="text"
+                                class="form-control">
 
-            <div class="form-group">
-                <label>Your Email</label>
-                <input type="email" class="form-control" formControlName="email"
-                    [class.is-invalid]="email?.touched &&email?.invalid">
-                <div *ngIf="email?.touched &&email?.invalid" class="text-danger">
-                    <small *ngIf="email?.errors?.['required']">Email is required</small>
-                    <small *ngIf="EditProfileForm.errors?.['email']">Email must be like test@example.com</small>
-                </div>
-            </div>
+                            <div *ngIf="lname?.invalid &&lname?.touched">
+                                <small *ngIf="lname?.errors?.['required']" class="text-danger">Name is required</small>
+                                <small *ngIf="lname?.errors?.['minlength']" class="text-danger">Name must be at least 3
+                                    characters</small>
+                                <small *ngIf="lname?.errors?.['maxlength']" class="text-danger">Name must be less than 30
+                                    characters</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
 
-            <div class="form-group">
-                <label>Phone Number</label>
-                <input type="text" class="form-control" formControlName="phone"
-                    [class.is-invalid]="phone?.touched &&phone?.invalid">
+                        <div class="col">
+                            <label>Your Email</label>
+                            <input type="email" class="form-control" formControlName="email"
+                                [class.is-invalid]="email?.touched &&email?.invalid">
+                            <div *ngIf="email?.touched &&email?.invalid" class="text-danger">
+                                <small *ngIf="email?.errors?.['required']">Email is required</small>
+                                <small *ngIf="EditProfileForm.errors?.['email']">Email must be like test@example.com</small>
+                            </div>
+                        </div>
 
-                <div *ngIf="phone?.touched &&phone?.invalid" class="text-danger">
-                    <small *ngIf="phone?.errors?.['required']">Phone is required</small>
-                    <small *ngIf="EditProfileForm.errors?.['phone']">Phone must be like 01*********</small>
-                </div>
-            </div>
-            <div class="form-group">
-                <label>Fees</label>
-                <input type="number" class="form-control" formControlName="fees"
-                    [class.is-invalid]="fees?.touched &&fees?.invalid">
+                        <div class="col">
+                            <label>Phone Number</label>
+                            <input type="text" class="form-control" formControlName="phone"
+                                [class.is-invalid]="phone?.touched &&phone?.invalid">
 
-                <div *ngIf="fees?.touched &&fees?.invalid" class="text-danger">
-                    <small *ngIf="fees?.errors?.['required']">fees is required</small>
-                </div>
-            </div>
-            <div class="form-group">
-                <label>waitingTime</label>
-                <input type="number" class="form-control" formControlName="waitingTime"
-                    [class.is-invalid]="waitingTime?.touched &&waitingTime?.invalid">
+                            <div *ngIf="phone?.touched &&phone?.invalid" class="text-danger">
+                                <small *ngIf="phone?.errors?.['required']">Phone is required</small>
+                                <small *ngIf="EditProfileForm.errors?.['phone']">Phone must be like 01*********</small>
+                            </div>
+                        </div>
+                    </div>
 
-                <div *ngIf="waitingTime?.touched &&waitingTime?.invalid" class="text-danger">
-                    <small *ngIf="waitingTime?.errors?.['required']">waiting Time is required</small>
-                </div>
-            </div>
-            <div formGroupName="address">
-                <div class="form-group">
-                    <label>Building</label>
-                    <input type="number" class="form-control" formControlName="building"
-                        [class.is-invalid]="building?.touched &&building?.invalid">
+                    <div class="row mt-2">
 
-                    <div *ngIf="building?.touched &&building?.invalid" class="text-danger">
-                        <small *ngIf="building?.errors?.['required']">Building is required</small>
+                        <div class="col">
+                            <label>Fees</label>
+                            <input type="number" class="form-control" formControlName="fees"
+                                [class.is-invalid]="fees?.touched &&fees?.invalid">
+
+                            <div *ngIf="fees?.touched &&fees?.invalid" class="text-danger">
+                                <small *ngIf="fees?.errors?.['required']">fees is required</small>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <label>waitingTime</label>
+                            <input type="number" class="form-control" formControlName="waitingTime"
+                                [class.is-invalid]="waitingTime?.touched &&waitingTime?.invalid">
+
+                            <div *ngIf="waitingTime?.touched &&waitingTime?.invalid" class="text-danger">
+                                <small *ngIf="waitingTime?.errors?.['required']">waiting Time is required</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div formGroupName="address">
+                        <div class="row mt-2">
+                            <div class="col-6">
+                                <label>Building</label>
+                                <input type="number" class="form-control" formControlName="building"
+                                    [class.is-invalid]="building?.touched &&building?.invalid">
+                
+                                <div *ngIf="building?.touched &&building?.invalid" class="text-danger">
+                                    <small *ngIf="building?.errors?.['required']">Building is required</small>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <label>Street</label>
+                                <input type="text" class="form-control" formControlName="street"
+                                    [class.is-invalid]="street?.touched &&street?.invalid">
+                
+                                <div *ngIf="street?.touched &&street?.invalid" class="text-danger">
+                                    <small *ngIf="street?.errors?.['required']">street is required</small>
+                                </div>
+                            </div>
+                            <div class="col-6 mt-2">
+                                <label>City</label>
+                                <select (change)="updateCity()" class="form-control" formControlName="city">
+                                    <option selected [value]="city" *ngFor="let city of CitiesList">
+                                        {{city}}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-6 mt-2">
+                                <label>Region</label>
+                                <select class="form-control" formControlName="region">
+                                    <option selected [value]="region" *ngFor="let region of RegionsList; first as f"  [selected]="f">
+                                        {{region}}
+                                    </option>
+                                </select>                 
+                            </div>
+                        </div>
+                    </div>
+
+                <div class="row mt-3">
+                    <div class="col-6">
+                        <button type="submit" class="btn btn-success w-100 me-2" [disabled]="!EditProfileForm.valid">Save</button>
+                    </div>
+                    <div class="col-6">
+                        <button type="button" class="btn btn-default w-100 ms-2" (click)="Cancel()">Cancel</button>
                     </div>
                 </div>
-
-                <div class="form-group">
-                    <label>Street</label>
-                    <input type="text" class="form-control" formControlName="street"
-                        [class.is-invalid]="street?.touched &&street?.invalid">
-
-                    <div *ngIf="street?.touched &&street?.invalid" class="text-danger">
-                        <small *ngIf="street?.errors?.['required']">street is required</small>
-                    </div>
                 </div>
-
-                <div class="form-group">
-                    <label>City</label>
-                    <select (change)="updateCity()" class="form-control" formControlName="city">
-                        <option selected [value]="city" *ngFor="let city of CitiesList">
-                            {{city}}
-                        </option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label>Region</label>
-                    <select class="form-control" formControlName="region">
-                        <option selected [value]="region" *ngFor="let region of RegionsList; first as f"  [selected]="f">
-                            {{region}}
-                        </option>
-                    </select>                 
-                </div>
-
-            </div>
-
-            <div>
-                <button type="submit" class="btn btn-success btn-block">Save</button>
-                <button type="button" class="btn btn-default btn-block" (click)="Cancel()">Cancel</button>    
-            </div>
-            
-        </form>
-    </div>
+            </form>
+        </div>
+        </div>
 </div>

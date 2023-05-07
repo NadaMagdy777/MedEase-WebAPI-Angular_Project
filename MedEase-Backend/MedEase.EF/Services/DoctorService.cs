@@ -56,6 +56,23 @@ namespace MedEase.EF.Services
             return result;
         }
 
+        public async Task<List<DoctorInfoGetDto>> GetTopRatedDoctors()
+        {
+            List<DoctorInfoGetDto> doctorsDTOs;
+
+            doctorsDTOs = new List<DoctorInfoGetDto>();
+
+            IEnumerable<Doctor> result = await _unitOfWork.Doctors
+                .FindAllAsync(d => d.IsConfirmed == true);
+            foreach (Doctor doctor in result)
+            {
+                DoctorInfoGetDto doctorDTO = await GetDoctor(doctor.ID);                    //////////          WEIRD       <<<================
+                doctorsDTOs.Add(doctorDTO);
+            }
+            return doctorsDTOs.Take(3).ToList();
+        }
+
+
 
         public async Task<List<DoctorInfoGetDto>> GetAllDoctors()
         {
@@ -308,6 +325,7 @@ namespace MedEase.EF.Services
             if (orgdoctorschedule != null)
             {
                 orgdoctorschedule.Id = doctorEditScheduleDto.Id;
+                orgdoctorschedule.IsWorking = doctorEditScheduleDto.IsWorking;
                 orgdoctorschedule.DoctorId = doctorEditScheduleDto.DoctorId;
                 orgdoctorschedule.WeekDay = DateTime.Parse(doctorEditScheduleDto.WeekDay);
                 orgdoctorschedule.StartTime = TimeSpan.Parse(doctorEditScheduleDto.StartTime);

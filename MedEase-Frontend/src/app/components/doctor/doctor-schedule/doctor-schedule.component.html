@@ -1,54 +1,76 @@
-<div class="container">
-    <form [formGroup]="ScheduleForm" (ngSubmit)="Save()">
-        <div class="form-group">
-            <label>Date</label>
-            <input [class.is-invalid]="weekDay?.invalid &&weekDay?.touched" (change)="Search()"
-                formControlName="weekDay" type="date"
-                class="form-control">
-
-            <div *ngIf="weekDay?.invalid &&weekDay?.touched">
-                <small *ngIf="weekDay?.errors?.['required']" class="text-danger">This field is required</small>
-            </div>
+<div class="container pt-5">
+    <label class="switch">
+        <input type="checkbox" (change)="Switch($event)">
+        <span class="slider round"></span>
+    </label>
+    <div class="mb-5 mt-2 border-style">
+        <div class="text-center text-white m-0 mb-2 pt-2" id="addShcedule">
+            <h5>Manage Schedules</h5>
         </div>
+        <div class="p-3 row">
 
-        <div class="form-group">
-            <label>From</label>
-            <input [class.is-invalid]="startTime?.invalid &&startTime?.touched" 
-                formControlName="startTime" placeholder="Time" type="time"
-                class="form-control">
-                <!-- <ngx-material-timepicker #frompicker></ngx-material-timepicker> -->
+            <form [formGroup]="ScheduleForm" (ngSubmit)="Save()">
+                <div class="container">
+                    <fieldset [disabled]="!isDisabled">
+                        <div class="row mt-2">
+                            <div class="col">
+                                <label>Date</label>
+                                <input [class.is-invalid]="weekDay?.invalid &&weekDay?.touched" (change)="Search()"
+                                    formControlName="weekDay" type="date" class="form-control">
 
-            <div *ngIf="startTime?.invalid &&startTime?.touched">
-                <small *ngIf="startTime?.errors?.['required']" class="text-danger">This field is required</small>
-            </div>
+                                <div *ngIf="weekDay?.invalid &&weekDay?.touched">
+                                    <small *ngIf="weekDay?.errors?.['required']" class="text-danger">This field is
+                                        required</small>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <label>The time period for the examination</label>
+                                <input [class.is-invalid]="timeInterval?.invalid &&timeInterval?.touched"
+                                    formControlName="timeInterval" type="number" class="form-control">
+
+                                <div *ngIf="timeInterval?.invalid &&timeInterval?.touched">
+                                    <small *ngIf="timeInterval?.errors?.['required']" class="text-danger">This field is
+                                        required</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mt-2">
+                            <div class="col">
+                                <label>From</label>
+                                <input [class.is-invalid]="startTime?.invalid &&startTime?.touched"
+                                    formControlName="startTime" placeholder="Time" type="time" class="form-control">
+
+                                <div *ngIf="startTime?.invalid &&startTime?.touched">
+                                    <small *ngIf="startTime?.errors?.['required']" class="text-danger">This field is
+                                        required</small>
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <label>To</label>
+                                <input [class.is-invalid]="endTime?.invalid &&endTime?.touched"
+                                    formControlName="endTime" placeholder="Time" type="time" class="form-control">
+
+                                <div *ngIf="endTime?.invalid &&endTime?.touched">
+                                    <small *ngIf="endTime?.errors?.['required']" class="text-danger">This field is
+                                        required</small>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <div class="row mt-3">
+                        <div class="col-6">
+                            <button type="submit" class="btn btn-success w-100 me-2" [disabled]="!ScheduleForm.valid">Save</button>
+                        </div>
+                        <div class="col-6">
+                            <button type="button" class="btn btn-default w-100 ms-2" (click)="Cancel()">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
         </div>
-
-        <div class="form-group">
-            <label>To</label>
-            <input [class.is-invalid]="endTime?.invalid &&endTime?.touched" 
-                 formControlName="endTime" placeholder="Time" type="time"
-                class="form-control">
-            <!-- <ngx-material-timepicker #topicker></ngx-material-timepicker> -->
-
-            <div *ngIf="endTime?.invalid &&endTime?.touched">
-                <small *ngIf="endTime?.errors?.['required']" class="text-danger">This field is required</small>
-            </div>
-        </div>
-        <div class="form-group">
-            <label>The time period for the examination</label>
-            <input [class.is-invalid]="timeInterval?.invalid &&timeInterval?.touched" 
-                formControlName="timeInterval" type="number"
-                class="form-control">
-
-            <div *ngIf="timeInterval?.invalid &&timeInterval?.touched">
-                <small *ngIf="timeInterval?.errors?.['required']" class="text-danger">This field is required</small>
-            </div>
-        </div>
-       
-        <div>
-            <button type="submit" class="btn btn-success btn-block">Save</button>
-            <button type="button" class="btn btn-danger  btn-block" (click)="Cancel()">Cancel</button>    
-        </div>
-        
-    </form>
+    </div>
 </div>
