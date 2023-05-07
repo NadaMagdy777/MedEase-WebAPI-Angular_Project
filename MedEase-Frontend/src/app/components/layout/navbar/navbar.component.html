@@ -50,13 +50,25 @@
                 {{ loggedUserName | navUserName }}</span
               >
             </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" routerLink="/account/profile">My Profile</a>
-              <a class="dropdown-item" routerLink="/account/insurance">My Insurance</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" routerLink="/account/medicalHistory">Medical History</a>
-              <a class="dropdown-item" href="#">Something else here</a>
-            </div>
+            <ng-container *ngIf="currentUserRole() === 'Patient'" >
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" routerLink="/account/profile">My Profile</a>
+                <a class="dropdown-item" routerLink="/account/insurance">My Insurance</a>
+                <a class="dropdown-item" routerLink="/account/medicalHistory">Medical History</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" routerLink="/account/questions">Questions</a>
+                <a class="dropdown-item" routerLink="/account/Appointment">Appointments</a>
+              </div>
+          </ng-container>
+            <ng-container *ngIf="currentUserRole() === 'Doctor'" >
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" routerLink="/doctor/profile">My Profile</a>
+                <a class="dropdown-item" routerLink="/doctor/schedule">Schedule</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" routerLink="/doctor/Appointment">Appointments</a>
+                <a class="dropdown-item" routerLink="/doctor/questions">Questions</a>
+              </div>
+          </ng-container>
             <!-- <span class="mx-1">|</span> -->
           </li>
         </ng-container>

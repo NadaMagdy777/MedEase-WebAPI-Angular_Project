@@ -325,6 +325,7 @@ namespace MedEase.EF.Services
             if (orgdoctorschedule != null)
             {
                 orgdoctorschedule.Id = doctorEditScheduleDto.Id;
+                orgdoctorschedule.IsWorking = doctorEditScheduleDto.IsWorking;
                 orgdoctorschedule.DoctorId = doctorEditScheduleDto.DoctorId;
                 orgdoctorschedule.WeekDay = DateTime.Parse(doctorEditScheduleDto.WeekDay);
                 orgdoctorschedule.StartTime = TimeSpan.Parse(doctorEditScheduleDto.StartTime);

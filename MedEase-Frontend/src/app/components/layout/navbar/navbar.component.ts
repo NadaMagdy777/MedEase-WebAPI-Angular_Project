@@ -20,7 +20,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
         this.isUserLogged = res;
       })
     );
-      
+
     this.allSubscriptions.push(
       this._userAuthService.getLoggedUserNameAsObservable().subscribe((res) => {
         this.loggedUserName = res;
@@ -34,5 +34,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   onLogOut(): void {
     this._userAuthService.logout();
+  }
+
+  currentUserRole(): string {
+    return this._userAuthService.getLoggedUserRole;
   }
 }
