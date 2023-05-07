@@ -128,7 +128,8 @@ export class DoctorScheduleComponent {
     
   } 
   Search():void {
-
+    this.scheduleExist = false;
+    
     const date = new Date(this.ScheduleForm.get('weekDay')?.value);
     const formattedDate = new DatePipe('en-US').transform(date, 'M/d/yyyy');
 
@@ -143,11 +144,24 @@ export class DoctorScheduleComponent {
             this.scheduleExist = true;
             this.LoadFormData();
           }
+          
         })
       }, 
       error: (error: any) => this.errorMessage = error 
     });  
-    
+    if(this.scheduleExist==false){
+      this.schedule = 
+      {
+        id: 0,
+        doctorId: this.id,
+        isWorking: this.isDisabled,
+        weekDay: new DatePipe('en-US').transform(date, 'yyyy-MM-dd'),
+        startTime: undefined,
+        endTime: undefined,
+        timeInterval: 10,
+      }
+      this.LoadFormData();
+    }
   }
   Cancel() : void { 
     if(window.confirm('Are you sure, you want to cancel, you are about to lose the new data?')){
