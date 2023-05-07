@@ -9,7 +9,6 @@ export class DoctorEdit{
         public region :string,
         public city :string,
         public street :string,
-        public waitingTime:any,
         public email:string,
         
     ){}

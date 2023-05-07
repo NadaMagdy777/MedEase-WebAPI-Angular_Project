@@ -16,6 +16,8 @@ export class ProfileComponent {
   id:number = parseInt(this._userAuthService.getLoggedUserId);
   errorMessage: any;
 
+  isUpdated:boolean = false;
+
   patient:Patient = {
     firstName: '',
     lastName: '',
@@ -174,6 +176,8 @@ export class ProfileComponent {
       this._patientService.UpdatePatientInfo(this.id, this.patient)
       .subscribe(); 
     }
+
+    this.isUpdated = !this.isUpdated;
   }
 
   Cancel() : void { 

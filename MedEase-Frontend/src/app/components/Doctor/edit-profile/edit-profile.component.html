@@ -2,12 +2,12 @@
     <div>
         <form [formGroup]="imageForm">
             <div class="text-center mx-auto mt-3 w-50">                
-                <img [src]="imageUrl" class="rounded-circle" width="150" height="150"/>
+                <img [src]="imageUrl" class="rounded-circle" width="170" height="170"/>
                 <input class="form-control mt-3" type="file" accept="image/*" (change)="ProcessFile($event)">
             </div>
         </form>
     </div>
-    <div class="mb-5 mt-5 border-style">
+    <div class="mb-3 mt-5 border-style">
 
         <div class="text-center w-100 text-white m-0 mb-2 align-items-center justify-content-center d-flex" id="manageProfile">
             <h5>Manage Profile</h5>
@@ -81,15 +81,7 @@
                                 <small *ngIf="fees?.errors?.['required']">fees is required</small>
                             </div>
                         </div>
-                        <div class="col">
-                            <label>waitingTime</label>
-                            <input type="number" class="form-control" formControlName="waitingTime"
-                                [class.is-invalid]="waitingTime?.touched &&waitingTime?.invalid">
-
-                            <div *ngIf="waitingTime?.touched &&waitingTime?.invalid" class="text-danger">
-                                <small *ngIf="waitingTime?.errors?.['required']">waiting Time is required</small>
-                            </div>
-                        </div>
+                        
                     </div>
 
                     <div formGroupName="address">
@@ -142,5 +134,9 @@
                 </div>
             </form>
         </div>
-        </div>
+    </div>
+
+    <div class="alert alert-success mb-5" [hidden]="!isUpdated">
+        <strong>Success!</strong> Updated Successfully.
+    </div>   
 </div>
