@@ -3,7 +3,7 @@
         <input type="checkbox" (change)="Switch($event)">
         <span class="slider round"></span>
     </label>
-    <div class="mb-5 mt-2 border-style">
+    <div class="mb-3 mt-2 border-style">
         <div class="text-center text-white m-0 mb-2 pt-2" id="addShcedule">
             <h5>Manage Schedules</h5>
         </div>
@@ -67,10 +67,24 @@
                         <div class="col-6">
                             <button type="button" class="btn btn-default w-100 ms-2" (click)="Cancel()">Cancel</button>
                         </div>
+                        {{ScheduleForm.valid}}
+                        {{endTime?.errors | json}}
+                        {{startTime?.errors | json}}
+                        {{timeInterval?.errors | json}}
+                        {{weekDay?.errors | json}}
                     </div>
                 </div>
 
             </form>
         </div>
+    </div>
+
+    <div class="mb-5">
+        <div class="alert alert-success" [hidden]="!isSaved">
+            <strong>Success!</strong> Saved Successfully.
+        </div>  
+        <div class="alert alert-success" [hidden]="!isUpdated">
+            <strong>Success!</strong> Updated Successfully.
+        </div>  
     </div>
 </div>

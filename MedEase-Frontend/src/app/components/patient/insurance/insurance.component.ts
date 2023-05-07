@@ -18,6 +18,9 @@ export class InsuranceComponent {
   id:number = parseInt(this._userAuthService.getLoggedUserId);
   errorMessage: any;
 
+  isSaved:boolean = false;
+  isUpdated:boolean = false;
+
   allInsurance:IInsurance[] = [];
 
   insurance:Insurance = {
@@ -114,7 +117,7 @@ export class InsuranceComponent {
       .subscribe(response => {
         console.log(response)
       });
-      alert('saved successfully');
+      this.isSaved = !this.isSaved;
     }
 
     else{
@@ -122,7 +125,7 @@ export class InsuranceComponent {
       .subscribe(response => {
         console.log(response)
       });
-      alert('updated successfully');
+      this.isUpdated = !this.isUpdated;
     }
   }
   Cancel():void{

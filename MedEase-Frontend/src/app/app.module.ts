@@ -24,6 +24,7 @@ import { DoctorAnswerdQuestionsComponent } from './components/patient/questions/
 import { DoctorUnAnswerdComponent } from './components/patient/questions/doctor/doctor-un-answerd/doctor-un-answerd.component';
 import { AnswerQuestionComponent } from './components/patient/questions/doctor/answer-question/answer-question.component';
 import { QuestionsLayoutComponent } from './components/patient/questions/doctor/questions-layout/questions-layout.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -58,6 +59,7 @@ import { QuestionsLayoutComponent } from './components/patient/questions/doctor/
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    NgbModule
   ],
   providers: [
     {

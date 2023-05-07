@@ -10,6 +10,7 @@ namespace MedEase.EF.Services
     {
         Task<List<DoctorAppointmentAndPatternDto>> GetPatternAndAppointmentAsync(int Id);
         Task<DoctorSchedule> CreateScheduleAsync(DoctorScheduleDto ScheduleDto);
+        Task<List<DoctorInfoGetDto>> GetTopRatedDoctors();
         Task<List<DoctorInfoGetDto>> GetAllDoctors();
         Task<IEnumerable<ReviewDto>> GetDoctorReviews(int Id);
         Task<ApiResponse> CreateReview(ReviewDto dto);

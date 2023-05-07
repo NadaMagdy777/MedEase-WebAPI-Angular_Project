@@ -32,6 +32,16 @@ export class DoctorService {
       })
     );
   }
+
+  
+  GetTopRated(): Observable<IApiResponse> {
+    return this.http.get<IApiResponse>(this._url +"/GetTopRatedDoctors").pipe(
+      catchError((err) => {
+       
+        return throwError(() => err.message || 'server error');
+      })
+    );
+  }
   GetDoctorByID(id:number):Observable<Doctor[]>
   {
     return this.http.get<Doctor[]>(this._url+"/id?ID="+id).pipe(catchError((err)=>{

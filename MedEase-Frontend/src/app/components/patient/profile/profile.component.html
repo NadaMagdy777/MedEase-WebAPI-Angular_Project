@@ -1,5 +1,5 @@
 <div class="container">
-    <div class="mb-5 mt-5 border-style">
+    <div class="mb-3 mt-5 border-style">
         <div class="text-center w-100 text-white m-0 mb-2 align-items-center justify-content-center d-flex" id="manageProfile">
             <h5>Manage Profile</h5>
         </div>
@@ -112,5 +112,8 @@
             </form>
         </div>
     </div>
+    <div class="alert alert-success mb-5" [hidden]="!isUpdated">
+        <strong>Success!</strong> Updated Successfully.
+    </div>  
 </div>
 

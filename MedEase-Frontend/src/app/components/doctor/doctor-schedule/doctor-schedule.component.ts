@@ -15,6 +15,8 @@ export class DoctorScheduleComponent {
   id:number = parseInt(this._userAuthService.getLoggedUserId);
   errorMessage: any;
 
+  isSaved:boolean = false;
+  isUpdated:boolean = false;
   isDisabled:boolean=false;
   scheduleExist:boolean = false;
 
@@ -103,6 +105,10 @@ export class DoctorScheduleComponent {
         console.log(response)
       });
       this.scheduleExist = false;
+      this.isUpdated = true;
+      setTimeout(()=>{
+        this.isUpdated = false;
+      },5000)
     } 
     else if(this.schedule.weekDay != null){
 
@@ -110,10 +116,15 @@ export class DoctorScheduleComponent {
       .subscribe(response => {
         console.log(response)
       });
+
+      this.isSaved = true;
+      setTimeout(()=>{
+        this.isSaved = false;
+      },5000)
     }
 
     this.ScheduleForm.reset();
-    alert('saved successfully');
+    
   } 
   Search():void {
 
@@ -124,12 +135,10 @@ export class DoctorScheduleComponent {
       next: (data: any) => {
         (data.data).forEach((element: any) => {
           if((element.weekDay).includes(formattedDate)){
-
             this.schedule = element;
             this.schedule.weekDay = new DatePipe('en-US').transform(date, 'yyyy-MM-dd'); 
             this.scheduleExist = true;
             this.LoadFormData();
-            
           }
         })
       }, 
