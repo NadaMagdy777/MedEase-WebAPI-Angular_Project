@@ -17,6 +17,8 @@ import { ReviewComponent } from 'src/app/components/patient/review/review.compon
 import { NgxPaginationModule } from 'ngx-pagination';
 import { InsuranceComponent } from 'src/app/components/patient/insurance/insurance.component';
 import { ShowDiagnosisComponent } from 'src/app/components/patient/show-diagnosis/show-diagnosis.component';
+import { BirthdateToAgePipe } from 'src/app/pipes/birthdate-to-age.pipe';
+import { ExaminationInfoComponent } from 'src/app/components/patient/examination-info/examination-info.component';
 
 
 @NgModule({
@@ -30,7 +32,9 @@ import { ShowDiagnosisComponent } from 'src/app/components/patient/show-diagnosi
     PenddingAppointmentComponent,
     ReviewComponent,
     ReviewComponent,
-    ShowDiagnosisComponent
+    ShowDiagnosisComponent,
+    BirthdateToAgePipe,
+    ExaminationInfoComponent
 
 
   ],
@@ -40,7 +44,8 @@ import { ShowDiagnosisComponent } from 'src/app/components/patient/show-diagnosi
     ReactiveFormsModule,
     RouterModule,
     NgxPaginationModule,
-    NgbModule
+    NgbModule,
+    
   ],
   providers:[{
     provide: HTTP_INTERCEPTORS,

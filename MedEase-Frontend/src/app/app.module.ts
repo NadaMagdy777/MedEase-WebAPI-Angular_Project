@@ -20,7 +20,6 @@ import { DoctorRegisterComponent } from './components/authentication/doctor-regi
 import { AnsweredQuestionsComponent } from './components/patient/questions/answered/answered-questions/answered-questions.component';
 import { UnansweredQuestionsComponent } from './components/patient/questions/unanswered/unanswered-questions/unanswered-questions.component';
 import { PatientQuestionsComponent } from './components/patient/questions/patient-questions/patient-questions.component';
-import { ExaminationInfoComponent } from './components/patient/examination-info/examination-info.component';
 import { DoctorAnswerdQuestionsComponent } from './components/patient/questions/doctor/doctor-answerd-questions/doctor-answerd-questions.component';
 import { DoctorUnAnswerdComponent } from './components/patient/questions/doctor/doctor-un-answerd/doctor-un-answerd.component';
 import { AnswerQuestionComponent } from './components/patient/questions/doctor/answer-question/answer-question.component';
@@ -44,7 +43,6 @@ import { QuestionsLayoutComponent } from './components/patient/questions/doctor/
     PatientQuestionsComponent,
     
     LoginComponent,
-    ExaminationInfoComponent,
     DoctorAnswerdQuestionsComponent,
     DoctorUnAnswerdComponent,
     AnswerQuestionComponent,

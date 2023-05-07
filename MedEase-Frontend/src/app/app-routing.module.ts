@@ -16,7 +16,6 @@ const routes: Routes = [
   {path:'account',loadChildren:()=>import('./modules/patient/patient.module').then(mod=>mod.PatientModule)},
   {path:'userAppointments',component:AppointmentsComponent},
   {path:'userInsurance',component:InsuranceComponent},
-  {path:'history/:id',component:ExaminationInfoComponent},
 
   
   {path:'reserve-appointement',component:ReserveAppointementComponent},

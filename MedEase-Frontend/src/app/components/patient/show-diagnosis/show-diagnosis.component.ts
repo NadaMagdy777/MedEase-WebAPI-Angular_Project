@@ -33,12 +33,13 @@ export class ShowDiagnosisComponent {
         .getPateintConfirmedAppointments()
         .subscribe((res) => {
           if (res.success) {
-            this.description = res.data.find((details:IPatientAppointmentDetailsDto)=>{
+             var diagnosis = res.data.find((details:IPatientAppointmentDetailsDto)=>{
               if(details.appointmentID==this.appointmentId){
                 return details.diagnosisDetails
               }
               return ""
             });
+            this.description=diagnosis.diagnosisDetails
             console.log(this.description);
           } else {
             console.log(res.message); 

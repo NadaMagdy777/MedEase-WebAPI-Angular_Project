@@ -14,7 +14,19 @@ import { ImageService } from 'src/app/services/image.service';
 })
 export class ExaminationInfoComponent {
   appointmentId!:number
-  patient!:Patient
+  patient:Patient= {
+    firstName: '',
+    lastName: '',
+    phoneNumber: '',
+    building: 0,
+    street: '',
+    region: '',
+    city: '',
+    birthDate: undefined,
+    email: '',
+    insurance: undefined,
+    history: undefined
+  };
   Somediagnosis:any=[]
   errorMessage: any;
   DiagnosisShowed:number=1
@@ -45,14 +57,13 @@ Gender: any;
           this.Appointmentinfo.investigation.image=this._imageService.base64ArrayToImage(this.Appointmentinfo.investigation.image)
 
         }
-        
+       
+        this.Appointmentinfo.patientGender=Object.keys(Gender)[Object.values(Gender).indexOf(this.Appointmentinfo.patientGender)]
         this.Somediagnosis=this.Appointmentinfo.previousDiagnoses.slice(0,this.DiagnosisShowed)
-        console.log(this.Appointmentinfo)
         this.PatientService.GetPatientById(this.Appointmentinfo.patientID).subscribe({
           next:data=>{
             let dataJson = JSON.parse(JSON.stringify(data))
             this.patient=dataJson.data
-             console.log(this.patient)
            
           
             
