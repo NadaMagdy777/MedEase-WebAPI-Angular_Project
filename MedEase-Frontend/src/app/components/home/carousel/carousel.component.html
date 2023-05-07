@@ -58,11 +58,15 @@
                   class="form-control"
                   [(ngModel)]="selectedName"
                   id="Name"
+                  placeholder="Enter Doctor Name"
                 />
               </div>
             </th>
             <th class="p-1">
-              <a class="btn btn-success w-100 mb-1" href="/doctor/{{selectedSpecialty}}/{{selectedCity}}/{{selectedRegion}}/{{selectedName}}">
+              <a class="btn btn-success w-100 mb-1" *ngIf="selectedName==''" href="/doctor/{{selectedSpecialty}}/{{selectedCity}}/{{selectedRegion}}/All">
+                Search
+              </a>
+              <a class="btn btn-success w-100 mb-1" *ngIf="selectedName!=''" href="/doctor/{{selectedSpecialty}}/{{selectedCity}}/{{selectedRegion}}/{{selectedName}}">
                 Search
               </a>
             

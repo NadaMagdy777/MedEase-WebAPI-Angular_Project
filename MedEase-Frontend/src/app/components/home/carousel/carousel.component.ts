@@ -15,7 +15,7 @@ export class CarouselComponent {
   selectedSpecialty: number = 0;
   selectedCity: string = 'Egypt';
   selectedRegion: string = 'All';
-  selectedName: string = 'All';
+  selectedName: string = '';
   specialties: ISpecialty[] = [];
   cities: string[] = [];
   regions: string[] = [];

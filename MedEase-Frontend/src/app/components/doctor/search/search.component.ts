@@ -14,7 +14,7 @@ export class SearchComponent {
   selectedSpecialtyId: number = 0;
   selectedCity: string = 'Egypt';
   selectedRegion: string = 'All';
-  selectedName: string = 'All';
+  selectedName: string = '';
   specialties: ISpecialty[] = [];
   cities: string[] = [];
   regions: string[] = [];
