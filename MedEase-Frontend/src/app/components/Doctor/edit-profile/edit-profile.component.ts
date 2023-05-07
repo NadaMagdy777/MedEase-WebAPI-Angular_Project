@@ -39,7 +39,8 @@ export class EditProfileComponent {
     email: '',
     profilePicture:undefined,
     clincRating:0,
-    specialityID:0
+    specialityID:0,
+    workingstatus:{today:false,tommorow:false}
 
   };
 

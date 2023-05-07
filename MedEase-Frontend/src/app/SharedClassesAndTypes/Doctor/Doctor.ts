@@ -1,5 +1,6 @@
 import { publishFacade } from "@angular/compiler";
 import { ISubSpecialty } from "src/app/sharedClassesAndTypes/Doctor/isub-specialty";
+import { doctorWorking } from "./doctorworking";
 
 export class Doctor{
     constructor(
@@ -24,6 +25,7 @@ export class Doctor{
         public email:string,
         public profilePicture:any,
         public specialityID:number,
+        public workingstatus:doctorWorking
         
     ){}
 }

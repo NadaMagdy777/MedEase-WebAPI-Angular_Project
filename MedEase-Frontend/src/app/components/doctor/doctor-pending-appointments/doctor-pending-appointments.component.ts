@@ -4,6 +4,7 @@ import { AppointmentService } from './../../../services/appointment/appointment.
 import { Component, OnInit } from '@angular/core';
 import { UserAuthService } from 'src/app/services/authentication/user-auth.service';
 import { IAppointmentActionDto } from 'src/app/sharedClassesAndTypes/appointment/i-appointment-action-dto';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-doctor-pending-appointments',
@@ -13,7 +14,8 @@ import { IAppointmentActionDto } from 'src/app/sharedClassesAndTypes/appointment
 export class DoctorPendingAppointmentsComponent implements OnInit {
   constructor(
     private _appointmentService: AppointmentService,
-    private _userAuthService: UserAuthService
+    private _userAuthService: UserAuthService,
+    private router:Router ,private route:ActivatedRoute
   ) {}
 
   pendingAppointments: IDoctorPendingAppointmentDetailsDto[] = [];
@@ -43,23 +45,25 @@ export class DoctorPendingAppointmentsComponent implements OnInit {
   }
 
   ConfirmStatus(Appoinment:any){
-    console.log(new Date(this.date))
-    console.log(new Date(Appoinment.date))
+    
 
     return (new Date(Appoinment.date).valueOf() <= new Date(this.date).valueOf()) 
      
   }
-  confirmAppointment(AppoinmentId:number){
+  confirmAppointment(AppoinmentId:number,index:number){
     let confirmDto:IAppointmentActionDto=new IAppointmentActionDto(AppoinmentId,true)
     this._appointmentService.confirmDoctorAppointment(confirmDto).subscribe((res) => {
       if (res.success) {
         console.log("success");
+        this.router.navigate(['/doctor/Appointment/Confirmed'])
+
       } else {
         console.log(res.message); 
       }
     })
+
   }
-  cancelAppointment(AppoinmentId:number){
+  cancelAppointment(AppoinmentId:number,index:number){
     let cancelmDto:IAppointmentActionDto=new IAppointmentActionDto(AppoinmentId,false)
     this._appointmentService.confirmDoctorAppointment(cancelmDto).subscribe((res) => {
       if (res.success) {
@@ -68,6 +72,8 @@ export class DoctorPendingAppointmentsComponent implements OnInit {
         console.log(res.message); 
       }
     })
+    this.router.navigate(['/doctor/Appointment/Confirmed'])
+
   }
   SearchData(value:string){
     this.filteredData=this.pendingAppointments

@@ -29,8 +29,8 @@
                 <td>{{appoinment.date|date:"short"}}</td>
                 <td>{{appoinment.patientPhone}}</td>
                 <td *ngIf="ConfirmStatus(appoinment)">
-                  <button class="btn btn-success " (click)="confirmAppointment(appoinment.appointmentID)"> Confirm</button>
-                  <button class="btn btn-danger ml-2 " (click)="cancelAppointment(appoinment.appointmentID)"> Cancel</button>
+                  <button class="btn btn-success " (click)="confirmAppointment(appoinment.appointmentID,i)"> Confirm</button>
+                  <button class="btn btn-danger ml-2 " (click)="cancelAppointment(appoinment.appointmentID,i)"> Cancel</button>
                 </td>
                 <td *ngIf="!ConfirmStatus(appoinment)">
                   <button class="btn btn-success disabled"> Confirm</button>

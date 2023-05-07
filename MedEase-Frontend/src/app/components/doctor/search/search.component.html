@@ -66,7 +66,10 @@
                   </div>
                 </th>
                 <th class="p-1">
-                  <a class="btn btn-success w-100 mb-1" href="/doctor/{{selectedSpecialtyId}}/{{selectedCity}}/{{selectedRegion}}/{{selectedName}}">
+                  <a class="btn btn-success w-100 mb-1" *ngIf="selectedName==''" href="/doctor/{{selectedSpecialtyId}}/{{selectedCity}}/{{selectedRegion}}/All">
+                    Search
+                  </a>
+                  <a class="btn btn-success w-100 mb-1" *ngIf="selectedName!=''" href="/doctor/{{selectedSpecialtyId}}/{{selectedCity}}/{{selectedRegion}}/{{selectedName}}">
                     Search
                   </a>
                 

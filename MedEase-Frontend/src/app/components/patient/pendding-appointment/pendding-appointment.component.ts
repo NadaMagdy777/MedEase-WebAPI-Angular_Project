@@ -45,7 +45,7 @@ export class PenddingAppointmentComponent {
 
   ConfirmStatus(Appoinment:any){
     console.log(new Date())
-    return new Date(Appoinment.date).valueOf() <= new Date().valueOf()    
+    return new Date(Appoinment.date).valueOf() <= new Date().valueOf()  && Appoinment.status !=4   
   }
   confirmAppointment(AppoinmentId:number){
     let confirmDto:IAppointmentActionDto=new IAppointmentActionDto(AppoinmentId,true)
@@ -61,13 +61,16 @@ export class PenddingAppointmentComponent {
   }
   cancelAppointment(AppoinmentId:number){
     let cancelmDto:IAppointmentActionDto=new IAppointmentActionDto(AppoinmentId,false)
-    this._appointmentService.confirmDoctorAppointment(cancelmDto).subscribe((res) => {
+    this._appointmentService.confirmPatientAppointment(cancelmDto).subscribe((res) => {
       if (res.success) {
         console.log("success");
+        this.router.navigate(['/account/Appointment'])
+
       } else {
         console.log(res.message); 
       }
     })
+
   }
   SearchData(value:string){
     this.filteredData=this.pendingAppointments

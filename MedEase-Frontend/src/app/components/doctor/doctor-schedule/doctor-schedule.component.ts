@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserAuthService } from 'src/app/services/authentication/user-auth.service';
-import { ScheduleService } from 'src/app/services/doctor/schedule.service';
+import { ScheduleService } from 'src/app/services/Doctor/schedule.service';
 import { EditSchedule, Schedule } from 'src/app/sharedClassesAndTypes/doctor/schedule';
 
 @Component({
