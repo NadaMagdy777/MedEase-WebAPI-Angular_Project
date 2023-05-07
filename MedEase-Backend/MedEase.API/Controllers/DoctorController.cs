@@ -31,6 +31,14 @@ namespace MedEase.API.Controllers
 
         }
 
+        [HttpGet("GetTopRatedDoctors")]
+        public async Task<IActionResult> GetTopRatedDoctors()
+        {
+
+            return Ok(new ApiResponse(200, true, await _doctorService.GetAllDoctors()));
+
+        }
+
         [HttpGet("id")]
         public async Task<IActionResult> GetDoctor(int ID)
         {
