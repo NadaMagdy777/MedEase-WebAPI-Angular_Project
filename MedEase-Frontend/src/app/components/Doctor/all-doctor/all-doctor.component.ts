@@ -84,18 +84,27 @@ getschduale(doctor:Doctor){
   doctorschduale.forEach((s:EditSchedule[])=>{
     let dataJson = JSON.parse(JSON.stringify(s))
       let doctorSchduale =dataJson.data
+      console.log(doctorSchduale)
     if(doctorSchduale.length>0){
       doctorSchduale.forEach((secduale:EditSchedule)=>{
         secduale.weekDay=(secduale.weekDay).split(' ')[0]
         if(new Date(secduale.weekDay).getDay()==new Date().getDay()){
-         
+         console.log(doctor.name)
           doctor.workingstatus.today=true
 
 
         }
-        else if(new Date(secduale.weekDay).getDay()==new Date().getDay()+1){
+        else{
+          doctor.workingstatus.today=false
+        }
+        if(new Date(secduale.weekDay).getDay()==new Date().getDay()+1){
+          console.log(doctor.name)
+
           doctor.workingstatus.tommorow=true
         }
+        else{
+          doctor.workingstatus.tommorow=false
+                }
       }
       ) 
     }
@@ -119,6 +128,7 @@ Doctorfilter(){
     this.filterDoctorByFees()
   }
   if(this.filterExamination.length>0){
+    console.log("filterby Examination")
     this.filterDoctorByExaminationDate()
 
   }
@@ -127,12 +137,18 @@ Doctorfilter(){
 
 filterDoctorByExaminationDate(){
   if(this.filterExamination.includes(1)){
+    console.log("filterby today")
+
     this.filteredDoctorList=this.filteredDoctorList.filter((doctor:Doctor)=>{
-      return doctor.workingstatus.today==true
+      console.log(doctor.workingstatus.today)
+      return doctor.workingstatus.today===true
       
     });
+
   }
   if(this.filterExamination.includes(2)){
+    console.log("filterby tommor")
+
     this.filteredDoctorList=this.filteredDoctorList.filter((doctor:Doctor)=>{
       return doctor.workingstatus.tommorow==true
       
