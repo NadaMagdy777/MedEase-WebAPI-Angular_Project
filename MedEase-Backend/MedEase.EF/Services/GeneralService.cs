@@ -47,6 +47,7 @@ namespace MedEase.EF.Services
           
            return new(200, true, _mapper.Map<IEnumerable<SubspecialityDto>>(await _unitOfWork.SubSpeciality.FindAllAsync(s=>s.specialityID== SpecialityId)));
         }
+
         public async Task<ApiResponse> BasicInformation(int SpecialityId)
         {
             if (SpecialityId > 0)
@@ -72,6 +73,36 @@ namespace MedEase.EF.Services
 
             }
 
+        }
+
+        public async Task<ApiResponse> GetCommonInsurance(int docId, int patientId)
+        {
+            int? insurance = await _unitOfWork.PatientInsurance
+                .FindDtoAsync(i => i.PatientID == patientId,i => i.InsuranceID);
+
+            if (insurance.Value == 0)
+            {
+                return new ApiResponse(400, false, null, "patient is not Insured");
+            }
+
+            int? commoInsId = await _unitOfWork.DoctorInsurance
+                .FindDtoAsync(i => i.InsuranceID == insurance.Value && i.DoctorID == docId,
+                i => i.InsuranceID);
+
+            if (commoInsId.Value == 0)
+            {
+                return new ApiResponse(400, false, null, "There are no common insurance");
+            }
+
+            InsuranceDto commonInsurance = await _unitOfWork.Insurance
+                .FindDtoAsync(i => i.ID == commoInsId,
+                i => new InsuranceDto
+                {
+                    ID = i.ID,
+                    Company = i.Company,
+                });
+
+            return new ApiResponse(200, true, commonInsurance);
         }
     }
 }

@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { UserAuthService } from 'src/app/services/authentication/user-auth.service';
 import { ScheduleService } from 'src/app/services/Doctor/schedule.service';
 import { EditSchedule, Schedule } from 'src/app/sharedClassesAndTypes/doctor/schedule';
@@ -35,6 +36,7 @@ export class DoctorScheduleComponent {
   constructor(
     private _scheduleService:ScheduleService,
     private _userAuthService:UserAuthService,
+    public router: Router,
     private fb:FormBuilder
   )
   {
@@ -108,10 +110,10 @@ export class DoctorScheduleComponent {
       this.isUpdated = true;
       setTimeout(()=>{
         this.isUpdated = false;
-      },5000)
+      },3000)
     } 
     else if(this.schedule.weekDay != null){
-
+      
       this._scheduleService.AddSchedule(this.schedule)
       .subscribe(response => {
         console.log(response)
@@ -120,14 +122,14 @@ export class DoctorScheduleComponent {
       this.isSaved = true;
       setTimeout(()=>{
         this.isSaved = false;
-      },5000)
+      },3000)
     }
-
     this.ScheduleForm.reset();
     
   } 
   Search():void {
-
+    this.scheduleExist = false;
+    
     const date = new Date(this.ScheduleForm.get('weekDay')?.value);
     const formattedDate = new DatePipe('en-US').transform(date, 'M/d/yyyy');
 
@@ -135,15 +137,31 @@ export class DoctorScheduleComponent {
       next: (data: any) => {
         (data.data).forEach((element: any) => {
           if((element.weekDay).includes(formattedDate)){
+            
             this.schedule = element;
+            this.schedule.isWorking = this.isDisabled;
             this.schedule.weekDay = new DatePipe('en-US').transform(date, 'yyyy-MM-dd'); 
             this.scheduleExist = true;
             this.LoadFormData();
           }
+          
         })
       }, 
       error: (error: any) => this.errorMessage = error 
     });  
+    if(this.scheduleExist==false){
+      this.schedule = 
+      {
+        id: 0,
+        doctorId: this.id,
+        isWorking: this.isDisabled,
+        weekDay: new DatePipe('en-US').transform(date, 'yyyy-MM-dd'),
+        startTime: undefined,
+        endTime: undefined,
+        timeInterval: 10,
+      }
+      this.LoadFormData();
+    }
   }
   Cancel() : void { 
     if(window.confirm('Are you sure, you want to cancel, you are about to lose the new data?')){
@@ -159,6 +177,5 @@ export class DoctorScheduleComponent {
   Switch(event:any){
     this.isDisabled=!this.isDisabled;
     this.isWorking?.setValue(!this.isWorking.value)
-    
   }
 }
