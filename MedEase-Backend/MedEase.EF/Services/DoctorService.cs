@@ -18,6 +18,7 @@ using System.Text.RegularExpressions;
 using System.Numerics;
 using MedEase.EF.Data;
 using System.Drawing.Printing;
+using System.Collections;
 
 namespace MedEase.EF.Services
 {
@@ -61,15 +62,10 @@ namespace MedEase.EF.Services
             List<DoctorInfoGetDto> doctorsDTOs;
 
             doctorsDTOs = new List<DoctorInfoGetDto>();
+            doctorsDTOs = await GetAllDoctors();
 
-            IEnumerable<Doctor> result = await _unitOfWork.Doctors
-                .FindAllAsync(d => d.IsConfirmed == true);
-            foreach (Doctor doctor in result)
-            {
-                DoctorInfoGetDto doctorDTO = await GetDoctor(doctor.ID);                    //////////          WEIRD       <<<================
-                doctorsDTOs.Add(doctorDTO);
-            }
-            return doctorsDTOs.Take(3).ToList();
+
+            return doctorsDTOs.OrderByDescending(d => d.Rating).Take(3).ToList();
         }
 
 

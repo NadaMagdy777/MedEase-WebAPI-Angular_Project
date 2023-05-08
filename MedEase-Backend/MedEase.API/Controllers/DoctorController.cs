@@ -35,7 +35,7 @@ namespace MedEase.API.Controllers
         public async Task<IActionResult> GetTopRatedDoctors()
         {
 
-            return Ok(new ApiResponse(200, true, await _doctorService.GetAllDoctors()));
+            return Ok(new ApiResponse(200, true, await _doctorService.GetTopRatedDoctors()));
 
         }
 
