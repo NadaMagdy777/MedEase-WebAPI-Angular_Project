@@ -28,8 +28,6 @@ export class HomeBannerComponent {
       error:(error)=>{console.log(error);}
     })
   }
-  gotToDetails(id:number){
-    this.router.navigate(['/doctor/details/'+id])
-  }
+ 
 
 }

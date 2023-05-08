@@ -40,7 +40,7 @@ export class EditProfileComponent {
     profilePicture:undefined,
     clincRating:0,
     specialityID:0,
-    workingstatus:{today:false,tommorow:false}
+    workingstatus:{today:false,tommorow:false,AnyDay:false}
 
   };
 

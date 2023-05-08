@@ -19,10 +19,7 @@ filteredDoctorList:Doctor[]=this.DoctorList
 errorMessage: any;
 genderFilter:number[]=[]
 feesFilter:number=0
-workstatus:doctorWorking={
-  today: false,
-  tommorow: false
-}
+
 subspecialityFilter:number[]=[]
 selectedSorting:any=0
 specialityId:number=0
@@ -78,14 +75,20 @@ ngOnInit(): void {
 }
 
 getschduale(doctor:Doctor){
-  doctor.workingstatus=this.workstatus
-
+ 
+  var workstatus:doctorWorking={
+    AnyDay:false,
+    today: false,
+    tommorow: false
+  }
+  doctor.workingstatus=workstatus
   var doctorschduale=this.DoctorSchduale.GetAllDoctorSchedules(doctor.id)
   doctorschduale.forEach((s:EditSchedule[])=>{
     let dataJson = JSON.parse(JSON.stringify(s))
       let doctorSchduale =dataJson.data
       console.log(doctorSchduale)
     if(doctorSchduale.length>0){
+      doctor.workingstatus.AnyDay=true
       doctorSchduale.forEach((secduale:EditSchedule)=>{
         secduale.weekDay=(secduale.weekDay).split(' ')[0]
         if(new Date(secduale.weekDay).getDay()==new Date().getDay()){
@@ -136,24 +139,35 @@ Doctorfilter(){
 }
 
 filterDoctorByExaminationDate(){
-  if(this.filterExamination.includes(1)){
-    console.log("filterby today")
+  if(this.filterExamination.includes(0)){
+    this.filteredDoctorList=this.filteredDoctorList.filter((doctor:Doctor)=>{
+      return doctor.workingstatus.AnyDay===true
+
+    })
+  }
+  else{
 
     this.filteredDoctorList=this.filteredDoctorList.filter((doctor:Doctor)=>{
-      console.log(doctor.workingstatus.today)
-      return doctor.workingstatus.today===true
+      if(this.filterExamination.includes(1) && this.filterExamination.includes(2)){
+        return doctor.workingstatus.today===true ||doctor.workingstatus.tommorow==true
+
+      }
+      else if(this.filterExamination.includes(1)){
+        return doctor.workingstatus.today===true
+      }
+      else if(this.filterExamination.includes(2)){
+        return doctor.workingstatus.tommorow===true
+      }
+      else{
+        return true;
+      }
       
     });
 
   }
-  if(this.filterExamination.includes(2)){
-    console.log("filterby tommor")
+ 
+  
 
-    this.filteredDoctorList=this.filteredDoctorList.filter((doctor:Doctor)=>{
-      return doctor.workingstatus.tommorow==true
-      
-    });
-  }
   
 
 }
@@ -289,7 +303,7 @@ onSubSpecialityChange(subspecialityId:number,event:any){
 
   filterDoctorByName(){
     this.DoctorList=this.DoctorList.filter((doctor:Doctor)=>{
-      return doctor.name.indexOf(this.Doctorname) > -1
+      return doctor.name.toLowerCase().indexOf(this.Doctorname.toLowerCase()) > -1
     });
   }
   changeSorting(selectObject:any) {
