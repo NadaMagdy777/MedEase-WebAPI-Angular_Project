@@ -52,5 +52,11 @@ namespace MedEase.API.Controllers
         {
             return Ok(await _generalService.BasicInformation(Id));
         }
+
+        [HttpGet ("insurance/{docId:int}/{patientId:int}")]
+        public async Task<ActionResult<ApiResponse>> GetCommonInsurance(int docId, int patientId)
+        {
+            return Ok(await _generalService.GetCommonInsurance(docId, patientId));
+        }
     }
 }
