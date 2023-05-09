@@ -1,13 +1,13 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { DoctorService } from 'src/app/services/Doctor/doctor.service';
-import { Doctor } from 'src/app/sharedClassesAndTypes/Doctor/Doctor';
+import { DoctorService } from 'src/app/services/doctor/doctor.service';
+import { Doctor } from 'src/app/sharedClassesAndTypes/doctor/Doctor';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { ISubSpecialty } from 'src/app/sharedClassesAndTypes/Doctor/isub-specialty';
+import { ISubSpecialty } from 'src/app/sharedClassesAndTypes/doctor/isub-specialty';
 import { SpecialtiesService } from 'src/app/services/specialities/specialities.service';
 import { ImageService } from 'src/app/services/image.service';
-import { ScheduleService } from 'src/app/services/Doctor/schedule.service';
+import { ScheduleService } from 'src/app/services/doctor/schedule.service';
 import { EditSchedule, Schedule } from 'src/app/sharedClassesAndTypes/doctor/schedule';
-import { doctorWorking } from 'src/app/sharedClassesAndTypes/Doctor/doctorworking';
+import { doctorWorking } from 'src/app/sharedClassesAndTypes/doctor/doctorworking';
 @Component({
   selector: 'app-all-doctor',
   templateUrl: './all-doctor.component.html',

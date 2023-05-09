@@ -1,5 +1,5 @@
 import { publishFacade } from "@angular/compiler";
-import { ISubSpecialty } from "src/app/sharedClassesAndTypes/Doctor/isub-specialty";
+import { ISubSpecialty } from "src/app/sharedClassesAndTypes/doctor/isub-specialty";
 import { doctorWorking } from "./doctorworking";
 
 export class Doctor{

@@ -9,12 +9,11 @@
 
         <div class="from-group" *ngIf="hasInsurance">            
             <select formControlName="insurancesId" class="form-select">
-                <option disabled selected>ay kalam </option>
-                <option selected value="1">ay kalam </option>
-                <option *ngFor="let place of insurances">
-                    {{place}}
+                <option selected *ngIf="insurance !== null" value="{{insurance.id}}">
+                    {{insurance.company}}
                 </option>
             </select>
+            <!-- <input type="text" formControlName="insurancesId" class="form-control" readonly> -->
             <small class="text-danger" *ngIf="insurancesId?.invalid && insurancesId?.touched">This Field is required</small>
             <br>
         </div>

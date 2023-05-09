@@ -2,12 +2,13 @@ import { environment } from './../../../environments/environment';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Doctor } from 'src/app/sharedClassesAndTypes/Doctor/Doctor';
-import { DoctorEdit } from 'src/app/sharedClassesAndTypes/Doctor/doctorEdit';
-import { IreserveAppointement } from 'src/app/sharedClassesAndTypes/Doctor/IReserveAppointement';
+import { Doctor } from 'src/app/sharedClassesAndTypes/doctor/Doctor';
+import { DoctorEdit } from 'src/app/sharedClassesAndTypes/doctor/doctorEdit';
+import { IreserveAppointement } from 'src/app/sharedClassesAndTypes/doctor/IReserveAppointement';
 import { IDiagnosisDto } from 'src/app/sharedClassesAndTypes/diagnosis/i-diagnosis-dto';
 import { IApiResponse } from 'src/app/sharedClassesAndTypes/iapi-response';
 import { Review } from 'src/app/sharedClassesAndTypes/review/review';
+import { Insurance } from 'src/app/sharedClassesAndTypes/patient/insurance';
 
 @Injectable({
   providedIn: 'root',
@@ -90,4 +91,5 @@ export class DoctorService {
     return this.http.post<IApiResponse>(this._url + '/Reviews', data);
 
   }
+
 }

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { DoctorService } from 'src/app/services/Doctor/doctor.service';
+import { DoctorService } from 'src/app/services/doctor/doctor.service';
 import { ImageService } from 'src/app/services/image.service';
 import { SpecialtiesService } from 'src/app/services/specialities/specialities.service';
-import { Doctor } from 'src/app/sharedClassesAndTypes/Doctor/Doctor';
+import { Doctor } from 'src/app/sharedClassesAndTypes/doctor/Doctor';
 import { IApiResponse } from 'src/app/sharedClassesAndTypes/iapi-response';
 
 @Component({

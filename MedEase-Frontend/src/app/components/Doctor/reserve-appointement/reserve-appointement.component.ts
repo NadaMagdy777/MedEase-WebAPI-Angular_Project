@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { DoctorService } from 'src/app/services/Doctor/doctor.service';
-import { IreserveAppointement } from 'src/app/sharedClassesAndTypes/Doctor/IReserveAppointement';
+import { DoctorService } from 'src/app/services/doctor/doctor.service';
+import { IreserveAppointement } from 'src/app/sharedClassesAndTypes/doctor/IReserveAppointement';
 import { UserAuthService } from 'src/app/services/authentication/user-auth.service';
+import { InsuranceService } from 'src/app/services/insurance/insurance.service';
+import { Insurance } from 'src/app/sharedClassesAndTypes/patient/insurance';
+import { IInsurance } from 'src/app/sharedClassesAndTypes/shared/iinsurance';
 
 @Component({
   selector: 'app-reserve-appointement',
@@ -12,7 +15,7 @@ import { UserAuthService } from 'src/app/services/authentication/user-auth.servi
 })
 export class ReserveAppointementComponent  {
   date:Date = new Date();
-  patientID:number = 0;
+  patientID:number = parseInt(this.userAuthService.getLoggedUserId);
   doctorID:number = 0;
   hasInsurance: boolean = false;
   hasInvestigations:boolean = false;
@@ -20,7 +23,11 @@ export class ReserveAppointementComponent  {
 
   state:any;
   selectedtimestring:string="";
-  insurances:[]=[];
+  insurance:IInsurance={
+    id: 0,
+    company: ''
+  };
+ 
   data!:IreserveAppointement;
 
   registerationForm=this.fb.group({
@@ -28,6 +35,7 @@ export class ReserveAppointementComponent  {
     description:[''],
     image:[''],
   })
+  errorMessage: any;
 
   changehasinsurence(){
     this.hasInsurance = !this.hasInsurance;
@@ -95,7 +103,11 @@ export class ReserveAppointementComponent  {
     return this.registerationForm.get('image');
   }
 
-  constructor(private fb:FormBuilder,private router:Router,private doctorService:DoctorService,private userAuthService: UserAuthService) { 
+  constructor(private fb:FormBuilder,
+    private router:Router,
+    private doctorService:DoctorService,
+    private insuranceService:InsuranceService,
+    private userAuthService: UserAuthService) { 
     this.state = this.router.getCurrentNavigation()?.extras.state;
     this.data = {
                   date : "",
@@ -131,6 +143,7 @@ export class ReserveAppointementComponent  {
         selectedtime[0] = '00'
     }
     
+
     //set the date to the date the user select
     this.date = new Date(selectedDate[2], +selectedDate[0] - 1,selectedDate[1],+selectedtime[0],+selectedtime[1],+selectedtime[2]);
     
@@ -143,6 +156,16 @@ export class ReserveAppointementComponent  {
     
     this.data.patientID = <number> <unknown>this.userAuthService.getLoggedUserId;    
   
+    this.insuranceService.GetCommonInsurancesPatient_Doctor(this.doctorID,this.patientID)
+    .subscribe({
+      next:(data: any)=> {
+        let dataJson = JSON.parse(JSON.stringify(data))
+        this.insurance = dataJson.data;
+        console.log(data);
+        console.log(this.insurance,typeof(this.insurance));
+    },
+    error:(error: any)=>this.errorMessage=error
+    });
   }
 
   submitData()
@@ -153,11 +176,9 @@ export class ReserveAppointementComponent  {
       this.data.description = <string> this.description?.value;
       
     this.doctorService.ReserveAppointement(this.data).subscribe({
-      next:(res)=>{console.log(res)},
+      next:(res)=>{this.router.navigate(["Home"]);},
       error:(error)=>{console.log(error)}
     });
-    this.router.navigate(["Home"]);//////////////////////////////////////////////////////////////////////
-
      
   }
 
