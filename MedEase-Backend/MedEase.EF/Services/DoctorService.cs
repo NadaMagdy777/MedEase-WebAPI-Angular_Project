@@ -65,7 +65,7 @@ namespace MedEase.EF.Services
             doctorsDTOs = await GetAllDoctors();
 
 
-            return doctorsDTOs.OrderByDescending(d => d.Rating).Take(3).ToList();
+            return doctorsDTOs.OrderByDescending(d => d.Rating).Take(4).ToList();
         }
 
 

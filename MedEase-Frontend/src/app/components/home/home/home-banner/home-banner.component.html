@@ -44,9 +44,6 @@
       <div class="card-body">
         <h5 class="card-title font-weight-bold"><a>{{dr.name}}</a></h5>
         <ngb-rating style="color: #ffb624; font-size: 24px;" [max]="5" [rate]="dr.rating" [readonly]="true"></ngb-rating>
-
-
-        
         <p class="mb-2">{{ dr.specialityName }}</p>
        
        
@@ -63,11 +60,11 @@
   <div class="container">
     <h2 class="my-4">Book from top specialties</h2>
     <div class="row">
-      <div class="col" *ngFor="let sp of specialties$ | async">
-        <div class="rounded-lg border">
-          <img class="img-fluid" src="../../../../../assets/image/{{sp.id}}.webp"/>
-          <p class="mt-3">{{sp.name}}</p>
-        </div>
+      <div class="col-3" *ngFor="let sp of specialties$ | async">
+          <div class="p-0 bg-light rounded-lg overflow-hidden">
+            <img class="img-fluid" src="../../../../../assets/image/{{sp.name| lowercase}}.webp"/>
+            <p class="mt-3 p-2">{{sp.name}}</p>
+          </div>
       </div>
     </div>
   </div>

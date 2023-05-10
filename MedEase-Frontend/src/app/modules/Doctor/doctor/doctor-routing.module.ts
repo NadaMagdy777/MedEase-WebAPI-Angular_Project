@@ -26,7 +26,6 @@ const routes: Routes = [
     path: 'Appointment',
     component: DoctorAppointmentsComponent,
     children: [
-      // { path: '', redirectTo: '/Pending', pathMatch: 'full' },
       { path: 'Pending', component: DoctorPendingAppointmentsComponent },
       { path: 'Confirmed', component: DoctorConfirmedAppointmentsComponent },
     ],

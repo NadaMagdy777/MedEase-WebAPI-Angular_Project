@@ -13,13 +13,14 @@ import { InsuranceComponent } from 'src/app/components/patient/insurance/insuran
 import { ReviewComponent } from 'src/app/components/patient/review/review.component';
 import { ShowDiagnosisComponent } from 'src/app/components/patient/show-diagnosis/show-diagnosis.component';
 import { ExaminationInfoComponent } from 'src/app/components/patient/examination-info/examination-info.component';
+import { AuthGuard } from 'src/app/authentication/auth.guard';
 
 
 const routes: Routes = [
   { path:'profile',component:ProfileComponent},
   { path:'medicalHistory',component:MedicalHistoryComponent},
   { path:'insurance',component:InsuranceComponent},
-  { path:'ask',component:AskQuestionComponent},
+  { path:'ask',component:AskQuestionComponent,canActivate:[AuthGuard]},
   { path:'Review/:id',component:ReviewComponent},
   { path:'questions',component:PatientQuestionsComponent, children:[
     { path:'answered',component:AnsweredQuestionsComponent},
@@ -33,7 +34,6 @@ const routes: Routes = [
     path: 'Appointment',
     component: AppointmentsComponent,
     children: [
-      // { path: '', redirectTo: '/Pending', pathMatch: 'full' },
       { path: 'Pending', component: PenddingAppointmentComponent },
       { path: 'Confirmed', component: ConfirmedAppointmentComponent },
     ],

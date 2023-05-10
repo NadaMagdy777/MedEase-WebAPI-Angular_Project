@@ -4,6 +4,7 @@ import { AppointmentService } from './../../../services/appointment/appointment.
 import { Component, OnInit } from '@angular/core';
 import { UserAuthService } from 'src/app/services/authentication/user-auth.service';
 import { IDoctorConfirmedAppointmentDetailsDto } from 'src/app/sharedClassesAndTypes/appointment/i-doctor-confirmed-appointment-details-dto';
+import { IDiagnosisDto } from 'src/app/sharedClassesAndTypes/diagnosis/i-diagnosis-dto';
 
 @Component({
   selector: 'app-doctor-confirmed-appointments',
@@ -17,7 +18,8 @@ export class DoctorConfirmedAppointmentsComponent {
   ) {}
 
   confirmedAppointments: IDoctorConfirmedAppointmentDetailsDto[] = [];
-  filteredData:IDoctorConfirmedAppointmentDetailsDto[] = [];
+  filteredData:IDoctorConfirmedAppointmentDetailsDto[] = [];  
+
   allSubscriptions: Subscription[] = [];
   p:number=1;
 
@@ -28,27 +30,18 @@ export class DoctorConfirmedAppointmentsComponent {
         .subscribe((res) => {
           if (res.success) {
             this.confirmedAppointments = res.data;
-            this.filteredData= this.confirmedAppointments
-            console.log(this.confirmedAppointments);
+            this.filteredData= this.confirmedAppointments            
           } else {
             console.log(res.message); 
           }
         })
     );
- 
-  
-  
-
   }
   SearchData(value:string){
     this.filteredData=this.confirmedAppointments
-    this.filteredData=this.filteredData.filter((Appoinment:IDoctorConfirmedAppointmentDetailsDto)=>{
+    this.filteredData=this.filteredData.filter((Appoinment:IDoctorConfirmedAppointmentDetailsDto)=>{      
       return Appoinment.patientName.toLowerCase().includes(value.toLowerCase()) 
     });
-    
-
-
   }
-
 
 }

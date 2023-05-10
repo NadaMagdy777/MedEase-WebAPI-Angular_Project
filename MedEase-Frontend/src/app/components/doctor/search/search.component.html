@@ -31,7 +31,7 @@
                       [(ngModel)]="selectedCity"
                       class="form-control"
                     >
-                      <option value="0" selected>-select city-</option>
+                      <option value="Egypt" selected>-select city-</option>
                       <ng-container *ngFor="let City of cities">
                         <option [value]="City">{{ City }}</option>
                       </ng-container>
@@ -46,7 +46,7 @@
                       [(ngModel)]="selectedRegion"
                       class="form-control"
                     >
-                      <option value="0" selected>-select region-</option>
+                      <option value="All" selected>-select region-</option>
                       <ng-container *ngFor="let Region of regions">
                         <option [value]="Region">{{ Region }}</option>
                       </ng-container>

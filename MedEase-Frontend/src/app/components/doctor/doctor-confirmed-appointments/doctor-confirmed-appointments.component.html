@@ -15,9 +15,7 @@
             </div>
         </div>        
        
-                
-              
-       
+      
         <table class="table table-striped">
             <thead>
               <tr>
@@ -29,25 +27,21 @@
               </tr>
             </thead>
             <tbody>
+
               <ng-container *ngFor="let appoinment of filteredData  | paginate:{itemsPerPage:1,currentPage:p} let i = index " >
-                <tr  *ngIf="appoinment.diagnosis==null">
+                <tr >
 
                     <th scope="row">{{i+1}}</th>
                   <td title="click to show patient history">{{appoinment.patientName|titlecase}}</td>
                   <td>{{appoinment.date|date:"short"}}</td>
                   <td>{{appoinment.patientPhone}}</td>
-                  <td>
-                    <a class="btn btn-success "  href="/doctor/Diagnosis/{{appoinment.examinationID}}" >Add Dignosis</a>
-                  
+                  <td >
+                    <a class="btn btn-success " *ngIf="appoinment.diagnosis==null" href="/doctor/Diagnosis/{{appoinment.examinationID}}" >Add Dignosis</a>      
                   </td>
                 </tr>
 
                 </ng-container>
-                
-             
-
-
-              
+                             
             </tbody>
           </table>
           <div class="d-flex justify-content-center mt-3 ">

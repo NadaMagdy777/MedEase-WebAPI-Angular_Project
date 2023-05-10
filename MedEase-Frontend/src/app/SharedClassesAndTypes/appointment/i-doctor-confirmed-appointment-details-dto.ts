@@ -9,12 +9,12 @@ export interface IDoctorConfirmedAppointmentDetailsDto {
     appointmentID: number;
     examinationID:number;
     date: Date;
-    status: AppointmentStatus;
+    status?: AppointmentStatus;
     patientID: number;
     patientName: string;
     patientPhone: string;
     patientBirthDate: Date;
-    patientGender: Gender;
+    patientGender?: Gender;
     diagnosis: IDiagnosisDto;
     
 }

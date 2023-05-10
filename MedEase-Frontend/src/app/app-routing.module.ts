@@ -7,6 +7,7 @@ import { HomeComponent } from './components/home/home/home.component';
 import { ReserveAppointementComponent } from './components/doctor/reserve-appointement/reserve-appointement.component';
 import { PatientRegisterComponent } from './components/authentication/patient-register/patient-register.component';
 import { ExaminationInfoComponent } from './components/patient/examination-info/examination-info.component';
+import { AuthGuard } from './authentication/auth.guard';
 const routes: Routes = [
   { path: '', redirectTo: '/Home', pathMatch: 'full' },
   {path:"Home",component:HomeComponent},
@@ -18,7 +19,7 @@ const routes: Routes = [
   {path:'userInsurance',component:InsuranceComponent},
 
   
-  {path:'reserve-appointement',component:ReserveAppointementComponent},
+  {path:'reserve-appointement',component:ReserveAppointementComponent,canActivate:[AuthGuard]},
   { path: '**', component: HomeComponent},
     ];
 
